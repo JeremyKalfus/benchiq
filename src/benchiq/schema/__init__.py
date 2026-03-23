@@ -2,6 +2,7 @@
 
 from benchiq.schema.checks import (
     SchemaValidationError,
+    ValidationCounts,
     ValidationIssue,
     ValidationReport,
     coerce_items_table,
@@ -42,6 +43,7 @@ __all__ = [
     "STRING_COLUMNS",
     "SchemaValidationError",
     "TABLE_NAMES",
+    "ValidationCounts",
     "ValidationIssue",
     "ValidationReport",
     "WEIGHT",

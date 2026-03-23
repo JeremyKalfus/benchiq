@@ -32,7 +32,7 @@ The repo is currently being bootstrapped. Build it toward this stable v0.1 layou
 
 These are the commands this repo should standardize on and keep working once scaffolding lands:
 
-- setup: `python -m pip install -e .[dev]`
+- setup: `python -m pip install -e '.[dev]'`
 - build: `python -m build`
 - test: `pytest`
 - targeted test: `pytest path/to/test_file.py -k pattern`

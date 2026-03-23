@@ -16,8 +16,9 @@
 
 ## current repo state
 
-- the repo is effectively empty aside from planning docs.
-- the first implementation ticket must establish package scaffolding, tooling, and canonical commands.
+- T01 is complete: package scaffolding, tooling, and canonical commands are in place.
+- T02 is complete: config models, schema constants, validation helpers, and the public `benchiq.validate(...)` entrypoint are in place with unit coverage.
+- T03 is the next ticket and has not started.
 
 ## ticket order
 
@@ -32,7 +33,7 @@ Scope:
 - make the canonical commands in `AGENTS.md` real
 
 Acceptance criteria:
-- `python -m pip install -e .[dev]` succeeds
+- `python -m pip install -e '.[dev]'` succeeds
 - `python -c "import benchiq"` succeeds
 - `pytest` runs and reports the initial smoke tests
 - `ruff check .` runs clean on the scaffold

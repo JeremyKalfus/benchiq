@@ -6,11 +6,11 @@ The source of truth for v0.1 scope and methodology is [docs/specs/benchiq_v0_1_s
 
 ## status
 
-This repository is in early bootstrap. T01 establishes the package scaffold, tooling, and test loop so later tickets can implement the pipeline stage by stage.
+T01 and T02 are complete on the current working tree. The project now has the package scaffold, toolchain, config/schema validation surface, and public `benchiq.validate(...)` entrypoint in place. T03 has not started.
 
 ## canonical commands
 
-- install: `python -m pip install -e .[dev]`
+- install: `python -m pip install -e '.[dev]'`
 - build: `python -m build`
 - test: `pytest`
 - lint: `ruff check .`

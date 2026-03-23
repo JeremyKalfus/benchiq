@@ -2,6 +2,7 @@ import pandas as pd
 import pytest
 
 from benchiq.schema.checks import (
+    ValidationCounts,
     coerce_items_table,
     coerce_models_table,
     coerce_responses_long,
@@ -161,3 +162,74 @@ def test_invalid_scores_return_structured_errors() -> None:
     assert len(report.errors) == 1
     assert report.errors[0].code == "invalid_score_values"
     assert report.errors[0].row_count == 1
+
+
+@pytest.mark.parametrize(
+    ("table_name", "coercer", "frame", "invalid_columns"),
+    [
+        (
+            "responses_long",
+            coerce_responses_long,
+            pd.DataFrame(
+                {
+                    "model_id": [pd.NA],
+                    "benchmark_id": ["b1"],
+                    "item_id": ["i1"],
+                    "score": [1],
+                },
+            ),
+            {"model_id": 1},
+        ),
+        (
+            "items",
+            coerce_items_table,
+            pd.DataFrame({"benchmark_id": ["   "], "item_id": ["i1"]}),
+            {"benchmark_id": 1},
+        ),
+        (
+            "models",
+            coerce_models_table,
+            pd.DataFrame({"model_id": [None]}),
+            {"model_id": 1},
+        ),
+    ],
+)
+def test_required_key_columns_reject_null_or_blank_values(
+    table_name,
+    coercer,
+    frame,
+    invalid_columns,
+) -> None:
+    coerced, report = coercer(frame)
+
+    assert coerced is None
+    assert not report.ok
+    assert report.errors[0].code == "null_required_key_values"
+    assert report.errors[0].table_name == table_name
+    assert report.errors[0].row_count == 1
+    assert report.errors[0].context["invalid_columns"] == invalid_columns
+
+
+def test_validation_report_exposes_counts_and_summary() -> None:
+    frame = pd.DataFrame(
+        {
+            "model_id": ["m1", "m1"],
+            "benchmark_id": ["b1", "b1"],
+            "item_id": ["i1", "i1"],
+            "score": [0, 1],
+        },
+    )
+
+    coerced, report = coerce_responses_long(frame, duplicate_policy="first_write_wins")
+
+    assert coerced is not None
+    assert report.counts == ValidationCounts(warning_count=1, error_count=0, table_count=1)
+    assert report.summary == {
+        "ok": True,
+        "warning_count": 1,
+        "error_count": 0,
+        "table_count": 1,
+        "tables": {
+            "responses_long": {"rows": 1, "columns": 4},
+        },
+    }
