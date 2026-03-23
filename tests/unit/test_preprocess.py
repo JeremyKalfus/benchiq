@@ -5,8 +5,17 @@ import pytest
 
 import benchiq
 from benchiq.preprocess import preprocess_bundle
-from benchiq.preprocess.filters import apply_item_filter_flags, select_low_tail_model_ids
-from benchiq.preprocess.stats import compute_item_stats
+from benchiq.preprocess.filters import apply_item_filter_flags
+from benchiq.preprocess.stats import compute_item_stats, select_low_tail_model_ids
+
+
+def _manual_pearson_correlation(lhs: list[float], rhs: list[float]) -> float:
+    lhs_mean = sum(lhs) / len(lhs)
+    rhs_mean = sum(rhs) / len(rhs)
+    numerator = sum((left - lhs_mean) * (right - rhs_mean) for left, right in zip(lhs, rhs))
+    lhs_ss = sum((left - lhs_mean) ** 2 for left in lhs)
+    rhs_ss = sum((right - rhs_mean) ** 2 for right in rhs)
+    return numerator / ((lhs_ss * rhs_ss) ** 0.5)
 
 
 def test_preprocess_bundle_filters_expected_items_and_writes_artifacts(tmp_path) -> None:
@@ -163,6 +172,61 @@ def test_select_low_tail_model_ids_trims_when_quantile_supports_one_model() -> N
     )
 
     assert select_low_tail_model_ids(model_scores, quantile=0.001) == ["m0000"]
+
+
+def test_preprocess_bundle_default_low_tail_does_not_trim_tiny_benchmark(tmp_path) -> None:
+    responses = pd.DataFrame(
+        {
+            "model_id": ["m1", "m1", "m1", "m2", "m2", "m2"],
+            "benchmark_id": ["b1", "b1", "b1", "b1", "b1", "b1"],
+            "item_id": ["i1", "i2", "i3", "i1", "i2", "i3"],
+            "score": [0, 0, 0, 1, 1, 1],
+        },
+    )
+    responses_path = tmp_path / "responses.csv"
+    responses.to_csv(responses_path, index=False)
+
+    config = benchiq.BenchIQConfig(
+        allow_low_n=True,
+        min_models_per_benchmark=1,
+        warn_models_per_benchmark=1,
+        min_items_after_filtering=1,
+        min_models_per_item=1,
+        min_item_coverage=0.5,
+        min_item_sd=0.0,
+        max_item_mean=1.0,
+        min_abs_point_biserial=0.0,
+    )
+    bundle = benchiq.load_bundle(responses_path, config=config)
+
+    result = preprocess_bundle(bundle)
+
+    benchmark_result = result.benchmarks["b1"]
+    assert benchmark_result.preprocess_report["counts"]["low_tail_models_dropped"] == 0
+    assert benchmark_result.preprocess_report["dropped_model_ids"]["low_tail"] == []
+    assert benchmark_result.filtered_models["model_id"].tolist() == ["m1", "m2"]
+
+
+def test_compute_item_stats_matches_manual_point_biserial_without_missing_data() -> None:
+    matrix = pd.DataFrame(
+        {
+            "i1": pd.Series([0, 0, 1, 1, 1], index=["m1", "m2", "m3", "m4", "m5"], dtype="Float64"),
+            "i2": pd.Series([0, 1, 0, 1, 1], index=["m1", "m2", "m3", "m4", "m5"], dtype="Float64"),
+            "i3": pd.Series([0, 0, 1, 1, 0], index=["m1", "m2", "m3", "m4", "m5"], dtype="Float64"),
+        },
+    )
+
+    item_stats = compute_item_stats(matrix, benchmark_id="b1")
+    point_biserial = float(
+        item_stats.loc[item_stats["item_id"] == "i1", "point_biserial"].iloc[0],
+    )
+
+    assert point_biserial == pytest.approx(
+        _manual_pearson_correlation(
+            [0.0, 0.0, 1.0, 1.0, 1.0],
+            [0.0, 1.0, 1.0, 2.0, 1.0],
+        ),
+    )
 
 
 def test_compute_item_stats_matches_part_whole_point_biserial_with_missing_data() -> None:
