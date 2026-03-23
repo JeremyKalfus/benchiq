@@ -2,8 +2,8 @@
 
 ## source of truth
 
-- product and methodology: [docs/specs/benchiq_v0_1_spec.md](/Users/jeremykalfus/CodingProjects/MedARC_FMRI/Returning%20Soldier%20Effect/smellm/benchIQ/docs/specs/benchiq_v0_1_spec.md)
-- repo working rules: [AGENTS.md](/Users/jeremykalfus/CodingProjects/MedARC_FMRI/Returning%20Soldier%20Effect/smellm/benchIQ/AGENTS.md)
+- product and methodology: [docs/specs/benchiq_v0_1_spec.md](/Users/jeremykalfus/CodingProjects/BenchIQ/docs/specs/benchiq_v0_1_spec.md)
+- repo working rules: [AGENTS.md](/Users/jeremykalfus/CodingProjects/BenchIQ/AGENTS.md)
 
 ## execution rules
 

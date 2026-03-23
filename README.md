@@ -2,7 +2,7 @@
 
 BenchIQ is an artifact-first python workflow for llm benchmark distillation and overlap analysis on user-provided item-level response data.
 
-The source of truth for v0.1 scope and methodology is [docs/specs/benchiq_v0_1_spec.md](/Users/jeremykalfus/CodingProjects/MedARC_FMRI/Returning%20Soldier%20Effect/smellm/benchIQ/docs/specs/benchiq_v0_1_spec.md).
+The source of truth for v0.1 scope and methodology is [docs/specs/benchiq_v0_1_spec.md](/Users/jeremykalfus/CodingProjects/BenchIQ/docs/specs/benchiq_v0_1_spec.md).
 
 ## status
 
@@ -18,6 +18,6 @@ This repository is in early bootstrap. T01 establishes the package scaffold, too
 
 ## contributor notes
 
-- follow [AGENTS.md](/Users/jeremykalfus/CodingProjects/MedARC_FMRI/Returning%20Soldier%20Effect/smellm/benchIQ/AGENTS.md)
-- follow [PLANS.md](/Users/jeremykalfus/CodingProjects/MedARC_FMRI/Returning%20Soldier%20Effect/smellm/benchIQ/PLANS.md)
+- follow [AGENTS.md](/Users/jeremykalfus/CodingProjects/BenchIQ/AGENTS.md)
+- follow [PLANS.md](/Users/jeremykalfus/CodingProjects/BenchIQ/PLANS.md)
 - keep changes ticket-sized and test after every ticket

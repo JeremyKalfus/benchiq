@@ -4,7 +4,7 @@
 
 BenchIQ is a python tool for benchmark-bundle distillation and overlap analysis.
 
-The source of truth for product scope and methodology is [docs/specs/benchiq_v0_1_spec.md](/Users/jeremykalfus/CodingProjects/MedARC_FMRI/Returning%20Soldier%20Effect/smellm/benchIQ/docs/specs/benchiq_v0_1_spec.md). Do not redefine the product as a metabench-only reproduction. metabench is the methodological reference case and validation harness.
+The source of truth for product scope and methodology is [docs/specs/benchiq_v0_1_spec.md](/Users/jeremykalfus/CodingProjects/BenchIQ/docs/specs/benchiq_v0_1_spec.md). Do not redefine the product as a metabench-only reproduction. metabench is the methodological reference case and validation harness.
 
 ## repo layout
 
@@ -95,7 +95,7 @@ Explicit non-goals for v0.1:
 
 A ticket is done only when all of the following are true:
 
-- the implementation matches [docs/specs/benchiq_v0_1_spec.md](/Users/jeremykalfus/CodingProjects/MedARC_FMRI/Returning%20Soldier%20Effect/smellm/benchIQ/docs/specs/benchiq_v0_1_spec.md) and the current ticket in [PLANS.md](/Users/jeremykalfus/CodingProjects/MedARC_FMRI/Returning%20Soldier%20Effect/smellm/benchIQ/PLANS.md).
+- the implementation matches [docs/specs/benchiq_v0_1_spec.md](/Users/jeremykalfus/CodingProjects/BenchIQ/docs/specs/benchiq_v0_1_spec.md) and the current ticket in [PLANS.md](/Users/jeremykalfus/CodingProjects/BenchIQ/PLANS.md).
 - the change stays within BenchIQ v0.1 scope.
 - new or changed tests exist and pass locally.
 - relevant canonical commands still pass, or any failure has been reported immediately.
