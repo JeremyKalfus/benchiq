@@ -2,7 +2,6 @@ import pandas as pd
 import pytest
 
 from benchiq.schema.checks import (
-    SchemaValidationError,
     coerce_items_table,
     coerce_models_table,
     coerce_responses_long,
@@ -33,11 +32,15 @@ from benchiq.schema.checks import (
     ],
 )
 def test_required_columns_are_enforced(table_name, coercer, frame, missing_column) -> None:
-    with pytest.raises(
-        SchemaValidationError,
-        match=rf"{table_name} is missing required columns: {missing_column}",
-    ):
-        coercer(frame)
+    coerced, report = coercer(frame)
+
+    assert coerced is None
+    assert not report.ok
+    assert len(report.errors) == 1
+    assert report.errors[0].code == "missing_required_columns"
+    assert report.errors[0].table_name == table_name
+    assert report.errors[0].context["missing_columns"] == [missing_column]
+    assert report.errors[0].message == f"{table_name} is missing required columns: {missing_column}"
 
 
 def test_responses_long_coerces_ids_and_score_dtypes() -> None:
@@ -53,6 +56,7 @@ def test_responses_long_coerces_ids_and_score_dtypes() -> None:
 
     coerced, report = coerce_responses_long(frame)
 
+    assert coerced is not None
     assert str(coerced["model_id"].dtype) == "string"
     assert str(coerced["benchmark_id"].dtype) == "string"
     assert str(coerced["item_id"].dtype) == "string"
@@ -65,7 +69,7 @@ def test_responses_long_coerces_ids_and_score_dtypes() -> None:
     assert report.ok
 
 
-def test_duplicate_policy_error_raises() -> None:
+def test_duplicate_policy_error_returns_structured_error() -> None:
     frame = pd.DataFrame(
         {
             "model_id": ["m1", "m1"],
@@ -75,11 +79,14 @@ def test_duplicate_policy_error_raises() -> None:
         },
     )
 
-    with pytest.raises(
-        SchemaValidationError,
-        match="responses_long contains duplicate primary keys under duplicate_policy='error'",
-    ):
-        coerce_responses_long(frame, duplicate_policy="error")
+    coerced, report = coerce_responses_long(frame, duplicate_policy="error")
+
+    assert coerced is None
+    assert not report.ok
+    assert len(report.errors) == 1
+    assert report.errors[0].code == "duplicate_primary_keys"
+    assert report.errors[0].row_count == 2
+    assert report.errors[0].context["duplicate_keys"] == 1
 
 
 def test_duplicate_policy_first_write_wins_keeps_first_row() -> None:
@@ -94,6 +101,7 @@ def test_duplicate_policy_first_write_wins_keeps_first_row() -> None:
 
     coerced, report = coerce_responses_long(frame, duplicate_policy="first_write_wins")
 
+    assert coerced is not None
     assert coerced.shape == (1, 4)
     assert coerced.loc[0, "score"] == 0
     assert len(report.warnings) == 1
@@ -112,6 +120,7 @@ def test_duplicate_policy_last_write_wins_keeps_last_row() -> None:
 
     coerced, report = coerce_responses_long(frame, duplicate_policy="last_write_wins")
 
+    assert coerced is not None
     assert coerced.shape == (1, 4)
     assert coerced.loc[0, "score"] == 1
     assert len(report.warnings) == 1
@@ -121,8 +130,34 @@ def test_items_and_models_require_unique_primary_keys() -> None:
     items_frame = pd.DataFrame({"benchmark_id": ["b1", "b1"], "item_id": ["i1", "i1"]})
     models_frame = pd.DataFrame({"model_id": ["m1", "m1"]})
 
-    with pytest.raises(SchemaValidationError, match="items contains duplicate primary keys"):
-        coerce_items_table(items_frame)
+    items_coerced, items_report = coerce_items_table(items_frame)
+    models_coerced, models_report = coerce_models_table(models_frame)
 
-    with pytest.raises(SchemaValidationError, match="models contains duplicate primary keys"):
-        coerce_models_table(models_frame)
+    assert items_coerced is None
+    assert not items_report.ok
+    assert items_report.errors[0].code == "duplicate_primary_keys"
+    assert items_report.errors[0].table_name == "items"
+
+    assert models_coerced is None
+    assert not models_report.ok
+    assert models_report.errors[0].code == "duplicate_primary_keys"
+    assert models_report.errors[0].table_name == "models"
+
+
+def test_invalid_scores_return_structured_errors() -> None:
+    frame = pd.DataFrame(
+        {
+            "model_id": ["m1", "m2"],
+            "benchmark_id": ["b1", "b1"],
+            "item_id": ["i1", "i2"],
+            "score": [0, 2],
+        },
+    )
+
+    coerced, report = coerce_responses_long(frame)
+
+    assert coerced is None
+    assert not report.ok
+    assert len(report.errors) == 1
+    assert report.errors[0].code == "invalid_score_values"
+    assert report.errors[0].row_count == 1

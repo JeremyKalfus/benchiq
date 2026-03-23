@@ -91,17 +91,31 @@ class ValidationReport:
 
 
 def coerce_responses_long(
-    frame: pd.DataFrame,
+    frame: Any,
     *,
     duplicate_policy: DuplicatePolicy = "error",
-) -> tuple[pd.DataFrame, ValidationReport]:
+) -> tuple[pd.DataFrame | None, ValidationReport]:
     """Validate and coerce the canonical long response table."""
 
     coerced, report = _coerce_table(frame, table_name="responses_long")
-    coerced = _coerce_score_column(coerced)
+    if coerced is None:
+        return None, report
+
+    coerced = _coerce_score_column(coerced, report)
+    if coerced is None:
+        return None, report
 
     if WEIGHT in coerced.columns:
-        coerced[WEIGHT] = pd.to_numeric(coerced[WEIGHT], errors="raise").astype("Float64")
+        try:
+            coerced[WEIGHT] = pd.to_numeric(coerced[WEIGHT], errors="raise").astype("Float64")
+        except (TypeError, ValueError) as exc:
+            report.add_error(
+                code="invalid_weight_values",
+                message="responses_long.weight must be numeric when provided",
+                table_name="responses_long",
+                context={"exception": str(exc)},
+            )
+            return None, report
 
     duplicate_mask = coerced.duplicated(list(RESPONSES_PRIMARY_KEY), keep=False)
     if duplicate_mask.any():
@@ -110,9 +124,17 @@ def coerce_responses_long(
             coerced.loc[duplicate_mask, list(RESPONSES_PRIMARY_KEY)].drop_duplicates().shape[0],
         )
         if duplicate_policy == "error":
-            raise SchemaValidationError(
-                "responses_long contains duplicate primary keys under duplicate_policy='error'",
+            report.add_error(
+                code="duplicate_primary_keys",
+                message=(
+                    "responses_long contains duplicate primary keys under duplicate_policy='error'"
+                ),
+                table_name="responses_long",
+                row_count=duplicate_rows,
+                context={"duplicate_keys": duplicate_keys},
             )
+            return None, report
+
         keep = "first" if duplicate_policy == "first_write_wins" else "last"
         coerced = coerced.drop_duplicates(list(RESPONSES_PRIMARY_KEY), keep=keep).reset_index(
             drop=True,
@@ -129,37 +151,70 @@ def coerce_responses_long(
     return coerced, report
 
 
-def coerce_items_table(frame: pd.DataFrame) -> tuple[pd.DataFrame, ValidationReport]:
+def coerce_items_table(frame: Any) -> tuple[pd.DataFrame | None, ValidationReport]:
     """Validate and coerce the items table."""
 
     coerced, report = _coerce_table(frame, table_name="items")
-    _raise_for_duplicate_primary_keys(coerced, ITEMS_PRIMARY_KEY, table_name="items")
+    if coerced is None:
+        return None, report
+
+    if not _check_for_duplicate_primary_keys(
+        coerced,
+        ITEMS_PRIMARY_KEY,
+        table_name="items",
+        report=report,
+    ):
+        return None, report
+
     report.table_shapes["items"] = coerced.shape
     return coerced, report
 
 
-def coerce_models_table(frame: pd.DataFrame) -> tuple[pd.DataFrame, ValidationReport]:
+def coerce_models_table(frame: Any) -> tuple[pd.DataFrame | None, ValidationReport]:
     """Validate and coerce the models table."""
 
     coerced, report = _coerce_table(frame, table_name="models")
-    _raise_for_duplicate_primary_keys(coerced, MODELS_PRIMARY_KEY, table_name="models")
+    if coerced is None:
+        return None, report
+
+    if not _check_for_duplicate_primary_keys(
+        coerced,
+        MODELS_PRIMARY_KEY,
+        table_name="models",
+        report=report,
+    ):
+        return None, report
+
     report.table_shapes["models"] = coerced.shape
     return coerced, report
 
 
 def _coerce_table(
-    frame: pd.DataFrame,
+    frame: Any,
     *,
     table_name: TableName,
-) -> tuple[pd.DataFrame, ValidationReport]:
-    if not isinstance(frame, pd.DataFrame):
-        raise TypeError(f"{table_name} must be a pandas DataFrame")
-
-    _raise_for_missing_columns(frame, table_name=table_name)
-
-    coerced = frame.copy()
+) -> tuple[pd.DataFrame | None, ValidationReport]:
     report = ValidationReport()
 
+    if not isinstance(frame, pd.DataFrame):
+        report.add_error(
+            code="not_a_dataframe",
+            message=f"{table_name} must be a pandas DataFrame",
+            table_name=table_name,
+        )
+        return None, report
+
+    missing_columns = sorted(set(REQUIRED_COLUMNS[table_name]) - set(frame.columns))
+    if missing_columns:
+        report.add_error(
+            code="missing_required_columns",
+            message=f"{table_name} is missing required columns: {', '.join(missing_columns)}",
+            table_name=table_name,
+            context={"missing_columns": missing_columns},
+        )
+        return None, report
+
+    coerced = frame.copy()
     for column in STRING_COLUMNS[table_name]:
         if column in coerced.columns:
             coerced[column] = coerced[column].astype("string").str.strip()
@@ -172,28 +227,55 @@ def _coerce_table(
     return coerced.reset_index(drop=True), report
 
 
-def _raise_for_missing_columns(frame: pd.DataFrame, *, table_name: TableName) -> None:
-    missing_columns = sorted(set(REQUIRED_COLUMNS[table_name]) - set(frame.columns))
-    if missing_columns:
-        missing_string = ", ".join(missing_columns)
-        raise SchemaValidationError(f"{table_name} is missing required columns: {missing_string}")
+def _coerce_score_column(
+    frame: pd.DataFrame,
+    report: ValidationReport,
+) -> pd.DataFrame | None:
+    try:
+        numeric_score = pd.to_numeric(frame[SCORE], errors="raise")
+    except (TypeError, ValueError) as exc:
+        report.add_error(
+            code="invalid_score_values",
+            message="responses_long.score must contain only numeric 0, 1, or null values",
+            table_name="responses_long",
+            context={"exception": str(exc)},
+        )
+        return None
 
-
-def _coerce_score_column(frame: pd.DataFrame) -> pd.DataFrame:
-    numeric_score = pd.to_numeric(frame[SCORE], errors="raise")
     valid_mask = numeric_score.isna() | numeric_score.isin([0, 1])
     if not valid_mask.all():
-        raise SchemaValidationError("responses_long.score must contain only 0, 1, or null values")
+        report.add_error(
+            code="invalid_score_values",
+            message="responses_long.score must contain only 0, 1, or null values",
+            table_name="responses_long",
+            row_count=int((~valid_mask).sum()),
+        )
+        return None
+
     frame[SCORE] = pd.array(numeric_score, dtype="Int8")
     return frame
 
 
-def _raise_for_duplicate_primary_keys(
+def _check_for_duplicate_primary_keys(
     frame: pd.DataFrame,
     primary_key: tuple[str, ...],
     *,
     table_name: str,
-) -> None:
+    report: ValidationReport,
+) -> bool:
     duplicate_mask = frame.duplicated(list(primary_key), keep=False)
     if duplicate_mask.any():
-        raise SchemaValidationError(f"{table_name} contains duplicate primary keys")
+        report.add_error(
+            code="duplicate_primary_keys",
+            message=f"{table_name} contains duplicate primary keys",
+            table_name=table_name,
+            row_count=int(duplicate_mask.sum()),
+            context={
+                "duplicate_keys": int(
+                    frame.loc[duplicate_mask, list(primary_key)].drop_duplicates().shape[0],
+                ),
+            },
+        )
+        return False
+
+    return True
