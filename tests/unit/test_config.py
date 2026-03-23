@@ -8,6 +8,10 @@ def test_config_accepts_defaults() -> None:
     config = BenchIQConfig()
 
     assert config.duplicate_policy == "error"
+    assert config.drop_low_tail_models_quantile == pytest.approx(0.001)
+    assert config.min_item_sd == pytest.approx(0.01)
+    assert config.max_item_mean == pytest.approx(0.95)
+    assert config.min_abs_point_biserial == pytest.approx(0.05)
     assert config.min_item_coverage == pytest.approx(0.8)
 
 

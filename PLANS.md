@@ -19,7 +19,9 @@
 - T01 is complete: package scaffolding, tooling, and canonical commands are in place.
 - T02 is complete: config models, schema constants, validation helpers, and the public `benchiq.validate(...)` entrypoint are in place with unit coverage.
 - T03 is complete: `load_bundle(...)`, stage-00 canonicalization/artifact writing, manifest helpers, and structured duplicate/non-binary load failures are in place with unit coverage.
-- T04 is the next ticket and has not started.
+- T04 preprocessing/filtering is implemented in the working tree but is under repair before acceptance.
+- The open T04 repair scope is limited to size-aware low-tail trimming semantics and missing fidelity tests for point-biserial and default thresholds.
+- T05 has not started.
 
 ## completed tickets
 
