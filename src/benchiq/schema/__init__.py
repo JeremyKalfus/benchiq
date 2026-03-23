@@ -1,1 +1,51 @@
 """Schema helpers for BenchIQ."""
+
+from benchiq.schema.checks import (
+    SchemaValidationError,
+    ValidationIssue,
+    ValidationReport,
+    coerce_items_table,
+    coerce_models_table,
+    coerce_responses_long,
+)
+from benchiq.schema.tables import (
+    BENCHMARK_ID,
+    CONTENT_HASH,
+    DEFAULT_DTYPES,
+    ITEM_ID,
+    ITEMS_PRIMARY_KEY,
+    MODEL_FAMILY,
+    MODEL_ID,
+    MODELS_PRIMARY_KEY,
+    REQUIRED_COLUMNS,
+    RESPONSES_PRIMARY_KEY,
+    SCORE,
+    SPLIT,
+    STRING_COLUMNS,
+    TABLE_NAMES,
+    WEIGHT,
+)
+
+__all__ = [
+    "BENCHMARK_ID",
+    "CONTENT_HASH",
+    "DEFAULT_DTYPES",
+    "ITEMS_PRIMARY_KEY",
+    "ITEM_ID",
+    "MODEL_FAMILY",
+    "MODEL_ID",
+    "MODELS_PRIMARY_KEY",
+    "REQUIRED_COLUMNS",
+    "RESPONSES_PRIMARY_KEY",
+    "SCORE",
+    "SPLIT",
+    "STRING_COLUMNS",
+    "SchemaValidationError",
+    "TABLE_NAMES",
+    "ValidationIssue",
+    "ValidationReport",
+    "WEIGHT",
+    "coerce_items_table",
+    "coerce_models_table",
+    "coerce_responses_long",
+]
