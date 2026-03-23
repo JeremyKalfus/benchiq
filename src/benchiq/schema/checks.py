@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from typing import Any, Literal
 
 import pandas as pd
@@ -24,6 +24,10 @@ from benchiq.schema.tables import (
 class SchemaValidationError(ValueError):
     """Raised when a table fails schema validation."""
 
+    def __init__(self, message: str, *, report: "ValidationReport | None" = None) -> None:
+        super().__init__(message)
+        self.report = report
+
 
 @dataclass(slots=True)
 class ValidationIssue:
@@ -36,6 +40,9 @@ class ValidationIssue:
     row_count: int | None = None
     context: dict[str, Any] = field(default_factory=dict)
 
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
 
 @dataclass(slots=True, frozen=True)
 class ValidationCounts:
@@ -44,6 +51,9 @@ class ValidationCounts:
     warning_count: int
     error_count: int
     table_count: int
+
+    def to_dict(self) -> dict[str, int]:
+        return asdict(self)
 
 
 @dataclass(slots=True)
@@ -124,6 +134,15 @@ class ValidationReport:
         self.errors.extend(other.errors)
         self.table_shapes.update(other.table_shapes)
 
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "ok": self.ok,
+            "counts": self.counts.to_dict(),
+            "summary": self.summary,
+            "warnings": [issue.to_dict() for issue in self.warnings],
+            "errors": [issue.to_dict() for issue in self.errors],
+        }
+
 
 def coerce_responses_long(
     frame: Any,
@@ -155,9 +174,11 @@ def coerce_responses_long(
     duplicate_mask = coerced.duplicated(list(RESPONSES_PRIMARY_KEY), keep=False)
     if duplicate_mask.any():
         duplicate_rows = int(duplicate_mask.sum())
-        duplicate_keys = int(
-            coerced.loc[duplicate_mask, list(RESPONSES_PRIMARY_KEY)].drop_duplicates().shape[0],
-        )
+        duplicate_key_frame = coerced.loc[
+            duplicate_mask, list(RESPONSES_PRIMARY_KEY)
+        ].drop_duplicates()
+        duplicate_keys = int(duplicate_key_frame.shape[0])
+        affected_keys = _serialize_duplicate_keys(duplicate_key_frame)
         if duplicate_policy == "error":
             report.add_error(
                 code="duplicate_primary_keys",
@@ -166,7 +187,7 @@ def coerce_responses_long(
                 ),
                 table_name="responses_long",
                 row_count=duplicate_rows,
-                context={"duplicate_keys": duplicate_keys},
+                context={"duplicate_keys": duplicate_keys, "affected_keys": affected_keys},
             )
             return None, report
 
@@ -179,8 +200,20 @@ def coerce_responses_long(
             message=f"resolved duplicate primary keys with duplicate_policy='{duplicate_policy}'",
             table_name="responses_long",
             row_count=duplicate_rows,
-            context={"duplicate_keys": duplicate_keys},
+            context={"duplicate_keys": duplicate_keys, "affected_keys": affected_keys},
         )
+        if duplicate_rows / len(frame.index) > 0.001:
+            report.add_warning(
+                code="excessive_duplicates",
+                message="responses_long has duplicates in more than 0.1% of rows",
+                table_name="responses_long",
+                row_count=duplicate_rows,
+                context={
+                    "duplicate_keys": duplicate_keys,
+                    "affected_keys": affected_keys,
+                    "duplicate_ratio": duplicate_rows / len(frame.index),
+                },
+            )
 
     report.table_shapes["responses_long"] = coerced.shape
     return coerced, report
@@ -286,7 +319,10 @@ def _coerce_score_column(
     except (TypeError, ValueError) as exc:
         report.add_error(
             code="invalid_score_values",
-            message="responses_long.score must contain only numeric 0, 1, or null values",
+            message=(
+                "responses_long.score must contain only numeric 0, 1, or null values; "
+                "v0.1 requires dichotomous item scores, so pre-score your rubric into 0/1"
+            ),
             table_name="responses_long",
             context={"exception": str(exc)},
         )
@@ -296,7 +332,10 @@ def _coerce_score_column(
     if not valid_mask.all():
         report.add_error(
             code="invalid_score_values",
-            message="responses_long.score must contain only 0, 1, or null values",
+            message=(
+                "responses_long.score must contain only 0, 1, or null values; "
+                "v0.1 requires dichotomous item scores, so pre-score your rubric into 0/1"
+            ),
             table_name="responses_long",
             row_count=int((~valid_mask).sum()),
         )
@@ -348,17 +387,21 @@ def _check_for_duplicate_primary_keys(
 ) -> bool:
     duplicate_mask = frame.duplicated(list(primary_key), keep=False)
     if duplicate_mask.any():
+        duplicate_key_frame = frame.loc[duplicate_mask, list(primary_key)].drop_duplicates()
         report.add_error(
             code="duplicate_primary_keys",
             message=f"{table_name} contains duplicate primary keys",
             table_name=table_name,
             row_count=int(duplicate_mask.sum()),
             context={
-                "duplicate_keys": int(
-                    frame.loc[duplicate_mask, list(primary_key)].drop_duplicates().shape[0],
-                ),
+                "duplicate_keys": int(duplicate_key_frame.shape[0]),
+                "affected_keys": _serialize_duplicate_keys(duplicate_key_frame),
             },
         )
         return False
 
     return True
+
+
+def _serialize_duplicate_keys(frame: pd.DataFrame, *, limit: int = 25) -> list[dict[str, Any]]:
+    return frame.head(limit).to_dict(orient="records")

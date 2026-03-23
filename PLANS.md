@@ -18,7 +18,14 @@
 
 - T01 is complete: package scaffolding, tooling, and canonical commands are in place.
 - T02 is complete: config models, schema constants, validation helpers, and the public `benchiq.validate(...)` entrypoint are in place with unit coverage.
-- T03 is the next ticket and has not started.
+- T03 is complete: `load_bundle(...)`, stage-00 canonicalization/artifact writing, manifest helpers, and structured duplicate/non-binary load failures are in place with unit coverage.
+- T04 is the next ticket and has not started.
+
+## completed tickets
+
+- T01 project scaffold and toolchain
+- T02 config models, schema constants, and validation report types
+- T03 bundle loading, canonicalization, and artifact writing
 
 ## ticket order
 

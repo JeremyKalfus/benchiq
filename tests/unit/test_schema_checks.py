@@ -105,8 +105,9 @@ def test_duplicate_policy_first_write_wins_keeps_first_row() -> None:
     assert coerced is not None
     assert coerced.shape == (1, 4)
     assert coerced.loc[0, "score"] == 0
-    assert len(report.warnings) == 1
+    assert len(report.warnings) == 2
     assert report.warnings[0].context["duplicate_keys"] == 1
+    assert report.warnings[1].code == "excessive_duplicates"
 
 
 def test_duplicate_policy_last_write_wins_keeps_last_row() -> None:
@@ -124,7 +125,8 @@ def test_duplicate_policy_last_write_wins_keeps_last_row() -> None:
     assert coerced is not None
     assert coerced.shape == (1, 4)
     assert coerced.loc[0, "score"] == 1
-    assert len(report.warnings) == 1
+    assert len(report.warnings) == 2
+    assert report.warnings[1].code == "excessive_duplicates"
 
 
 def test_items_and_models_require_unique_primary_keys() -> None:
@@ -223,10 +225,10 @@ def test_validation_report_exposes_counts_and_summary() -> None:
     coerced, report = coerce_responses_long(frame, duplicate_policy="first_write_wins")
 
     assert coerced is not None
-    assert report.counts == ValidationCounts(warning_count=1, error_count=0, table_count=1)
+    assert report.counts == ValidationCounts(warning_count=2, error_count=0, table_count=1)
     assert report.summary == {
         "ok": True,
-        "warning_count": 1,
+        "warning_count": 2,
         "error_count": 0,
         "table_count": 1,
         "tables": {
