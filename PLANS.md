@@ -20,13 +20,18 @@
 - T02 is complete: config models, schema constants, validation helpers, and the public `benchiq.validate(...)` entrypoint are in place with unit coverage.
 - T03 is complete: `load_bundle(...)`, stage-00 canonicalization/artifact writing, manifest helpers, and structured duplicate/non-binary load failures are in place with unit coverage.
 - T04 is complete: preprocessing/filtering now has size-aware low-tail trimming, fidelity coverage for point-biserial/default thresholds, and stage-01 artifacts.
-- T05 is in progress: full-score tables, overlap-aware grand scores, and stage-02 score artifacts are the active scope.
+- T05 is complete: stage-02 full-score tables, overlap-aware grand scores, and score reporting artifacts are in place with unit coverage.
+- T06 is complete: global test splitting, benchmark-local train/val splitting, explicit fallback diagnostics, and stage-03 split artifacts are in place with unit coverage.
+- T07 is the next ticket and has not started.
 
 ## completed tickets
 
 - T01 project scaffold and toolchain
 - T02 config models, schema constants, and validation report types
 - T03 bundle loading, canonicalization, and artifact writing
+- T04 preprocessing statistics and metabench-style filters
+- T05 full-score tables and overlap-aware grand scores
+- T06 model-level splitters and split diagnostics
 
 ## ticket order
 

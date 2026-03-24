@@ -6,7 +6,7 @@ The source of truth for v0.1 scope and methodology is [docs/specs/benchiq_v0_1_s
 
 ## status
 
-T01 and T02 are complete on the current working tree. The project now has the package scaffold, toolchain, config/schema validation surface, and public `benchiq.validate(...)` entrypoint in place. T03 has not started.
+T01 through T06 are complete on the current working tree. The project now has the package scaffold, schema/config validation, stage-00 canonicalization, stage-01 preprocessing filters, stage-02 score artifacts, and stage-03 model-level split artifacts in place. T07 GAM and cross-validation work has not started.
 
 ## canonical commands
 

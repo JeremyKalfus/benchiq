@@ -75,9 +75,7 @@ def compute_scores(
                 f"{benchmark_id}: {missing_low_coverage} low-coverage models missing full scores",
             )
 
-    scores_full = (
-        pd.concat(score_frames, ignore_index=True) if score_frames else _empty_scores_full_frame()
-    )
+    scores_full = _combine_scores_full_frames(score_frames)
     scores_grand, grand_report, grand_warnings = _compute_scores_grand(
         scores_full,
         benchmark_ids=benchmark_ids,
@@ -362,6 +360,16 @@ def _empty_scores_grand_frame() -> pd.DataFrame:
             "benchmark_count": pd.Series(dtype="Int64"),
         },
     )
+
+
+def _combine_scores_full_frames(score_frames: list[pd.DataFrame]) -> pd.DataFrame:
+    if not score_frames:
+        return _empty_scores_full_frame()
+
+    combined = pd.DataFrame.from_records(
+        [record for frame in score_frames for record in frame.to_dict(orient="records")]
+    )
+    return combined.astype(_empty_scores_full_frame().dtypes.to_dict())
 
 
 def _resolve_run_root(
