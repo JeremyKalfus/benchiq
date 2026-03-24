@@ -22,7 +22,8 @@
 - T04 is complete: preprocessing/filtering now has size-aware low-tail trimming, fidelity coverage for point-biserial/default thresholds, and stage-01 artifacts.
 - T05 is complete: stage-02 full-score tables, overlap-aware grand scores, and score reporting artifacts are in place with unit coverage.
 - T06 is complete: global test splitting, benchmark-local train/val splitting, explicit fallback diagnostics, and stage-03 split artifacts are in place with unit coverage.
-- T07 is the next ticket and has not started.
+- T07 is complete: the reusable `pygam` wrapper, RMSE-based cross-validation harness, and model/cv artifact writers are in place with unit coverage.
+- T08 is the next ticket and has not started.
 
 ## completed tickets
 
@@ -32,6 +33,7 @@
 - T04 preprocessing statistics and metabench-style filters
 - T05 full-score tables and overlap-aware grand scores
 - T06 model-level splitters and split diagnostics
+- T07 GAM backend wrapper and cross-validation harness
 
 ## ticket order
 
