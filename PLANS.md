@@ -25,7 +25,8 @@
 - T07 is complete: the reusable `pygam` wrapper, RMSE-based cross-validation harness, and model/cv artifact writers are in place with unit coverage.
 - T08 is complete: cross-validated random subsampling now writes per-benchmark preselect subsets, fold-level cv results, and checkpointable progress artifacts with explicit failed-iteration accounting.
 - T09 is complete: the benchmark-local `girth` 2PL adapter, retained/dropped item-parameter artifacts, explicit backend-limitation warnings, and stage-05 diagnostic plots are in place with corrected acceptance coverage.
-- T10 is the next ticket and has not started.
+- T10 is complete: Fisher-information grids, final item selection artifacts, selection reports, and expected test-information plots are in place with unit coverage.
+- T11 is the next ticket and has not started.
 
 ## completed tickets
 
@@ -38,6 +39,7 @@
 - T07 GAM backend wrapper and cross-validation harness
 - T08 cross-validated subsampling to fixed `k_preselect`
 - T09 unidimensional 2PL IRT adapter with `girth`
+- T10 Fisher information grids and final item selection
 
 ## ticket order
 
@@ -221,7 +223,8 @@ Scope:
 Acceptance criteria:
 - information curves are non-negative and peak near item difficulty in sanity tests
 - selection returns no duplicates and respects `k_final` when feasible
-- final subset and info-grid artifacts are written
+- final subset, info-grid, and selection-report artifacts are written
+- expected test-information plots are written
 
 Blockers:
 - uniformly low-information item pools that cannot satisfy the requested budget
