@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import matplotlib.pyplot as plt
 import pandas as pd
 
 from benchiq.io.load import Bundle
@@ -185,12 +186,18 @@ def _skipped_benchmark_result(
                 "warning_item_ids": [],
                 "excluded_item_ids": [],
                 "retained_item_ids": [],
+                "exclusion_is_data_dependent": True,
+                "exclusion_note": (
+                    "real-backend pathological exclusion is data-dependent and may be absent on "
+                    "well-behaved fixtures"
+                ),
                 "excluded_items": [],
             },
             "artifacts": {
                 "plots_written": False,
-                "plots_reason": "not_implemented_in_t09",
+                "plots_reason": "no_plot_written_for_skipped_fit",
                 "dropped_pathological_items_written": False,
+                "item_parameter_scatter": None,
             },
             "fit_metrics": {
                 "runtime_seconds": 0.0,
@@ -210,7 +217,23 @@ def _write_irt_artifacts(
     per_benchmark_paths: dict[str, dict[str, Path]] = {}
     for benchmark_id, benchmark_result in sorted(result.benchmarks.items()):
         benchmark_dir = stage_dir / "per_benchmark" / benchmark_id
-        per_benchmark_paths[benchmark_id] = {
+        if benchmark_result.irt_fit_report["skipped"]:
+            benchmark_result.irt_fit_report["artifacts"]["plots_written"] = False
+            benchmark_result.irt_fit_report["artifacts"]["plots_reason"] = (
+                "no_plot_written_for_skipped_fit"
+            )
+            benchmark_result.irt_fit_report["artifacts"]["item_parameter_scatter"] = None
+        else:
+            plots_dir = benchmark_dir / "plots"
+            plot_path = _write_item_parameter_plot(
+                retained_items=benchmark_result.irt_item_params,
+                dropped_items=benchmark_result.dropped_pathological_items,
+                path=plots_dir / "item_parameter_scatter.png",
+            )
+            benchmark_result.irt_fit_report["artifacts"]["plots_written"] = True
+            benchmark_result.irt_fit_report["artifacts"]["plots_reason"] = None
+            benchmark_result.irt_fit_report["artifacts"]["item_parameter_scatter"] = str(plot_path)
+        benchmark_paths = {
             "irt_item_params": write_parquet(
                 benchmark_result.irt_item_params,
                 benchmark_dir / "irt_item_params.parquet",
@@ -228,6 +251,9 @@ def _write_irt_artifacts(
                 benchmark_dir / "ability_estimates.parquet",
             ),
         }
+        if not benchmark_result.irt_fit_report["skipped"]:
+            benchmark_paths["item_parameter_scatter"] = plot_path
+        per_benchmark_paths[benchmark_id] = benchmark_paths
     return {"per_benchmark": per_benchmark_paths}
 
 
@@ -274,3 +300,41 @@ def _resolve_run_root(
 
 def _default_run_id() -> str:
     return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+
+def _write_item_parameter_plot(
+    *,
+    retained_items: pd.DataFrame,
+    dropped_items: pd.DataFrame,
+    path: Path,
+) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    figure, axis = plt.subplots(figsize=(6, 4))
+    if not retained_items.empty:
+        axis.scatter(
+            retained_items["difficulty"].astype(float),
+            retained_items["discrimination"].astype(float),
+            label="retained",
+            color="#1f77b4",
+            alpha=0.85,
+        )
+    if not dropped_items.empty:
+        axis.scatter(
+            dropped_items["difficulty"].astype(float),
+            dropped_items["discrimination"].astype(float),
+            label="dropped",
+            color="#d62728",
+            alpha=0.9,
+            marker="x",
+            s=72,
+        )
+    axis.set_xlabel("difficulty")
+    axis.set_ylabel("discrimination")
+    axis.set_title("Item Parameters")
+    if not retained_items.empty or not dropped_items.empty:
+        axis.legend()
+    axis.grid(True, alpha=0.25)
+    figure.tight_layout()
+    figure.savefig(path, dpi=150)
+    plt.close(figure)
+    return path

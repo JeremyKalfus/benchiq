@@ -245,6 +245,11 @@ def _build_fit_report(
             "warning_item_ids": warning_items.tolist(),
             "excluded_item_ids": excluded_items.tolist(),
             "retained_item_ids": item_params[ITEM_ID].astype("string").tolist(),
+            "exclusion_is_data_dependent": True,
+            "exclusion_note": (
+                "real-backend pathological exclusion is data-dependent and may be absent on "
+                "well-behaved fixtures"
+            ),
             "excluded_items": dropped_pathological_items[
                 [ITEM_ID, "pathology_excluded_reasons"]
             ].to_dict(orient="records"),
@@ -267,8 +272,9 @@ def _build_fit_report(
         },
         "artifacts": {
             "plots_written": False,
-            "plots_reason": "not_implemented_in_t09",
+            "plots_reason": "written_by_stage05_artifact_writer",
             "dropped_pathological_items_written": len(excluded_items.index) > 0,
+            "item_parameter_scatter": None,
         },
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }

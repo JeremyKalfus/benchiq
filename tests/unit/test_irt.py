@@ -57,6 +57,7 @@ def test_fit_girth_2pl_recovers_rank_order_on_synthetic_data() -> None:
     assert result.fit_report["counts"]["retained_item_count"] == len(item_ids)
     assert result.fit_report["warnings"][0]["code"] == "backend_convergence_status_unavailable"
     assert result.fit_report["convergence"]["status_available"] is False
+    assert result.fit_report["pathology"]["exclusion_is_data_dependent"] is True
 
 
 def test_fit_girth_2pl_artifacts_convergence_limitation_and_drops_pathological_items(
@@ -99,6 +100,16 @@ def test_fit_girth_2pl_artifacts_convergence_limitation_and_drops_pathological_i
     assert result.fit_report["counts"]["pathology_excluded_count"] == 1
     assert result.fit_report["pathology"]["excluded_item_ids"] == ["i2"]
     assert result.fit_report["pathology"]["retained_item_ids"] == ["i1", "i3"]
+    assert result.fit_report["pathology"]["excluded_items"] == [
+        {
+            "item_id": "i2",
+            "pathology_excluded_reasons": [
+                "low_discrimination_excluded",
+                "nonfinite_difficulty",
+            ],
+        }
+    ]
+    assert result.fit_report["pathology"]["exclusion_is_data_dependent"] is True
     assert result.fit_report["warnings"][0]["code"] == "backend_convergence_status_unavailable"
     assert result.fit_report["warnings"][1]["code"] == "pathological_items_dropped"
     assert result.fit_report["artifacts"]["dropped_pathological_items_written"] is True
@@ -195,6 +206,7 @@ def test_fit_irt_bundle_writes_artifacts_and_expected_columns(tmp_path) -> None:
     assert benchmark_result.irt_fit_report["irt_backend"] == "girth"
     assert benchmark_result.irt_fit_report["convergence"]["backend_exposes_flag"] is False
     assert benchmark_result.irt_fit_report["convergence"]["status_available"] is False
+    assert benchmark_result.irt_fit_report["pathology"]["exclusion_is_data_dependent"] is True
     assert (
         benchmark_result.irt_fit_report["warnings"][0]["code"]
         == "backend_convergence_status_unavailable"
@@ -206,9 +218,21 @@ def test_fit_irt_bundle_writes_artifacts_and_expected_columns(tmp_path) -> None:
     assert (stage_dir / "dropped_pathological_items.parquet").exists()
     assert (stage_dir / "irt_fit_report.json").exists()
     assert (stage_dir / "ability_estimates.parquet").exists()
+    assert (stage_dir / "plots" / "item_parameter_scatter.png").exists()
 
     report = json.loads((stage_dir / "irt_fit_report.json").read_text(encoding="utf-8"))
     assert report["counts"]["preselect_item_count"] == 4
     assert report["skipped"] is False
+    assert report["artifacts"]["plots_written"] is True
+    assert report["artifacts"]["plots_reason"] is None
+    assert report["artifacts"]["item_parameter_scatter"].endswith(
+        "plots/item_parameter_scatter.png"
+    )
+    assert report["pathology"]["exclusion_is_data_dependent"] is True
+    assert (
+        report["pathology"]["exclusion_note"]
+        == "real-backend pathological exclusion is data-dependent and may be absent on "
+        "well-behaved fixtures"
+    )
     dropped = pd.read_parquet(stage_dir / "dropped_pathological_items.parquet")
     assert dropped.empty

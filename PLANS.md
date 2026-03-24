@@ -24,7 +24,7 @@
 - T06 is complete: global test splitting, benchmark-local train/val splitting, explicit fallback diagnostics, and stage-03 split artifacts are in place with unit coverage.
 - T07 is complete: the reusable `pygam` wrapper, RMSE-based cross-validation harness, and model/cv artifact writers are in place with unit coverage.
 - T08 is complete: cross-validated random subsampling now writes per-benchmark preselect subsets, fold-level cv results, and checkpointable progress artifacts with explicit failed-iteration accounting.
-- T09 is complete: the benchmark-local `girth` 2PL adapter, standardized item-parameter tables, pathological diagnostics, and stage-05 IRT artifacts are in place with unit coverage.
+- T09 is complete: the benchmark-local `girth` 2PL adapter, retained/dropped item-parameter artifacts, explicit backend-limitation warnings, and stage-05 diagnostic plots are in place with unit coverage.
 - T10 is the next ticket and has not started.
 
 ## completed tickets
@@ -194,12 +194,16 @@ Scope:
 - implement the core `girth` backend adapter and unified item-parameter output schema
 - `girth` is the first-pass core backend for v0.1, but if it fails metabench validation materially, an optional parity backend may be introduced later without changing the product identity.
 - fit 2pl models on benchmark-specific preselected item sets
-- capture convergence and pathological-parameter diagnostics
+- artifact backend convergence-status unavailability explicitly when `girth` does not expose it
+- capture pathological-parameter diagnostics and dropped-item artifacts
+- write stage-05 item-parameter diagnostic plots to disk
 
 Acceptance criteria:
 - synthetic irt fixtures recover item parameters with sensible rank correlation
-- `irt_item_params.parquet` is written with standardized columns
-- convergence warnings and dropped pathological items are artifacted
+- retained-only `irt_item_params.parquet` is written with a standardized item-parameter schema
+- backend convergence-status unavailability is artifacted as a structured warning when the backend does not expose it
+- dropped pathological items are written to an explicit artifact with counts/reasons in the fit report
+- stage-05 item-parameter diagnostic plot artifacts are written to disk
 
 Blockers:
 - `girth` missing-data handling quirks
