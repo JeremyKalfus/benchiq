@@ -26,7 +26,8 @@
 - T08 is complete: cross-validated random subsampling now writes per-benchmark preselect subsets, fold-level cv results, and checkpointable progress artifacts with explicit failed-iteration accounting.
 - T09 is complete: the benchmark-local `girth` 2PL adapter, retained/dropped item-parameter artifacts, explicit backend-limitation warnings, and stage-05 diagnostic plots are in place with corrected acceptance coverage.
 - T10 is complete: Fisher-information grids, final item selection artifacts, selection reports, and expected test-information plots are in place with unit coverage.
-- T11 is the next ticket and has not started.
+- T11 is complete: MAP/EAP theta estimation, theta standard errors, theta reports, and stage-07 theta artifacts are in place with unit coverage.
+- T12 is the next ticket and has not started.
 
 ## completed tickets
 
@@ -40,6 +41,7 @@
 - T08 cross-validated subsampling to fixed `k_preselect`
 - T09 unidimensional 2PL IRT adapter with `girth`
 - T10 Fisher information grids and final item selection
+- T11 theta estimation and theta standard errors
 
 ## ticket order
 
@@ -242,6 +244,7 @@ Acceptance criteria:
 - theta outputs are finite on synthetic fixtures
 - higher reduced scores imply higher theta on average
 - `theta_estimates.parquet` is written for train, val, and test models
+- `theta_report.json` and theta distribution plots are written
 
 Blockers:
 - numerical underflow in likelihood calculations

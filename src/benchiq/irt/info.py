@@ -44,6 +44,22 @@ def fisher_information_2pl(
     return np.maximum(information, 0.0)
 
 
+def test_information_2pl(
+    theta: float,
+    *,
+    discriminations: np.ndarray | pd.Series | list[float],
+    difficulties: np.ndarray | pd.Series | list[float],
+) -> float:
+    """Return summed test information at one theta value."""
+
+    discrimination_values = np.asarray(discriminations, dtype=float)
+    difficulty_values = np.asarray(difficulties, dtype=float)
+    logits = discrimination_values * (float(theta) - difficulty_values)
+    probabilities = 1.0 / (1.0 + np.exp(-logits))
+    item_information = (discrimination_values**2) * probabilities * (1.0 - probabilities)
+    return float(np.maximum(item_information, 0.0).sum())
+
+
 def build_theta_grid(
     item_params: pd.DataFrame,
     *,
