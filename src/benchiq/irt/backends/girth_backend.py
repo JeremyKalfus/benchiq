@@ -24,6 +24,7 @@ class Girth2PLResult:
     """Normalized output from a girth 2PL fit."""
 
     item_params: pd.DataFrame
+    dropped_pathological_items: pd.DataFrame
     fit_report: dict[str, Any]
     ability_estimates: pd.DataFrame
 
@@ -53,10 +54,16 @@ def fit_girth_2pl(
     raw_result = twopl_mml(response_matrix, options=options)
     runtime_seconds = perf_counter() - runtime_start
 
-    item_params = _build_item_params_frame(
+    all_item_params = _build_item_params_frame(
         benchmark_id=benchmark_id,
         item_ids=item_ids,
         raw_result=raw_result,
+    )
+    dropped_pathological_items = (
+        all_item_params.loc[all_item_params["pathology_excluded"]].copy().reset_index(drop=True)
+    )
+    item_params = (
+        all_item_params.loc[~all_item_params["pathology_excluded"]].copy().reset_index(drop=True)
     )
     ability_estimates = _build_ability_frame(
         benchmark_id=benchmark_id,
@@ -67,6 +74,7 @@ def fit_girth_2pl(
         benchmark_id=benchmark_id,
         response_matrix=response_matrix,
         item_params=item_params,
+        dropped_pathological_items=dropped_pathological_items,
         ability_estimates=ability_estimates,
         runtime_seconds=runtime_seconds,
         options=options or {},
@@ -74,6 +82,7 @@ def fit_girth_2pl(
     )
     return Girth2PLResult(
         item_params=item_params,
+        dropped_pathological_items=dropped_pathological_items,
         fit_report=fit_report,
         ability_estimates=ability_estimates,
     )
@@ -174,6 +183,7 @@ def _build_fit_report(
     benchmark_id: str,
     response_matrix: np.ndarray,
     item_params: pd.DataFrame,
+    dropped_pathological_items: pd.DataFrame,
     ability_estimates: pd.DataFrame,
     runtime_seconds: float,
     options: dict[str, Any],
@@ -182,19 +192,45 @@ def _build_fit_report(
     missing_count = int((response_matrix == INVALID_RESPONSE).sum())
     total_cells = int(response_matrix.size)
     valid_cells = total_cells - missing_count
-    excluded_items = item_params.loc[item_params["pathology_excluded"], ITEM_ID].astype("string")
     warning_items = item_params.loc[item_params["pathology_warning"], ITEM_ID].astype("string")
+    excluded_items = dropped_pathological_items[ITEM_ID].astype("string")
+    warnings = [
+        {
+            "code": "backend_convergence_status_unavailable",
+            "message": (
+                "girth does not expose a convergence-status flag; BenchIQ cannot confirm "
+                "optimizer convergence from backend outputs."
+            ),
+            "severity": "warning",
+            "limitation": True,
+        }
+    ]
+    if len(excluded_items.index) > 0:
+        warnings.append(
+            {
+                "code": "pathological_items_dropped",
+                "message": (
+                    f"{len(excluded_items.index)} pathological items were dropped from "
+                    "irt_item_params.parquet and written to dropped_pathological_items.parquet."
+                ),
+                "severity": "warning",
+                "limitation": False,
+            }
+        )
     return {
         "benchmark_id": benchmark_id,
         "irt_backend": "girth",
         "model": "2pl",
         "skipped": False,
         "skipped_reason": None,
+        "warnings": warnings,
         "backend_options": options,
         "convergence": {
-            "status": "not_exposed_by_backend",
+            "status": None,
             "backend_exposes_flag": False,
+            "status_available": False,
             "max_iteration": options.get("max_iteration"),
+            "warning_code": "backend_convergence_status_unavailable",
         },
         "counts": {
             "train_model_count": int(response_matrix.shape[1]),
@@ -203,11 +239,15 @@ def _build_fit_report(
             "missing_response_count": missing_count,
             "pathology_warning_count": int(len(warning_items.index)),
             "pathology_excluded_count": int(len(excluded_items.index)),
-            "retained_item_count": int((~item_params["pathology_excluded"]).sum()),
+            "retained_item_count": int(len(item_params.index)),
         },
         "pathology": {
             "warning_item_ids": warning_items.tolist(),
             "excluded_item_ids": excluded_items.tolist(),
+            "retained_item_ids": item_params[ITEM_ID].astype("string").tolist(),
+            "excluded_items": dropped_pathological_items[
+                [ITEM_ID, "pathology_excluded_reasons"]
+            ].to_dict(orient="records"),
             "warning_thresholds": {
                 "discrimination_min": WARN_DISCRIMINATION_RANGE[0],
                 "discrimination_max": WARN_DISCRIMINATION_RANGE[1],
@@ -228,6 +268,7 @@ def _build_fit_report(
         "artifacts": {
             "plots_written": False,
             "plots_reason": "not_implemented_in_t09",
+            "dropped_pathological_items_written": len(excluded_items.index) > 0,
         },
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }

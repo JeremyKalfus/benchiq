@@ -24,6 +24,7 @@ class BenchmarkIRTResult:
 
     benchmark_id: str
     irt_item_params: pd.DataFrame
+    dropped_pathological_items: pd.DataFrame
     irt_fit_report: dict[str, Any]
     ability_estimates: pd.DataFrame
     artifact_paths: dict[str, Path] = field(default_factory=dict)
@@ -145,6 +146,7 @@ def fit_irt_benchmark(
     return BenchmarkIRTResult(
         benchmark_id=benchmark_id,
         irt_item_params=fit_result.item_params,
+        dropped_pathological_items=fit_result.dropped_pathological_items,
         irt_fit_report=fit_result.fit_report,
         ability_estimates=fit_result.ability_estimates,
     )
@@ -159,17 +161,36 @@ def _skipped_benchmark_result(
     return BenchmarkIRTResult(
         benchmark_id=benchmark_id,
         irt_item_params=_empty_item_params_frame(),
+        dropped_pathological_items=_empty_item_params_frame(),
         irt_fit_report={
             "benchmark_id": benchmark_id,
             "irt_backend": "girth",
             "model": "2pl",
             "skipped": True,
             "skipped_reason": skipped_reason,
+            "warnings": [],
+            "convergence": {
+                "status": None,
+                "backend_exposes_flag": False,
+                "status_available": False,
+                "warning_code": None,
+            },
             "counts": {
                 "preselect_item_count": len(preselect_items),
                 "retained_item_count": 0,
                 "pathology_warning_count": 0,
                 "pathology_excluded_count": 0,
+            },
+            "pathology": {
+                "warning_item_ids": [],
+                "excluded_item_ids": [],
+                "retained_item_ids": [],
+                "excluded_items": [],
+            },
+            "artifacts": {
+                "plots_written": False,
+                "plots_reason": "not_implemented_in_t09",
+                "dropped_pathological_items_written": False,
             },
             "fit_metrics": {
                 "runtime_seconds": 0.0,
@@ -193,6 +214,10 @@ def _write_irt_artifacts(
             "irt_item_params": write_parquet(
                 benchmark_result.irt_item_params,
                 benchmark_dir / "irt_item_params.parquet",
+            ),
+            "dropped_pathological_items": write_parquet(
+                benchmark_result.dropped_pathological_items,
+                benchmark_dir / "dropped_pathological_items.parquet",
             ),
             "irt_fit_report": write_json(
                 benchmark_result.irt_fit_report,

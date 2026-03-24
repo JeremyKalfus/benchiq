@@ -2,12 +2,13 @@ import json
 
 import numpy as np
 import pandas as pd
+import pytest
 from girth.synthetic import create_synthetic_irt_dichotomous
 from scipy.stats import spearmanr
 
 import benchiq
 from benchiq.irt import fit_irt_bundle
-from benchiq.irt.backends import fit_girth_2pl
+from benchiq.irt.backends import fit_girth_2pl, girth_backend
 from benchiq.preprocess import compute_scores, preprocess_bundle
 from benchiq.split import split_models
 from benchiq.subsample import subsample_bundle
@@ -54,6 +55,53 @@ def test_fit_girth_2pl_recovers_rank_order_on_synthetic_data() -> None:
     assert disc_corr is not None and disc_corr > 0.7
     assert not estimated["pathology_excluded"].any()
     assert result.fit_report["counts"]["retained_item_count"] == len(item_ids)
+    assert result.fit_report["warnings"][0]["code"] == "backend_convergence_status_unavailable"
+    assert result.fit_report["convergence"]["status_available"] is False
+
+
+def test_fit_girth_2pl_artifacts_convergence_limitation_and_drops_pathological_items(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    rows = [
+        {"benchmark_id": "b1", "item_id": "i1", "model_id": "m1", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i1", "model_id": "m2", "score": 0},
+        {"benchmark_id": "b1", "item_id": "i2", "model_id": "m1", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i2", "model_id": "m2", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i3", "model_id": "m1", "score": 0},
+        {"benchmark_id": "b1", "item_id": "i3", "model_id": "m2", "score": 1},
+    ]
+
+    def fake_twopl_mml(dataset, options=None):  # type: ignore[no-untyped-def]
+        return {
+            "Discrimination": np.array([0.8, 0.01, 6.0], dtype=float),
+            "Difficulty": np.array([0.2, np.inf, -0.3], dtype=float),
+            "Ability": np.array([0.1, -0.2], dtype=float),
+            "AIC": {"final": 12.0, "null": 14.0, "delta": 2.0},
+            "BIC": {"final": 13.0, "null": 15.0, "delta": 2.0},
+        }
+
+    monkeypatch.setattr(girth_backend, "twopl_mml", fake_twopl_mml)
+
+    result = fit_girth_2pl(
+        pd.DataFrame(rows),
+        benchmark_id="b1",
+        item_ids=["i1", "i2", "i3"],
+        model_ids=["m1", "m2"],
+    )
+
+    assert result.item_params["item_id"].tolist() == ["i1", "i3"]
+    assert result.dropped_pathological_items["item_id"].tolist() == ["i2"]
+    assert result.dropped_pathological_items["pathology_excluded_reasons"].iloc[0] == [
+        "low_discrimination_excluded",
+        "nonfinite_difficulty",
+    ]
+    assert result.fit_report["counts"]["retained_item_count"] == 2
+    assert result.fit_report["counts"]["pathology_excluded_count"] == 1
+    assert result.fit_report["pathology"]["excluded_item_ids"] == ["i2"]
+    assert result.fit_report["pathology"]["retained_item_ids"] == ["i1", "i3"]
+    assert result.fit_report["warnings"][0]["code"] == "backend_convergence_status_unavailable"
+    assert result.fit_report["warnings"][1]["code"] == "pathological_items_dropped"
+    assert result.fit_report["artifacts"]["dropped_pathological_items_written"] is True
 
 
 def test_fit_irt_bundle_writes_artifacts_and_expected_columns(tmp_path) -> None:
@@ -143,15 +191,24 @@ def test_fit_irt_bundle_writes_artifacts_and_expected_columns(tmp_path) -> None:
     }
     assert set(benchmark_result.irt_item_params.columns) == expected_columns
     assert len(benchmark_result.irt_item_params.index) == 4
+    assert benchmark_result.dropped_pathological_items.empty
     assert benchmark_result.irt_fit_report["irt_backend"] == "girth"
     assert benchmark_result.irt_fit_report["convergence"]["backend_exposes_flag"] is False
+    assert benchmark_result.irt_fit_report["convergence"]["status_available"] is False
+    assert (
+        benchmark_result.irt_fit_report["warnings"][0]["code"]
+        == "backend_convergence_status_unavailable"
+    )
     assert benchmark_result.irt_fit_report["counts"]["train_model_count"] > 0
 
     stage_dir = tmp_path / "out" / "irt-toy" / "artifacts" / "05_irt" / "per_benchmark" / "b1"
     assert (stage_dir / "irt_item_params.parquet").exists()
+    assert (stage_dir / "dropped_pathological_items.parquet").exists()
     assert (stage_dir / "irt_fit_report.json").exists()
     assert (stage_dir / "ability_estimates.parquet").exists()
 
     report = json.loads((stage_dir / "irt_fit_report.json").read_text(encoding="utf-8"))
     assert report["counts"]["preselect_item_count"] == 4
     assert report["skipped"] is False
+    dropped = pd.read_parquet(stage_dir / "dropped_pathological_items.parquet")
+    assert dropped.empty
