@@ -27,7 +27,8 @@
 - T09 is complete: the benchmark-local `girth` 2PL adapter, retained/dropped item-parameter artifacts, explicit backend-limitation warnings, and stage-05 diagnostic plots are in place with corrected acceptance coverage.
 - T10 is complete: Fisher-information grids, final item selection artifacts, selection reports, and expected test-information plots are in place with unit coverage.
 - T11 is complete: MAP/EAP theta estimation, theta standard errors, theta reports, and stage-07 theta artifacts are in place with unit coverage.
-- T12 is the next ticket and has not started.
+- T12 is complete: benchmark-specific no-intercept linear predictors, reduced subscores, coefficients, diagnostics, and deterministic ridge-fallback artifacts are in place without starting T13 feature-table assembly.
+- T13 is the next ticket and has not started.
 
 ## completed tickets
 
@@ -42,6 +43,7 @@
 - T09 unidimensional 2PL IRT adapter with `girth`
 - T10 Fisher information grids and final item selection
 - T11 theta estimation and theta standard errors
+- T12 benchmark linear predictors and reduced subscores
 
 ## ticket order
 
@@ -256,10 +258,14 @@ Depends on: T11
 
 Scope:
 - fit no-intercept benchmark-specific linear predictors from reduced item responses
-- compute reduced subscores and store coefficients, training diagnostics, and fallback-to-ridge metadata
+- compute reduced subscores and store coefficients, training diagnostics, and deterministic fallback-to-ridge metadata
+- write per-benchmark stage-08 model-output artifacts for later `sub_b` / `lin_b` feature assembly
+  without starting T13 feature-table joins
 
 Acceptance criteria:
-- feature tables include `sub_b` and `lin_b`
+- per-benchmark stage-08 outputs expose reduced subscores as `sub_b` and linear predictions as
+  `lin_b`
+- coefficients, training diagnostics, and fallback-to-ridge metadata are written to disk
 - synthetic linear fixtures show sensible coefficient recovery
 - rank-deficient cases switch to deterministic ridge with explicit logging
 

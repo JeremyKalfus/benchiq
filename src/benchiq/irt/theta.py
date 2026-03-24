@@ -6,7 +6,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from math import ceil, sqrt
 from pathlib import Path
-from typing import Any, Literal
+from typing import TYPE_CHECKING, Any, Literal
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -21,8 +21,10 @@ from benchiq.irt.info import test_information_2pl
 from benchiq.logging import update_manifest
 from benchiq.preprocess.stats import build_benchmark_matrix
 from benchiq.schema.tables import BENCHMARK_ID, ITEM_ID, MODEL_ID, SPLIT
-from benchiq.select import SelectResult
 from benchiq.split.splitters import SplitResult
+
+if TYPE_CHECKING:
+    from benchiq.select import SelectResult
 
 THETA_HAT = "theta_hat"
 THETA_SE = "theta_se"

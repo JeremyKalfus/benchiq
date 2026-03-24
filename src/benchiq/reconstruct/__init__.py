@@ -12,13 +12,25 @@ from benchiq.reconstruct.gam import (
     rmse_score,
     write_gam_artifacts,
 )
+from benchiq.reconstruct.linear_predictor import (
+    BenchmarkLinearPredictorResult,
+    LinearPredictorResult,
+    fit_linear_predictor_benchmark,
+    fit_linear_predictor_bundle,
+    fit_no_intercept_linear_predictor,
+)
 
 __all__ = [
     "DEFAULT_LAM_GRID",
+    "BenchmarkLinearPredictorResult",
     "GAMCVResult",
     "FittedGAM",
     "FoldAssignment",
+    "LinearPredictorResult",
     "cross_validate_gam",
+    "fit_linear_predictor_benchmark",
+    "fit_linear_predictor_bundle",
+    "fit_no_intercept_linear_predictor",
     "fit_gam",
     "load_gam",
     "make_kfold_assignments",
