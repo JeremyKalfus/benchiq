@@ -115,6 +115,53 @@ def test_fit_girth_2pl_artifacts_convergence_limitation_and_drops_pathological_i
     assert result.fit_report["artifacts"]["dropped_pathological_items_written"] is True
 
 
+def test_fit_girth_2pl_real_backend_exclusion_is_data_dependent() -> None:
+    rows = [
+        {"benchmark_id": "b1", "item_id": "i1", "model_id": "m1", "score": 0},
+        {"benchmark_id": "b1", "item_id": "i1", "model_id": "m2", "score": 0},
+        {"benchmark_id": "b1", "item_id": "i1", "model_id": "m3", "score": 0},
+        {"benchmark_id": "b1", "item_id": "i1", "model_id": "m4", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i1", "model_id": "m5", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i1", "model_id": "m6", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i1", "model_id": "m7", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i1", "model_id": "m8", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i2", "model_id": "m1", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i2", "model_id": "m2", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i2", "model_id": "m3", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i2", "model_id": "m4", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i2", "model_id": "m5", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i2", "model_id": "m6", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i2", "model_id": "m7", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i2", "model_id": "m8", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i3", "model_id": "m1", "score": 0},
+        {"benchmark_id": "b1", "item_id": "i3", "model_id": "m2", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i3", "model_id": "m3", "score": 0},
+        {"benchmark_id": "b1", "item_id": "i3", "model_id": "m4", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i3", "model_id": "m5", "score": 0},
+        {"benchmark_id": "b1", "item_id": "i3", "model_id": "m6", "score": 1},
+        {"benchmark_id": "b1", "item_id": "i3", "model_id": "m7", "score": 0},
+        {"benchmark_id": "b1", "item_id": "i3", "model_id": "m8", "score": 1},
+    ]
+
+    result = fit_girth_2pl(
+        pd.DataFrame(rows),
+        benchmark_id="b1",
+        item_ids=["i1", "i2", "i3"],
+        model_ids=[f"m{i}" for i in range(1, 9)],
+    )
+
+    assert result.fit_report["warnings"][0]["code"] == "backend_convergence_status_unavailable"
+    assert result.fit_report["convergence"]["status_available"] is False
+    assert result.fit_report["pathology"]["exclusion_is_data_dependent"] is True
+    assert (
+        result.fit_report["pathology"]["exclusion_note"]
+        == "real-backend pathological exclusion is data-dependent and may be absent on "
+        "well-behaved fixtures"
+    )
+    assert result.dropped_pathological_items.empty
+    assert result.item_params["item_id"].tolist() == ["i1", "i2", "i3"]
+
+
 def test_fit_irt_bundle_writes_artifacts_and_expected_columns(tmp_path) -> None:
     difficulty = np.array([-1.0, -0.5, 0.0, 0.4, 0.8, 1.2], dtype=float)
     discrimination = np.array([0.8, 1.0, 1.2, 1.3, 1.5, 1.8], dtype=float)
@@ -236,3 +283,124 @@ def test_fit_irt_bundle_writes_artifacts_and_expected_columns(tmp_path) -> None:
     )
     dropped = pd.read_parquet(stage_dir / "dropped_pathological_items.parquet")
     assert dropped.empty
+
+
+def test_fit_irt_bundle_real_backend_artifacts_partition_preselect_items(tmp_path) -> None:
+    difficulty = np.array([-1.4, -0.8, -0.3, 0.2, 0.7, 1.1], dtype=float)
+    discrimination = np.array([0.6, 0.9, 1.0, 1.2, 1.5, 1.9], dtype=float)
+    thetas = np.linspace(-2.4, 2.4, 48)
+    responses = create_synthetic_irt_dichotomous(
+        difficulty=difficulty,
+        discrimination=discrimination,
+        thetas=thetas,
+        seed=19,
+    )
+
+    rows: list[dict[str, object]] = []
+    for item_index in range(responses.shape[0]):
+        item_id = f"i{item_index + 1}"
+        for model_index in range(responses.shape[1]):
+            model_id = f"m{model_index + 1:02d}"
+            rows.append(
+                {
+                    "benchmark_id": "b1",
+                    "item_id": item_id,
+                    "model_id": model_id,
+                    "score": int(responses[item_index, model_index]),
+                }
+            )
+
+    responses_path = tmp_path / "responses.csv"
+    pd.DataFrame(rows).to_csv(responses_path, index=False)
+
+    config = benchiq.BenchIQConfig(
+        allow_low_n=True,
+        drop_low_tail_models_quantile=0.0,
+        min_models_per_benchmark=1,
+        warn_models_per_benchmark=1,
+        min_items_after_filtering=1,
+        min_models_per_item=1,
+        min_item_coverage=1.0,
+        min_item_sd=0.0,
+        max_item_mean=1.0,
+        min_abs_point_biserial=0.0,
+        min_overlap_models_for_joint=6,
+        p_test=0.2,
+        p_val=0.25,
+        n_strata_bins=3,
+        random_seed=7,
+    )
+    bundle = benchiq.load_bundle(
+        responses_path,
+        config=config,
+        out_dir=tmp_path / "out",
+        run_id="irt-partition",
+    )
+    preprocess_result = preprocess_bundle(bundle)
+    score_result = compute_scores(bundle, preprocess_result)
+    split_result = split_models(bundle, score_result)
+    subsample_result = subsample_bundle(
+        bundle,
+        preprocess_result,
+        score_result,
+        split_result,
+        k_preselect=4,
+        n_iter=5,
+        cv_folds=4,
+        checkpoint_interval=2,
+        lam_grid=(0.1, 1.0),
+    )
+    irt_result = fit_irt_bundle(
+        bundle,
+        split_result,
+        subsample_result,
+        backend_options={"max_iteration": 30},
+    )
+
+    preselect_item_ids = sorted(
+        subsample_result.benchmarks["b1"].preselect_items["item_id"].astype("string").tolist()
+    )
+    benchmark_result = irt_result.benchmarks["b1"]
+    retained_item_ids = sorted(
+        benchmark_result.irt_item_params["item_id"].astype("string").tolist()
+    )
+    dropped_item_ids = sorted(
+        benchmark_result.dropped_pathological_items["item_id"].astype("string").tolist()
+    )
+    report = benchmark_result.irt_fit_report
+
+    assert set(retained_item_ids).isdisjoint(dropped_item_ids)
+    assert sorted(retained_item_ids + dropped_item_ids) == preselect_item_ids
+    assert report["counts"]["retained_item_count"] == len(retained_item_ids)
+    assert report["counts"]["pathology_excluded_count"] == len(dropped_item_ids)
+    assert report["pathology"]["retained_item_ids"] == retained_item_ids
+    assert report["pathology"]["excluded_item_ids"] == dropped_item_ids
+    assert report["pathology"]["exclusion_is_data_dependent"] is True
+    assert (
+        report["pathology"]["exclusion_note"]
+        == "real-backend pathological exclusion is data-dependent and may be absent on "
+        "well-behaved fixtures"
+    )
+
+    stage_dir = tmp_path / "out" / "irt-partition" / "artifacts" / "05_irt" / "per_benchmark" / "b1"
+    retained = pd.read_parquet(stage_dir / "irt_item_params.parquet")
+    dropped = pd.read_parquet(stage_dir / "dropped_pathological_items.parquet")
+    plot_path = stage_dir / "plots" / "item_parameter_scatter.png"
+
+    assert sorted(retained["item_id"].astype("string").tolist()) == retained_item_ids
+    assert sorted(dropped["item_id"].astype("string").tolist()) == dropped_item_ids
+    assert plot_path.exists()
+    assert plot_path.stat().st_size > 0
+
+    if dropped_item_ids:
+        assert any(
+            warning["code"] == "pathological_items_dropped" for warning in report["warnings"]
+        )
+        assert all(
+            isinstance(reasons, list) and reasons
+            for reasons in dropped["pathology_excluded_reasons"].tolist()
+        )
+    else:
+        assert not any(
+            warning["code"] == "pathological_items_dropped" for warning in report["warnings"]
+        )
