@@ -6,7 +6,7 @@ The source of truth for v0.1 scope and methodology is [docs/specs/benchiq_v0_1_s
 
 ## status
 
-T01 through T08 are complete on the current working tree. The project now has the package scaffold, schema/config validation, stage-00 canonicalization, stage-01 preprocessing filters, stage-02 score artifacts, stage-03 model-level split artifacts, the reusable `pygam` backend with RMSE-based cross-validation helpers, and stage-04 random-CV subsampling artifacts in place. T09 IRT work has not started.
+T01 through T09 are complete on the current working tree. The project now has the package scaffold, schema/config validation, stage-00 canonicalization, stage-01 preprocessing filters, stage-02 score artifacts, stage-03 model-level split artifacts, the reusable `pygam` backend with RMSE-based cross-validation helpers, stage-04 random-CV subsampling artifacts, and stage-05 `girth`-backed 2PL IRT artifacts in place. T10 Fisher-information selection work has not started.
 
 ## canonical commands
 

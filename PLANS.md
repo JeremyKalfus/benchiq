@@ -24,7 +24,8 @@
 - T06 is complete: global test splitting, benchmark-local train/val splitting, explicit fallback diagnostics, and stage-03 split artifacts are in place with unit coverage.
 - T07 is complete: the reusable `pygam` wrapper, RMSE-based cross-validation harness, and model/cv artifact writers are in place with unit coverage.
 - T08 is complete: cross-validated random subsampling now writes per-benchmark preselect subsets, fold-level cv results, and checkpointable progress artifacts with explicit failed-iteration accounting.
-- T09 is the next ticket and has not started.
+- T09 is complete: the benchmark-local `girth` 2PL adapter, standardized item-parameter tables, pathological diagnostics, and stage-05 IRT artifacts are in place with unit coverage.
+- T10 is the next ticket and has not started.
 
 ## completed tickets
 
@@ -36,6 +37,7 @@
 - T06 model-level splitters and split diagnostics
 - T07 GAM backend wrapper and cross-validation harness
 - T08 cross-validated subsampling to fixed `k_preselect`
+- T09 unidimensional 2PL IRT adapter with `girth`
 
 ## ticket order
 
