@@ -1,5 +1,6 @@
 """Reconstruction components for BenchIQ."""
 
+from benchiq.reconstruct.features import FeatureTableResult, build_feature_tables
 from benchiq.reconstruct.gam import (
     DEFAULT_LAM_GRID,
     FittedGAM,
@@ -25,8 +26,10 @@ __all__ = [
     "BenchmarkLinearPredictorResult",
     "GAMCVResult",
     "FittedGAM",
+    "FeatureTableResult",
     "FoldAssignment",
     "LinearPredictorResult",
+    "build_feature_tables",
     "cross_validate_gam",
     "fit_linear_predictor_benchmark",
     "fit_linear_predictor_bundle",
