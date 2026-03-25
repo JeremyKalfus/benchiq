@@ -20,15 +20,23 @@ from benchiq.reconstruct.linear_predictor import (
     fit_linear_predictor_bundle,
     fit_no_intercept_linear_predictor,
 )
+from benchiq.reconstruct.reconstruction import (
+    BenchmarkReconstructionResult,
+    ReconstructionResult,
+    reconstruct_benchmark,
+    reconstruct_scores,
+)
 
 __all__ = [
     "DEFAULT_LAM_GRID",
     "BenchmarkLinearPredictorResult",
+    "BenchmarkReconstructionResult",
     "GAMCVResult",
     "FittedGAM",
     "FeatureTableResult",
     "FoldAssignment",
     "LinearPredictorResult",
+    "ReconstructionResult",
     "build_feature_tables",
     "cross_validate_gam",
     "fit_linear_predictor_benchmark",
@@ -38,5 +46,7 @@ __all__ = [
     "load_gam",
     "make_kfold_assignments",
     "rmse_score",
+    "reconstruct_benchmark",
+    "reconstruct_scores",
     "write_gam_artifacts",
 ]

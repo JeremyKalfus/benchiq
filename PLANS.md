@@ -29,7 +29,8 @@
 - T11 is complete: MAP/EAP theta estimation, theta standard errors, theta reports, and stage-07 theta artifacts are in place with unit coverage.
 - T12 is complete: benchmark-specific no-intercept linear predictors, reduced subscores, coefficients, diagnostics, and deterministic ridge-fallback artifacts are in place without starting T13 feature-table assembly.
 - T13 is complete: marginal and joint feature tables, explicit joint skip reporting, and stage-08 feature artifacts are in place with unit coverage.
-- T14 is the next ticket and has not started.
+- T14 is complete: marginal and overlap-gated joint GAM reconstruction, prediction/residual artifacts, summary metrics, and explicit joint-skip reporting are in place with unit coverage.
+- T15 is the next ticket and has not started.
 
 ## completed tickets
 
@@ -46,6 +47,7 @@
 - T11 theta estimation and theta standard errors
 - T12 benchmark linear predictors and reduced subscores
 - T13 marginal and joint feature table builder
+- T14 GAM-based score reconstruction
 
 ## ticket order
 
