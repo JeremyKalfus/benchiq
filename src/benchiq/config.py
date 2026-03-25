@@ -24,6 +24,7 @@ class BenchIQConfig(BaseModel):
     min_models_per_item: int = Field(default=50, ge=1)
     min_item_coverage: float = Field(default=0.8, gt=0.0, le=1.0)
     min_overlap_models_for_joint: int = Field(default=75, ge=1)
+    min_overlap_models_for_redundancy: int = Field(default=75, ge=1)
     p_test: float = Field(default=0.10, gt=0.0, lt=1.0)
     p_val: float = Field(default=0.10, gt=0.0, lt=1.0)
     n_strata_bins: int = Field(default=10, ge=2)

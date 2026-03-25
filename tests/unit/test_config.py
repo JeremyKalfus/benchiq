@@ -13,6 +13,7 @@ def test_config_accepts_defaults() -> None:
     assert config.max_item_mean == pytest.approx(0.95)
     assert config.min_abs_point_biserial == pytest.approx(0.05)
     assert config.min_item_coverage == pytest.approx(0.8)
+    assert config.min_overlap_models_for_redundancy == 75
     assert config.p_test == pytest.approx(0.10)
     assert config.p_val == pytest.approx(0.10)
     assert config.n_strata_bins == 10
