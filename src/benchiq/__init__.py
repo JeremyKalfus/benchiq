@@ -2,6 +2,7 @@
 
 from benchiq.config import BenchIQConfig
 from benchiq.io import Bundle, BundleSource, load_bundle
+from benchiq.runner import BenchIQRunner, RunResult, run
 from benchiq.schema.checks import (
     SchemaValidationError,
     ValidationCounts,
@@ -15,11 +16,14 @@ __all__ = [
     "BenchIQConfig",
     "Bundle",
     "BundleSource",
+    "BenchIQRunner",
     "SchemaValidationError",
+    "RunResult",
     "ValidationCounts",
     "ValidationIssue",
     "ValidationReport",
     "load_bundle",
+    "run",
     "validate",
 ]
 

@@ -31,6 +31,7 @@
 - T13 is complete: marginal and joint feature tables, explicit joint skip reporting, and stage-08 feature artifacts are in place with unit coverage.
 - T14 is complete: marginal and overlap-gated joint GAM reconstruction, prediction/residual artifacts, summary metrics, and explicit joint-skip reporting are in place with unit coverage.
 - T15 is complete: benchmark-level theta/score correlations, overlap-gated factor analysis, cross-only compressibility metrics, and stage-10 redundancy artifacts are in place with unit coverage.
+- T16 is complete: the deterministic `BenchIQRunner`, stage-level manifest records, partial rerun support, and synthetic full-pipeline integration coverage are in place.
 
 ## completed tickets
 
@@ -49,6 +50,7 @@
 - T13 marginal and joint feature table builder
 - T14 GAM-based score reconstruction
 - T15 benchmark-level redundancy and compressibility analysis
+- T16 runner orchestration and stage manifests
 
 ## ticket order
 
