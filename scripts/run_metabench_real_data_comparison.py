@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Run the strongest honest real-data metabench comparison from the frozen paper snapshot."""
+"""Run the strongest honest real-data metabench parity comparison from the frozen snapshot."""
 
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
-import math
+import re
 import shutil
 import subprocess
 import tarfile
@@ -16,15 +16,21 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
+from scipy.stats import pearsonr, spearmanr
 
 import benchiq
 from benchiq.config import BenchIQConfig
+from benchiq.io.write import write_json, write_parquet
 from benchiq.irt import estimate_theta_bundle, fit_irt_bundle
+from benchiq.logging import update_manifest
 from benchiq.preprocess.scores import GRAND_MEAN_SCORE, SCORE_FULL, ScoreResult
 from benchiq.reconstruct.features import build_feature_tables
+from benchiq.reconstruct.gam import cross_validate_gam, write_gam_artifacts
 from benchiq.reconstruct.linear_predictor import fit_linear_predictor_bundle
 from benchiq.reconstruct.reconstruction import reconstruct_scores
 from benchiq.schema.tables import BENCHMARK_ID, ITEM_ID, MODEL_ID, SPLIT
@@ -37,12 +43,24 @@ DEFAULT_PROFILE_PATH = REPO_ROOT / "docs" / "design" / "metabench_validation_ful
 DEFAULT_REPORTS_DIR = REPO_ROOT / "reports"
 DEFAULT_CACHE_DIR = REPO_ROOT / "out" / "metabench_real_source"
 DEFAULT_OUT_DIR = REPO_ROOT / "out" / "metabench_real_validation"
-DEFAULT_RUN_ID = "metabench-real-zenodo-12819251"
+DEFAULT_RUN_ID = "metabench-real-zenodo-12819251-parity"
+BASELINE_RUN_ID = "metabench-real-zenodo-12819251"
 
 MODEL_TYPE = "model_type"
 ACTUAL_SCORE = "actual_score"
 PREDICTED_SCORE = "predicted_score"
+BASELINE_PREDICTION = "baseline_prediction"
+RESIDUAL = "residual"
+BASELINE_RESIDUAL = "baseline_residual"
 RMSE = "rmse"
+MAE = "mae"
+PEARSON_R = "pearson_r"
+SPEARMAN_R = "spearman_r"
+BASELINE_RMSE = "baseline_rmse"
+BASELINE_MAE = "baseline_mae"
+ROW_COUNT = "row_count"
+GRAND_MEAN_MODEL = "grand_mean"
+
 DEFAULT_RELEASE_RDS = {
     "arc": "benchmark-data/arc-sub.rds",
     "gsm8k": "benchmark-data/gsm8k-sub.rds",
@@ -75,9 +93,9 @@ class ComparisonArtifacts:
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
-            "Freeze the primary public metabench snapshot, export the paper release's "
-            "default selected subsets, and run the strongest honest BenchIQ comparison."
-        ),
+            "Freeze the public metabench paper snapshot, export the release-default subsets, "
+            "apply a parity-focused downstream BenchIQ run, and write a reviewer bundle."
+        )
     )
     parser.add_argument("--profile-config", type=Path, default=DEFAULT_PROFILE_PATH)
     parser.add_argument("--cache-dir", type=Path, default=DEFAULT_CACHE_DIR)
@@ -87,7 +105,7 @@ def main() -> None:
     parser.add_argument(
         "--existing-run-root",
         type=Path,
-        help="Optional existing completed comparison run root. If set, skip recomputing stages.",
+        help="Optional existing completed parity run root. If set, skip recomputing stages.",
     )
     parser.add_argument("--force-download", action="store_true")
     parser.add_argument("--force-build", action="store_true")
@@ -97,6 +115,7 @@ def main() -> None:
     args.cache_dir.mkdir(parents=True, exist_ok=True)
     args.out_dir.mkdir(parents=True, exist_ok=True)
     args.reports_dir.mkdir(parents=True, exist_ok=True)
+    previous_comparison = load_previous_comparison(reports_dir=args.reports_dir)
 
     archive_path = ensure_frozen_archive(
         cache_dir=args.cache_dir,
@@ -119,10 +138,12 @@ def main() -> None:
             out_dir=args.out_dir,
             run_id=args.run_id,
         )
+
     comparison = build_comparison_payload(
         run_root=run_root,
         profile=profile,
         export_manifest=exported.manifest,
+        previous_comparison=previous_comparison,
     )
     artifacts = write_comparison_bundle(
         profile=profile,
@@ -132,6 +153,7 @@ def main() -> None:
         metadata_path=exported.metadata_path,
         run_root=run_root,
         reports_dir=args.reports_dir,
+        previous_comparison=previous_comparison,
     )
     print(render_terminal_summary(comparison, artifacts))
 
@@ -169,12 +191,12 @@ def verify_archive_hashes(path: Path, source_config: dict[str, Any]) -> None:
     if md5_digest != source_config["archive_md5"]:
         raise RuntimeError(
             "archive md5 mismatch for "
-            f"{path}: expected {source_config['archive_md5']}, got {md5_digest}",
+            f"{path}: expected {source_config['archive_md5']}, got {md5_digest}"
         )
     if sha256_digest != source_config["archive_sha256"]:
         raise RuntimeError(
             "archive sha256 mismatch for "
-            f"{path}: expected {source_config['archive_sha256']}, got {sha256_digest}",
+            f"{path}: expected {source_config['archive_sha256']}, got {sha256_digest}"
         )
 
 
@@ -318,7 +340,7 @@ def extract_release_subset_rds(
         for benchmark_id, member_name in wanted.items():
             if member_name not in available:
                 raise FileNotFoundError(
-                    f"release-default subset member missing for {benchmark_id}: {member_name}",
+                    f"release-default subset member missing for {benchmark_id}: {member_name}"
                 )
             target_path = release_rds_dir / Path(member_name).name
             if target_path.exists():
@@ -340,7 +362,7 @@ def run_r_export(
     if shutil.which("Rscript") is None:
         raise RuntimeError(
             "Rscript is required to unpack the public metabench .rds release artifacts. "
-            "Install R to rerun this comparison.",
+            "Install R to rerun this comparison."
         )
 
     benchmark_entries = ",\n".join(
@@ -480,8 +502,8 @@ def run_release_subset_comparison(
     run_id: str,
 ) -> Path:
     run_root = out_dir / run_id
-    if (run_root / "artifacts" / "09_reconstruct" / "reconstruction_summary.parquet").exists():
-        return run_root
+    if run_root.exists():
+        shutil.rmtree(run_root)
 
     config = BenchIQConfig.model_validate(profile["config"])
     bundle = benchiq.load_bundle(responses_path, config=config, out_dir=out_dir, run_id=run_id)
@@ -495,12 +517,14 @@ def run_release_subset_comparison(
     irt_result = fit_irt_bundle(
         bundle, split_result, subsample_result, out_dir=out_dir, run_id=run_id
     )
-    k_final = {
-        benchmark_id: max(1, len(result.irt_item_params.index))
-        for benchmark_id, result in irt_result.benchmarks.items()
-    }
     select_result = select_bundle(
-        bundle, irt_result, k_final=k_final, out_dir=out_dir, run_id=run_id
+        bundle,
+        irt_result,
+        k_final=resolve_published_final_counts(profile),
+        n_bins=int(profile["stage_options"]["06_select"]["n_bins"]),
+        theta_grid_size=int(profile["stage_options"]["06_select"]["theta_grid_size"]),
+        out_dir=out_dir,
+        run_id=run_id,
     )
     theta_result = estimate_theta_bundle(
         bundle,
@@ -508,6 +532,7 @@ def run_release_subset_comparison(
         select_result,
         irt_result,
         theta_method="MAP",
+        theta_grid_size=int(profile["stage_options"]["07_theta"]["theta_grid_size"]),
         out_dir=out_dir,
         run_id=run_id,
     )
@@ -526,11 +551,20 @@ def run_release_subset_comparison(
     reconstruct_scores(
         bundle,
         feature_result,
-        lam_grid=(0.1, 1.0),
-        cv_folds=5,
-        n_splines=10,
+        lam_grid=tuple(profile["stage_options"]["09_reconstruct"]["lam_grid"]),
+        cv_folds=int(profile["stage_options"]["09_reconstruct"]["cv_folds"]),
+        n_splines=int(profile["stage_options"]["09_reconstruct"]["n_splines"]),
         out_dir=out_dir,
         run_id=run_id,
+    )
+    fit_grand_mean_reconstruction(
+        run_root=run_root,
+        score_result=score_result,
+        feature_result=feature_result,
+        lam_grid=tuple(profile["stage_options"]["09_reconstruct"]["lam_grid"]),
+        cv_folds=int(profile["stage_options"]["09_reconstruct"]["cv_folds"]),
+        n_splines=int(profile["stage_options"]["09_reconstruct"]["n_splines"]),
+        random_seed=int(config.random_seed),
     )
     return run_root
 
@@ -651,8 +685,211 @@ def build_fixed_subset_result(bundle: benchiq.Bundle) -> SubsampleResult:
     return SubsampleResult(benchmarks=benchmark_results)
 
 
+def resolve_published_final_counts(profile: dict[str, Any]) -> dict[str, int]:
+    counts = profile["published_primary_targets"]["kept_item_counts"]
+    return {str(benchmark_id): int(count) for benchmark_id, count in counts.items()}
+
+
+def fit_grand_mean_reconstruction(
+    *,
+    run_root: Path,
+    score_result: ScoreResult,
+    feature_result: Any,
+    lam_grid: tuple[float, ...],
+    cv_folds: int,
+    n_splines: int,
+    random_seed: int,
+) -> dict[str, Any]:
+    stage_dir = run_root / "artifacts" / "09_reconstruct" / "grand_mean"
+    manifest_path = run_root / "manifest.json"
+    features_joint = feature_result.features_joint.copy()
+    if features_joint.empty:
+        report = {
+            "model_type": GRAND_MEAN_MODEL,
+            "skipped": True,
+            "skip_reason": "joint_features_unavailable",
+            "warnings": [
+                {
+                    "code": "grand_mean_skipped",
+                    "message": (
+                        "grand-mean reconstruction skipped because joint features were unavailable."
+                    ),
+                    "severity": "warning",
+                }
+            ],
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+        }
+        report_path = write_json(report, stage_dir / "grand_mean_report.json")
+        update_manifest(
+            manifest_path,
+            {
+                "artifacts": {
+                    "09_reconstruct": {
+                        "grand_mean": {
+                            "grand_mean_report": str(report_path),
+                        }
+                    }
+                }
+            },
+        )
+        return report
+
+    theta_columns = sorted(
+        column_name for column_name in features_joint.columns if column_name.startswith("theta_")
+    )
+    feature_columns = [*theta_columns, "grand_sub", "grand_lin"]
+    model_features = (
+        features_joint.loc[:, [MODEL_ID, SPLIT, *feature_columns]]
+        .sort_values([MODEL_ID, SPLIT])
+        .drop_duplicates(subset=[MODEL_ID], keep="first")
+        .reset_index(drop=True)
+    )
+    grand_scores = score_result.scores_grand.loc[:, [MODEL_ID, GRAND_MEAN_SCORE]].copy()
+    frame = model_features.merge(grand_scores, on=MODEL_ID, how="inner")
+    frame = frame.dropna(subset=[MODEL_ID, SPLIT, GRAND_MEAN_SCORE, *feature_columns]).copy()
+    frame[MODEL_ID] = frame[MODEL_ID].astype("string")
+    frame[SPLIT] = frame[SPLIT].astype("string")
+    frame[GRAND_MEAN_SCORE] = pd.Series(frame[GRAND_MEAN_SCORE], dtype="Float64")
+    for column_name in feature_columns:
+        frame[column_name] = pd.Series(frame[column_name], dtype="Float64")
+
+    train_rows = frame.loc[frame[SPLIT] == "train"].copy()
+    test_rows = frame.loc[frame[SPLIT] == "test"].copy()
+    split_counts = (
+        frame[SPLIT].value_counts(dropna=False).sort_index().astype(int).to_dict()
+        if not frame.empty
+        else {}
+    )
+    if len(train_rows.index) < 4 or len(test_rows.index) == 0:
+        report = {
+            "model_type": GRAND_MEAN_MODEL,
+            "skipped": True,
+            "skip_reason": "insufficient_rows_for_grand_mean_gam",
+            "feature_columns": feature_columns,
+            "split_counts": split_counts,
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+        }
+        report_path = write_json(report, stage_dir / "grand_mean_report.json")
+        update_manifest(
+            manifest_path,
+            {
+                "artifacts": {
+                    "09_reconstruct": {
+                        "grand_mean": {
+                            "grand_mean_report": str(report_path),
+                        }
+                    }
+                }
+            },
+        )
+        return report
+
+    effective_cv_folds = min(int(cv_folds), int(len(train_rows.index)))
+    effective_n_splines = min(int(n_splines), int(len(train_rows.index)))
+    cv_result = cross_validate_gam(
+        train_rows.loc[:, feature_columns],
+        train_rows[GRAND_MEAN_SCORE],
+        lam_grid=lam_grid,
+        cv_folds=effective_cv_folds,
+        random_seed=random_seed,
+        feature_names=feature_columns,
+        target_name=GRAND_MEAN_SCORE,
+        n_splines=effective_n_splines,
+        X_test=test_rows.loc[:, feature_columns],
+        y_test=test_rows[GRAND_MEAN_SCORE],
+    )
+    prediction_rows = frame.loc[:, [MODEL_ID, SPLIT, GRAND_MEAN_SCORE]].copy()
+    prediction_rows[MODEL_TYPE] = GRAND_MEAN_MODEL
+    prediction_rows[PREDICTED_SCORE] = cv_result.best_model.predict(frame.loc[:, feature_columns])
+    train_mean = float(train_rows[GRAND_MEAN_SCORE].astype(float).mean())
+    prediction_rows[BASELINE_PREDICTION] = train_mean
+    prediction_rows[ACTUAL_SCORE] = pd.Series(prediction_rows[GRAND_MEAN_SCORE], dtype="Float64")
+    prediction_rows[RESIDUAL] = prediction_rows[PREDICTED_SCORE].astype(float) - prediction_rows[
+        ACTUAL_SCORE
+    ].astype(float)
+    prediction_rows[BASELINE_RESIDUAL] = prediction_rows[BASELINE_PREDICTION].astype(
+        float
+    ) - prediction_rows[ACTUAL_SCORE].astype(float)
+    predictions = prediction_rows.loc[
+        :,
+        [
+            MODEL_ID,
+            SPLIT,
+            MODEL_TYPE,
+            ACTUAL_SCORE,
+            PREDICTED_SCORE,
+            BASELINE_PREDICTION,
+            RESIDUAL,
+            BASELINE_RESIDUAL,
+        ],
+    ].copy()
+    predictions[MODEL_ID] = predictions[MODEL_ID].astype("string")
+    predictions[SPLIT] = predictions[SPLIT].astype("string")
+    predictions[MODEL_TYPE] = predictions[MODEL_TYPE].astype("string")
+    for column_name in [
+        ACTUAL_SCORE,
+        PREDICTED_SCORE,
+        BASELINE_PREDICTION,
+        RESIDUAL,
+        BASELINE_RESIDUAL,
+    ]:
+        predictions[column_name] = pd.Series(predictions[column_name], dtype="Float64")
+
+    metrics = {
+        split_name: split_metrics(predictions.loc[predictions[SPLIT] == split_name].copy())
+        for split_name in ["train", "test"]
+    }
+    prediction_path = write_parquet(predictions, stage_dir / "predictions.parquet")
+    gam_paths = write_gam_artifacts(
+        cv_result,
+        out_dir=stage_dir / "model",
+        manifest_path=manifest_path,
+        stage_key="09_reconstruct_grand",
+    )
+    plot_paths = write_prediction_plots(predictions, out_dir=stage_dir / "plots")
+    report = {
+        "model_type": GRAND_MEAN_MODEL,
+        "skipped": False,
+        "skip_reason": None,
+        "feature_columns": feature_columns,
+        "train_row_count": int(len(train_rows.index)),
+        "test_row_count": int(len(test_rows.index)),
+        "available_row_count": int(len(frame.index)),
+        "split_counts": split_counts,
+        "cv_report": cv_result.cv_report,
+        "metrics": metrics,
+        "artifacts": {
+            "predictions": str(prediction_path),
+            "plots": {name: str(path) for name, path in sorted(plot_paths.items())},
+            "model": {name: str(path) for name, path in sorted(gam_paths.items())},
+        },
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+    }
+    report_path = write_json(report, stage_dir / "grand_mean_report.json")
+    update_manifest(
+        manifest_path,
+        {
+            "artifacts": {
+                "09_reconstruct": {
+                    "grand_mean": {
+                        "predictions": str(prediction_path),
+                        "grand_mean_report": str(report_path),
+                        **{name: str(path) for name, path in sorted(gam_paths.items())},
+                        **{name: str(path) for name, path in sorted(plot_paths.items())},
+                    }
+                }
+            }
+        },
+    )
+    return report
+
+
 def build_comparison_payload(
-    *, run_root: Path, profile: dict[str, Any], export_manifest: dict[str, Any]
+    *,
+    run_root: Path,
+    profile: dict[str, Any],
+    export_manifest: dict[str, Any],
+    previous_comparison: dict[str, Any] | None,
 ) -> dict[str, Any]:
     benchmarks = profile["benchmarks"]
     reconstruction_summary = pd.read_parquet(
@@ -708,9 +945,8 @@ def build_comparison_payload(
             }
         )
 
-    mean_proxy = compute_mean_score_proxy(
+    mean_score_result = compute_mean_score_result(
         run_root=run_root,
-        benchmarks=benchmarks,
         published_target=float(profile["published_primary_targets"]["open_llm_lb_mean_rmse"]),
         acceptable_band=float(profile["acceptance"]["acceptable_mean_score_abs_delta"]),
         strong_band=float(profile["acceptance"]["strong_mean_score_abs_delta"]),
@@ -724,13 +960,13 @@ def build_comparison_payload(
     )
     strong_pass = (
         benchmark_strong_pass
-        and mean_proxy["comparable_to_published"] is True
-        and mean_proxy["within_strong_band"] is True
+        and mean_score_result["available"] is True
+        and mean_score_result["within_strong_band"] is True
     )
     acceptable_pass = (
         benchmark_acceptable_pass
-        and mean_proxy["comparable_to_published"] is True
-        and mean_proxy["within_acceptable_band"] is True
+        and mean_score_result["available"] is True
+        and mean_score_result["within_acceptable_band"] is True
     )
     overall_pass = strong_pass or acceptable_pass
     verdict_reasons: list[str] = []
@@ -747,8 +983,8 @@ def build_comparison_payload(
             f"mean absolute benchmark delta {mean_abs_delta:.3f} exceeded the acceptable "
             f"limit {acceptable_limit:.3f}"
         )
-    if mean_proxy["comparable_to_published"] is not True:
-        verdict_reasons.append(mean_proxy["reason"])
+    if mean_score_result["available"] is not True:
+        verdict_reasons.append(mean_score_result["reason"])
         overall_pass = False
         strong_pass = False
         acceptable_pass = False
@@ -768,7 +1004,12 @@ def build_comparison_payload(
         "published_mean_score_rmse": float(
             profile["published_primary_targets"]["open_llm_lb_mean_rmse"]
         ),
-        "mean_score_proxy": mean_proxy,
+        "mean_score_result": mean_score_result,
+        "previous_comparison_analysis": analyze_previous_comparison(
+            previous_comparison,
+            comparison_rows=rows,
+            current_mean_score_result=mean_score_result,
+        ),
         "strong_pass": strong_pass,
         "acceptable_pass": acceptable_pass,
         "overall_pass": overall_pass,
@@ -783,14 +1024,103 @@ def extract_metric(summary: pd.DataFrame, benchmark_id: str, metric: str) -> flo
     return float(rows.iloc[0][metric])
 
 
-def compute_mean_score_proxy(
+def compute_mean_score_result(
     *,
     run_root: Path,
-    benchmarks: list[str],
     published_target: float,
     acceptable_band: float,
     strong_band: float,
 ) -> dict[str, Any]:
+    report_path = (
+        run_root / "artifacts" / "09_reconstruct" / "grand_mean" / "grand_mean_report.json"
+    )
+    prediction_path = (
+        run_root / "artifacts" / "09_reconstruct" / "grand_mean" / "predictions.parquet"
+    )
+    if not report_path.exists() or not prediction_path.exists():
+        return {
+            "available": False,
+            "reason": "dedicated grand-mean reconstruction artifacts were not written",
+        }
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    if report.get("skipped"):
+        return {
+            "available": False,
+            "reason": report.get("skip_reason") or "grand-mean reconstruction was skipped",
+        }
+    predictions = pd.read_parquet(prediction_path)
+    test_rows = predictions.loc[predictions[SPLIT] == "test"].copy()
+    if test_rows.empty:
+        return {
+            "available": False,
+            "reason": "grand-mean reconstruction produced no held-out test rows",
+        }
+    rmse_value = float(report["metrics"]["test"][RMSE])
+    abs_delta = abs(rmse_value - published_target)
+    return {
+        "available": True,
+        "reason": "dedicated grand-mean GAM fit on fixed complete-overlap train/test models",
+        "row_count": int(len(test_rows.index)),
+        "rmse": rmse_value,
+        "absolute_delta": abs_delta,
+        "within_strong_band": abs_delta <= strong_band,
+        "within_acceptable_band": abs_delta <= acceptable_band,
+        "metrics": report["metrics"],
+    }
+
+
+def load_previous_comparison(*, reports_dir: Path) -> dict[str, Any] | None:
+    baseline_run_root = DEFAULT_OUT_DIR / BASELINE_RUN_ID
+    if baseline_run_root.exists():
+        summary_path = (
+            baseline_run_root / "artifacts" / "09_reconstruct" / "reconstruction_summary.parquet"
+        )
+        if summary_path.exists():
+            summary = pd.read_parquet(summary_path)
+            joint_test = summary.loc[
+                (summary[MODEL_TYPE] == "joint") & (summary[SPLIT] == "test")
+            ].copy()
+            previous = {
+                "joint_rmse_by_benchmark": {
+                    str(row[BENCHMARK_ID]): float(row[RMSE])
+                    for _, row in joint_test.iterrows()
+                    if pd.notna(row[RMSE])
+                }
+            }
+            legacy_mean_score = compute_legacy_mean_score_proxy_from_run_root(
+                run_root=baseline_run_root,
+                benchmarks=["arc", "gsm8k", "hellaswag", "mmlu", "truthfulqa", "winogrande"],
+            )
+            if legacy_mean_score is not None:
+                previous["mean_score_rmse"] = legacy_mean_score
+            return previous
+
+    comparison_csv = reports_dir / "metabench_real_data_comparison.csv"
+    comparison_md = reports_dir / "metabench_real_data_comparison.md"
+    if not comparison_csv.exists():
+        return None
+    frame = pd.read_csv(comparison_csv)
+    previous = {
+        "joint_rmse_by_benchmark": {
+            str(row["benchmark_id"]): float(row["benchiq_joint_rmse"])
+            for _, row in frame.iterrows()
+            if pd.notna(row.get("benchiq_joint_rmse"))
+        }
+    }
+    if comparison_md.exists():
+        text = comparison_md.read_text(encoding="utf-8")
+        match = re.search(
+            r"BenchIQ (?:derived mean-score proxy|dedicated grand-mean) RMSE: `([0-9.]+)`",
+            text,
+        )
+        if match is not None:
+            previous["mean_score_rmse"] = float(match.group(1))
+    return previous
+
+
+def compute_legacy_mean_score_proxy_from_run_root(
+    *, run_root: Path, benchmarks: list[str]
+) -> float | None:
     joined: pd.DataFrame | None = None
     for benchmark_id in benchmarks:
         prediction_path = (
@@ -801,17 +1131,15 @@ def compute_mean_score_proxy(
             / benchmark_id
             / "predictions.parquet"
         )
+        if not prediction_path.exists():
+            return None
         predictions = pd.read_parquet(prediction_path)
         joint_test = predictions.loc[
             (predictions[MODEL_TYPE] == "joint") & (predictions[SPLIT] == "test"),
             [MODEL_ID, ACTUAL_SCORE, PREDICTED_SCORE],
         ].copy()
         if joint_test.empty:
-            return {
-                "available": False,
-                "comparable_to_published": False,
-                "reason": f"joint predictions were unavailable for benchmark {benchmark_id}",
-            }
+            return None
         joint_test = joint_test.rename(
             columns={
                 ACTUAL_SCORE: f"actual_{benchmark_id}",
@@ -823,32 +1151,48 @@ def compute_mean_score_proxy(
         )
 
     if joined is None or joined.empty:
-        return {
-            "available": False,
-            "comparable_to_published": False,
-            "reason": "no complete-overlap joint test models were available for a mean-score proxy",
-        }
+        return None
+    actual_mean = joined[[f"actual_{benchmark_id}" for benchmark_id in benchmarks]].mean(axis=1)
+    predicted_mean = joined[[f"predicted_{benchmark_id}" for benchmark_id in benchmarks]].mean(
+        axis=1
+    )
+    return rmse(actual_mean.to_numpy(dtype=float), predicted_mean.to_numpy(dtype=float))
 
-    actual_columns = [f"actual_{benchmark_id}" for benchmark_id in benchmarks]
-    predicted_columns = [f"predicted_{benchmark_id}" for benchmark_id in benchmarks]
-    actual_mean = joined[actual_columns].mean(axis=1)
-    predicted_mean = joined[predicted_columns].mean(axis=1)
-    rmse = math.sqrt(float(((actual_mean - predicted_mean) ** 2).mean()))
-    abs_delta = abs(rmse - published_target)
-    return {
-        "available": True,
-        "comparable_to_published": False,
-        "reason": (
-            "BenchIQ v0.1 does not yet implement the published dedicated grand-mean GAM; "
-            "the value below is a derived proxy from joint benchmark predictions and is "
-            "reported for context only"
-        ),
-        "row_count": int(len(joined.index)),
-        "rmse": rmse,
-        "absolute_delta": abs_delta,
-        "within_strong_band": abs_delta <= strong_band,
-        "within_acceptable_band": abs_delta <= acceptable_band,
+
+def analyze_previous_comparison(
+    previous_comparison: dict[str, Any] | None,
+    *,
+    comparison_rows: list[dict[str, Any]],
+    current_mean_score_result: dict[str, Any],
+) -> dict[str, Any] | None:
+    if previous_comparison is None:
+        return None
+    previous_joint = previous_comparison.get("joint_rmse_by_benchmark", {})
+    if not previous_joint:
+        return None
+    previous_deltas: list[float] = []
+    current_deltas: list[float] = []
+    for row in comparison_rows:
+        benchmark_id = str(row["benchmark_id"])
+        if benchmark_id not in previous_joint or row["benchiq_joint_rmse"] is None:
+            continue
+        previous_deltas.append(
+            abs(float(previous_joint[benchmark_id]) - float(row["published_primary_target_rmse"]))
+        )
+        current_deltas.append(
+            abs(float(row["benchiq_joint_rmse"]) - float(row["published_primary_target_rmse"]))
+        )
+    if not previous_deltas or not current_deltas:
+        return None
+    analysis = {
+        "previous_mean_abs_delta": float(sum(previous_deltas) / len(previous_deltas)),
+        "current_mean_abs_delta": float(sum(current_deltas) / len(current_deltas)),
     }
+    if "mean_score_rmse" in previous_comparison:
+        analysis["previous_mean_score_rmse"] = float(previous_comparison["mean_score_rmse"])
+    if current_mean_score_result["available"]:
+        analysis["current_mean_score_rmse"] = float(current_mean_score_result["rmse"])
+    return analysis
 
 
 def write_comparison_bundle(
@@ -860,6 +1204,7 @@ def write_comparison_bundle(
     metadata_path: Path,
     run_root: Path,
     reports_dir: Path,
+    previous_comparison: dict[str, Any] | None,
 ) -> ComparisonArtifacts:
     comparison_csv = reports_dir / "metabench_real_data_comparison.csv"
     comparison_markdown = reports_dir / "metabench_real_data_comparison.md"
@@ -873,6 +1218,7 @@ def write_comparison_bundle(
             responses_path=responses_path,
             metadata_path=metadata_path,
             run_root=run_root,
+            previous_comparison=previous_comparison,
         ),
         encoding="utf-8",
     )
@@ -884,6 +1230,7 @@ def write_comparison_bundle(
             responses_path=responses_path,
             metadata_path=metadata_path,
             run_root=run_root,
+            previous_comparison=previous_comparison,
         ),
         encoding="utf-8",
     )
@@ -906,7 +1253,9 @@ def build_comparison_markdown(
     responses_path: Path,
     metadata_path: Path,
     run_root: Path,
+    previous_comparison: dict[str, Any] | None,
 ) -> str:
+    del previous_comparison
     lines = [
         "# metabench real-data comparison",
         "",
@@ -939,7 +1288,8 @@ def build_comparison_markdown(
             f"{row['public_release_default_subset_rmse']:.3f} | {marginal} | {joint} | "
             f"{delta} | {row['kept_item_count']} | {row['within_strong_band']} |"
         )
-    mean_proxy = comparison["mean_score_proxy"]
+
+    mean_score_result = comparison["mean_score_result"]
     lines.extend(
         [
             "",
@@ -951,18 +1301,47 @@ def build_comparison_markdown(
             ),
         ]
     )
-    if mean_proxy["available"]:
+    if mean_score_result["available"]:
         lines.extend(
             [
-                f"- BenchIQ derived mean-score proxy RMSE: `{mean_proxy['rmse']:.3f}`",
-                f"- proxy absolute delta: `{mean_proxy['absolute_delta']:.3f}`",
-                f"- proxy overlap models: `{mean_proxy['row_count']}`",
-                f"- proxy within ±0.05: `{mean_proxy['within_acceptable_band']}`",
+                f"- BenchIQ dedicated grand-mean RMSE: `{mean_score_result['rmse']:.3f}`",
+                f"- absolute delta: `{mean_score_result['absolute_delta']:.3f}`",
+                f"- overlap test models: `{mean_score_result['row_count']}`",
+                f"- within ±0.05: `{mean_score_result['within_acceptable_band']}`",
             ]
         )
     else:
-        lines.append("- BenchIQ derived mean-score proxy RMSE: `unavailable`")
-    lines.append(f"- note: {mean_proxy['reason']}")
+        lines.append("- BenchIQ dedicated grand-mean RMSE: `unavailable`")
+    lines.append(f"- note: {mean_score_result['reason']}")
+
+    previous_analysis = comparison["previous_comparison_analysis"]
+    if previous_analysis is not None:
+        lines.extend(
+            [
+                "",
+                "## parity-repair delta vs previous reviewer pass",
+                "",
+                (
+                    "- previous mean absolute benchmark delta: "
+                    f"`{previous_analysis['previous_mean_abs_delta']:.3f}`"
+                ),
+                (
+                    "- current mean absolute benchmark delta: "
+                    f"`{previous_analysis['current_mean_abs_delta']:.3f}`"
+                ),
+            ]
+        )
+        if "previous_mean_score_rmse" in previous_analysis and mean_score_result["available"]:
+            lines.extend(
+                [
+                    (
+                        "- previous mean-score rmse: "
+                        f"`{previous_analysis['previous_mean_score_rmse']:.3f}`"
+                    ),
+                    f"- current mean-score rmse: `{mean_score_result['rmse']:.3f}`",
+                ]
+            )
+
     lines.extend(
         [
             "",
@@ -984,7 +1363,9 @@ def build_notes_markdown(
     responses_path: Path,
     metadata_path: Path,
     run_root: Path,
+    previous_comparison: dict[str, Any] | None,
 ) -> str:
+    del previous_comparison
     release_mismatch_lines = []
     for row in comparison["rows"]:
         release_mismatch_lines.append(
@@ -992,6 +1373,33 @@ def build_notes_markdown(
             f"published target `{row['published_primary_target_rmse']:.3f}`, "
             f"release-default rmse.test `{row['public_release_default_subset_rmse']:.3f}`"
         )
+
+    mean_score_result = comparison["mean_score_result"]
+    previous_analysis = comparison["previous_comparison_analysis"]
+    previous_mean_abs_delta = (
+        None if previous_analysis is None else previous_analysis.get("previous_mean_abs_delta")
+    )
+    current_mean_abs_delta = comparison["mean_abs_delta"]
+    counts_materially_reduced = (
+        previous_mean_abs_delta is not None
+        and current_mean_abs_delta is not None
+        and current_mean_abs_delta < previous_mean_abs_delta
+    )
+    previous_mean_score_rmse = (
+        None if previous_analysis is None else previous_analysis.get("previous_mean_score_rmse")
+    )
+    grand_mean_material_change = (
+        previous_mean_score_rmse is not None
+        and mean_score_result["available"]
+        and abs(mean_score_result["rmse"] - previous_mean_score_rmse) >= 0.05
+    )
+
+    remaining_cause = (
+        "the frozen public snapshot exposes the release-default 350-item subsets but not the "
+        "released final item identities, so BenchIQ still has to reconstruct the final subset "
+        "with girth/pyGAM instead of replaying the original mirt/mgcv item path"
+    )
+
     lines = [
         "# metabench real-data notes",
         "",
@@ -1021,9 +1429,9 @@ def build_notes_markdown(
             "Python reconstruction stack on that real public split/subset."
         ),
         (
-            "- This is the strongest honest in-session comparison path because it "
-            "preserves the public selected items and held-out evaluation split while "
-            "staying computationally tractable."
+            "- This parity repair keeps the same frozen snapshot, preserves the public "
+            "fixed split/subset behavior, then applies the paper's published final kept-item "
+            "counts and a dedicated grand-mean GAM inside the validation harness."
         ),
         "",
         "## deviations from the original r metabench stack",
@@ -1031,21 +1439,21 @@ def build_notes_markdown(
         "- BenchIQ is not claiming bit-for-bit parity with the original r pipeline.",
         (
             "- The frozen public data unpacking step in this harness uses `Rscript` "
-            "to read the published `.rds` release artifacts. The downstream "
-            "modeling stages remain BenchIQ's Python-first path."
+            "to read the published `.rds` release artifacts. The downstream modeling "
+            "stages remain BenchIQ's Python-first path."
         ),
         (
-            "- Current BenchIQ therefore is **not** using only the Python-first "
-            "path for this validation harness; the import step depends on the "
-            "public r artifact format."
+            "- Current BenchIQ therefore is **not** using only the Python-first path "
+            "for this validation harness; the `.rds` import step is parity-specific, "
+            "but the downstream modeling remains BenchIQ's Python-first path."
         ),
         (
-            "- BenchIQ uses girth instead of mirt for 2PL fitting and pyGAM "
-            "instead of mgcv for reconstruction."
+            "- BenchIQ uses girth instead of mirt for 2PL fitting and pyGAM instead "
+            "of mgcv for reconstruction."
         ),
         (
-            "- BenchIQ v0.1 does not yet implement the published dedicated "
-            "grand-mean GAM for the Open LLM Leaderboard mean score."
+            "- The dedicated grand-mean GAM added here is parity-specific validation "
+            "logic in this script. It does not change BenchIQ's generic product identity."
         ),
         "",
         "## snapshot-to-target mismatch to know about",
@@ -1061,50 +1469,89 @@ def build_notes_markdown(
         ),
         *release_mismatch_lines,
         "",
-        "## likely explanations for any gap",
+        "## likely explanations for any remaining gap",
         "",
         "- pyGAM smoothing selection will not exactly match mgcv's spline path.",
         "- girth's 2PL estimation and pathology handling differ from mirt.",
         (
-            "- BenchIQ's mean-score comparison is only a proxy because the "
-            "dedicated grand-mean GAM is still missing."
+            "- The public snapshot does not expose the original post-IRT/final-selection "
+            "artifacts directly, so this harness still reconstructs the final selection "
+            "inside BenchIQ from the public 350-item release subset."
         ),
         (
-            "- The real-data comparison here starts from the public "
-            "release-default subset artifacts, not from a full raw "
-            "reimplementation of every upstream r decision."
+            "- The real-data comparison still does not replay every upstream r decision "
+            "from the raw archive; it is the closest tractable like-for-like public path."
         ),
         "",
-        "## acceptance outcome",
-        "",
-        f"- overall_pass: `{comparison['overall_pass']}`",
-        f"- strong_pass: `{comparison['strong_pass']}`",
-        f"- acceptable_pass: `{comparison['acceptable_pass']}`",
-        f"- verdict_reason: {comparison['verdict_reason']}",
-        "",
-        "## smallest optional parity path if this still misses",
+        "## direct answers for this parity repair",
         "",
         (
-            "- Add an optional parity-only validation mode that can call the "
-            "original r/mirt/mgcv stack, likely via `rpy2` or explicit Rscript "
-            "orchestration, without changing BenchIQ's product identity or "
-            "default Python-first path."
+            "- Did matching the published kept-item counts materially reduce the RMSE deltas? "
+            f"`{'yes' if counts_materially_reduced else 'no'}`"
         ),
-        "",
-        "## rerun command",
-        "",
-        (
-            "- `.venv/bin/python "
-            f"{REPO_ROOT / 'scripts' / 'run_metabench_real_data_comparison.py'} "
-            f"--out {run_root.parent} --run-id {run_root.name}`"
-        ),
-        "",
     ]
+    if previous_mean_abs_delta is not None and current_mean_abs_delta is not None:
+        lines.extend(
+            [
+                f"- previous mean absolute benchmark delta: `{previous_mean_abs_delta:.3f}`",
+                f"- current mean absolute benchmark delta: `{current_mean_abs_delta:.3f}`",
+            ]
+        )
+    lines.append(
+        (
+            "- Did adding the dedicated grand-mean path materially change the mean-score "
+            f"comparison? `{'yes' if grand_mean_material_change else 'no'}`"
+        )
+    )
+    if previous_mean_score_rmse is not None and mean_score_result["available"]:
+        lines.extend(
+            [
+                f"- previous mean-score rmse: `{previous_mean_score_rmse:.3f}`",
+                f"- current dedicated grand-mean rmse: `{mean_score_result['rmse']:.3f}`",
+            ]
+        )
+    lines.extend(
+        [
+            (
+                "- Is the remaining gap now small enough to claim acceptance-grade parity "
+                f"under the BenchIQ tolerance rule? `{comparison['overall_pass']}`"
+            ),
+            (
+                "- If not, what is the smallest remaining cause of mismatch? "
+                f"{remaining_cause if not comparison['overall_pass'] else 'none'}"
+            ),
+            "",
+            "## acceptance outcome",
+            "",
+            f"- overall_pass: `{comparison['overall_pass']}`",
+            f"- strong_pass: `{comparison['strong_pass']}`",
+            f"- acceptable_pass: `{comparison['acceptable_pass']}`",
+            f"- verdict_reason: {comparison['verdict_reason']}",
+            "",
+            "## smallest optional parity path if this still misses",
+            "",
+            (
+                "- Add the smallest optional parity backend needed to replay the final "
+                "mirt/mgcv behavior on the frozen snapshot, likely through an `rpy2` or "
+                "explicit Rscript-backed validation-only mode, without changing BenchIQ's "
+                "default Python-first product path."
+            ),
+            "",
+            "## rerun command",
+            "",
+            (
+                "- `.venv/bin/python "
+                f"{REPO_ROOT / 'scripts' / 'run_metabench_real_data_comparison.py'} "
+                f"--out {run_root.parent} --run-id {run_root.name}`"
+            ),
+            "",
+        ]
+    )
     return "\n".join(lines)
 
 
 def render_terminal_summary(comparison: dict[str, Any], artifacts: ComparisonArtifacts) -> str:
-    mean_proxy = comparison["mean_score_proxy"]
+    mean_score_result = comparison["mean_score_result"]
     lines = [
         "metabench real-data comparison completed",
         f"run location: {artifacts.run_root}",
@@ -1116,11 +1563,97 @@ def render_terminal_summary(comparison: dict[str, Any], artifacts: ComparisonArt
         f"acceptable pass: {comparison['acceptable_pass']}",
         f"mean absolute delta: {comparison['mean_abs_delta']}",
     ]
-    if mean_proxy["available"]:
-        lines.append(f"derived mean-score proxy rmse: {mean_proxy['rmse']:.3f}")
+    if mean_score_result["available"]:
+        lines.append(f"dedicated grand-mean rmse: {mean_score_result['rmse']:.3f}")
     else:
-        lines.append("derived mean-score proxy rmse: unavailable")
+        lines.append("dedicated grand-mean rmse: unavailable")
     return "\n".join(lines)
+
+
+def split_metrics(predictions: pd.DataFrame) -> dict[str, Any]:
+    if predictions.empty:
+        return {
+            RMSE: None,
+            MAE: None,
+            PEARSON_R: None,
+            SPEARMAN_R: None,
+            BASELINE_RMSE: None,
+            BASELINE_MAE: None,
+            ROW_COUNT: 0,
+        }
+    actual = predictions[ACTUAL_SCORE].astype(float).to_numpy()
+    predicted = predictions[PREDICTED_SCORE].astype(float).to_numpy()
+    baseline = predictions[BASELINE_PREDICTION].astype(float).to_numpy()
+    return {
+        RMSE: rmse(actual, predicted),
+        MAE: mae(actual, predicted),
+        PEARSON_R: correlation(actual, predicted, method="pearson"),
+        SPEARMAN_R: correlation(actual, predicted, method="spearman"),
+        BASELINE_RMSE: rmse(actual, baseline),
+        BASELINE_MAE: mae(actual, baseline),
+        ROW_COUNT: int(len(predictions.index)),
+    }
+
+
+def rmse(actual: np.ndarray, predicted: np.ndarray) -> float:
+    return float(np.sqrt(np.mean((predicted - actual) ** 2)))
+
+
+def mae(actual: np.ndarray, predicted: np.ndarray) -> float:
+    return float(np.mean(np.abs(predicted - actual)))
+
+
+def correlation(actual: np.ndarray, predicted: np.ndarray, *, method: str) -> float | None:
+    if actual.shape[0] < 2:
+        return None
+    if np.allclose(actual, actual[0]) or np.allclose(predicted, predicted[0]):
+        return None
+    if method == "pearson":
+        return float(pearsonr(actual, predicted).statistic)
+    return float(spearmanr(actual, predicted).statistic)
+
+
+def write_prediction_plots(predictions: pd.DataFrame, *, out_dir: Path) -> dict[str, Path]:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    if predictions.empty:
+        return {}
+
+    actual = predictions[ACTUAL_SCORE].astype(float)
+    min_value = float(actual.min())
+    max_value = float(actual.max())
+
+    calibration_path = out_dir / "calibration.png"
+    figure, axis = plt.subplots(figsize=(6, 4))
+    for split_name, split_frame in predictions.groupby(SPLIT, sort=True):
+        axis.scatter(
+            split_frame[ACTUAL_SCORE].astype(float),
+            split_frame[PREDICTED_SCORE].astype(float),
+            label=str(split_name),
+            alpha=0.8,
+        )
+    axis.plot([min_value, max_value], [min_value, max_value], color="black", linestyle="--")
+    axis.set_xlabel("actual mean score")
+    axis.set_ylabel("predicted mean score")
+    axis.set_title("grand-mean calibration")
+    axis.legend()
+    figure.tight_layout()
+    figure.savefig(calibration_path, dpi=150)
+    plt.close(figure)
+
+    residual_path = out_dir / "residual_histogram.png"
+    figure, axis = plt.subplots(figsize=(6, 4))
+    axis.hist(predictions[RESIDUAL].astype(float), bins=16, color="#4C72B0", alpha=0.85)
+    axis.set_xlabel("prediction residual")
+    axis.set_ylabel("count")
+    axis.set_title("grand-mean residual histogram")
+    figure.tight_layout()
+    figure.savefig(residual_path, dpi=150)
+    plt.close(figure)
+
+    return {
+        "calibration_plot": calibration_path,
+        "residual_histogram": residual_path,
+    }
 
 
 if __name__ == "__main__":

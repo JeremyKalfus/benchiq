@@ -34,6 +34,8 @@
 - T16 is complete: the deterministic `BenchIQRunner`, stage-level manifest records, partial rerun support, and synthetic full-pipeline integration coverage are in place.
 - T17 is complete: the artifact-first `benchiq validate` and `benchiq run` CLI commands, explicit validation failure exits, and CLI integration smoke coverage are in place.
 - T18 is complete: `benchiq metabench run`, the reduced metabench validation fixture, toleranced regression expectations, and validation-mode docs are in place.
+- Post-T18 real-data validation exists on the frozen primary Zenodo snapshot, but the first reviewer pass did not meet the parity acceptance rule.
+- The current pre-T19 work is intentionally limited to a parity-repair pass on that same snapshot: apply the paper's published kept-item counts, add a dedicated grand-mean validation GAM, and regenerate the reviewer bundle honestly.
 
 ## completed tickets
 
