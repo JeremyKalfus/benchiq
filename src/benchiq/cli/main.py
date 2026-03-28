@@ -10,6 +10,12 @@ from typing import Any
 
 import click
 
+from benchiq.cli.commands_metabench import (
+    DEFAULT_PROFILE,
+    render_metabench_failure,
+    render_metabench_success,
+    run_metabench_validation,
+)
 from benchiq.config import BenchIQConfig
 from benchiq.io import Bundle, load_bundle
 from benchiq.io.write import write_json
@@ -200,6 +206,90 @@ def run_command(
         raise click.ClickException(str(exc)) from exc
 
     click.echo(_render_run_success(run_result))
+
+
+@main.group("metabench")
+def metabench_group() -> None:
+    """Run strict metabench-validation workflows."""
+
+
+@metabench_group.command("run")
+@click.option(
+    "--responses",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help=(
+        "Optional local metabench-style responses_long csv/parquet. "
+        "Defaults to the bundled reduced fixture."
+    ),
+)
+@click.option(
+    "--items",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Optional local items table to pair with --responses.",
+)
+@click.option(
+    "--models",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Optional local models table to pair with --responses.",
+)
+@click.option(
+    "--expected",
+    "expected_path",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Optional expected-metrics json override.",
+)
+@click.option(
+    "--profile",
+    type=click.Choice(["reduced", "full"], case_sensitive=False),
+    default=DEFAULT_PROFILE,
+    show_default=True,
+    help=(
+        "Validation profile. Reduced is the bundled ci-sized fixture; "
+        "full is for manual local snapshots."
+    ),
+)
+@click.option(
+    "--out",
+    "out_dir",
+    type=click.Path(file_okay=False, path_type=Path),
+    required=True,
+    help="Explicit output directory for the metabench validation run.",
+)
+@click.option("--run-id", help="Optional explicit run id for stable output paths.")
+def metabench_run_command(
+    *,
+    responses: Path | None,
+    items: Path | None,
+    models: Path | None,
+    expected_path: Path | None,
+    profile: str,
+    out_dir: Path,
+    run_id: str | None,
+) -> None:
+    """Execute the strict metabench-validation harness."""
+
+    try:
+        result = run_metabench_validation(
+            out_dir=out_dir,
+            responses_path=responses,
+            items_path=items,
+            models_path=models,
+            expected_path=expected_path,
+            profile=profile.lower(),
+            run_id=run_id,
+        )
+    except SchemaValidationError as exc:
+        run_root = None if run_id is None else out_dir / run_id
+        click.echo(render_metabench_failure(exc, run_root=run_root), err=True)
+        raise click.exceptions.Exit(1) from exc
+    except Exception as exc:
+        fallback_root = None if run_id is None else out_dir / run_id
+        click.echo(render_metabench_failure(exc, run_root=fallback_root), err=True)
+        raise click.exceptions.Exit(1) from exc
+
+    click.echo(render_metabench_success(result))
+    if not result.validation_report["passed"]:
+        raise click.exceptions.Exit(1)
 
 
 @dataclass(slots=True, frozen=True)

@@ -1,0 +1,161 @@
+{
+  "fixture": "bundled_reduced_fixture_v1",
+  "note": "Reduced metabench-style fixture for CI. Exact artifact presence is required; reconstruction metrics use tolerances instead of exact parity.",
+  "required_artifacts": [
+    "manifest.json",
+    "reports/metabench_validation_report.json",
+    "reports/metabench_validation_summary.md",
+    "artifacts/00_canonical/responses_long.parquet",
+    "artifacts/01_preprocess/summary.parquet",
+    "artifacts/03_splits/split_report.json",
+    "artifacts/04_subsample/per_benchmark/b1/preselect_items.parquet",
+    "artifacts/04_subsample/per_benchmark/b1/cv_results.parquet",
+    "artifacts/08_features/features_marginal.parquet",
+    "artifacts/08_features/features_joint.parquet",
+    "artifacts/09_reconstruct/per_benchmark/b1/predictions.parquet",
+    "artifacts/09_reconstruct/reconstruction_report.json"
+  ],
+  "metric_tolerances": {
+    "preprocess_retained_items_by_benchmark": {
+      "b1": {
+        "target": 7,
+        "abs_tolerance": 0
+      },
+      "b2": {
+        "target": 7,
+        "abs_tolerance": 0
+      },
+      "b3": {
+        "target": 7,
+        "abs_tolerance": 0
+      }
+    },
+    "global_test_enabled": {
+      "target": true
+    },
+    "global_test_model_count": {
+      "target": 6,
+      "abs_tolerance": 0
+    },
+    "split_counts_by_benchmark": {
+      "b1": {
+        "train": {
+          "target": 48,
+          "abs_tolerance": 0
+        },
+        "val": {
+          "target": 6,
+          "abs_tolerance": 0
+        },
+        "test": {
+          "target": 6,
+          "abs_tolerance": 0
+        }
+      },
+      "b2": {
+        "train": {
+          "target": 48,
+          "abs_tolerance": 0
+        },
+        "val": {
+          "target": 6,
+          "abs_tolerance": 0
+        },
+        "test": {
+          "target": 6,
+          "abs_tolerance": 0
+        }
+      },
+      "b3": {
+        "train": {
+          "target": 48,
+          "abs_tolerance": 0
+        },
+        "val": {
+          "target": 6,
+          "abs_tolerance": 0
+        },
+        "test": {
+          "target": 6,
+          "abs_tolerance": 0
+        }
+      }
+    },
+    "subsample_preselect_count_by_benchmark": {
+      "b1": {
+        "target": 4,
+        "abs_tolerance": 0
+      },
+      "b2": {
+        "target": 4,
+        "abs_tolerance": 0
+      },
+      "b3": {
+        "target": 4,
+        "abs_tolerance": 0
+      }
+    },
+    "subsample_cv_rows_by_benchmark": {
+      "b1": {
+        "target": 40,
+        "abs_tolerance": 0
+      },
+      "b2": {
+        "target": 40,
+        "abs_tolerance": 0
+      },
+      "b3": {
+        "target": 40,
+        "abs_tolerance": 0
+      }
+    },
+    "feature_columns": {
+      "marginal_has_theta": {
+        "target": true
+      },
+      "marginal_has_theta_se": {
+        "target": true
+      },
+      "marginal_has_reduced_subscore": {
+        "target": true
+      },
+      "marginal_has_linear_prediction": {
+        "target": true
+      },
+      "joint_has_grand_sub": {
+        "target": true
+      },
+      "joint_has_grand_lin": {
+        "target": true
+      }
+    },
+    "reconstruction_marginal_test_rmse_by_benchmark": {
+      "b1": {
+        "target": 18.30675127166344,
+        "abs_tolerance": 1.0
+      },
+      "b2": {
+        "target": 10.25952467566885,
+        "abs_tolerance": 1.0
+      },
+      "b3": {
+        "target": 9.240458969351506,
+        "abs_tolerance": 1.0
+      }
+    },
+    "reconstruction_joint_test_rmse_by_benchmark": {
+      "b1": {
+        "target": 19.215824168224074,
+        "abs_tolerance": 1.0
+      },
+      "b2": {
+        "target": 11.553742349843908,
+        "abs_tolerance": 1.0
+      },
+      "b3": {
+        "target": 10.557819655287728,
+        "abs_tolerance": 1.0
+      }
+    }
+  }
+}
