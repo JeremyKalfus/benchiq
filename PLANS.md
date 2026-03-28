@@ -32,6 +32,7 @@
 - T14 is complete: marginal and overlap-gated joint GAM reconstruction, prediction/residual artifacts, summary metrics, and explicit joint-skip reporting are in place with unit coverage.
 - T15 is complete: benchmark-level theta/score correlations, overlap-gated factor analysis, cross-only compressibility metrics, and stage-10 redundancy artifacts are in place with unit coverage.
 - T16 is complete: the deterministic `BenchIQRunner`, stage-level manifest records, partial rerun support, and synthetic full-pipeline integration coverage are in place.
+- T17 is complete: the artifact-first `benchiq validate` and `benchiq run` CLI commands, explicit validation failure exits, and CLI integration smoke coverage are in place.
 
 ## completed tickets
 
@@ -51,6 +52,7 @@
 - T14 GAM-based score reconstruction
 - T15 benchmark-level redundancy and compressibility analysis
 - T16 runner orchestration and stage manifests
+- T17 artifact-first cli
 
 ## ticket order
 
