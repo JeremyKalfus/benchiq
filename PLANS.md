@@ -387,6 +387,27 @@ Blockers:
 - dataset licensing, size, or availability constraints
 - performance limits for full metabench runs in ci
 
+### Post-T18 real-data metabench validation pass
+
+Depends on: T18
+
+Scope:
+- freeze one public metabench paper snapshot with exact hashes
+- add one full-profile manual validation config separate from the reduced ci fixture
+- run the strongest feasible frozen-snapshot comparison path, using the public release-default subset view when the raw snapshot is too large for an in-session full python-only pass
+- write a reviewer-ready comparison bundle with explicit pass/fail criteria and caveats
+
+Acceptance criteria:
+- the exact public source, snapshot, and hashes are recorded on disk
+- one reproducible command or script reruns the same frozen-source comparison
+- any fallback from the raw full snapshot to a public release-artifact path is explicit and justified
+- comparison outputs include benchmark rmse deltas, kept item counts, tolerance-band checks, and an honest overall verdict
+
+Blockers:
+- local runtime or memory limits on the full public snapshot
+- the frozen paper snapshot exposes public `*.rds` release artifacts more tractably than the full ~153M-row raw csv bundle for this focused reviewer pass
+- methodological gaps versus the original r stack that BenchIQ does not yet implement
+
 ### T19 docs, examples, and reproducibility pass
 
 Depends on: T18

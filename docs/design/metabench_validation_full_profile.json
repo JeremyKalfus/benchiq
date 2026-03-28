@@ -1,0 +1,119 @@
+{
+  "name": "metabench_full_profile_v1",
+  "profile": "full",
+  "strict_validation_mode": true,
+  "manual_real_data_note": "for the focused real-data reviewer pass, the primary Zenodo snapshot is frozen exactly, then the public release-default `*-sub.rds` artifacts are exported and compared downstream because the full raw snapshot is too large for an in-session pure-python rerun",
+  "source": {
+    "label": "metabench - Paper Data",
+    "release_tier": "primary",
+    "record_id": 12819251,
+    "doi": "10.5281/zenodo.12819251",
+    "publication_date": "2024-07-25",
+    "archive_name": "data.tgz",
+    "archive_url": "https://zenodo.org/api/records/12819251/files/data.tgz/content",
+    "archive_md5": "9f2d5d6bbf6cf730494e0c29507850c7",
+    "archive_sha256": "24de1a3f387ee3787c163981e8ea6bb441f625e4f173158cc6a4316d06f8283e"
+  },
+  "source_view": {
+    "kind": "public_release_default_subset_rds",
+    "description": "fixed public selected subsets and train/test splits exported from the primary Zenodo paper snapshot",
+    "requires_rscript_export": true,
+    "members": [
+      "benchmark-data/arc-sub.rds",
+      "benchmark-data/gsm8k-sub.rds",
+      "benchmark-data/hellaswag-sub.rds",
+      "benchmark-data/mmlu-sub.rds",
+      "benchmark-data/truthfulqa-sub.rds",
+      "benchmark-data/winogrande-sub.rds"
+    ]
+  },
+  "benchmarks": [
+    "arc",
+    "gsm8k",
+    "hellaswag",
+    "mmlu",
+    "truthfulqa",
+    "winogrande"
+  ],
+  "config": {
+    "allow_low_n": false,
+    "drop_low_tail_models_quantile": 0.001,
+    "min_item_sd": 0.01,
+    "max_item_mean": 0.95,
+    "min_abs_point_biserial": 0.05,
+    "min_models_per_benchmark": 100,
+    "warn_models_per_benchmark": 200,
+    "min_items_after_filtering": 50,
+    "min_models_per_item": 50,
+    "min_item_coverage": 0.8,
+    "min_overlap_models_for_joint": 75,
+    "min_overlap_models_for_redundancy": 75,
+    "p_test": 0.1,
+    "p_val": 0.1,
+    "n_strata_bins": 10,
+    "random_seed": 7
+  },
+  "stage_options": {
+    "04_subsample": {
+      "k_preselect": 350,
+      "n_iter": 10000,
+      "cv_folds": 5,
+      "checkpoint_interval": 50,
+      "lam_grid": [
+        0.1,
+        1.0
+      ]
+    },
+    "05_irt": {
+      "backend_options": null
+    },
+    "06_select": {
+      "k_final": 250,
+      "n_bins": 250,
+      "theta_grid_size": 251
+    },
+    "07_theta": {
+      "theta_method": "MAP",
+      "theta_grid_size": 251
+    },
+    "09_reconstruct": {
+      "lam_grid": [
+        0.1,
+        1.0
+      ],
+      "cv_folds": 5,
+      "n_splines": 10
+    },
+    "10_redundancy": {
+      "lam_grid": [
+        0.1,
+        1.0
+      ],
+      "cv_folds": 5,
+      "n_splines": 10,
+      "n_factors_to_try": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  "published_primary_targets": {
+    "joint_test_rmse_by_benchmark": {
+      "arc": 1.166,
+      "gsm8k": 1.555,
+      "hellaswag": 0.999,
+      "mmlu": 1.43,
+      "truthfulqa": 1.104,
+      "winogrande": 1.195
+    },
+    "open_llm_lb_mean_rmse": 0.582
+  },
+  "acceptance": {
+    "strong_per_benchmark_abs_delta": 0.1,
+    "strong_mean_score_abs_delta": 0.05,
+    "acceptable_benchmark_mean_abs_delta": 0.15,
+    "acceptable_mean_score_abs_delta": 0.05,
+    "mean_score_metric_note": "published metabench reports Open LLM Leaderboard mean-score RMSE=0.582; BenchIQ v0.1 does not yet implement a dedicated grand-mean reconstruction GAM, so any derived mean-score comparison is a proxy"
+  }
+}
