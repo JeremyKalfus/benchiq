@@ -1,62 +1,129 @@
-# metabench validation mode
+# metabench Validation Mode
 
-BenchIQ is a generic benchmark-bundle distillation tool. Metabench is the
-methodological validation harness for v0.1, not the product identity.
+BenchIQ ships a strict metabench-validation harness. This exists to validate the methodology against a public reference case. It does not redefine BenchIQ as a metabench-only product.
 
-## command surface
+## Two Validation Paths
 
-Use the validation harness through:
+### 1. Reduced bundled fixture
 
-```bash
-benchiq metabench run --out /path/to/out
-```
+This is the regression path used in tests and quick local checks.
 
-That default command uses the bundled reduced fixture at
-`tests/data/metabench_validation/responses_long.csv` and the pinned tolerance
-file at `tests/regression/expected/metabench_metrics.json`.
-
-## reduced fixture vs full snapshot
-
-The repository does not ship the full metabench snapshot in CI because of size
-and runtime cost. v0.1 therefore provides two validation profiles:
-
-- `reduced`:
-  - the default bundled fixture for CI and contributor smoke validation
-  - keeps metabench-style preprocessing thresholds
-  - keeps the global grand-mean-stratified split logic and 5-fold subsampling
-  - scales sample-size-dependent settings down so the fixture remains runnable
-- `full`:
-  - intended for a manually supplied local snapshot
-  - keeps the larger metabench-style budgets such as `k_preselect=350`
-  - is documented for local use, not exercised in CI
-
-Run the full profile with a local snapshot like this:
+Command:
 
 ```bash
-benchiq metabench run \
-  --profile full \
-  --responses /path/to/metabench/responses_long.csv \
-  --items /path/to/metabench/items.csv \
-  --models /path/to/metabench/models.csv \
-  --out /path/to/out
+benchiq metabench run --out out/metabench_docs_example
 ```
 
-## what the validation report checks
+Default inputs:
 
-The metabench validation report is written to
-`reports/metabench_validation_report.json` inside the run directory. It records:
+- fixture: [`tests/data/metabench_validation/responses_long.csv`](../../tests/data/metabench_validation/responses_long.csv)
+- expected metrics: [`tests/regression/expected/metabench_metrics.json`](../../tests/regression/expected/metabench_metrics.json)
+- default run id: `metabench-validation`
 
-- fixture source and profile
-- resolved strict validation preset
-- required artifact existence checks
-- toleranced regression checks for:
-  - preprocessing retained-item counts
-  - global test split enablement and counts
-  - subsampling structure (`k_preselect` outcome and cv row counts)
-  - reconstruction RMSE by benchmark
-  - presence of metabench-style reconstruction features:
-    `theta_b`, `theta_se_b`, `sub_b`, `lin_b`, `grand_sub`, and `grand_lin`
-- run warnings and final pass/fail status
+This path is strict about:
 
-The reduced fixture expects comparable behavior and metric scale, not exact R
-parity against metabench’s original code.
+- artifact existence
+- preprocessing structure
+- split structure
+- subsampling structure
+- feature presence
+- reconstruction tolerances
+
+### 2. Full manual profile
+
+This is the manual profile for local real-data validation work.
+
+Profile reference:
+
+- [`docs/design/metabench_validation_full_profile.json`](metabench_validation_full_profile.json)
+
+The full profile documents:
+
+- frozen public snapshot source and hashes
+- published kept-item counts used in the parity-focused comparison
+- validation-only notes about the real-data harness
+- acceptance thresholds for the reviewer comparison
+
+The built-in CLI profile can be invoked with:
+
+```bash
+benchiq metabench run --profile full --out out/metabench_full_manual
+```
+
+The current real-data reviewer pass uses a dedicated reproducible script instead of a pure CLI rerun because the frozen public release path requires parity-specific export and comparison logic around public `.rds` artifacts.
+
+## Real-Data Reviewer Bundle
+
+Frozen public snapshot:
+
+- primary source: Zenodo paper data
+- DOI: `10.5281/zenodo.12819251`
+- record id: `12819251`
+- archive SHA256: `24de1a3f387ee3787c163981e8ea6bb441f625e4f173158cc6a4316d06f8283e`
+
+Current reviewer bundle:
+
+- comparison table: [`reports/metabench_real_data_comparison.csv`](../../reports/metabench_real_data_comparison.csv)
+- comparison summary: [`reports/metabench_real_data_comparison.md`](../../reports/metabench_real_data_comparison.md)
+- detailed notes: [`reports/metabench_real_data_notes.md`](../../reports/metabench_real_data_notes.md)
+- rerun script: [`scripts/run_metabench_real_data_comparison.py`](../../scripts/run_metabench_real_data_comparison.py)
+
+Current status, stated plainly:
+
+> BenchIQ has real-data evidence of methodological alignment on a frozen public metabench snapshot, but the current Python-first path does not yet achieve acceptance-grade metabench parity under the current tolerance rule.
+
+## What `benchiq metabench run` Writes
+
+The command writes a normal BenchIQ run directory plus validation reports.
+
+Important outputs:
+
+- `manifest.json`
+- `artifacts/00_canonical/...`
+- `artifacts/09_reconstruct/...`
+- `artifacts/10_redundancy/...`
+- `reports/metabench_validation_report.json`
+- `reports/metabench_validation_summary.md`
+
+The validation report includes:
+
+- profile and fixture metadata
+- expected metrics source
+- artifact checks
+- metric checks and tolerances
+- pass/fail verdict
+- warnings
+- run-root location
+
+## Why the Real-Data Comparison Is Not Yet a Pass
+
+The current Python-first path still differs from the published R stack in several places:
+
+- `girth` instead of `mirt`
+- `pyGAM` instead of `mgcv`
+- the frozen public release does not expose the original final selected item identities directly
+- the parity harness therefore still has to reconstruct final selections inside BenchIQ
+
+Those notes are documented in [`reports/metabench_real_data_notes.md`](../../reports/metabench_real_data_notes.md). BenchIQ does not claim exact bit-for-bit parity.
+
+## Reproducible Commands
+
+Reduced fixture regression:
+
+```bash
+benchiq metabench run --out out/metabench_docs_example
+```
+
+Frozen real-data comparison bundle:
+
+```bash
+.venv/bin/python scripts/run_metabench_real_data_comparison.py \
+  --out out/metabench_real_validation \
+  --run-id metabench-real-zenodo-12819251-parity
+```
+
+This script regenerates:
+
+- `reports/metabench_real_data_comparison.md`
+- `reports/metabench_real_data_comparison.csv`
+- `reports/metabench_real_data_notes.md`

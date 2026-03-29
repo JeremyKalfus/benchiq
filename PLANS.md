@@ -415,9 +415,10 @@ Blockers:
 Depends on: T18
 
 Scope:
-- finish `README.md`, `docs/design/schema.md`, `docs/design/v0_1_scope.md`, `docs/design/metabench_validation.md`, and `docs/cli.md`
+- finish `README.md`, `docs/design/schema.md`, `docs/design/v0_1_scope.md`, `docs/design/metabench_validation.md`, `docs/cli.md`, and `docs/contributing.md`
 - document artifact layouts, failure modes, config examples, and contributor workflow
 - add a tiny synthetic example bundle and an end-to-end example command sequence
+- document the frozen real-data metabench reviewer bundle honestly, including the current non-parity verdict
 
 Acceptance criteria:
 - a new contributor can install the package, run the synthetic example, and understand the emitted artifacts

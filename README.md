@@ -1,23 +1,204 @@
 # BenchIQ
 
-BenchIQ is an artifact-first python workflow for llm benchmark distillation and overlap analysis on user-provided item-level response data.
+BenchIQ is an artifact-first python workflow for benchmark-bundle distillation, score reconstruction, and overlap analysis from item-level model response data.
 
-The source of truth for v0.1 scope and methodology is [docs/specs/benchiq_v0_1_spec.md](/Users/jeremykalfus/CodingProjects/BenchIQ/docs/specs/benchiq_v0_1_spec.md).
+BenchIQ is for users who have many model, checkpoint, or prompt-template runs across multiple benchmarks and want to:
 
-## status
+- compress each benchmark to a smaller retained item set
+- reconstruct full-benchmark scores from reduced subsets
+- measure overlap, redundancy, and compressibility across benchmarks
+- inspect every stage on disk instead of treating the pipeline as a black box
 
-T01 through T09 are complete on the current working tree. The project now has the package scaffold, schema/config validation, stage-00 canonicalization, stage-01 preprocessing filters, stage-02 score artifacts, stage-03 model-level split artifacts, the reusable `pygam` backend with RMSE-based cross-validation helpers, stage-04 random-CV subsampling artifacts, and stage-05 `girth`-backed 2PL IRT artifacts in place. T10 Fisher-information selection work has not started.
+BenchIQ is not a hosted platform, not a metabench-only reproduction, and not a general psychometrics framework. metabench is the methodological validation harness, not the product identity.
 
-## canonical commands
+The locked v0.1 source of truth remains [`docs/specs/benchiq_v0_1_spec.md`](docs/specs/benchiq_v0_1_spec.md).
 
-- install: `python -m pip install -e '.[dev]'`
-- build: `python -m build`
-- test: `pytest`
-- lint: `ruff check .`
-- format check: `ruff format --check .`
+## Current Status
 
-## contributor notes
+BenchIQ v0.1 is implemented end to end through:
 
-- follow [AGENTS.md](/Users/jeremykalfus/CodingProjects/BenchIQ/AGENTS.md)
-- follow [PLANS.md](/Users/jeremykalfus/CodingProjects/BenchIQ/PLANS.md)
-- keep changes ticket-sized and test after every ticket
+- canonical bundle loading and schema validation
+- benchmark-wise preprocessing and score-table construction
+- model-level train/validation/test splits
+- cross-validated random preselection
+- benchmark-specific 2PL IRT fitting
+- Fisher-information final item selection
+- theta estimation with uncertainty
+- linear predictors, feature tables, GAM reconstruction, and redundancy analysis
+- artifact-first python API and CLI
+- metabench validation mode and a frozen real-data reviewer bundle
+
+Honest metabench-validation status:
+
+> BenchIQ has real-data evidence of methodological alignment on a frozen public metabench snapshot, but the current Python-first path does not yet achieve acceptance-grade metabench parity under the current tolerance rule.
+
+The reviewer bundle and comparison reports live in:
+
+- [`reports/metabench_real_data_comparison.md`](reports/metabench_real_data_comparison.md)
+- [`reports/metabench_real_data_comparison.csv`](reports/metabench_real_data_comparison.csv)
+- [`reports/metabench_real_data_notes.md`](reports/metabench_real_data_notes.md)
+- [`scripts/run_metabench_real_data_comparison.py`](scripts/run_metabench_real_data_comparison.py)
+
+## What BenchIQ Expects
+
+BenchIQ requires a canonical `responses_long` table. `items` and `models` are optional and can be derived when omitted.
+
+Required `responses_long` columns:
+
+- `model_id`
+- `benchmark_id`
+- `item_id`
+- `score`
+
+Rules:
+
+- `score` must be binary item correctness in `{0, 1}`; missing values are allowed
+- `model_id`, `benchmark_id`, and `item_id` are required key fields and must be non-null
+- inputs may be `.csv` or `.parquet`
+- the canonical internal representation is always long-format item responses
+
+See [`docs/design/schema.md`](docs/design/schema.md) for the exact table contract.
+
+## Main Workflow
+
+BenchIQ keeps every stage inspectable on disk:
+
+1. validate and canonicalize the bundle
+2. preprocess items benchmark-wise
+3. compute full scores and grand-overlap summaries
+4. split models into train, validation, and test
+5. subsample candidate reduced item sets
+6. fit benchmark-local 2PL IRT
+7. select final items with Fisher information
+8. estimate theta and reduced features
+9. reconstruct full scores with GAMs
+10. analyze redundancy and compressibility across benchmarks
+
+## Generic Bundle Mode vs metabench Validation Mode
+
+Generic bundle mode is the product path:
+
+- you provide item-level responses from your own benchmark bundle
+- BenchIQ writes a full run directory with stage artifacts under your chosen output root
+
+metabench validation mode is the methodological harness:
+
+- it runs a strict preset against the bundled reduced fixture or a manual full-profile setup
+- it checks artifact existence and metric tolerances
+- it documents where the Python-first path still differs from acceptance-grade metabench parity
+
+See [`docs/design/metabench_validation.md`](docs/design/metabench_validation.md) for the frozen snapshot, reduced fixture, full manual profile, and reviewer-bundle rerun path.
+
+## Tiny End-to-End Example
+
+The repo includes one tiny synthetic example bundle:
+
+- responses: [`tests/data/tiny_example/responses_long.csv`](tests/data/tiny_example/responses_long.csv)
+- config: [`tests/data/tiny_example/config.json`](tests/data/tiny_example/config.json)
+
+Validate only:
+
+```bash
+benchiq validate \
+  --responses tests/data/tiny_example/responses_long.csv \
+  --config tests/data/tiny_example/config.json \
+  --out out/tiny_example_docs
+```
+
+Run the full pipeline:
+
+```bash
+benchiq run \
+  --responses tests/data/tiny_example/responses_long.csv \
+  --config tests/data/tiny_example/config.json \
+  --out out/tiny_example_docs \
+  --run-id tiny-example
+```
+
+Run strict metabench validation on the bundled reduced fixture:
+
+```bash
+benchiq metabench run \
+  --out out/metabench_docs_example
+```
+
+The commands above write to:
+
+- `out/tiny_example_docs/validate/`
+- `out/tiny_example_docs/tiny-example/`
+- `out/metabench_docs_example/metabench-validation/`
+
+Useful artifacts to inspect after the example run:
+
+```bash
+python -m json.tool out/tiny_example_docs/tiny-example/manifest.json | head -40
+python -m json.tool out/tiny_example_docs/tiny-example/reports/metrics.json | head -80
+ls out/tiny_example_docs/tiny-example/artifacts/06_select/per_benchmark/b1
+ls out/tiny_example_docs/tiny-example/artifacts/09_reconstruct/per_benchmark/b1
+```
+
+## Artifact-First Layout
+
+Every run root contains:
+
+- `manifest.json`: resolved config, source hashes, artifact index, stage records
+- `artifacts/`: stage directories with parquet/json outputs
+- `reports/`: top-level summaries, warnings, validation reports, and comparison notes
+- `plots/` inside stage directories when a stage emits images
+
+Typical stage layout:
+
+- `artifacts/00_canonical/`: canonical tables and canonicalization report
+- `artifacts/01_preprocess/`: per-benchmark filter stats, refusal reasons, and retained-item summaries
+- `artifacts/06_select/`: final selected subsets and selection reports
+- `artifacts/09_reconstruct/`: predictions, residuals, metrics, plots, and reconstruction summaries
+- `artifacts/10_redundancy/`: correlation tables, factor-analysis outputs, compressibility tables, and plots
+
+Warnings, refusal reasons, and skipped stages are first-class artifacts. BenchIQ does not silently fall back.
+
+See [`docs/cli.md`](docs/cli.md) for command-specific paths and [`docs/design/schema.md`](docs/design/schema.md) for table/report objects.
+
+## How a Real User Would Use BenchIQ
+
+A realistic BenchIQ workflow looks like this:
+
+- train or fine-tune many models, checkpoints, prompts, or decoding variants across several benchmarks
+- score them at the item level and export one `responses_long` table
+- run BenchIQ to select reduced benchmark subsets, estimate latent ability, reconstruct full scores, and analyze redundancy
+- use the retained subsets for faster repeated checkpoint evaluation while preserving a calibrated link back to the full benchmark scores
+
+BenchIQ is not useful for a single model evaluated once on one benchmark. It becomes useful when you have enough model variation to support model-level splitting, reconstruction, and overlap analysis.
+
+## Docs
+
+- scope: [`docs/design/v0_1_scope.md`](docs/design/v0_1_scope.md)
+- schema: [`docs/design/schema.md`](docs/design/schema.md)
+- CLI usage: [`docs/cli.md`](docs/cli.md)
+- metabench validation: [`docs/design/metabench_validation.md`](docs/design/metabench_validation.md)
+- contributing and reproducibility: [`docs/contributing.md`](docs/contributing.md)
+
+## Install and Verify
+
+Canonical commands:
+
+```bash
+python -m pip install -e '.[dev]'
+ruff check .
+ruff format --check .
+pytest
+python -m build
+```
+
+After install, the supported CLI entrypoints are:
+
+```bash
+benchiq ...
+python -m benchiq.cli ...
+```
+
+## Known Limitations
+
+- BenchIQ v0.1 supports binary item scores only.
+- The Python-first path does not yet achieve acceptance-grade metabench parity on the frozen public snapshot.
+- The real-data parity comparison currently relies on a validation-only harness around public release artifacts rather than a fully replayed exact-R stack.
+- BenchIQ is designed for inspectable local runs, not dashboards or hosted orchestration.

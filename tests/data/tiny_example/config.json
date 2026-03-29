@@ -1,0 +1,53 @@
+{
+  "config": {
+    "allow_low_n": true,
+    "max_item_mean": 0.99,
+    "min_abs_point_biserial": 0.0,
+    "min_models_per_benchmark": 15,
+    "warn_models_per_benchmark": 20,
+    "min_items_after_filtering": 5,
+    "min_models_per_item": 10,
+    "min_overlap_models_for_joint": 15,
+    "min_overlap_models_for_redundancy": 15,
+    "random_seed": 7
+  },
+  "stage_options": {
+    "04_subsample": {
+      "k_preselect": 4,
+      "n_iter": 4,
+      "cv_folds": 3,
+      "checkpoint_interval": 2,
+      "lam_grid": [
+        0.1,
+        1.0
+      ]
+    },
+    "06_select": {
+      "k_final": 3,
+      "theta_grid_size": 101
+    },
+    "07_theta": {
+      "theta_grid_size": 81
+    },
+    "09_reconstruct": {
+      "lam_grid": [
+        0.1,
+        1.0
+      ],
+      "cv_folds": 3,
+      "n_splines": 5
+    },
+    "10_redundancy": {
+      "lam_grid": [
+        0.1,
+        1.0
+      ],
+      "cv_folds": 3,
+      "n_splines": 5,
+      "n_factors_to_try": [
+        1,
+        2
+      ]
+    }
+  }
+}
