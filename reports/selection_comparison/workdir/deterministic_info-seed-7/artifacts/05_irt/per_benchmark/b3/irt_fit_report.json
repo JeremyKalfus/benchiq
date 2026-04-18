@@ -1,0 +1,78 @@
+{
+  "artifacts": {
+    "dropped_pathological_items_written": false,
+    "item_parameter_scatter": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b3/plots/item_parameter_scatter.png",
+    "plots_reason": null,
+    "plots_written": true
+  },
+  "backend_options": {},
+  "benchmark_id": "b3",
+  "convergence": {
+    "backend_exposes_flag": false,
+    "max_iteration": null,
+    "status": null,
+    "status_available": false,
+    "warning_code": "backend_convergence_status_unavailable"
+  },
+  "counts": {
+    "missing_response_count": 0,
+    "pathology_excluded_count": 0,
+    "pathology_warning_count": 1,
+    "preselect_item_count": 4,
+    "retained_item_count": 4,
+    "train_model_count": 48,
+    "valid_response_count": 192
+  },
+  "fit_metrics": {
+    "ability_mean": 0.0019896695289290897,
+    "ability_sd": 0.8628561843014493,
+    "aic": {
+      "delta": 0.0,
+      "final": 197.66428414747196,
+      "null": 197.66428414747196
+    },
+    "bic": {
+      "delta": 0.0,
+      "final": 197.66428414747196,
+      "null": 197.66428414747196
+    },
+    "runtime_seconds": 0.051433667074888945
+  },
+  "generated_at": "2026-04-17T23:35:51.403528+00:00",
+  "irt_backend": "girth",
+  "model": "2pl",
+  "pathology": {
+    "excluded_item_ids": [],
+    "excluded_items": [],
+    "exclusion_is_data_dependent": true,
+    "exclusion_note": "real-backend pathological exclusion is data-dependent and may be absent on well-behaved fixtures",
+    "exclusion_thresholds": {
+      "difficulty_must_be_finite": true,
+      "discrimination_max": 10.0,
+      "discrimination_min": 0.05
+    },
+    "retained_item_ids": [
+      "b3_item_2",
+      "b3_item_4",
+      "b3_item_5",
+      "b3_item_7"
+    ],
+    "warning_item_ids": [
+      "b3_item_2"
+    ],
+    "warning_thresholds": {
+      "discrimination_max": 5.0,
+      "discrimination_min": 0.1
+    }
+  },
+  "skipped": false,
+  "skipped_reason": null,
+  "warnings": [
+    {
+      "code": "backend_convergence_status_unavailable",
+      "limitation": true,
+      "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+      "severity": "warning"
+    }
+  ]
+}

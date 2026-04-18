@@ -1,0 +1,45 @@
+{
+  "artifacts": {
+    "expected_test_information_plot": "reports/selection_comparison/workdir/random_cv-seed-7/artifacts/06_select/per_benchmark/b2/plots/expected_test_information.png",
+    "plots_reason": null,
+    "plots_written": true
+  },
+  "benchmark_id": "b2",
+  "counts": {
+    "candidate_item_count": 4,
+    "info_grid_row_count": 404,
+    "selected_item_count": 3
+  },
+  "expected_test_information": {
+    "full_sum_max": 3.514472218713273,
+    "reduced_sum_max": 2.9154739588901353
+  },
+  "generated_at": "2026-04-17T23:35:44.097857+00:00",
+  "parameters": {
+    "effective_k_final": 3,
+    "info_min": 0.0,
+    "n_bins": 3,
+    "requested_k_final": 3,
+    "theta_grid_size": 101,
+    "theta_grid_type": "difficulty_range"
+  },
+  "selected_item_ids": [
+    "b2_item_3",
+    "b2_item_7",
+    "b2_item_6"
+  ],
+  "skipped": false,
+  "skipped_reason": null,
+  "theta_grid": {
+    "grid_size": 101,
+    "max_theta": 1.829782921108011,
+    "min_theta": -1.370916679048987
+  },
+  "warnings": [
+    {
+      "code": "small_final_subset",
+      "message": "selected only 3 final items; reduced benchmark may be too small for stable downstream reconstruction.",
+      "severity": "warning"
+    }
+  ]
+}

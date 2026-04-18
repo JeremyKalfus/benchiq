@@ -78,6 +78,7 @@ STAGE_DEPENDENCIES: dict[StageName, tuple[StageName, ...]] = {
 
 DEFAULT_STAGE_OPTIONS: dict[str, dict[str, Any]] = {
     "04_subsample": {
+        "method": "random_cv",
         "k_preselect": None,
         "n_iter": 2000,
         "cv_folds": 5,
@@ -858,7 +859,10 @@ def _stage_metrics(stage_name: StageName, stage_result: Any) -> dict[str, Any]:
         return dict(stage_result.split_report["counts"])
     if stage_name == "04_subsample":
         return {
-            benchmark_id: benchmark_result.subsample_report["best_iteration"]
+            benchmark_id: {
+                "method": benchmark_result.subsample_report["method"],
+                "best_iteration": benchmark_result.subsample_report["best_iteration"],
+            }
             for benchmark_id, benchmark_result in sorted(stage_result.benchmarks.items())
         }
     if stage_name == "05_irt":

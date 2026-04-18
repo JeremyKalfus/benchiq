@@ -1,0 +1,56 @@
+{
+  "duplicate_policy": "error",
+  "sources": {
+    "items": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "items"
+    },
+    "models": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "models"
+    },
+    "responses_long": {
+      "derived": false,
+      "file_format": "csv",
+      "path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/calibration_deployment/reduced_test_responses.csv",
+      "sha256": "f0ac03dd783591e770c3f7c9e2f0e99900aece9c6f0ce962490fbd26593414ca",
+      "table_name": "responses_long"
+    }
+  },
+  "validation": {
+    "counts": {
+      "error_count": 0,
+      "table_count": 3,
+      "warning_count": 0
+    },
+    "errors": [],
+    "ok": true,
+    "summary": {
+      "error_count": 0,
+      "ok": true,
+      "table_count": 3,
+      "tables": {
+        "items": {
+          "columns": 2,
+          "rows": 9
+        },
+        "models": {
+          "columns": 1,
+          "rows": 6
+        },
+        "responses_long": {
+          "columns": 4,
+          "rows": 54
+        }
+      },
+      "warning_count": 0
+    },
+    "warnings": []
+  }
+}

@@ -171,3 +171,86 @@ def test_subsample_bundle_counts_failed_iterations_from_missing_reduced_scores(t
         == "too_few_valid_models_for_cv"
     ).any()
     assert len(benchmark_result.preselect_items.index) == 1
+
+
+def test_subsample_bundle_supports_deterministic_information_ranking(tmp_path) -> None:
+    rows: list[dict[str, object]] = []
+    thresholds = {"i1": 2, "i2": 4, "i3": 6, "i4": 8, "i5": 10, "i6": 12}
+    responses_path = tmp_path / "responses.csv"
+    for model_index in range(1, 13):
+        model_id = f"m{model_index:02d}"
+        for item_id, threshold in thresholds.items():
+            rows.append(
+                {
+                    "model_id": model_id,
+                    "benchmark_id": "b1",
+                    "item_id": item_id,
+                    "score": 1 if model_index >= threshold else 0,
+                }
+            )
+    pd.DataFrame(rows).to_csv(responses_path, index=False)
+
+    selected_item_sets: list[list[str]] = []
+    for random_seed in (9, 21):
+        bundle = benchiq.load_bundle(
+            responses_path,
+            config=benchiq.BenchIQConfig(
+                allow_low_n=True,
+                drop_low_tail_models_quantile=0.0,
+                min_models_per_benchmark=1,
+                warn_models_per_benchmark=1,
+                min_items_after_filtering=1,
+                min_models_per_item=1,
+                min_item_coverage=1.0,
+                min_item_sd=0.0,
+                max_item_mean=1.0,
+                min_abs_point_biserial=0.0,
+                min_overlap_models_for_joint=4,
+                p_test=0.25,
+                p_val=0.25,
+                n_strata_bins=2,
+                random_seed=random_seed,
+            ),
+            out_dir=tmp_path / "out",
+            run_id=f"deterministic-{random_seed}",
+        )
+        preprocess_result = preprocess_bundle(bundle)
+        score_result = compute_scores(bundle, preprocess_result)
+        split_result = split_models(bundle, score_result)
+        subsample_result = subsample_bundle(
+            bundle,
+            preprocess_result,
+            score_result,
+            split_result,
+            method="deterministic_info",
+            k_preselect=3,
+            cv_folds=4,
+            lam_grid=(0.1, 1.0),
+        )
+        benchmark_result = subsample_result.benchmarks["b1"]
+        selected_items = (
+            benchmark_result.preselect_items["item_id"]
+            .dropna()
+            .astype("string")
+            .sort_values()
+            .tolist()
+        )
+        selected_item_sets.append(selected_items)
+        assert benchmark_result.subsample_report["method"] == "deterministic_info"
+        assert benchmark_result.subsample_report["counts"]["valid_iterations"] == 1
+        assert benchmark_result.subsample_report["counts"]["failed_iterations"] == 0
+        assert len(selected_items) == 3
+        assert benchmark_result.ranking_table["selected"].sum() == 3
+
+        stage_dir = (
+            tmp_path
+            / "out"
+            / f"deterministic-{random_seed}"
+            / "artifacts"
+            / "04_subsample"
+            / "per_benchmark"
+            / "b1"
+        )
+        assert (stage_dir / "ranking_table.parquet").exists()
+
+    assert selected_item_sets[0] == selected_item_sets[1]

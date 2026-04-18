@@ -13,6 +13,10 @@ from benchiq.reconstruct.gam import (
     rmse_score,
     write_gam_artifacts,
 )
+from benchiq.reconstruct.head_experiments import (
+    ReconstructionHeadExperimentResult,
+    run_reconstruction_head_experiments,
+)
 from benchiq.reconstruct.linear_predictor import (
     BenchmarkLinearPredictorResult,
     LinearPredictorResult,
@@ -37,6 +41,7 @@ __all__ = [
     "FoldAssignment",
     "LinearPredictorResult",
     "ReconstructionResult",
+    "ReconstructionHeadExperimentResult",
     "build_feature_tables",
     "cross_validate_gam",
     "fit_linear_predictor_benchmark",
@@ -48,5 +53,6 @@ __all__ = [
     "rmse_score",
     "reconstruct_benchmark",
     "reconstruct_scores",
+    "run_reconstruction_head_experiments",
     "write_gam_artifacts",
 ]

@@ -1,0 +1,17 @@
+{
+  "methods": [
+    "random_cv",
+    "deterministic_info"
+  ],
+  "seeds": [
+    7,
+    11,
+    19
+  ],
+  "winner": {
+    "method": "deterministic_info",
+    "best_available_test_rmse_mean": 13.941838657876849,
+    "selection_stability_mean": 1.0,
+    "stage04_runtime_mean_seconds": 0.08752987537688266
+  }
+}

@@ -1,0 +1,907 @@
+{
+  "artifacts": {
+    "00_canonical": {
+      "canonicalization_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/00_canonical/canonicalization_report.json",
+      "items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/00_canonical/items.parquet",
+      "models": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/00_canonical/models.parquet",
+      "responses_long": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/00_canonical/responses_long.parquet"
+    },
+    "01_preprocess": {
+      "per_benchmark": {
+        "b1": {
+          "filtered_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b1/filtered_items.parquet",
+          "filtered_models": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b1/filtered_models.parquet",
+          "item_stats": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b1/item_stats.parquet",
+          "preprocess_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b1/preprocess_report.json"
+        },
+        "b2": {
+          "filtered_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b2/filtered_items.parquet",
+          "filtered_models": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b2/filtered_models.parquet",
+          "item_stats": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b2/item_stats.parquet",
+          "preprocess_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b2/preprocess_report.json"
+        },
+        "b3": {
+          "filtered_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b3/filtered_items.parquet",
+          "filtered_models": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b3/filtered_models.parquet",
+          "item_stats": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b3/item_stats.parquet",
+          "preprocess_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b3/preprocess_report.json"
+        }
+      },
+      "summary": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/summary.parquet"
+    },
+    "02_scores": {
+      "score_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/02_scores/score_report.json",
+      "scores_full": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/02_scores/scores_full.parquet",
+      "scores_grand": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/02_scores/scores_grand.parquet"
+    },
+    "03_splits": {
+      "per_benchmark": {
+        "b1": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/03_splits/per_benchmark/b1/splits_models.parquet",
+        "b2": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/03_splits/per_benchmark/b2/splits_models.parquet",
+        "b3": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/03_splits/per_benchmark/b3/splits_models.parquet"
+      },
+      "split_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/03_splits/split_report.json",
+      "splits_models": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/03_splits/splits_models.parquet"
+    },
+    "04_subsample": {
+      "per_benchmark": {
+        "b1": {
+          "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b1/cv_results.parquet",
+          "preselect_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b1/preselect_items.parquet",
+          "progress": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b1/progress.json",
+          "ranking_table": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b1/ranking_table.parquet",
+          "subsample_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b1/subsample_report.json"
+        },
+        "b2": {
+          "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b2/cv_results.parquet",
+          "preselect_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b2/preselect_items.parquet",
+          "progress": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b2/progress.json",
+          "ranking_table": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b2/ranking_table.parquet",
+          "subsample_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b2/subsample_report.json"
+        },
+        "b3": {
+          "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b3/cv_results.parquet",
+          "preselect_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b3/preselect_items.parquet",
+          "progress": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b3/progress.json",
+          "ranking_table": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b3/ranking_table.parquet",
+          "subsample_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b3/subsample_report.json"
+        }
+      }
+    },
+    "05_irt": {
+      "per_benchmark": {
+        "b1": {
+          "ability_estimates": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b1/ability_estimates.parquet",
+          "dropped_pathological_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b1/dropped_pathological_items.parquet",
+          "irt_fit_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b1/irt_fit_report.json",
+          "irt_item_params": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b1/irt_item_params.parquet",
+          "item_parameter_scatter": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b1/plots/item_parameter_scatter.png"
+        },
+        "b2": {
+          "ability_estimates": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b2/ability_estimates.parquet",
+          "dropped_pathological_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b2/dropped_pathological_items.parquet",
+          "irt_fit_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b2/irt_fit_report.json",
+          "irt_item_params": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b2/irt_item_params.parquet",
+          "item_parameter_scatter": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b2/plots/item_parameter_scatter.png"
+        },
+        "b3": {
+          "ability_estimates": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b3/ability_estimates.parquet",
+          "dropped_pathological_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b3/dropped_pathological_items.parquet",
+          "irt_fit_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b3/irt_fit_report.json",
+          "irt_item_params": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b3/irt_item_params.parquet",
+          "item_parameter_scatter": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b3/plots/item_parameter_scatter.png"
+        }
+      }
+    },
+    "06_select": {
+      "per_benchmark": {
+        "b1": {
+          "expected_test_information_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b1/plots/expected_test_information.png",
+          "info_grid": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b1/info_grid.parquet",
+          "selection_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b1/selection_report.json",
+          "subset_final": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b1/subset_final.parquet"
+        },
+        "b2": {
+          "expected_test_information_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b2/plots/expected_test_information.png",
+          "info_grid": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b2/info_grid.parquet",
+          "selection_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b2/selection_report.json",
+          "subset_final": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b2/subset_final.parquet"
+        },
+        "b3": {
+          "expected_test_information_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b3/plots/expected_test_information.png",
+          "info_grid": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b3/info_grid.parquet",
+          "selection_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b3/selection_report.json",
+          "subset_final": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b3/subset_final.parquet"
+        }
+      }
+    },
+    "07_theta": {
+      "plots": {
+        "b1": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/07_theta/plots/b1__theta_distribution.png",
+        "b2": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/07_theta/plots/b2__theta_distribution.png",
+        "b3": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/07_theta/plots/b3__theta_distribution.png"
+      },
+      "theta_estimates": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/07_theta/theta_estimates.parquet",
+      "theta_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/07_theta/theta_report.json"
+    },
+    "08_features": {
+      "feature_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/feature_report.json",
+      "features_joint": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/features_joint.parquet",
+      "features_marginal": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/features_marginal.parquet",
+      "per_benchmark": {
+        "b1": {
+          "coefficients": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b1/coefficients.parquet",
+          "linear_predictor_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b1/linear_predictor_report.json",
+          "model_outputs": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b1/model_outputs.parquet"
+        },
+        "b2": {
+          "coefficients": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b2/coefficients.parquet",
+          "linear_predictor_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b2/linear_predictor_report.json",
+          "model_outputs": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b2/model_outputs.parquet"
+        },
+        "b3": {
+          "coefficients": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b3/coefficients.parquet",
+          "linear_predictor_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b3/linear_predictor_report.json",
+          "model_outputs": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b3/model_outputs.parquet"
+        }
+      }
+    },
+    "09_reconstruct": {
+      "per_benchmark": {
+        "b1": {
+          "joint": {
+            "cv_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/cv_report.json",
+            "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/cv_results.parquet",
+            "gam_model": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/gam_model.pkl",
+            "gam_model_metadata": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/gam_model.json",
+            "plots": {
+              "calibration_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/plots/calibration.png",
+              "predicted_vs_actual_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/plots/predicted_vs_actual.png",
+              "residual_histogram": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/plots/residual_histogram.png"
+            }
+          },
+          "marginal": {
+            "cv_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/cv_report.json",
+            "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/cv_results.parquet",
+            "gam_model": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/gam_model.pkl",
+            "gam_model_metadata": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/gam_model.json",
+            "plots": {
+              "calibration_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/plots/calibration.png",
+              "predicted_vs_actual_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/plots/predicted_vs_actual.png",
+              "residual_histogram": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/plots/residual_histogram.png"
+            }
+          },
+          "predictions": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/predictions.parquet",
+          "reconstruction_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/reconstruction_report.json"
+        },
+        "b2": {
+          "joint": {
+            "cv_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/cv_report.json",
+            "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/cv_results.parquet",
+            "gam_model": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/gam_model.pkl",
+            "gam_model_metadata": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/gam_model.json",
+            "plots": {
+              "calibration_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/plots/calibration.png",
+              "predicted_vs_actual_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/plots/predicted_vs_actual.png",
+              "residual_histogram": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/plots/residual_histogram.png"
+            }
+          },
+          "marginal": {
+            "cv_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/cv_report.json",
+            "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/cv_results.parquet",
+            "gam_model": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/gam_model.pkl",
+            "gam_model_metadata": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/gam_model.json",
+            "plots": {
+              "calibration_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/plots/calibration.png",
+              "predicted_vs_actual_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/plots/predicted_vs_actual.png",
+              "residual_histogram": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/plots/residual_histogram.png"
+            }
+          },
+          "predictions": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/predictions.parquet",
+          "reconstruction_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/reconstruction_report.json"
+        },
+        "b3": {
+          "joint": {
+            "cv_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/cv_report.json",
+            "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/cv_results.parquet",
+            "gam_model": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/gam_model.pkl",
+            "gam_model_metadata": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/gam_model.json",
+            "plots": {
+              "calibration_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/plots/calibration.png",
+              "predicted_vs_actual_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/plots/predicted_vs_actual.png",
+              "residual_histogram": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/plots/residual_histogram.png"
+            }
+          },
+          "marginal": {
+            "cv_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/cv_report.json",
+            "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/cv_results.parquet",
+            "gam_model": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/gam_model.pkl",
+            "gam_model_metadata": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/gam_model.json",
+            "plots": {
+              "calibration_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/plots/calibration.png",
+              "predicted_vs_actual_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/plots/predicted_vs_actual.png",
+              "residual_histogram": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/plots/residual_histogram.png"
+            }
+          },
+          "predictions": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/predictions.parquet",
+          "reconstruction_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/reconstruction_report.json"
+        }
+      },
+      "reconstruction_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/reconstruction_report.json",
+      "reconstruction_summary": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/reconstruction_summary.parquet"
+    },
+    "config_resolved": "reports/selection_comparison/workdir/deterministic_info-seed-7/config_resolved.json",
+    "reports": {
+      "config_resolved": "reports/selection_comparison/workdir/deterministic_info-seed-7/config_resolved.json",
+      "metrics": "reports/selection_comparison/workdir/deterministic_info-seed-7/reports/metrics.json",
+      "run_summary": "reports/selection_comparison/workdir/deterministic_info-seed-7/reports/run_summary.md",
+      "warnings": "reports/selection_comparison/workdir/deterministic_info-seed-7/reports/warnings.md"
+    }
+  },
+  "dependency_versions": {
+    "click": "8.3.1",
+    "girth": "0.8.0",
+    "joblib": "1.5.3",
+    "matplotlib": "3.10.8",
+    "numpy": "2.4.4",
+    "pandas": "2.3.3",
+    "pyarrow": "23.0.1",
+    "pydantic": "2.12.5",
+    "pygam": "0.12.0",
+    "scikit-learn": "1.8.0",
+    "scipy": "1.16.3"
+  },
+  "git_hash": "770d728195405aeaa13242664a813a8ad4ce07aa",
+  "input_hashes": {
+    "items": null,
+    "models": null,
+    "responses_long": "5cf38b34ad0a1c2312db6118cb088df3beb16f20c1d1ce6710568a8df911b423"
+  },
+  "input_sources": {
+    "items": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "items"
+    },
+    "models": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "models"
+    },
+    "responses_long": {
+      "derived": false,
+      "file_format": "csv",
+      "path": "/Users/jeremykalfus/CodingProjects/BenchIQ/tests/data/metabench_validation/responses_long.csv",
+      "sha256": "5cf38b34ad0a1c2312db6118cb088df3beb16f20c1d1ce6710568a8df911b423",
+      "table_name": "responses_long"
+    }
+  },
+  "package_version": "0.1.0a0",
+  "resolved_config": {
+    "allow_low_n": true,
+    "drop_low_tail_models_quantile": 0.001,
+    "duplicate_policy": "error",
+    "max_item_mean": 0.99,
+    "min_abs_point_biserial": 0.0,
+    "min_item_coverage": 0.8,
+    "min_item_sd": 0.01,
+    "min_items_after_filtering": 5,
+    "min_models_per_benchmark": 15,
+    "min_models_per_item": 10,
+    "min_overlap_models_for_joint": 15,
+    "min_overlap_models_for_redundancy": 15,
+    "n_strata_bins": 10,
+    "p_test": 0.1,
+    "p_val": 0.1,
+    "random_seed": 7,
+    "warn_models_per_benchmark": 20
+  },
+  "run_id": "deterministic_info-seed-7",
+  "runner": {
+    "executed_stages": [
+      "00_bundle",
+      "01_preprocess",
+      "02_scores",
+      "03_splits",
+      "04_subsample",
+      "05_irt",
+      "06_select",
+      "07_theta",
+      "08_linear",
+      "08_features",
+      "09_reconstruct"
+    ],
+    "last_run_at": "2026-04-17T23:35:53.089710+00:00"
+  },
+  "seeds": {
+    "random_seed": 7
+  },
+  "stages": {
+    "00_bundle": {
+      "artifact_paths": {
+        "canonicalization_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/00_canonical/canonicalization_report.json",
+        "items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/00_canonical/items.parquet",
+        "models": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/00_canonical/models.parquet",
+        "responses_long": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/00_canonical/responses_long.parquet"
+      },
+      "dependencies": [],
+      "duration_seconds": 0.024155290913768113,
+      "finished_at": "2026-04-17T23:35:51.083989+00:00",
+      "metrics": {
+        "item_count": 21,
+        "model_count": 60,
+        "responses_row_count": 1260
+      },
+      "skip_reasons": null,
+      "stage": "00_bundle",
+      "started_at": "2026-04-17T23:35:51.059823+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "01_preprocess": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "b1": {
+            "filtered_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b1/filtered_items.parquet",
+            "filtered_models": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b1/filtered_models.parquet",
+            "item_stats": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b1/item_stats.parquet",
+            "preprocess_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b1/preprocess_report.json"
+          },
+          "b2": {
+            "filtered_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b2/filtered_items.parquet",
+            "filtered_models": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b2/filtered_models.parquet",
+            "item_stats": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b2/item_stats.parquet",
+            "preprocess_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b2/preprocess_report.json"
+          },
+          "b3": {
+            "filtered_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b3/filtered_items.parquet",
+            "filtered_models": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b3/filtered_models.parquet",
+            "item_stats": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b3/item_stats.parquet",
+            "preprocess_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/per_benchmark/b3/preprocess_report.json"
+          }
+        },
+        "summary": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/01_preprocess/summary.parquet"
+      },
+      "dependencies": [
+        "00_bundle"
+      ],
+      "duration_seconds": 0.037135416991077363,
+      "finished_at": "2026-04-17T23:35:51.121299+00:00",
+      "metrics": {
+        "retained_items_by_benchmark": {
+          "b1": 7,
+          "b2": 7,
+          "b3": 7
+        },
+        "summary_rows": 3
+      },
+      "skip_reasons": null,
+      "stage": "01_preprocess",
+      "started_at": "2026-04-17T23:35:51.084159+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "02_scores": {
+      "artifact_paths": {
+        "score_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/02_scores/score_report.json",
+        "scores_full": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/02_scores/scores_full.parquet",
+        "scores_grand": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/02_scores/scores_grand.parquet"
+      },
+      "dependencies": [
+        "00_bundle",
+        "01_preprocess"
+      ],
+      "duration_seconds": 0.011223374982364476,
+      "finished_at": "2026-04-17T23:35:51.132908+00:00",
+      "metrics": {
+        "grand_score_rows": 60,
+        "scores_full_rows": 180
+      },
+      "skip_reasons": null,
+      "stage": "02_scores",
+      "started_at": "2026-04-17T23:35:51.121681+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "03_splits": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "b1": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/03_splits/per_benchmark/b1/splits_models.parquet",
+          "b2": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/03_splits/per_benchmark/b2/splits_models.parquet",
+          "b3": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/03_splits/per_benchmark/b3/splits_models.parquet"
+        },
+        "split_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/03_splits/split_report.json",
+        "splits_models": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/03_splits/splits_models.parquet"
+      },
+      "dependencies": [
+        "00_bundle",
+        "02_scores"
+      ],
+      "duration_seconds": 0.01093754090834409,
+      "finished_at": "2026-04-17T23:35:51.143975+00:00",
+      "metrics": {
+        "benchmark_count": 3,
+        "global_test_enabled": true,
+        "global_test_model_count": 6
+      },
+      "skip_reasons": null,
+      "stage": "03_splits",
+      "started_at": "2026-04-17T23:35:51.133034+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "04_subsample": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "b1": {
+            "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b1/cv_results.parquet",
+            "preselect_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b1/preselect_items.parquet",
+            "progress": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b1/progress.json",
+            "ranking_table": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b1/ranking_table.parquet",
+            "subsample_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b1/subsample_report.json"
+          },
+          "b2": {
+            "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b2/cv_results.parquet",
+            "preselect_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b2/preselect_items.parquet",
+            "progress": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b2/progress.json",
+            "ranking_table": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b2/ranking_table.parquet",
+            "subsample_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b2/subsample_report.json"
+          },
+          "b3": {
+            "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b3/cv_results.parquet",
+            "preselect_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b3/preselect_items.parquet",
+            "progress": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b3/progress.json",
+            "ranking_table": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b3/ranking_table.parquet",
+            "subsample_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/04_subsample/per_benchmark/b3/subsample_report.json"
+          }
+        }
+      },
+      "dependencies": [
+        "00_bundle",
+        "01_preprocess",
+        "02_scores",
+        "03_splits"
+      ],
+      "duration_seconds": 0.08631062507629395,
+      "finished_at": "2026-04-17T23:35:51.230416+00:00",
+      "metrics": {
+        "b1": {
+          "best_iteration": {
+            "best_lam": 1.0,
+            "iteration_id": 0,
+            "max_rmse_val": 12.76497079170632,
+            "mean_rmse_test": 10.378415145530484,
+            "mean_rmse_val": 11.790904645487885,
+            "sampled_item_ids": [
+              "b1_item_1",
+              "b1_item_2",
+              "b1_item_6",
+              "b1_item_7"
+            ],
+            "subset_seed": 7,
+            "valid_pool_model_count": 54,
+            "valid_test_model_count": 6
+          },
+          "method": "deterministic_info"
+        },
+        "b2": {
+          "best_iteration": {
+            "best_lam": 1.0,
+            "iteration_id": 0,
+            "max_rmse_val": 13.012352449915966,
+            "mean_rmse_test": 10.745305071569419,
+            "mean_rmse_val": 11.014678764749439,
+            "sampled_item_ids": [
+              "b2_item_3",
+              "b2_item_5",
+              "b2_item_6",
+              "b2_item_7"
+            ],
+            "subset_seed": 7,
+            "valid_pool_model_count": 54,
+            "valid_test_model_count": 6
+          },
+          "method": "deterministic_info"
+        },
+        "b3": {
+          "best_iteration": {
+            "best_lam": 1.0,
+            "iteration_id": 0,
+            "max_rmse_val": 13.825157558804516,
+            "mean_rmse_test": 9.500759752726848,
+            "mean_rmse_val": 12.841320823642674,
+            "sampled_item_ids": [
+              "b3_item_2",
+              "b3_item_4",
+              "b3_item_5",
+              "b3_item_7"
+            ],
+            "subset_seed": 7,
+            "valid_pool_model_count": 54,
+            "valid_test_model_count": 6
+          },
+          "method": "deterministic_info"
+        }
+      },
+      "skip_reasons": null,
+      "stage": "04_subsample",
+      "started_at": "2026-04-17T23:35:51.144101+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "05_irt": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "b1": {
+            "ability_estimates": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b1/ability_estimates.parquet",
+            "dropped_pathological_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b1/dropped_pathological_items.parquet",
+            "irt_fit_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b1/irt_fit_report.json",
+            "irt_item_params": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b1/irt_item_params.parquet",
+            "item_parameter_scatter": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b1/plots/item_parameter_scatter.png"
+          },
+          "b2": {
+            "ability_estimates": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b2/ability_estimates.parquet",
+            "dropped_pathological_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b2/dropped_pathological_items.parquet",
+            "irt_fit_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b2/irt_fit_report.json",
+            "irt_item_params": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b2/irt_item_params.parquet",
+            "item_parameter_scatter": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b2/plots/item_parameter_scatter.png"
+          },
+          "b3": {
+            "ability_estimates": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b3/ability_estimates.parquet",
+            "dropped_pathological_items": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b3/dropped_pathological_items.parquet",
+            "irt_fit_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b3/irt_fit_report.json",
+            "irt_item_params": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b3/irt_item_params.parquet",
+            "item_parameter_scatter": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/05_irt/per_benchmark/b3/plots/item_parameter_scatter.png"
+          }
+        }
+      },
+      "dependencies": [
+        "00_bundle",
+        "03_splits",
+        "04_subsample"
+      ],
+      "duration_seconds": 0.2997975000180304,
+      "finished_at": "2026-04-17T23:35:51.530392+00:00",
+      "metrics": {
+        "b1": {
+          "missing_response_count": 0,
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 4,
+          "retained_item_count": 4,
+          "train_model_count": 48,
+          "valid_response_count": 192
+        },
+        "b2": {
+          "missing_response_count": 0,
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 4,
+          "retained_item_count": 4,
+          "train_model_count": 48,
+          "valid_response_count": 192
+        },
+        "b3": {
+          "missing_response_count": 0,
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 1,
+          "preselect_item_count": 4,
+          "retained_item_count": 4,
+          "train_model_count": 48,
+          "valid_response_count": 192
+        }
+      },
+      "skip_reasons": null,
+      "stage": "05_irt",
+      "started_at": "2026-04-17T23:35:51.230587+00:00",
+      "status": "completed",
+      "warnings": [
+        {
+          "benchmark_id": "b1",
+          "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+          "stage": "05_irt"
+        },
+        {
+          "benchmark_id": "b2",
+          "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+          "stage": "05_irt"
+        },
+        {
+          "benchmark_id": "b3",
+          "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+          "stage": "05_irt"
+        }
+      ]
+    },
+    "06_select": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "b1": {
+            "expected_test_information_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b1/plots/expected_test_information.png",
+            "info_grid": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b1/info_grid.parquet",
+            "selection_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b1/selection_report.json",
+            "subset_final": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b1/subset_final.parquet"
+          },
+          "b2": {
+            "expected_test_information_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b2/plots/expected_test_information.png",
+            "info_grid": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b2/info_grid.parquet",
+            "selection_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b2/selection_report.json",
+            "subset_final": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b2/subset_final.parquet"
+          },
+          "b3": {
+            "expected_test_information_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b3/plots/expected_test_information.png",
+            "info_grid": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b3/info_grid.parquet",
+            "selection_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b3/selection_report.json",
+            "subset_final": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/06_select/per_benchmark/b3/subset_final.parquet"
+          }
+        }
+      },
+      "dependencies": [
+        "00_bundle",
+        "05_irt"
+      ],
+      "duration_seconds": 0.1402775419410318,
+      "finished_at": "2026-04-17T23:35:51.670874+00:00",
+      "metrics": {
+        "b1": {
+          "candidate_item_count": 4,
+          "info_grid_row_count": 404,
+          "selected_item_count": 3
+        },
+        "b2": {
+          "candidate_item_count": 4,
+          "info_grid_row_count": 404,
+          "selected_item_count": 3
+        },
+        "b3": {
+          "candidate_item_count": 4,
+          "info_grid_row_count": 404,
+          "selected_item_count": 3
+        }
+      },
+      "skip_reasons": null,
+      "stage": "06_select",
+      "started_at": "2026-04-17T23:35:51.530588+00:00",
+      "status": "completed",
+      "warnings": [
+        {
+          "benchmark_id": "b1",
+          "message": "selected only 3 final items; reduced benchmark may be too small for stable downstream reconstruction.",
+          "stage": "06_select"
+        },
+        {
+          "benchmark_id": "b2",
+          "message": "selected only 3 final items; reduced benchmark may be too small for stable downstream reconstruction.",
+          "stage": "06_select"
+        },
+        {
+          "benchmark_id": "b3",
+          "message": "selected only 3 final items; reduced benchmark may be too small for stable downstream reconstruction.",
+          "stage": "06_select"
+        }
+      ]
+    },
+    "07_theta": {
+      "artifact_paths": {
+        "plots": {
+          "b1": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/07_theta/plots/b1__theta_distribution.png",
+          "b2": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/07_theta/plots/b2__theta_distribution.png",
+          "b3": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/07_theta/plots/b3__theta_distribution.png"
+        },
+        "theta_estimates": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/07_theta/theta_estimates.parquet",
+        "theta_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/07_theta/theta_report.json"
+      },
+      "dependencies": [
+        "00_bundle",
+        "03_splits",
+        "06_select",
+        "05_irt"
+      ],
+      "duration_seconds": 0.3731525830226019,
+      "finished_at": "2026-04-17T23:35:52.044268+00:00",
+      "metrics": {
+        "all_correct_count": 23,
+        "all_wrong_count": 52,
+        "benchmark_count": 3,
+        "missing_heavy_count": 0,
+        "no_observed_item_count": 0,
+        "row_count": 180,
+        "saturated_count": 0,
+        "split_counts": {
+          "test": 18,
+          "train": 144,
+          "val": 18
+        }
+      },
+      "skip_reasons": null,
+      "stage": "07_theta",
+      "started_at": "2026-04-17T23:35:51.671107+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "08_features": {
+      "artifact_paths": {
+        "feature_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/feature_report.json",
+        "features_joint": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/features_joint.parquet",
+        "features_marginal": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/features_marginal.parquet"
+      },
+      "dependencies": [
+        "00_bundle",
+        "02_scores",
+        "03_splits",
+        "07_theta",
+        "08_linear"
+      ],
+      "duration_seconds": 0.015264166984707117,
+      "finished_at": "2026-04-17T23:35:52.078802+00:00",
+      "metrics": {
+        "benchmark_count": 3,
+        "features_joint_rows": 180,
+        "features_marginal_rows": 180,
+        "split_counts": {
+          "test": 18,
+          "train": 144,
+          "val": 18
+        }
+      },
+      "skip_reasons": null,
+      "stage": "08_features",
+      "started_at": "2026-04-17T23:35:52.063534+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "08_linear": {
+      "artifact_paths": {
+        "feature_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/feature_report.json",
+        "per_benchmark": {
+          "b1": {
+            "coefficients": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b1/coefficients.parquet",
+            "linear_predictor_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b1/linear_predictor_report.json",
+            "model_outputs": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b1/model_outputs.parquet"
+          },
+          "b2": {
+            "coefficients": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b2/coefficients.parquet",
+            "linear_predictor_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b2/linear_predictor_report.json",
+            "model_outputs": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b2/model_outputs.parquet"
+          },
+          "b3": {
+            "coefficients": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b3/coefficients.parquet",
+            "linear_predictor_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b3/linear_predictor_report.json",
+            "model_outputs": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/08_features/per_benchmark/b3/model_outputs.parquet"
+          }
+        }
+      },
+      "dependencies": [
+        "00_bundle",
+        "02_scores",
+        "03_splits",
+        "06_select"
+      ],
+      "duration_seconds": 0.018368042074143887,
+      "finished_at": "2026-04-17T23:35:52.062882+00:00",
+      "metrics": {
+        "benchmark_count": 3,
+        "skipped_benchmark_count": 0
+      },
+      "skip_reasons": null,
+      "stage": "08_linear",
+      "started_at": "2026-04-17T23:35:52.044510+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "09_reconstruct": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "b1": {
+            "joint": {
+              "cv_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/cv_report.json",
+              "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/cv_results.parquet",
+              "gam_model": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/gam_model.pkl",
+              "gam_model_metadata": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/gam_model.json",
+              "plots": {
+                "calibration_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/plots/calibration.png",
+                "predicted_vs_actual_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/plots/predicted_vs_actual.png",
+                "residual_histogram": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/joint/plots/residual_histogram.png"
+              }
+            },
+            "marginal": {
+              "cv_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/cv_report.json",
+              "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/cv_results.parquet",
+              "gam_model": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/gam_model.pkl",
+              "gam_model_metadata": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/gam_model.json",
+              "plots": {
+                "calibration_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/plots/calibration.png",
+                "predicted_vs_actual_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/plots/predicted_vs_actual.png",
+                "residual_histogram": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/marginal/plots/residual_histogram.png"
+              }
+            },
+            "predictions": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/predictions.parquet",
+            "reconstruction_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b1/reconstruction_report.json"
+          },
+          "b2": {
+            "joint": {
+              "cv_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/cv_report.json",
+              "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/cv_results.parquet",
+              "gam_model": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/gam_model.pkl",
+              "gam_model_metadata": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/gam_model.json",
+              "plots": {
+                "calibration_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/plots/calibration.png",
+                "predicted_vs_actual_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/plots/predicted_vs_actual.png",
+                "residual_histogram": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/joint/plots/residual_histogram.png"
+              }
+            },
+            "marginal": {
+              "cv_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/cv_report.json",
+              "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/cv_results.parquet",
+              "gam_model": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/gam_model.pkl",
+              "gam_model_metadata": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/gam_model.json",
+              "plots": {
+                "calibration_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/plots/calibration.png",
+                "predicted_vs_actual_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/plots/predicted_vs_actual.png",
+                "residual_histogram": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/marginal/plots/residual_histogram.png"
+              }
+            },
+            "predictions": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/predictions.parquet",
+            "reconstruction_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b2/reconstruction_report.json"
+          },
+          "b3": {
+            "joint": {
+              "cv_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/cv_report.json",
+              "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/cv_results.parquet",
+              "gam_model": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/gam_model.pkl",
+              "gam_model_metadata": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/gam_model.json",
+              "plots": {
+                "calibration_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/plots/calibration.png",
+                "predicted_vs_actual_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/plots/predicted_vs_actual.png",
+                "residual_histogram": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/joint/plots/residual_histogram.png"
+              }
+            },
+            "marginal": {
+              "cv_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/cv_report.json",
+              "cv_results": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/cv_results.parquet",
+              "gam_model": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/gam_model.pkl",
+              "gam_model_metadata": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/gam_model.json",
+              "plots": {
+                "calibration_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/plots/calibration.png",
+                "predicted_vs_actual_plot": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/plots/predicted_vs_actual.png",
+                "residual_histogram": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/marginal/plots/residual_histogram.png"
+              }
+            },
+            "predictions": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/predictions.parquet",
+            "reconstruction_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/per_benchmark/b3/reconstruction_report.json"
+          }
+        },
+        "reconstruction_report": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/reconstruction_report.json",
+        "reconstruction_summary": "reports/selection_comparison/workdir/deterministic_info-seed-7/artifacts/09_reconstruct/reconstruction_summary.parquet"
+      },
+      "dependencies": [
+        "00_bundle",
+        "08_features"
+      ],
+      "duration_seconds": 1.009715749998577,
+      "finished_at": "2026-04-17T23:35:53.088781+00:00",
+      "metrics": {
+        "joint_test_rmse_by_benchmark": {
+          "b1": 18.434243650378143,
+          "b2": 12.71803276182826,
+          "b3": 10.107254821002481
+        },
+        "marginal_test_rmse_by_benchmark": {
+          "b1": 18.30675127166344,
+          "b2": 10.367677784628935,
+          "b3": 10.495484247014602
+        }
+      },
+      "skip_reasons": null,
+      "stage": "09_reconstruct",
+      "started_at": "2026-04-17T23:35:52.079052+00:00",
+      "status": "completed",
+      "warnings": []
+    }
+  },
+  "timestamp": "2026-04-17T23:35:51.064842+00:00"
+}

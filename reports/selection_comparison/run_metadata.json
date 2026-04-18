@@ -1,0 +1,14 @@
+{
+  "source_responses": "tests/data/metabench_validation/responses_long.csv",
+  "source_config": "tests/data/tiny_example/config.json",
+  "workdir": "reports/selection_comparison/workdir",
+  "methods": [
+    "random_cv",
+    "deterministic_info"
+  ],
+  "seeds": [
+    7,
+    11,
+    19
+  ]
+}

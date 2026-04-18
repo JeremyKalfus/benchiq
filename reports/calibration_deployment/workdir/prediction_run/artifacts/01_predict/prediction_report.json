@@ -1,0 +1,53 @@
+{
+  "benchmarks": {
+    "b1": {
+      "benchmark_id": "b1",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 6,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 6,
+      "selected_item_count": 3,
+      "warnings": []
+    },
+    "b2": {
+      "benchmark_id": "b2",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 6,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 6,
+      "selected_item_count": 3,
+      "warnings": []
+    },
+    "b3": {
+      "benchmark_id": "b3",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 6,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 6,
+      "selected_item_count": 3,
+      "warnings": []
+    }
+  },
+  "calibration_bundle_manifest": "reports/calibration_deployment/workdir/calibration_run/calibration_bundle/manifest.json",
+  "counts": {
+    "best_available_non_null_predictions": 18,
+    "best_available_rows": 18,
+    "calibrated_benchmark_count": 3,
+    "input_benchmark_count": 3,
+    "prediction_rows": 36,
+    "theta_rows": 18
+  },
+  "generated_at": "2026-04-17T23:35:45.415510+00:00",
+  "prediction_availability": {
+    "best_available_non_null_by_benchmark": {
+      "b1": 6,
+      "b2": 6,
+      "b3": 6
+    },
+    "by_model_type": {
+      "joint": 18,
+      "marginal": 18
+    }
+  },
+  "warnings": []
+}

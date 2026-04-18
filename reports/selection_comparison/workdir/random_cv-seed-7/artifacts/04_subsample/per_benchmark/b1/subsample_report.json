@@ -1,0 +1,46 @@
+{
+  "benchmark_id": "b1",
+  "best_iteration": {
+    "best_lam": 1.0,
+    "iteration_id": 0,
+    "max_rmse_val": 11.206343398938813,
+    "mean_rmse_test": 7.57903643014932,
+    "mean_rmse_val": 10.360890687568864,
+    "sampled_item_ids": [
+      "b1_item_2",
+      "b1_item_3",
+      "b1_item_4",
+      "b1_item_5"
+    ],
+    "subset_seed": 154,
+    "valid_pool_model_count": 54,
+    "valid_test_model_count": 6
+  },
+  "counts": {
+    "candidate_item_count": 7,
+    "completed_iterations": 12,
+    "cv_rows": 36,
+    "failed_iterations": 0,
+    "pool_model_count": 54,
+    "test_model_count": 6,
+    "valid_iterations": 12
+  },
+  "generated_at": "2026-04-17T23:35:43.123856+00:00",
+  "method": "random_cv",
+  "parameters": {
+    "checkpoint_interval": 4,
+    "cv_folds": 3,
+    "effective_k_preselect": 4,
+    "lam_grid": [
+      0.1,
+      1.0
+    ],
+    "min_item_coverage": 0.8,
+    "n_iter": 12,
+    "requested_k_preselect": 4
+  },
+  "selection_rule": "minimax_validation_rmse",
+  "skipped": false,
+  "skipped_reason": null,
+  "warnings": []
+}

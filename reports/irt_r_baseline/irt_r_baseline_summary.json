@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-04-17T23:19:39.593749+00:00",
+  "simulation": {
+    "item_count": 6,
+    "model_count": 300,
+    "random_seed": 11,
+    "theta_method": "EAP"
+  },
+  "skip_reason": "R package `mirt` is not installed in this environment",
+  "status": "skipped"
+}

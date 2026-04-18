@@ -1,0 +1,56 @@
+{
+  "duplicate_policy": "error",
+  "sources": {
+    "items": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "items"
+    },
+    "models": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "models"
+    },
+    "responses_long": {
+      "derived": false,
+      "file_format": "csv",
+      "path": "/Users/jeremykalfus/CodingProjects/BenchIQ/tests/data/metabench_validation/responses_long.csv",
+      "sha256": "5cf38b34ad0a1c2312db6118cb088df3beb16f20c1d1ce6710568a8df911b423",
+      "table_name": "responses_long"
+    }
+  },
+  "validation": {
+    "counts": {
+      "error_count": 0,
+      "table_count": 3,
+      "warning_count": 0
+    },
+    "errors": [],
+    "ok": true,
+    "summary": {
+      "error_count": 0,
+      "ok": true,
+      "table_count": 3,
+      "tables": {
+        "items": {
+          "columns": 2,
+          "rows": 21
+        },
+        "models": {
+          "columns": 1,
+          "rows": 60
+        },
+        "responses_long": {
+          "columns": 4,
+          "rows": 1260
+        }
+      },
+      "warning_count": 0
+    },
+    "warnings": []
+  }
+}

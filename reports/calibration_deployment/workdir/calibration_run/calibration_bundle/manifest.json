@@ -1,0 +1,236 @@
+{
+  "artifacts": {
+    "bundle_summary": "bundle_summary.md",
+    "config_resolved": "config_resolved.json",
+    "reconstruction_report": "reconstruction_report.json",
+    "reconstruction_summary": "reconstruction_summary.parquet"
+  },
+  "benchmarks": {
+    "b1": {
+      "irt_backend": "girth",
+      "irt_fit_report_path": "per_benchmark/b1/irt_fit_report.json",
+      "irt_item_params_path": "per_benchmark/b1/irt_item_params.parquet",
+      "linear_prediction_requires_complete_coverage": true,
+      "linear_predictor_coefficients_path": "per_benchmark/b1/linear_predictor_coefficients.parquet",
+      "linear_predictor_report_path": "per_benchmark/b1/linear_predictor_report.json",
+      "reconstruction": {
+        "joint": {
+          "available": true,
+          "cv_report_path": "per_benchmark/b1/reconstruction/joint/cv_report.json",
+          "cv_results_path": "per_benchmark/b1/reconstruction/joint/cv_results.parquet",
+          "feature_columns": [
+            "theta_b1",
+            "theta_b2",
+            "theta_b3",
+            "theta_se_b",
+            "sub_b",
+            "grand_sub",
+            "lin_b",
+            "grand_lin"
+          ],
+          "metadata_path": "per_benchmark/b1/reconstruction/joint/gam_model.json",
+          "model_path": "per_benchmark/b1/reconstruction/joint/gam_model.pkl"
+        },
+        "marginal": {
+          "available": true,
+          "cv_report_path": "per_benchmark/b1/reconstruction/marginal/cv_report.json",
+          "cv_results_path": "per_benchmark/b1/reconstruction/marginal/cv_results.parquet",
+          "feature_columns": [
+            "theta_b",
+            "theta_se_b",
+            "sub_b",
+            "lin_b"
+          ],
+          "metadata_path": "per_benchmark/b1/reconstruction/marginal/gam_model.json",
+          "model_path": "per_benchmark/b1/reconstruction/marginal/gam_model.pkl"
+        }
+      },
+      "reconstruction_report_path": "per_benchmark/b1/reconstruction_report.json",
+      "selected_item_count": 3,
+      "selected_item_ids": [
+        "b1_item_2",
+        "b1_item_3",
+        "b1_item_5"
+      ],
+      "selection_report_path": "per_benchmark/b1/selection_report.json",
+      "subset_final_path": "per_benchmark/b1/subset_final.parquet",
+      "theta_scoring_metadata_path": "per_benchmark/b1/theta_scoring_metadata.json"
+    },
+    "b2": {
+      "irt_backend": "girth",
+      "irt_fit_report_path": "per_benchmark/b2/irt_fit_report.json",
+      "irt_item_params_path": "per_benchmark/b2/irt_item_params.parquet",
+      "linear_prediction_requires_complete_coverage": true,
+      "linear_predictor_coefficients_path": "per_benchmark/b2/linear_predictor_coefficients.parquet",
+      "linear_predictor_report_path": "per_benchmark/b2/linear_predictor_report.json",
+      "reconstruction": {
+        "joint": {
+          "available": true,
+          "cv_report_path": "per_benchmark/b2/reconstruction/joint/cv_report.json",
+          "cv_results_path": "per_benchmark/b2/reconstruction/joint/cv_results.parquet",
+          "feature_columns": [
+            "theta_b1",
+            "theta_b2",
+            "theta_b3",
+            "theta_se_b",
+            "sub_b",
+            "grand_sub",
+            "lin_b",
+            "grand_lin"
+          ],
+          "metadata_path": "per_benchmark/b2/reconstruction/joint/gam_model.json",
+          "model_path": "per_benchmark/b2/reconstruction/joint/gam_model.pkl"
+        },
+        "marginal": {
+          "available": true,
+          "cv_report_path": "per_benchmark/b2/reconstruction/marginal/cv_report.json",
+          "cv_results_path": "per_benchmark/b2/reconstruction/marginal/cv_results.parquet",
+          "feature_columns": [
+            "theta_b",
+            "theta_se_b",
+            "sub_b",
+            "lin_b"
+          ],
+          "metadata_path": "per_benchmark/b2/reconstruction/marginal/gam_model.json",
+          "model_path": "per_benchmark/b2/reconstruction/marginal/gam_model.pkl"
+        }
+      },
+      "reconstruction_report_path": "per_benchmark/b2/reconstruction_report.json",
+      "selected_item_count": 3,
+      "selected_item_ids": [
+        "b2_item_4",
+        "b2_item_7",
+        "b2_item_6"
+      ],
+      "selection_report_path": "per_benchmark/b2/selection_report.json",
+      "subset_final_path": "per_benchmark/b2/subset_final.parquet",
+      "theta_scoring_metadata_path": "per_benchmark/b2/theta_scoring_metadata.json"
+    },
+    "b3": {
+      "irt_backend": "girth",
+      "irt_fit_report_path": "per_benchmark/b3/irt_fit_report.json",
+      "irt_item_params_path": "per_benchmark/b3/irt_item_params.parquet",
+      "linear_prediction_requires_complete_coverage": true,
+      "linear_predictor_coefficients_path": "per_benchmark/b3/linear_predictor_coefficients.parquet",
+      "linear_predictor_report_path": "per_benchmark/b3/linear_predictor_report.json",
+      "reconstruction": {
+        "joint": {
+          "available": true,
+          "cv_report_path": "per_benchmark/b3/reconstruction/joint/cv_report.json",
+          "cv_results_path": "per_benchmark/b3/reconstruction/joint/cv_results.parquet",
+          "feature_columns": [
+            "theta_b1",
+            "theta_b2",
+            "theta_b3",
+            "theta_se_b",
+            "sub_b",
+            "grand_sub",
+            "lin_b",
+            "grand_lin"
+          ],
+          "metadata_path": "per_benchmark/b3/reconstruction/joint/gam_model.json",
+          "model_path": "per_benchmark/b3/reconstruction/joint/gam_model.pkl"
+        },
+        "marginal": {
+          "available": true,
+          "cv_report_path": "per_benchmark/b3/reconstruction/marginal/cv_report.json",
+          "cv_results_path": "per_benchmark/b3/reconstruction/marginal/cv_results.parquet",
+          "feature_columns": [
+            "theta_b",
+            "theta_se_b",
+            "sub_b",
+            "lin_b"
+          ],
+          "metadata_path": "per_benchmark/b3/reconstruction/marginal/gam_model.json",
+          "model_path": "per_benchmark/b3/reconstruction/marginal/gam_model.pkl"
+        }
+      },
+      "reconstruction_report_path": "per_benchmark/b3/reconstruction_report.json",
+      "selected_item_count": 3,
+      "selected_item_ids": [
+        "b3_item_5",
+        "b3_item_7",
+        "b3_item_4"
+      ],
+      "selection_report_path": "per_benchmark/b3/selection_report.json",
+      "subset_final_path": "per_benchmark/b3/subset_final.parquet",
+      "theta_scoring_metadata_path": "per_benchmark/b3/theta_scoring_metadata.json"
+    }
+  },
+  "bundle_version": "0.1",
+  "config": {
+    "allow_low_n": true,
+    "drop_low_tail_models_quantile": 0.001,
+    "duplicate_policy": "error",
+    "max_item_mean": 0.99,
+    "min_abs_point_biserial": 0.0,
+    "min_item_coverage": 0.8,
+    "min_item_sd": 0.01,
+    "min_items_after_filtering": 5,
+    "min_models_per_benchmark": 15,
+    "min_models_per_item": 10,
+    "min_overlap_models_for_joint": 15,
+    "min_overlap_models_for_redundancy": 15,
+    "n_strata_bins": 10,
+    "p_test": 0.1,
+    "p_val": 0.1,
+    "random_seed": 7,
+    "warn_models_per_benchmark": 20
+  },
+  "generated_at": "2026-04-17T23:35:45.299196+00:00",
+  "kind": "benchiq_calibration_bundle",
+  "source_run_manifest": "../manifest.json",
+  "source_run_root": "..",
+  "stage_options": {
+    "04_subsample": {
+      "checkpoint_interval": 2,
+      "cv_folds": 3,
+      "k_preselect": 4,
+      "lam_grid": [
+        0.1,
+        1.0
+      ],
+      "method": "random_cv",
+      "n_iter": 4
+    },
+    "05_irt": {
+      "backend_options": null
+    },
+    "06_select": {
+      "k_final": 3,
+      "theta_grid_size": 101
+    },
+    "07_theta": {
+      "theta_grid_size": 81,
+      "theta_method": "MAP"
+    },
+    "09_reconstruct": {
+      "cv_folds": 3,
+      "lam_grid": [
+        0.1,
+        1.0
+      ],
+      "n_splines": 5
+    },
+    "10_redundancy": {
+      "cv_folds": 3,
+      "lam_grid": [
+        0.1,
+        1.0
+      ],
+      "n_factors_to_try": [
+        1,
+        2
+      ],
+      "n_splines": 5
+    }
+  },
+  "theta_scoring_defaults": {
+    "missing_heavy_threshold": 0.5,
+    "prior": "Normal(0,1)",
+    "theta_grid_size": 81,
+    "theta_max": 4.0,
+    "theta_method": "MAP",
+    "theta_min": -4.0
+  }
+}

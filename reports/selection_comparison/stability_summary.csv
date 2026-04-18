@@ -1,0 +1,7 @@
+method,benchmark_id,pairwise_jaccard_mean,pairwise_jaccard_min,seed_count
+deterministic_info,b1,1.0,1.0,3
+deterministic_info,b2,1.0,1.0,3
+deterministic_info,b3,1.0,1.0,3
+random_cv,b1,0.2698412698412698,0.14285714285714285,3
+random_cv,b2,0.6,0.6,3
+random_cv,b3,0.7333333333333334,0.6,3

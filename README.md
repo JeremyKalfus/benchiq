@@ -2,13 +2,16 @@
 
 # BenchIQ
 
-BenchIQ is an artifact-first python workflow for benchmark-bundle distillation, score reconstruction, and overlap analysis from item-level model response data.
+BenchIQ is an artifact-first python workflow for benchmark-bundle distillation, calibration,
+deployment, and score reconstruction from item-level model response data.
 
 BenchIQ is for users who have many model, checkpoint, or prompt-template runs across multiple benchmarks and want to:
 
 - compress each benchmark to a smaller retained item set
+- calibrate once and reuse the fitted bundle later
+- predict full-benchmark scores for new checkpoints from reduced responses
 - reconstruct full-benchmark scores from reduced subsets
-- measure overlap, redundancy, and compressibility across benchmarks
+- optionally analyze overlap, redundancy, and compressibility across benchmarks
 - inspect every stage on disk instead of treating the pipeline as a black box
 
 BenchIQ is not a hosted platform, not a metabench-only reproduction, and not a general psychometrics framework. metabench is the methodological validation harness, not the product identity.
@@ -23,12 +26,15 @@ BenchIQ v0.1 is implemented end to end through:
 - benchmark-wise preprocessing and score-table construction
 - model-level train/validation/test splits
 - cross-validated random preselection
+- deterministic information-proxy preselection as an experiment path
 - benchmark-specific 2PL IRT fitting
 - Fisher-information final item selection
 - theta estimation with uncertainty
-- linear predictors, feature tables, GAM reconstruction, and redundancy analysis
+- linear predictors, feature tables, GAM reconstruction, and secondary redundancy analysis
 - artifact-first python API and CLI
+- first-class `calibrate` and `predict` workflows for fit-once / score-later reuse
 - metabench validation mode and a frozen real-data reviewer bundle
+- saved reconstruction-head and selection-method comparison reports under `reports/`
 
 Honest metabench-validation status:
 
@@ -61,7 +67,25 @@ Rules:
 
 See [`docs/design/schema.md`](docs/design/schema.md) for the exact table contract.
 
-## Main Workflow
+## Preferred Workflow
+
+BenchIQ now has a first-class calibration / deployment split.
+
+Calibration:
+
+- fit the reduction, IRT, and reconstruction stack once
+- save a reusable `calibration_bundle/` with selected items, IRT parameters, theta scoring
+  metadata, linear predictor coefficients, and reconstruction heads
+
+Deployment:
+
+- load the saved `calibration_bundle/`
+- score new reduced item-response sets without retraining
+- emit predicted full benchmark scores and deployment artifacts
+
+The historical `benchiq run` path still exists and remains useful for full end-to-end local runs.
+
+## Full Pipeline Stages
 
 BenchIQ keeps every stage inspectable on disk:
 
@@ -74,7 +98,7 @@ BenchIQ keeps every stage inspectable on disk:
 7. select final items with Fisher information
 8. estimate theta and reduced features
 9. reconstruct full scores with GAMs
-10. analyze redundancy and compressibility across benchmarks
+10. optionally analyze redundancy and compressibility across benchmarks
 
 ## Generic Bundle Mode vs metabench Validation Mode
 
@@ -82,6 +106,7 @@ Generic bundle mode is the product path:
 
 - you provide item-level responses from your own benchmark bundle
 - BenchIQ writes a full run directory with stage artifacts under your chosen output root
+- the preferred reusable workflow is `calibrate` first and `predict` later
 
 metabench validation mode is the methodological harness:
 
@@ -117,6 +142,26 @@ benchiq run \
   --run-id tiny-example
 ```
 
+Calibrate once:
+
+```bash
+benchiq calibrate \
+  --responses tests/data/tiny_example/responses_long.csv \
+  --config tests/data/tiny_example/config.json \
+  --out out/tiny_example_docs \
+  --run-id tiny-calibration
+```
+
+Predict later from the saved bundle:
+
+```bash
+benchiq predict \
+  --bundle out/tiny_example_docs/tiny-calibration \
+  --responses tests/data/tiny_example/responses_long.csv \
+  --out out/tiny_example_docs \
+  --run-id tiny-predict
+```
+
 Run strict metabench validation on the bundled reduced fixture:
 
 ```bash
@@ -128,6 +173,8 @@ The commands above write to:
 
 - `out/tiny_example_docs/validate/`
 - `out/tiny_example_docs/tiny-example/`
+- `out/tiny_example_docs/tiny-calibration/`
+- `out/tiny_example_docs/tiny-predict/`
 - `out/metabench_docs_example/metabench-validation/`
 
 Useful artifacts to inspect after the example run:
@@ -146,6 +193,7 @@ Every run root contains:
 - `manifest.json`: resolved config, source hashes, artifact index, stage records
 - `artifacts/`: stage directories with parquet/json outputs
 - `reports/`: top-level summaries, warnings, validation reports, and comparison notes
+- `calibration_bundle/` for reusable fitted artifacts when the run came from `benchiq calibrate`
 - `plots/` inside stage directories when a stage emits images
 
 Typical stage layout:
@@ -177,6 +225,9 @@ BenchIQ is not useful for a single model evaluated once on one benchmark. It bec
 - schema: [`docs/design/schema.md`](docs/design/schema.md)
 - CLI usage: [`docs/cli.md`](docs/cli.md)
 - metabench validation: [`docs/design/metabench_validation.md`](docs/design/metabench_validation.md)
+- calibration and deployment: [`docs/design/calibration_deployment.md`](docs/design/calibration_deployment.md)
+- reconstruction-head experiments: [`docs/design/reconstruction_head_experiments.md`](docs/design/reconstruction_head_experiments.md)
+- preselection alternatives: [`docs/design/preselection_alternatives.md`](docs/design/preselection_alternatives.md)
 - contributing and reproducibility: [`docs/contributing.md`](docs/contributing.md)
 
 ## Install and Verify

@@ -10,6 +10,7 @@ from typing import Any
 
 import click
 
+from benchiq.calibration import calibrate as run_calibration
 from benchiq.cli.commands_metabench import (
     DEFAULT_PROFILE,
     render_metabench_failure,
@@ -17,6 +18,7 @@ from benchiq.cli.commands_metabench import (
     run_metabench_validation,
 )
 from benchiq.config import BenchIQConfig
+from benchiq.deployment import predict as run_prediction
 from benchiq.io import Bundle, load_bundle
 from benchiq.io.write import write_json
 from benchiq.logging import update_manifest
@@ -206,6 +208,134 @@ def run_command(
         raise click.ClickException(str(exc)) from exc
 
     click.echo(_render_run_success(run_result))
+
+
+@main.command("calibrate")
+@click.option(
+    "--responses",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    required=True,
+    help="Path to responses_long as csv or parquet.",
+)
+@click.option(
+    "--items",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Optional path to canonical items as csv or parquet.",
+)
+@click.option(
+    "--models",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Optional path to canonical models as csv or parquet.",
+)
+@click.option(
+    "--config",
+    "config_path",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Optional BenchIQ config file (.json or .toml).",
+)
+@click.option(
+    "--out",
+    "out_dir",
+    type=click.Path(file_okay=False, path_type=Path),
+    required=True,
+    help="Explicit output directory. Calibration writes to OUT/<run-id>/.",
+)
+@click.option("--run-id", help="Optional explicit run id for stable output paths.")
+def calibrate_command(
+    *,
+    responses: Path,
+    items: Path | None,
+    models: Path | None,
+    config_path: Path | None,
+    out_dir: Path,
+    run_id: str | None,
+) -> None:
+    """Fit the reusable calibration stack without retraining at prediction time."""
+
+    settings = _load_cli_settings(config_path)
+    resolved_run_id = run_id or _default_run_id()
+    try:
+        calibration_result = run_calibration(
+            responses,
+            settings.config,
+            out_dir=out_dir,
+            items_path=items,
+            models_path=models,
+            run_id=resolved_run_id,
+            stage_options=settings.stage_options,
+        )
+    except SchemaValidationError as exc:
+        click.echo(_render_calibration_failure(exc, run_root=out_dir / resolved_run_id), err=True)
+        raise click.exceptions.Exit(1) from exc
+    except Exception as exc:
+        raise click.ClickException(str(exc)) from exc
+
+    click.echo(_render_calibration_success(calibration_result))
+
+
+@main.command("predict")
+@click.option(
+    "--bundle",
+    "bundle_path",
+    type=click.Path(exists=True, path_type=Path),
+    required=True,
+    help=(
+        "Path to a calibration bundle directory, its manifest.json, "
+        "or a calibration run root containing calibration_bundle/."
+    ),
+)
+@click.option(
+    "--responses",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    required=True,
+    help="Path to reduced responses_long as csv or parquet.",
+)
+@click.option(
+    "--items",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Optional path to canonical items as csv or parquet.",
+)
+@click.option(
+    "--models",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Optional path to canonical models as csv or parquet.",
+)
+@click.option(
+    "--out",
+    "out_dir",
+    type=click.Path(file_okay=False, path_type=Path),
+    required=True,
+    help="Explicit output directory. Predictions write to OUT/<run-id>/.",
+)
+@click.option("--run-id", help="Optional explicit run id for stable output paths.")
+def predict_command(
+    *,
+    bundle_path: Path,
+    responses: Path,
+    items: Path | None,
+    models: Path | None,
+    out_dir: Path,
+    run_id: str | None,
+) -> None:
+    """Load a saved calibration bundle and predict full benchmark scores."""
+
+    resolved_run_id = run_id or _default_run_id()
+    try:
+        prediction_result = run_prediction(
+            bundle_path,
+            responses,
+            out_dir=out_dir,
+            run_id=resolved_run_id,
+            items_path=items,
+            models_path=models,
+        )
+    except SchemaValidationError as exc:
+        click.echo(_render_prediction_failure(exc, run_root=out_dir / resolved_run_id), err=True)
+        raise click.exceptions.Exit(1) from exc
+    except Exception as exc:
+        raise click.ClickException(str(exc)) from exc
+
+    click.echo(_render_prediction_success(prediction_result))
 
 
 @main.group("metabench")
@@ -523,9 +653,71 @@ def _render_run_success(run_result: RunResult) -> str:
     )
 
 
+def _render_calibration_success(calibration_result: Any) -> str:
+    summary = calibration_result.run_result.summary()
+    metrics = summary["metrics"]
+    return "\n".join(
+        [
+            "calibration completed",
+            f"run id: {summary['run_id']}",
+            f"run location: {calibration_result.run_result.run_root}",
+            f"calibration bundle: {calibration_result.calibration_root}",
+            f"warnings: {summary['warning_count']}",
+            "selected items by benchmark: "
+            f"{json.dumps(metrics.get('selected_items_by_benchmark', {}), sort_keys=True)}",
+            "marginal test rmse by benchmark: "
+            f"{json.dumps(metrics.get('marginal_test_rmse_by_benchmark', {}), sort_keys=True)}",
+        ]
+    )
+
+
+def _render_prediction_success(prediction_result: Any) -> str:
+    report = prediction_result.prediction_report
+    benchmark_counts = json.dumps(
+        report["prediction_availability"]["best_available_non_null_by_benchmark"],
+        sort_keys=True,
+    )
+    return "\n".join(
+        [
+            "prediction completed",
+            f"run location: {prediction_result.run_root}",
+            f"calibration bundle: {prediction_result.calibration_bundle_path}",
+            "best available non-null predictions: "
+            f"{report['counts']['best_available_non_null_predictions']}",
+            f"best available non-null by benchmark: {benchmark_counts}",
+        ]
+    )
+
+
 def _render_run_failure(exc: SchemaValidationError, *, run_root: Path) -> str:
     lines = [
         "run failed",
+        f"run location: {run_root}",
+        f"error: {exc}",
+    ]
+    if exc.report is not None:
+        for error in exc.report.errors:
+            table_name = error.table_name or "bundle"
+            lines.append(f"error [{error.code}] {table_name}: {error.message}")
+    return "\n".join(lines)
+
+
+def _render_calibration_failure(exc: SchemaValidationError, *, run_root: Path) -> str:
+    lines = [
+        "calibration failed",
+        f"run location: {run_root}",
+        f"error: {exc}",
+    ]
+    if exc.report is not None:
+        for error in exc.report.errors:
+            table_name = error.table_name or "bundle"
+            lines.append(f"error [{error.code}] {table_name}: {error.message}")
+    return "\n".join(lines)
+
+
+def _render_prediction_failure(exc: SchemaValidationError, *, run_root: Path) -> str:
+    lines = [
+        "prediction failed",
         f"run location: {run_root}",
         f"error: {exc}",
     ]

@@ -1,0 +1,135 @@
+{
+  "benchmarks": {
+    "b1": {
+      "diagnostics": {
+        "test": {
+          "count": 6,
+          "score_max": 85.71428571428571,
+          "score_mean": 50.0,
+          "score_min": 0.0
+        },
+        "train": {
+          "count": 48,
+          "score_max": 100.0,
+          "score_mean": 50.29761904761906,
+          "score_min": 0.0
+        },
+        "val": {
+          "count": 6,
+          "score_max": 100.0,
+          "score_mean": 54.76190476190476,
+          "score_min": 14.285714285714285
+        }
+      },
+      "effective_bins": 6,
+      "fallback_reason": null,
+      "strategy": "global_plus_local_val",
+      "stratification_used": true,
+      "test_model_count": 6,
+      "train_model_count": 48,
+      "val_model_count": 6,
+      "val_split_method": "stratified",
+      "valid_model_count": 60,
+      "warnings": []
+    },
+    "b2": {
+      "diagnostics": {
+        "test": {
+          "count": 6,
+          "score_max": 100.0,
+          "score_mean": 52.38095238095238,
+          "score_min": 0.0
+        },
+        "train": {
+          "count": 48,
+          "score_max": 100.0,
+          "score_mean": 50.89285714285714,
+          "score_min": 0.0
+        },
+        "val": {
+          "count": 6,
+          "score_max": 85.71428571428571,
+          "score_mean": 52.38095238095238,
+          "score_min": 14.285714285714285
+        }
+      },
+      "effective_bins": 6,
+      "fallback_reason": null,
+      "strategy": "global_plus_local_val",
+      "stratification_used": true,
+      "test_model_count": 6,
+      "train_model_count": 48,
+      "val_model_count": 6,
+      "val_split_method": "stratified",
+      "valid_model_count": 60,
+      "warnings": []
+    },
+    "b3": {
+      "diagnostics": {
+        "test": {
+          "count": 6,
+          "score_max": 71.42857142857143,
+          "score_mean": 42.857142857142854,
+          "score_min": 28.57142857142857
+        },
+        "train": {
+          "count": 48,
+          "score_max": 100.0,
+          "score_mean": 44.94047619047618,
+          "score_min": 0.0
+        },
+        "val": {
+          "count": 6,
+          "score_max": 100.0,
+          "score_mean": 47.61904761904762,
+          "score_min": 0.0
+        }
+      },
+      "effective_bins": 6,
+      "fallback_reason": null,
+      "strategy": "global_plus_local_val",
+      "stratification_used": true,
+      "test_model_count": 6,
+      "train_model_count": 48,
+      "val_model_count": 6,
+      "val_split_method": "stratified",
+      "valid_model_count": 60,
+      "warnings": []
+    }
+  },
+  "counts": {
+    "benchmark_count": 3,
+    "global_test_enabled": true,
+    "global_test_model_count": 6
+  },
+  "generated_at": "2026-04-17T23:35:45.867745+00:00",
+  "global_test": {
+    "assigned_test_count": 6,
+    "assigned_train_pool_count": 54,
+    "diagnostics": {
+      "test": {
+        "count": 6,
+        "score_max": 76.19047619047619,
+        "score_mean": 48.41269841269841,
+        "score_min": 9.523809523809524
+      },
+      "train_pool": {
+        "count": 54,
+        "score_max": 90.47619047619048,
+        "score_mean": 49.02998236331569,
+        "score_min": 9.523809523809524
+      }
+    },
+    "effective_bins": 6,
+    "eligible_model_count": 60,
+    "enabled": true,
+    "fallback_reason": null,
+    "skip_reason": null,
+    "split_method": "stratified",
+    "stratification_used": true,
+    "test_model_count": 6,
+    "train_val_pool_count": 54,
+    "warnings": []
+  },
+  "warnings": []
+}

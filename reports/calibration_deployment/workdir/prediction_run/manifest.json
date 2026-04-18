@@ -1,0 +1,89 @@
+{
+  "artifacts": {
+    "00_canonical": {
+      "canonicalization_report": "reports/calibration_deployment/workdir/prediction_run/artifacts/00_canonical/canonicalization_report.json",
+      "items": "reports/calibration_deployment/workdir/prediction_run/artifacts/00_canonical/items.parquet",
+      "models": "reports/calibration_deployment/workdir/prediction_run/artifacts/00_canonical/models.parquet",
+      "responses_long": "reports/calibration_deployment/workdir/prediction_run/artifacts/00_canonical/responses_long.parquet"
+    },
+    "01_predict": {
+      "features_joint": "reports/calibration_deployment/workdir/prediction_run/artifacts/01_predict/features_joint.parquet",
+      "features_marginal": "reports/calibration_deployment/workdir/prediction_run/artifacts/01_predict/features_marginal.parquet",
+      "prediction_report": "reports/calibration_deployment/workdir/prediction_run/artifacts/01_predict/prediction_report.json",
+      "predictions": "reports/calibration_deployment/workdir/prediction_run/artifacts/01_predict/predictions.parquet",
+      "predictions_best_available": "reports/calibration_deployment/workdir/prediction_run/artifacts/01_predict/predictions_best_available.parquet",
+      "theta_estimates": "reports/calibration_deployment/workdir/prediction_run/artifacts/01_predict/theta_estimates.parquet"
+    }
+  },
+  "dependency_versions": {
+    "click": "8.3.1",
+    "girth": "0.8.0",
+    "joblib": "1.5.3",
+    "matplotlib": "3.10.8",
+    "numpy": "2.4.4",
+    "pandas": "2.3.3",
+    "pyarrow": "23.0.1",
+    "pydantic": "2.12.5",
+    "pygam": "0.12.0",
+    "scikit-learn": "1.8.0",
+    "scipy": "1.16.3"
+  },
+  "git_hash": "770d728195405aeaa13242664a813a8ad4ce07aa",
+  "input_hashes": {
+    "items": null,
+    "models": null,
+    "responses_long": "f0ac03dd783591e770c3f7c9e2f0e99900aece9c6f0ce962490fbd26593414ca"
+  },
+  "input_sources": {
+    "items": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "items"
+    },
+    "models": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "models"
+    },
+    "responses_long": {
+      "derived": false,
+      "file_format": "csv",
+      "path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/calibration_deployment/reduced_test_responses.csv",
+      "sha256": "f0ac03dd783591e770c3f7c9e2f0e99900aece9c6f0ce962490fbd26593414ca",
+      "table_name": "responses_long"
+    }
+  },
+  "package_version": "0.1.0a0",
+  "prediction": {
+    "calibration_bundle_manifest": "reports/calibration_deployment/workdir/calibration_run/calibration_bundle/manifest.json",
+    "generated_at": "2026-04-17T23:35:45.415510+00:00"
+  },
+  "resolved_config": {
+    "allow_low_n": true,
+    "drop_low_tail_models_quantile": 0.001,
+    "duplicate_policy": "error",
+    "max_item_mean": 0.99,
+    "min_abs_point_biserial": 0.0,
+    "min_item_coverage": 0.8,
+    "min_item_sd": 0.01,
+    "min_items_after_filtering": 5,
+    "min_models_per_benchmark": 15,
+    "min_models_per_item": 10,
+    "min_overlap_models_for_joint": 15,
+    "min_overlap_models_for_redundancy": 15,
+    "n_strata_bins": 10,
+    "p_test": 0.1,
+    "p_val": 0.1,
+    "random_seed": 7,
+    "warn_models_per_benchmark": 20
+  },
+  "run_id": "prediction_run",
+  "seeds": {
+    "random_seed": 7
+  },
+  "timestamp": "2026-04-17T23:35:45.306839+00:00"
+}

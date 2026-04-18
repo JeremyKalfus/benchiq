@@ -1,0 +1,46 @@
+{
+  "benchmark_id": "b2",
+  "best_iteration": {
+    "best_lam": 1.0,
+    "iteration_id": 0,
+    "max_rmse_val": 14.252868119644639,
+    "mean_rmse_test": 12.529459313920194,
+    "mean_rmse_val": 11.739240812253234,
+    "sampled_item_ids": [
+      "b2_item_3",
+      "b2_item_5",
+      "b2_item_6",
+      "b2_item_7"
+    ],
+    "subset_seed": 11,
+    "valid_pool_model_count": 54,
+    "valid_test_model_count": 6
+  },
+  "counts": {
+    "candidate_item_count": 7,
+    "completed_iterations": 1,
+    "cv_rows": 3,
+    "failed_iterations": 0,
+    "pool_model_count": 54,
+    "test_model_count": 6,
+    "valid_iterations": 1
+  },
+  "generated_at": "2026-04-17T23:35:53.230640+00:00",
+  "method": "deterministic_info",
+  "parameters": {
+    "checkpoint_interval": 1,
+    "cv_folds": 3,
+    "effective_k_preselect": 4,
+    "lam_grid": [
+      0.1,
+      1.0
+    ],
+    "min_item_coverage": 0.8,
+    "n_iter": 1,
+    "requested_k_preselect": 4
+  },
+  "selection_rule": "top_k_information_proxy",
+  "skipped": false,
+  "skipped_reason": null,
+  "warnings": []
+}
