@@ -8,6 +8,14 @@ from click.testing import CliRunner
 from benchiq.cli.main import main
 
 
+def test_top_level_help_lists_public_commands() -> None:
+    result = CliRunner().invoke(main, ["--help"])
+
+    assert result.exit_code == 0, result.output
+    for command_name in ("validate", "calibrate", "predict", "run", "metabench"):
+        assert command_name in result.output
+
+
 def test_validate_writes_validation_bundle_and_exits_zero(tmp_path) -> None:
     responses_path = _write_synthetic_bundle(tmp_path)
     config_path = _write_config(tmp_path)

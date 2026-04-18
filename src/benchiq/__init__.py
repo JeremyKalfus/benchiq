@@ -7,9 +7,11 @@ BenchIQ exposes four high-level workflows at the package root:
 - ``predict(...)`` for deployment-time scoring from a saved bundle
 - ``run(...)`` for the historical full end-to-end local pipeline
 
-``deploy(...)`` is provided as a readability alias for ``predict(...)`` so the
-calibration / deployment split is discoverable without importing internal
-modules.
+Package-level helpers for the calibration / deployment path are also public:
+
+- ``load_calibration_bundle(...)`` to validate and inspect a saved bundle
+- ``deploy(...)`` as a readability alias for ``predict(...)``
+- ``public_workflows()`` as a quick discovery helper from ``import benchiq``
 """
 
 from __future__ import annotations
