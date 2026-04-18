@@ -690,14 +690,17 @@ def _build_report(
     winners = {}
     for model_type in summary["model_type"].dropna().astype("string").unique().tolist():
         model_rows = summary.loc[summary["model_type"] == model_type].copy()
+        model_rows = model_rows.dropna(subset=["rmse_mean"])
         if model_rows.empty:
             continue
         best_row = model_rows.sort_values(["rmse_mean", "runtime_mean_seconds", "method"]).iloc[0]
-        winners[model_type] = {
-            "method": best_row["method"],
-            "rmse_mean": best_row["rmse_mean"],
-            "runtime_mean_seconds": best_row["runtime_mean_seconds"],
-        }
+        winners[model_type] = _json_safe(
+            {
+                "method": best_row["method"],
+                "rmse_mean": best_row["rmse_mean"],
+                "runtime_mean_seconds": best_row["runtime_mean_seconds"],
+            }
+        )
     return {
         "methods": [str(_resolve_method(method)) for method in methods],
         "seeds": [int(seed) for seed in seeds],
@@ -723,7 +726,7 @@ def _write_experiment_artifacts(
     result.metrics.to_csv(metrics_csv, index=False)
     result.predictions.to_csv(predictions_csv, index=False)
     result.summary.to_csv(summary_csv, index=False)
-    report_json = write_json(result.report, out_dir / "head_report.json")
+    report_json = write_json(_json_safe(result.report), out_dir / "head_report.json")
     plots_dir = out_dir / "plots"
     plots_dir.mkdir(parents=True, exist_ok=True)
     rmse_plot = _plot_summary_metric(
@@ -823,8 +826,8 @@ def _summary_markdown(result: ReconstructionHeadExperimentResult) -> str:
             lines.append(
                 "- "
                 f"`{model_type}` winner: `{payload['method']}` "
-                f"(rmse_mean={payload['rmse_mean']:.4f}, "
-                f"runtime_mean_seconds={payload['runtime_mean_seconds']:.4f})"
+                f"(rmse_mean={_fmt_float(payload['rmse_mean'])}, "
+                f"runtime_mean_seconds={_fmt_float(payload['runtime_mean_seconds'])})"
             )
     lines.extend(["", "## summary", ""])
     if result.summary.empty:
@@ -834,11 +837,11 @@ def _summary_markdown(result: ReconstructionHeadExperimentResult) -> str:
             lines.append(
                 "- "
                 f"`{row['model_type']}` `{row['method']}`: "
-                f"rmse_mean={row['rmse_mean']:.4f}, "
-                f"mae_mean={row['mae_mean']:.4f}, "
+                f"rmse_mean={_fmt_float(row['rmse_mean'])}, "
+                f"mae_mean={_fmt_float(row['mae_mean'])}, "
                 f"pearson_mean={_fmt_float(row['pearson_mean'])}, "
                 f"spearman_mean={_fmt_float(row['spearman_mean'])}, "
-                f"runtime_mean_seconds={row['runtime_mean_seconds']:.4f}, "
+                f"runtime_mean_seconds={_fmt_float(row['runtime_mean_seconds'])}, "
                 f"seed_rmse_std={_fmt_float(row['seed_rmse_std'])}"
             )
     return "\n".join(lines) + "\n"
@@ -878,3 +881,17 @@ def _fmt_float(value: Any) -> str:
     if value is None or pd.isna(value):
         return "NA"
     return f"{float(value):.4f}"
+
+
+def _json_safe(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {str(key): _json_safe(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_json_safe(item) for item in value]
+    if isinstance(value, tuple):
+        return [_json_safe(item) for item in value]
+    if isinstance(value, Path):
+        return str(value)
+    if pd.isna(value):
+        return None
+    return value

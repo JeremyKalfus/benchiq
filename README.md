@@ -36,6 +36,8 @@ BenchIQ v0.1 is implemented end to end through:
 - a top-level python API that now exposes the calibration / deployment split directly
 - metabench validation mode and a frozen real-data reviewer bundle
 - saved reconstruction-head and selection-method comparison reports under `reports/`
+- a saved preprocessing optimization bundle under `reports/preprocessing_optimization/` with a
+  recommended reconstruction-first profile for held-out score reconstruction
 
 Honest metabench-validation status:
 
@@ -47,6 +49,19 @@ The reviewer bundle and comparison reports live in:
 - [`reports/metabench_real_data_comparison.csv`](reports/metabench_real_data_comparison.csv)
 - [`reports/metabench_real_data_notes.md`](reports/metabench_real_data_notes.md)
 - [`scripts/run_metabench_real_data_comparison.py`](scripts/run_metabench_real_data_comparison.py)
+
+Held-out reconstruction optimization status:
+
+> The current psychometric defaults remain the locked v0.1 baseline, but the strongest
+> reconstruction-first profile on the saved real-data confirmation bundle is
+> `reconstruction_relaxed` with `deterministic_info` preselection.
+
+The preprocessing optimization bundle lives in:
+
+- [`reports/preprocessing_optimization/summary.md`](reports/preprocessing_optimization/summary.md)
+- [`reports/preprocessing_optimization/best_config.json`](reports/preprocessing_optimization/best_config.json)
+- [`reports/preprocessing_optimization/head_checks/head_check_summary.md`](reports/preprocessing_optimization/head_checks/head_check_summary.md)
+- [`scripts/run_preprocessing_optimization.py`](scripts/run_preprocessing_optimization.py)
 
 ## What BenchIQ Expects
 

@@ -1,0 +1,105 @@
+{
+  "recommended_action": "keep_defaults_but_recommend_profile",
+  "reason": "the locked v0.1 spec still describes psychometric-style defaults, so this pass recommends an evidence-backed reconstruction-first profile instead of silently rewriting BenchIQConfig defaults",
+  "winner_dataset_id": "large_release_default_subset",
+  "winner_search_stage": "large_confirmation",
+  "winner_preselection_method": "deterministic_info",
+  "winner_profile_id": "reconstruction_relaxed",
+  "winner_family": "reconstruction_first_relaxed",
+  "evaluation_seeds": [
+    7,
+    11,
+    19
+  ],
+  "profile_overrides": {
+    "drop_low_tail_models_quantile": 0.0,
+    "min_item_sd": 0.0,
+    "max_item_mean": 0.99,
+    "min_abs_point_biserial": 0.0,
+    "min_item_coverage": 0.7
+  },
+  "recommended_config": {
+    "duplicate_policy": "error",
+    "allow_low_n": false,
+    "drop_low_tail_models_quantile": 0.0,
+    "min_item_sd": 0.0,
+    "max_item_mean": 0.99,
+    "min_abs_point_biserial": 0.0,
+    "min_models_per_benchmark": 100,
+    "warn_models_per_benchmark": 200,
+    "min_items_after_filtering": 50,
+    "min_models_per_item": 50,
+    "min_item_coverage": 0.7,
+    "min_overlap_models_for_joint": 75,
+    "min_overlap_models_for_redundancy": 75,
+    "p_test": 0.1,
+    "p_val": 0.1,
+    "n_strata_bins": 10,
+    "random_seed": 7
+  },
+  "recommended_stage_options": {
+    "04_subsample": {
+      "k_preselect": 350,
+      "n_iter": 24,
+      "cv_folds": 5,
+      "checkpoint_interval": 8,
+      "lam_grid": [
+        0.1,
+        1.0
+      ],
+      "method": "deterministic_info"
+    },
+    "05_irt": {
+      "backend_options": null
+    },
+    "06_select": {
+      "k_final": 250,
+      "n_bins": 250,
+      "theta_grid_size": 251
+    },
+    "07_theta": {
+      "theta_method": "MAP",
+      "theta_grid_size": 251
+    },
+    "09_reconstruct": {
+      "lam_grid": [
+        0.1,
+        1.0
+      ],
+      "cv_folds": 5,
+      "n_splines": 10
+    },
+    "10_redundancy": {
+      "lam_grid": [
+        0.1,
+        1.0
+      ],
+      "cv_folds": 5,
+      "n_splines": 10,
+      "n_factors_to_try": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  "baseline_config": {
+    "duplicate_policy": "error",
+    "allow_low_n": false,
+    "drop_low_tail_models_quantile": 0.001,
+    "min_item_sd": 0.01,
+    "max_item_mean": 0.95,
+    "min_abs_point_biserial": 0.05,
+    "min_models_per_benchmark": 100,
+    "warn_models_per_benchmark": 200,
+    "min_items_after_filtering": 50,
+    "min_models_per_item": 50,
+    "min_item_coverage": 0.8,
+    "min_overlap_models_for_joint": 75,
+    "min_overlap_models_for_redundancy": 75,
+    "p_test": 0.1,
+    "p_val": 0.1,
+    "n_strata_bins": 10,
+    "random_seed": 7
+  }
+}

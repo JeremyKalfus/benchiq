@@ -7,5 +7,6 @@ build/
 dist/
 *.egg-info/
 out/
+reports/preprocessing_optimization/**/workdir/
 AGENTS.md
 PLANS.md

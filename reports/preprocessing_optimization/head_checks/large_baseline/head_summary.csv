@@ -1,0 +1,3 @@
+model_type,method,rmse_mean,rmse_std,mae_mean,pearson_mean,spearman_mean,runtime_mean_seconds,runs,seed_rmse_std
+marginal,elastic_net,,,,,,0.12867419435901362,0,
+marginal,gam,,,,,,0.2121322360019096,0,

@@ -29,6 +29,23 @@ Observed result on the compact validation fixture:
 - `deterministic_info` had perfect cross-seed item stability on this fixture
 - `deterministic_info` was much faster than the random-CV baseline here
 
+## preprocessing optimization
+
+Source bundle:
+
+- [`reports/preprocessing_optimization/summary.md`](../preprocessing_optimization/summary.md)
+
+Observed result across the compact search bundle and the real-data confirmation bundle:
+
+- the compact fixture did not discriminate among preprocessing profiles; every profile tied on
+  held-out RMSE and retained-item counts there
+- the real-data confirmation bundle did discriminate strongly: the psychometric defaults dropped
+  enough items to skip half the benchmarks at `k_preselect = 350`
+- `reconstruction_relaxed` matched `minimal_cleaning` on held-out RMSE, but won the tie on runtime
+  and cleaner guardrails
+- the saved recommendation is to keep the spec-aligned defaults as the documented baseline while
+  offering the reconstruction-first relaxed profile as the evidence-backed override
+
 ## irt parity
 
 Source bundle:
@@ -57,6 +74,8 @@ The compact evidence bundle supports the product pivot:
 
 - the calibration / deployment split is real and reusable
 - the deterministic preselection baseline is promising enough to keep investigating
+- the psychometric preprocessing defaults are not the best reconstruction-first choice on the
+  saved real-data bundle
 - GAM still deserves to stay the default reconstruction head for now
 - R-baseline IRT parity infrastructure exists, but the actual parity verdict still depends on an
   environment with `mirt`

@@ -1,0 +1,26 @@
+{
+  "detailed_rows": 108,
+  "methods": [
+    "gam",
+    "elastic_net"
+  ],
+  "seeds": [
+    7,
+    11,
+    19
+  ],
+  "skip_reasons": {},
+  "summary_rows": 4,
+  "winners_by_model_type": {
+    "joint": {
+      "method": "elastic_net",
+      "rmse_mean": 16.76902446433856,
+      "runtime_mean_seconds": 0.024171051000141434
+    },
+    "marginal": {
+      "method": "elastic_net",
+      "rmse_mean": 18.173475563807077,
+      "runtime_mean_seconds": 0.019114666890042525
+    }
+  }
+}
