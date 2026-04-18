@@ -1,6 +1,6 @@
 # BenchIQ CLI
 
-BenchIQ v0.1 ships an artifact-first CLI with five entrypoints:
+BenchIQ v0.1 ships an artifact-first CLI with five stable public entrypoints:
 
 - `benchiq validate`
 - `benchiq calibrate`
@@ -9,6 +9,14 @@ BenchIQ v0.1 ships an artifact-first CLI with five entrypoints:
 - `benchiq metabench run`
 
 All commands require an explicit output directory.
+
+The preferred reusable workflow is:
+
+- `benchiq calibrate` to fit and publish a reusable `calibration_bundle/`
+- `benchiq predict` to score new reduced responses later without retraining
+
+`benchiq run` remains the stable full end-to-end path when you want one inspectable local run root
+that also includes the downstream redundancy analysis.
 
 Supported invocation forms after install:
 
@@ -22,6 +30,10 @@ python -m benchiq.cli ...
 ```bash
 python -m pip install -e '.[dev]'
 ```
+
+Core `validate` / `calibrate` / `predict` / `run` workflows do not depend on XGBoost. XGBoost is
+kept as an optional experiment dependency for the reconstruction-head comparison harness, and is
+also exposed through the `.[experiments]` extra.
 
 ## `benchiq validate`
 
@@ -110,6 +122,9 @@ Console behavior:
 
 Use this to fit the reusable calibration stack and publish a saved `calibration_bundle/`.
 
+The run root stays fully inspectable. The nested `calibration_bundle/` directory is the reusable
+handoff artifact that `predict` validates later.
+
 Example:
 
 ```bash
@@ -136,6 +151,7 @@ Important outputs:
 - `calibration_bundle/per_benchmark/<benchmark_id>/theta_scoring_metadata.json`
 - `calibration_bundle/per_benchmark/<benchmark_id>/linear_predictor_coefficients.parquet`
 - `calibration_bundle/per_benchmark/<benchmark_id>/reconstruction/<model_type>/gam_model.pkl`
+  when that reconstruction head was successfully fit
 
 Console behavior:
 
@@ -148,11 +164,17 @@ Console behavior:
 
 Use this to load a saved calibration bundle and score new reduced responses without retraining.
 
+`--bundle` accepts any of the following:
+
+- a calibration run root that contains `calibration_bundle/`
+- the `calibration_bundle/` directory itself
+- the bundle `manifest.json`
+
 Example:
 
 ```bash
 benchiq predict \
-  --bundle out/tiny_example_docs/tiny-calibration \
+  --bundle out/tiny_example_docs/tiny-calibration/calibration_bundle \
   --responses tests/data/tiny_example/responses_long.csv \
   --out out/tiny_example_docs \
   --run-id tiny-predict
@@ -178,6 +200,8 @@ Behavior:
 - fails clearly if the calibration bundle is missing required fitted artifacts
 - does not retrain any model
 - uses the saved GAM and linear predictor artifacts from calibration time
+- requires the selected calibrated items for each benchmark to be present in the response file
+- ignores extra non-selected items and extra non-calibrated benchmarks with explicit warnings
 
 ## `benchiq metabench run`
 
@@ -253,7 +277,9 @@ Interpretation:
 - plot files are written under the stage that produced them
 - skip reasons and warnings are written as stage reports rather than hidden in logs
 - `calibration_bundle/` and `artifacts/01_predict/` are the primary reusable calibration /
-  deployment artifacts; `artifacts/10_redundancy/` is a secondary analysis path
+  deployment artifacts
+- `artifacts/10_redundancy/` is a secondary analysis path that stays attached to the historical
+  full `run` workflow
 
 Linear predictor artifacts live under:
 

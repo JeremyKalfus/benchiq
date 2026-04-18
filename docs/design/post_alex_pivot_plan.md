@@ -8,11 +8,21 @@ BenchIQ is staying a general benchmark-bundle distillation tool. The work below 
 redefine the product as "metabench in python." metabench remains the reference case, the
 validation harness, and the strongest methodological comparison point.
 
+This note mixes two perspectives on purpose:
+
+- the implementation-status bullets describe what has landed
+- the audit sections below describe the repo state that motivated the pivot work
+
+If the audit text disagrees with the current public README or CLI docs, treat it as historical
+motivation rather than the current public surface.
+
 ## implementation status
 
 Current status after the pivot implementation pass:
 
 - calibration / deployment split is implemented and tested
+- public package/docs positioning now presents `calibrate` / `predict` as first-class stable
+  workflows alongside `validate`, `run`, and `metabench run`
 - optional R-baseline parity harness is implemented and writes skipped reports cleanly when `mirt`
   is unavailable
 - reconstruction-head comparison artifacts are saved under `reports/experiments/`

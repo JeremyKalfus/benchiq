@@ -26,3 +26,13 @@ def test_import_exposes_public_validate_entrypoint() -> None:
     assert isinstance(report, benchiq.ValidationReport)
     assert not report.ok
     assert report.errors[0].code == "null_required_key_values"
+
+
+def test_import_exposes_calibration_and_deployment_helpers() -> None:
+    workflows = benchiq.public_workflows()
+
+    assert callable(benchiq.calibrate)
+    assert callable(benchiq.predict)
+    assert benchiq.deploy is benchiq.predict
+    assert workflows["calibrate"].startswith("fit the reusable calibration stack")
+    assert workflows["predict"].startswith("score new reduced responses")

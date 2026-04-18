@@ -2,8 +2,8 @@
 
 # BenchIQ
 
-BenchIQ is an artifact-first python workflow for benchmark-bundle distillation, calibration,
-deployment, and score reconstruction from item-level model response data.
+BenchIQ is an artifact-first python system for benchmark-bundle distillation, calibration,
+deployment-time scoring, and score reconstruction from item-level model response data.
 
 BenchIQ is for users who have many model, checkpoint, or prompt-template runs across multiple benchmarks and want to:
 
@@ -32,7 +32,8 @@ BenchIQ v0.1 is implemented end to end through:
 - theta estimation with uncertainty
 - linear predictors, feature tables, GAM reconstruction, and secondary redundancy analysis
 - artifact-first python API and CLI
-- first-class `calibrate` and `predict` workflows for fit-once / score-later reuse
+- stable public entrypoints for `validate`, `calibrate`, `predict`, `run`, and `metabench run`
+- a top-level python API that now exposes the calibration / deployment split directly
 - metabench validation mode and a frozen real-data reviewer bundle
 - saved reconstruction-head and selection-method comparison reports under `reports/`
 
@@ -69,21 +70,34 @@ See [`docs/design/schema.md`](docs/design/schema.md) for the exact table contrac
 
 ## Preferred Workflow
 
-BenchIQ now has a first-class calibration / deployment split.
+BenchIQ now has a first-class calibration / deployment split, and the public repo should be read in
+that order:
 
-Calibration:
+- `validate` checks and canonicalizes a bundle without fitting the full stack
+- `calibrate` fits the reduction, IRT, and reconstruction stack once and saves a reusable
+  `calibration_bundle/`
+- `predict` loads that saved bundle and scores new reduced item-response sets without retraining
+- `run` remains the stable full end-to-end local workflow when you want one inspectable run root
+  with the downstream redundancy outputs included
+- `metabench run` remains the methodological validation harness, not the product path
 
-- fit the reduction, IRT, and reconstruction stack once
-- save a reusable `calibration_bundle/` with selected items, IRT parameters, theta scoring
-  metadata, linear predictor coefficients, and reconstruction heads
+The package surface mirrors the same split:
 
-Deployment:
+```python
+from benchiq import (
+    calibrate,
+    deploy,
+    load_calibration_bundle,
+    predict,
+    public_workflows,
+    run,
+    validate,
+)
+```
 
-- load the saved `calibration_bundle/`
-- score new reduced item-response sets without retraining
-- emit predicted full benchmark scores and deployment artifacts
-
-The historical `benchiq run` path still exists and remains useful for full end-to-end local runs.
+`predict(...)` is the primary deployment-time scoring helper. `deploy(...)` is a package-level
+alias for the same behavior so the calibration / deployment split is discoverable from `import
+benchiq`.
 
 ## Full Pipeline Stages
 
@@ -107,6 +121,7 @@ Generic bundle mode is the product path:
 - you provide item-level responses from your own benchmark bundle
 - BenchIQ writes a full run directory with stage artifacts under your chosen output root
 - the preferred reusable workflow is `calibrate` first and `predict` later
+- `run` stays available when you want the full local stage DAG, including redundancy artifacts
 
 metabench validation mode is the methodological harness:
 
@@ -156,11 +171,15 @@ Predict later from the saved bundle:
 
 ```bash
 benchiq predict \
-  --bundle out/tiny_example_docs/tiny-calibration \
+  --bundle out/tiny_example_docs/tiny-calibration/calibration_bundle \
   --responses tests/data/tiny_example/responses_long.csv \
   --out out/tiny_example_docs \
   --run-id tiny-predict
 ```
+
+For this tiny example, the full `responses_long.csv` file still works as prediction input because
+it contains the selected calibrated items. `predict` ignores extra non-selected items and reports
+that choice in its prediction artifacts.
 
 Run strict metabench validation on the bundled reduced fixture:
 
@@ -174,6 +193,7 @@ The commands above write to:
 - `out/tiny_example_docs/validate/`
 - `out/tiny_example_docs/tiny-example/`
 - `out/tiny_example_docs/tiny-calibration/`
+- `out/tiny_example_docs/tiny-calibration/calibration_bundle/`
 - `out/tiny_example_docs/tiny-predict/`
 - `out/metabench_docs_example/metabench-validation/`
 
@@ -204,7 +224,11 @@ Typical stage layout:
 - `artifacts/09_reconstruct/`: predictions, residuals, metrics, plots, and reconstruction summaries
 - `artifacts/10_redundancy/`: correlation tables, factor-analysis outputs, compressibility tables, and plots
 
-Warnings, refusal reasons, and skipped stages are first-class artifacts. BenchIQ does not silently fall back.
+For calibration runs, `calibration_bundle/manifest.json` is the deployment handoff artifact. It is
+what `benchiq predict` and `benchiq.load_calibration_bundle(...)` validate and reuse later.
+
+Warnings, refusal reasons, and skipped stages are first-class artifacts. BenchIQ does not silently
+fall back.
 
 See [`docs/cli.md`](docs/cli.md) for command-specific paths and [`docs/design/schema.md`](docs/design/schema.md) for table/report objects.
 
@@ -214,8 +238,13 @@ A realistic BenchIQ workflow looks like this:
 
 - train or fine-tune many models, checkpoints, prompts, or decoding variants across several benchmarks
 - score them at the item level and export one `responses_long` table
-- run BenchIQ to select reduced benchmark subsets, estimate latent ability, reconstruct full scores, and analyze redundancy
-- use the retained subsets for faster repeated checkpoint evaluation while preserving a calibrated link back to the full benchmark scores
+- run `benchiq calibrate` once to select reduced benchmark subsets, estimate latent ability, and
+  fit reconstruction heads
+- publish the saved `calibration_bundle/` as the reusable fit artifact
+- run `benchiq predict` on future checkpoints using only the retained items, while preserving a
+  calibrated link back to the full benchmark scores
+- use `benchiq run` when you also want the full local redundancy/compressibility analysis in the
+  same run root
 
 BenchIQ is not useful for a single model evaluated once on one benchmark. It becomes useful when you have enough model variation to support model-level splitting, reconstruction, and overlap analysis.
 
@@ -241,6 +270,10 @@ ruff format --check .
 pytest
 python -m build
 ```
+
+Core `validate` / `calibrate` / `predict` / `run` workflows do not require XGBoost. XGBoost is
+kept in the repo as an experiment dependency for the reconstruction-head comparison harness. It is
+available through the contributor install above and the optional `.[experiments]` extra.
 
 After install, the supported CLI entrypoints are:
 

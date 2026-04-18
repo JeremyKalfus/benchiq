@@ -6,6 +6,10 @@ comparison experiments against two alternatives:
 - Elastic Net as the regularized linear baseline
 - XGBoost as the tree baseline
 
+This comparison harness is part of the repo's supported experiment stack, not the core
+calibration/deployment runtime path. The XGBoost dependency lives in the optional
+`.[experiments]` extra and is also included in `.[dev]` for contributor installs.
+
 ## why xgboost
 
 This repo uses XGBoost instead of LightGBM for the comparison harness because it has straightforward

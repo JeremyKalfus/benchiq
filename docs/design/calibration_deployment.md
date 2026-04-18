@@ -2,6 +2,13 @@
 
 BenchIQ now has an explicit split between calibration and deployment.
 
+Public surface today:
+
+- python API: `benchiq.calibrate(...)`, `benchiq.predict(...)`, `benchiq.deploy(...)`,
+  `benchiq.load_calibration_bundle(...)`
+- CLI: `benchiq calibrate ...` and `benchiq predict ...`
+- backward-compatible full pipeline: `benchiq run ...`
+
 ## calibration
 
 Calibration is the fit step.
@@ -53,6 +60,9 @@ Preferred product commands:
 benchiq calibrate --responses responses_long.csv --config benchiq.json --out out --run-id fit-001
 benchiq predict --bundle out/fit-001 --responses reduced_responses_long.csv --out out --run-id pred-001
 ```
+
+`predict --bundle` accepts either the calibration run root, the nested `calibration_bundle/`
+directory, or the bundle `manifest.json`.
 
 Backward-compatible full pipeline command:
 

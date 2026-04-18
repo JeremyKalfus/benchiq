@@ -14,6 +14,9 @@ Observed result on the compact validation fixture:
 - Elastic Net was cheaper but worse on held-out RMSE
 - XGBoost did not beat GAM on this fixture and was clearly worse on marginal reconstruction
 
+This XGBoost result comes from the optional reconstruction-head comparison harness. Core
+`calibrate` / `predict` / `run` workflows do not depend on XGBoost.
+
 ## preselection methods
 
 Source bundle:

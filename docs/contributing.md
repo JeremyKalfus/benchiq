@@ -31,6 +31,10 @@ benchiq ...
 python -m benchiq.cli ...
 ```
 
+Core `validate` / `calibrate` / `predict` / `run` workflows do not require XGBoost. XGBoost is
+kept as an experiment dependency for the reconstruction-head comparison harness and is available in
+the contributor install above.
+
 ## Canonical Commands
 
 ```bash
@@ -60,6 +64,26 @@ benchiq run \
   --config tests/data/tiny_example/config.json \
   --out out/tiny_example_docs \
   --run-id tiny-example
+```
+
+Calibrate once:
+
+```bash
+benchiq calibrate \
+  --responses tests/data/tiny_example/responses_long.csv \
+  --config tests/data/tiny_example/config.json \
+  --out out/tiny_example_docs \
+  --run-id tiny-calibration
+```
+
+Predict later from the saved bundle:
+
+```bash
+benchiq predict \
+  --bundle out/tiny_example_docs/tiny-calibration/calibration_bundle \
+  --responses tests/data/tiny_example/responses_long.csv \
+  --out out/tiny_example_docs \
+  --run-id tiny-predict
 ```
 
 Inspect:
