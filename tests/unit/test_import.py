@@ -32,9 +32,12 @@ def test_import_exposes_calibration_and_deployment_helpers() -> None:
     workflows = benchiq.public_workflows()
 
     assert callable(benchiq.calibrate)
+    assert callable(benchiq.build_reconstruction_first_profile)
     assert callable(benchiq.predict)
     assert callable(benchiq.load_calibration_bundle)
+    assert callable(benchiq.load_profile)
     assert benchiq.deploy is benchiq.predict
     assert workflows["calibrate"].startswith("fit the reusable calibration stack")
     assert workflows["deploy"].startswith("alias for predict()")
     assert workflows["predict"].startswith("score new reduced responses")
+    assert workflows["reconstruction_first"].startswith("load the recommended")

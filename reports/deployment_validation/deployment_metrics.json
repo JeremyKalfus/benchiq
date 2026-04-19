@@ -1,0 +1,21 @@
+{
+  "dataset_id": "large_release_default_subset",
+  "profile_id": "reconstruction_relaxed",
+  "preselection_method": "deterministic_info",
+  "reduced_response_rows": 696000,
+  "comparison_rows": 2784,
+  "prediction_available_rate": 1.0,
+  "deployment_rmse": 0.9238409272412331,
+  "deployment_mae": 0.5959203950463294,
+  "deployment_pearson": 0.9991957090024169,
+  "deployment_spearman": 0.9992008884884334,
+  "max_abs_delta_vs_calibration": 4.263256414560601e-14,
+  "mean_abs_delta_vs_calibration": 5.900133510752197e-15,
+  "max_abs_delta_repeat_prediction": 0.0,
+  "mean_abs_delta_repeat_prediction": 0.0,
+  "prediction_warning_count": 0,
+  "selected_joint_rate": 1.0,
+  "calibration_bundle_root": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/deployment_validation/workdir/real_winner_calibration/calibration_bundle",
+  "prediction_run_root": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/deployment_validation/workdir/real_winner_prediction_a",
+  "repeat_prediction_run_root": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/deployment_validation/workdir/real_winner_prediction_b"
+}

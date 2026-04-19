@@ -8,5 +8,7 @@ dist/
 *.egg-info/
 out/
 reports/preprocessing_optimization/**/workdir/
+reports/generalization_optimization/**/workdir/
+reports/deployment_validation/**/workdir/
 AGENTS.md
 PLANS.md

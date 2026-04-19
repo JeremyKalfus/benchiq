@@ -1,0 +1,53 @@
+{
+  "compact_validation_fixture": {
+    "dataset_id": "compact_validation_fixture",
+    "dataset_label": "compact validation fixture",
+    "source_path": "tests/data/metabench_validation/responses_long.csv",
+    "benchmark_total": 3,
+    "model_total": 60,
+    "item_total": 21,
+    "row_total": 1260,
+    "notes": [
+      "fast continuity check against the earlier compact bundle"
+    ]
+  },
+  "large_release_default_subset": {
+    "dataset_id": "large_release_default_subset",
+    "dataset_label": "large release-default real-data subset",
+    "source_path": "out/metabench_real_source/release_default_subset_responses_long.parquet",
+    "benchmark_total": 6,
+    "model_total": 6832,
+    "item_total": 1608,
+    "row_total": 11725350,
+    "notes": [
+      "primary real-data confirmation bundle",
+      "keeps full-profile budgets while comparing only a small decision-oriented matrix"
+    ]
+  },
+  "synthetic_dense_overlap": {
+    "dataset_id": "synthetic_dense_overlap",
+    "dataset_label": "synthetic dense-overlap bundle",
+    "source_path": "reports/generalization_optimization/generated_bundles/synthetic_dense_overlap/responses_long.parquet",
+    "benchmark_total": 5,
+    "model_total": 320,
+    "item_total": 600,
+    "row_total": 187564,
+    "notes": [
+      "all benchmarks share most models",
+      "designed to test whether relaxed preprocessing still wins when joint reconstruction is easy"
+    ]
+  },
+  "synthetic_sparse_overlap": {
+    "dataset_id": "synthetic_sparse_overlap",
+    "dataset_label": "synthetic sparse-overlap bundle",
+    "source_path": "reports/generalization_optimization/generated_bundles/synthetic_sparse_overlap/responses_long.parquet",
+    "benchmark_total": 6,
+    "model_total": 650,
+    "item_total": 630,
+    "row_total": 114661,
+    "notes": [
+      "core overlap is intentionally limited and some responses are missing",
+      "designed to stress coverage, refusal behavior, and marginal-only deployment readiness"
+    ]
+  }
+}

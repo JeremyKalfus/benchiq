@@ -26,6 +26,13 @@ from benchiq.deployment import (
     predict,
 )
 from benchiq.io import Bundle, BundleSource, load_bundle
+from benchiq.profiles import (
+    BenchIQProfile,
+    build_psychometric_default_profile,
+    build_reconstruction_first_profile,
+    load_profile,
+    product_profiles,
+)
 from benchiq.runner import BenchIQRunner, RunResult, run
 from benchiq.schema.checks import (
     SchemaValidationError,
@@ -43,6 +50,7 @@ _PUBLIC_WORKFLOWS = {
     "predict": "score new reduced responses from a saved calibration bundle",
     "deploy": "alias for predict() when you want deployment wording in python code",
     "run": "execute the full end-to-end pipeline, including secondary redundancy analysis",
+    "reconstruction_first": "load the recommended reconstruction-first product profile",
 }
 
 
@@ -58,6 +66,7 @@ __all__ = [
     "Bundle",
     "BundleSource",
     "BenchIQRunner",
+    "BenchIQProfile",
     "CalibrationBenchmarkSpec",
     "CalibrationResult",
     "LoadedCalibrationBundle",
@@ -67,11 +76,15 @@ __all__ = [
     "ValidationCounts",
     "ValidationIssue",
     "ValidationReport",
+    "build_psychometric_default_profile",
+    "build_reconstruction_first_profile",
     "calibrate",
     "deploy",
     "load_bundle",
     "load_calibration_bundle",
+    "load_profile",
     "predict",
+    "product_profiles",
     "public_workflows",
     "run",
     "validate",

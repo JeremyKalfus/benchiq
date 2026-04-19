@@ -15,6 +15,10 @@ The preferred reusable workflow is:
 - `benchiq calibrate` to fit and publish a reusable `calibration_bundle/`
 - `benchiq predict` to score new reduced responses later without retraining
 
+The locked psychometric defaults stay as the default config. The current recommended non-default
+product profile is `reconstruction_first`, backed by the saved multi-bundle generalization pass in
+[`reports/generalization_optimization/summary.md`](../reports/generalization_optimization/summary.md).
+
 `benchiq run` remains the stable full end-to-end path when you want one inspectable local run root
 that also includes the downstream redundancy analysis.
 
@@ -243,6 +247,30 @@ Two supported shapes:
    - `stage_options`
 
 The tiny example uses the nested form so the docs can show a short, fast full-pipeline run.
+
+Recommended reconstruction-first nested config example:
+
+```json
+{
+  "config": {
+    "drop_low_tail_models_quantile": 0.0,
+    "min_item_sd": 0.0,
+    "max_item_mean": 0.99,
+    "min_abs_point_biserial": 0.0,
+    "min_item_coverage": 0.7,
+    "random_seed": 7
+  },
+  "stage_options": {
+    "04_subsample": {
+      "method": "deterministic_info"
+    }
+  }
+}
+```
+
+This matches the first-class recommended profile exposed in Python as
+`benchiq.build_reconstruction_first_profile(...)`. It does not change the package defaults; it is
+the recommended override when you want the generalized reconstruction-first path.
 
 ## Artifact Layout
 

@@ -36,8 +36,11 @@ BenchIQ v0.1 is implemented end to end through:
 - a top-level python API that now exposes the calibration / deployment split directly
 - metabench validation mode and a frozen real-data reviewer bundle
 - saved reconstruction-head and selection-method comparison reports under `reports/`
-- a saved preprocessing optimization bundle under `reports/preprocessing_optimization/` with a
-  recommended reconstruction-first profile for held-out score reconstruction
+- a saved preprocessing optimization bundle under `reports/preprocessing_optimization/`
+- a saved multi-bundle generalization and deployment bundle under
+  `reports/generalization_optimization/` and `reports/deployment_validation/`
+- a first-class recommended reconstruction-first product profile, while the locked psychometric
+  defaults remain unchanged
 
 Honest metabench-validation status:
 
@@ -52,16 +55,21 @@ The reviewer bundle and comparison reports live in:
 
 Held-out reconstruction optimization status:
 
-> The current psychometric defaults remain the locked v0.1 baseline, but the strongest
-> reconstruction-first profile on the saved real-data confirmation bundle is
-> `reconstruction_relaxed` with `deterministic_info` preselection.
+> The current psychometric defaults remain the locked v0.1 baseline. The completed multi-bundle
+> generalization pass promoted a first-class recommended profile, `reconstruction_first`, which
+> corresponds to `reconstruction_relaxed` plus `deterministic_info` preselection. This was
+> promoted as the recommended product path, not the actual default config.
 
-The preprocessing optimization bundle lives in:
+The supporting optimization and promotion bundles live in:
 
 - [`reports/preprocessing_optimization/summary.md`](reports/preprocessing_optimization/summary.md)
 - [`reports/preprocessing_optimization/best_config.json`](reports/preprocessing_optimization/best_config.json)
 - [`reports/preprocessing_optimization/head_checks/head_check_summary.md`](reports/preprocessing_optimization/head_checks/head_check_summary.md)
+- [`reports/generalization_optimization/summary.md`](reports/generalization_optimization/summary.md)
+- [`reports/generalization_optimization/best_profile.json`](reports/generalization_optimization/best_profile.json)
+- [`reports/deployment_validation/summary.md`](reports/deployment_validation/summary.md)
 - [`scripts/run_preprocessing_optimization.py`](scripts/run_preprocessing_optimization.py)
+- [`scripts/run_generalization_optimization.py`](scripts/run_generalization_optimization.py)
 
 ## What BenchIQ Expects
 
@@ -100,6 +108,7 @@ The package surface mirrors the same split:
 
 ```python
 from benchiq import (
+    build_reconstruction_first_profile,
     calibrate,
     deploy,
     load_calibration_bundle,
@@ -113,6 +122,23 @@ from benchiq import (
 `predict(...)` is the primary deployment-time scoring helper. `deploy(...)` is a package-level
 alias for the same behavior so the calibration / deployment split is discoverable from `import
 benchiq`.
+
+The recommended non-default product profile is exposed directly from the package root:
+
+```python
+from benchiq import build_reconstruction_first_profile
+
+profile = build_reconstruction_first_profile(random_seed=7)
+result = calibrate(
+    "responses_long.parquet",
+    config=profile.config,
+    stage_options=profile.stage_options_copy(),
+    out_dir="out",
+    run_id="fit-reconstruction-first",
+)
+```
+
+Its config equivalent is also documented in [`docs/cli.md`](docs/cli.md).
 
 ## Full Pipeline Stages
 

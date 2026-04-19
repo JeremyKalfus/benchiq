@@ -388,18 +388,20 @@ class BenchIQRunner:
         started_at: datetime,
         duration_seconds: float,
     ) -> dict[str, Any]:
-        record = {
-            "stage": stage_name,
-            "dependencies": list(STAGE_DEPENDENCIES[stage_name]),
-            "started_at": started_at.isoformat(),
-            "finished_at": datetime.now(timezone.utc).isoformat(),
-            "duration_seconds": duration_seconds,
-            "status": "completed",
-            "warnings": _stage_warnings(stage_name, stage_result),
-            "skip_reasons": _stage_skip_reasons(stage_name, stage_result),
-            "metrics": _stage_metrics(stage_name, stage_result),
-            "artifact_paths": _stringify_paths(getattr(stage_result, "artifact_paths", {})),
-        }
+        record = _json_safe(
+            {
+                "stage": stage_name,
+                "dependencies": list(STAGE_DEPENDENCIES[stage_name]),
+                "started_at": started_at.isoformat(),
+                "finished_at": datetime.now(timezone.utc).isoformat(),
+                "duration_seconds": duration_seconds,
+                "status": "completed",
+                "warnings": _stage_warnings(stage_name, stage_result),
+                "skip_reasons": _stage_skip_reasons(stage_name, stage_result),
+                "metrics": _stage_metrics(stage_name, stage_result),
+                "artifact_paths": _stringify_paths(getattr(stage_result, "artifact_paths", {})),
+            }
+        )
         if bundle.manifest_path is not None:
             update_manifest(bundle.manifest_path, {"stages": {stage_name: record}})
         return record
@@ -592,19 +594,21 @@ def _build_top_level_summary(
     executed_stages: list[StageName],
     stage_manifest_records: Mapping[StageName, Any],
 ) -> dict[str, Any]:
-    warnings = _aggregate_warnings(stage_results)
-    skip_reasons = _aggregate_skip_reasons(stage_results)
-    metrics = _aggregate_metrics(stage_results)
-    return {
-        "run_id": bundle.run_id,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "executed_stages": executed_stages,
-        "stage_records": dict(stage_manifest_records),
-        "warning_count": len(warnings),
-        "warnings": warnings,
-        "skip_reasons": skip_reasons,
-        "metrics": metrics,
-    }
+    warnings = _json_safe(_aggregate_warnings(stage_results))
+    skip_reasons = _json_safe(_aggregate_skip_reasons(stage_results))
+    metrics = _json_safe(_aggregate_metrics(stage_results))
+    return _json_safe(
+        {
+            "run_id": bundle.run_id,
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "executed_stages": executed_stages,
+            "stage_records": dict(stage_manifest_records),
+            "warning_count": len(warnings),
+            "warnings": warnings,
+            "skip_reasons": skip_reasons,
+            "metrics": metrics,
+        }
+    )
 
 
 def _aggregate_warnings(stage_results: Mapping[StageName, Any]) -> list[dict[str, Any]]:

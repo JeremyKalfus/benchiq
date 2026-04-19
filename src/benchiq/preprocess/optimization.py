@@ -910,9 +910,9 @@ def _summary_markdown(result: PreprocessingOptimizationResult) -> str:
                 f"{winner_payload['search_stage']} / {winner_payload['dataset_id']} / "
                 f"{winner_payload['preselection_method']}: "
                 f"`{winner['profile_id']}` "
-                f"(rmse_mean={winner['best_available_test_rmse_mean']:.4f}, "
-                f"seed_rmse_std={winner['seed_rmse_std']:.4f}, "
-                f"final_stability={winner.get('final_selection_stability_mean')})"
+                f"(rmse_mean={_fmt_number(winner['best_available_test_rmse_mean'])}, "
+                f"seed_rmse_std={_fmt_number(winner['seed_rmse_std'])}, "
+                f"final_stability={_fmt_number(winner.get('final_selection_stability_mean'))})"
             )
     lines.extend(
         [
@@ -936,15 +936,16 @@ def _summary_markdown(result: PreprocessingOptimizationResult) -> str:
                 "- "
                 f"{row['search_stage']} / {row['dataset_id']} / {row['preselection_method']} / "
                 f"`{row['profile_id']}`: "
-                f"rmse_mean={row['best_available_test_rmse_mean']:.4f}, "
-                f"mae_mean={row['best_available_test_mae_mean']:.4f}, "
-                f"pearson_mean={row['best_available_test_pearson_mean']:.4f}, "
-                f"spearman_mean={row['best_available_test_spearman_mean']:.4f}, "
-                f"seed_rmse_std={row['seed_rmse_std']:.4f}, "
-                f"runtime_mean_seconds={row['run_runtime_mean_seconds']:.4f}, "
-                f"retained_items_mean={row['retained_items_mean']:.2f}, "
-                f"selected_items_final_mean={row['selected_items_final_mean']:.2f}, "
-                f"final_selection_stability_mean={row.get('final_selection_stability_mean')}"
+                f"rmse_mean={_fmt_number(row['best_available_test_rmse_mean'])}, "
+                f"mae_mean={_fmt_number(row['best_available_test_mae_mean'])}, "
+                f"pearson_mean={_fmt_number(row['best_available_test_pearson_mean'])}, "
+                f"spearman_mean={_fmt_number(row['best_available_test_spearman_mean'])}, "
+                f"seed_rmse_std={_fmt_number(row['seed_rmse_std'])}, "
+                f"runtime_mean_seconds={_fmt_number(row['run_runtime_mean_seconds'])}, "
+                f"retained_items_mean={_fmt_number(row['retained_items_mean'], digits=2)}, "
+                "selected_items_final_mean="
+                f"{_fmt_number(row['selected_items_final_mean'], digits=2)}, "
+                f"final_selection_stability_mean={_fmt_number(row.get('final_selection_stability_mean'))}"
             )
     lines.append("")
     return "\n".join(lines)
@@ -1362,6 +1363,16 @@ def _float_or_none(value: Any) -> float | None:
     if pd.isna(value):
         return None
     return float(value)
+
+
+def _fmt_number(value: Any, *, digits: int = 4) -> str:
+    if value is None:
+        return "n/a"
+    if isinstance(value, str):
+        return value
+    if pd.isna(value):
+        return "n/a"
+    return f"{float(value):.{digits}f}"
 
 
 def _write_csv(frame: pd.DataFrame, path: Path) -> Path:

@@ -1,0 +1,16 @@
+{
+  "detailed_rows": 135,
+  "methods": [
+    "gam",
+    "elastic_net",
+    "xgboost"
+  ],
+  "seeds": [
+    7,
+    11,
+    19
+  ],
+  "skip_reasons": {},
+  "summary_rows": 3,
+  "winners_by_model_type": {}
+}

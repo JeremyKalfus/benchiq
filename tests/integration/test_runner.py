@@ -120,6 +120,63 @@ def test_runner_executes_full_pipeline_and_partial_rerun_deterministically(tmp_p
             )
 
 
+def test_runner_serializes_missing_joint_metrics_when_joint_path_is_skipped(tmp_path) -> None:
+    responses_path = _write_synthetic_bundle(tmp_path)
+    runner = benchiq.BenchIQRunner(
+        config=benchiq.BenchIQConfig(
+            allow_low_n=True,
+            max_item_mean=0.99,
+            min_abs_point_biserial=0.0,
+            min_models_per_benchmark=15,
+            warn_models_per_benchmark=20,
+            min_items_after_filtering=5,
+            min_models_per_item=10,
+            min_overlap_models_for_joint=1000,
+            min_overlap_models_for_redundancy=1000,
+            random_seed=7,
+        ),
+        out_dir=tmp_path / "out",
+        run_id="runner-skip-joint",
+        stage_options={
+            "04_subsample": {
+                "k_preselect": 4,
+                "n_iter": 4,
+                "cv_folds": 3,
+                "checkpoint_interval": 2,
+                "lam_grid": (0.1, 1.0),
+            },
+            "06_select": {
+                "k_final": 3,
+                "theta_grid_size": 101,
+            },
+            "07_theta": {
+                "theta_grid_size": 81,
+            },
+            "09_reconstruct": {
+                "lam_grid": (0.1, 1.0),
+                "cv_folds": 3,
+                "n_splines": 5,
+            },
+        },
+    )
+
+    run_result = runner.run(responses_path, stop_after="09_reconstruct")
+
+    metrics_report = json.loads(
+        (run_result.run_root / "reports" / "metrics.json").read_text(encoding="utf-8")
+    )
+    assert metrics_report["metrics"]["joint_test_rmse_by_benchmark"]
+    assert all(
+        value is None
+        for value in metrics_report["metrics"]["joint_test_rmse_by_benchmark"].values()
+    )
+    joint_stage_metrics = metrics_report["stage_records"]["09_reconstruct"]["metrics"][
+        "joint_test_rmse_by_benchmark"
+    ]
+    assert joint_stage_metrics
+    assert all(value is None for value in joint_stage_metrics.values())
+
+
 def _write_synthetic_bundle(tmp_path) -> Path:
     rng = np.random.default_rng(123)
     benchmark_ids = ["b1", "b2", "b3"]
