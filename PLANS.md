@@ -59,6 +59,7 @@
 - T25 preprocessing optimization: ran the broader preprocessing sweep, real-data confirmation, and method checks that promoted the reconstruction-first path.
 - T26 generalization and promotion: ran the multi-bundle validation and deployment checks that promoted `reconstruction_first` as the product default path.
 - T26 follow-up guardrails: kept `deterministic_info` for stage 04, kept head experiments comparison-only, and adopted the light `drop_low_tail_models_quantile=0.002` follow-up improvement after confirmation.
+- T27 spec refresh: rewrote `docs/specs/benchiq_v0_1_spec.md` into a short current source-of-truth spec aligned with the shipped `validate` / `calibrate` / `predict` / `run` surface and runtime defaults.
 
 ## notes
 
