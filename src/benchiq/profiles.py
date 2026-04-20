@@ -96,7 +96,7 @@ def product_profiles() -> dict[str, str]:
             "deterministic-info preselection"
         ),
         "psychometric_default": (
-            "spec-aligned psychometric baseline with metabench-style thresholds and "
+            "spec-aligned psychometric baseline with strict thresholds and "
             "random-cv preselection"
         ),
     }

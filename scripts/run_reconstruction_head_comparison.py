@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the reconstruction-head comparison on the compact validation fixture."""
+"""Run the reconstruction-head comparison on the compact regression fixture."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ def main() -> None:
     workdir.mkdir(parents=True, exist_ok=True)
 
     run_result = benchiq.run(
-        "tests/data/metabench_validation/responses_long.csv",
+        "tests/data/compact_validation/responses_long.csv",
         config=config_payload["config"],
         out_dir=workdir,
         run_id="feature_run",
@@ -35,7 +35,7 @@ def main() -> None:
     )
 
     metadata = {
-        "source_responses": "tests/data/metabench_validation/responses_long.csv",
+        "source_responses": "tests/data/compact_validation/responses_long.csv",
         "source_config": "tests/data/tiny_example/config.json",
         "feature_run_root": str(run_result.run_root),
         "report_dir": str(reports_dir),

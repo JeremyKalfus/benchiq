@@ -14,7 +14,7 @@ BenchIQ is for users who have many model, checkpoint, or prompt-template runs ac
 - optionally analyze overlap, redundancy, and compressibility across benchmarks
 - inspect every stage on disk instead of treating the pipeline as a black box
 
-BenchIQ is not a hosted platform, not a metabench-only reproduction, and not a general psychometrics framework. metabench is the methodological validation harness, not the product identity.
+BenchIQ is not a hosted platform and not a general psychometrics framework.
 
 The locked v0.1 source of truth remains [`docs/specs/benchiq_v0_1_spec.md`](docs/specs/benchiq_v0_1_spec.md).
 
@@ -32,9 +32,8 @@ BenchIQ v0.1 is implemented end to end through:
 - theta estimation with uncertainty
 - linear predictors, feature tables, GAM reconstruction, and secondary redundancy analysis
 - artifact-first python API and CLI
-- stable public entrypoints for `validate`, `calibrate`, `predict`, `run`, and `metabench run`
+- stable public entrypoints for `validate`, `calibrate`, `predict`, and `run`
 - a top-level python API that now exposes the calibration / deployment split directly
-- metabench validation mode and a frozen real-data reviewer bundle
 - saved reconstruction-head and selection-method comparison reports under `reports/`
 - a saved preprocessing optimization bundle under `reports/preprocessing_optimization/`
 - a saved multi-bundle generalization and deployment bundle under
@@ -42,25 +41,14 @@ BenchIQ v0.1 is implemented end to end through:
 - a first-class default reconstruction-first product profile, while the locked psychometric
   baseline remains available explicitly as `psychometric_default`
 
-Honest metabench-validation status:
-
-> BenchIQ has real-data evidence of methodological alignment on a frozen public metabench snapshot, but the current Python-first path does not yet achieve acceptance-grade metabench parity under the current tolerance rule.
-
-The reviewer bundle and comparison reports live in:
-
-- [`reports/metabench_real_data_comparison.md`](reports/metabench_real_data_comparison.md)
-- [`reports/metabench_real_data_comparison.csv`](reports/metabench_real_data_comparison.csv)
-- [`reports/metabench_real_data_notes.md`](reports/metabench_real_data_notes.md)
-- [`scripts/run_metabench_real_data_comparison.py`](scripts/run_metabench_real_data_comparison.py)
-
 Held-out reconstruction optimization status:
 
 > The completed multi-bundle generalization pass identified `reconstruction_first` as the winning
 > product path. A later broader real-data preprocessing follow-up found that adding a light
 > `drop_low_tail_models_quantile=0.002` trim improved held-out reconstruction RMSE again, so
 > BenchIQ now uses that relaxed-low-tail reconstruction-first stack as the runtime default, while
-> the locked psychometric baseline remains available explicitly as `psychometric_default` for
-> spec-aligned and metabench-style comparisons.
+> the locked psychometric baseline remains available explicitly as `psychometric_default` as a
+> stricter reference baseline.
 
 The supporting optimization and promotion bundles live in:
 
@@ -107,7 +95,6 @@ that order:
 - `predict` loads that saved bundle and scores new reduced item-response sets without retraining
 - `run` remains the stable full end-to-end local workflow when you want one inspectable run root
   with the downstream redundancy outputs included
-- `metabench run` remains the methodological validation harness, not the product path
 
 The package surface mirrors the same split:
 
@@ -161,7 +148,7 @@ BenchIQ keeps every stage inspectable on disk:
 9. reconstruct full scores with GAMs
 10. optionally analyze redundancy and compressibility across benchmarks
 
-## Generic Bundle Mode vs metabench Validation Mode
+## Generic Bundle Mode
 
 Generic bundle mode is the product path:
 
@@ -169,14 +156,6 @@ Generic bundle mode is the product path:
 - BenchIQ writes a full run directory with stage artifacts under your chosen output root
 - the preferred reusable workflow is `calibrate` first and `predict` later
 - `run` stays available when you want the full local stage DAG, including redundancy artifacts
-
-metabench validation mode is the methodological harness:
-
-- it runs a strict preset against the bundled reduced fixture or a manual full-profile setup
-- it checks artifact existence and metric tolerances
-- it documents where the Python-first path still differs from acceptance-grade metabench parity
-
-See [`docs/design/metabench_validation.md`](docs/design/metabench_validation.md) for the frozen snapshot, reduced fixture, full manual profile, and reviewer-bundle rerun path.
 
 ## Tiny End-to-End Example
 
@@ -228,13 +207,6 @@ For this tiny example, the full `responses_long.csv` file still works as predict
 it contains the selected calibrated items. `predict` ignores extra non-selected items and reports
 that choice in its prediction artifacts.
 
-Run strict metabench validation on the bundled reduced fixture:
-
-```bash
-benchiq metabench run \
-  --out out/metabench_docs_example
-```
-
 The commands above write to:
 
 - `out/tiny_example_docs/validate/`
@@ -242,7 +214,6 @@ The commands above write to:
 - `out/tiny_example_docs/tiny-calibration/`
 - `out/tiny_example_docs/tiny-calibration/calibration_bundle/`
 - `out/tiny_example_docs/tiny-predict/`
-- `out/metabench_docs_example/metabench-validation/`
 
 Useful artifacts to inspect after the example run:
 
@@ -300,7 +271,6 @@ BenchIQ is not useful for a single model evaluated once on one benchmark. It bec
 - scope: [`docs/design/v0_1_scope.md`](docs/design/v0_1_scope.md)
 - schema: [`docs/design/schema.md`](docs/design/schema.md)
 - CLI usage: [`docs/cli.md`](docs/cli.md)
-- metabench validation: [`docs/design/metabench_validation.md`](docs/design/metabench_validation.md)
 - calibration and deployment: [`docs/design/calibration_deployment.md`](docs/design/calibration_deployment.md)
 - reconstruction-head experiments: [`docs/design/reconstruction_head_experiments.md`](docs/design/reconstruction_head_experiments.md)
 - preselection alternatives: [`docs/design/preselection_alternatives.md`](docs/design/preselection_alternatives.md)
@@ -332,6 +302,4 @@ python -m benchiq.cli ...
 ## Known Limitations
 
 - BenchIQ v0.1 supports binary item scores only.
-- The Python-first path does not yet achieve acceptance-grade metabench parity on the frozen public snapshot.
-- The real-data parity comparison currently relies on a validation-only harness around public release artifacts rather than a fully replayed exact-R stack.
 - BenchIQ is designed for inspectable local runs, not dashboards or hosted orchestration.

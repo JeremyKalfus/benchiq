@@ -2,7 +2,7 @@
 
 ## Executive definition
 
-BenchIQ is an open-source Python library for **LLM benchmark distillation and overlap analysis** that ingests **item-level scored responses** (model-by-item, across a user-chosen bundle of benchmarks) and runs a **metabench-style workflow** to produce **reduced benchmark subsets**, **benchmark-specific latent abilities with uncertainty**, **reconstructed full-benchmark normalized scores**, and **benchmark-level redundancy/compressibility diagnostics**, while keeping “metabench” as the methodological reference and validation case—not the product identity. citeturn0search0turn0search4turn7view5turn30view3turn20view2
+BenchIQ is an open-source Python library for **LLM benchmark distillation and overlap analysis** that ingests **item-level scored responses** (model-by-item, across a user-chosen bundle of benchmarks) and runs a **reference-style workflow** to produce **reduced benchmark subsets**, **benchmark-specific latent abilities with uncertainty**, **reconstructed full-benchmark normalized scores**, and **benchmark-level redundancy/compressibility diagnostics**, while keeping “the reference workflow” as the methodological reference and validation case—not the product identity. citeturn0search0turn0search4turn7view5turn30view3turn20view2
 
 ## Exact scope and non-goals
 
@@ -10,13 +10,13 @@ BenchIQ v0.1 is narrowly scoped to the **benchmark-distillation pipeline** and i
 
 **In-scope (v0.1)**
 - Accept a **user-selected benchmark bundle** and **item-level binary scores** per model per item; canonicalize to one long-format table. citeturn7view5turn30view3turn9search0turn28view0  
-- Benchmark-wise preprocessing filters as first-class, with metabench-derived defaults:
+- Benchmark-wise preprocessing filters as first-class, with reference-derived defaults:
   - low item variance filter,
   - near-ceiling (too-easy) filter,
   - near-zero point-biserial (low discrimination) filter,
   - insufficient coverage filters (item and model coverage). citeturn7view5turn8view0  
 - Model-level (subject-level) splitting into train/validation/test (no item-level splits), including a **global test split** stratified on a **grand mean score** when feasible. citeturn30view3turn20view2  
-- Cross-validated subsampling to a **fixed preselection size per benchmark** (metabench-style random subsampling with k-fold CV across models). citeturn32view5turn32view9turn20view0  
+- Cross-validated subsampling to a **fixed preselection size per benchmark** (reference-style random subsampling with k-fold CV across models). citeturn32view5turn32view9turn20view0  
 - Benchmark-specific **unidimensional 2PL IRT** on preselected items, with:
   - item parameter estimates,
   - Fisher information computation on a theta grid,
@@ -25,7 +25,7 @@ BenchIQ v0.1 is narrowly scoped to the **benchmark-distillation pipeline** and i
 - Score reconstruction targeting **normalized full-benchmark scores (percent scale)** via **GAMs** with cross-validation, including:
   - marginal reconstruction (benchmark-local),
   - joint reconstruction (bundle-wide) when overlap permits,
-  - metabench-style feature families: theta, theta SE, reduced subscore, benchmark-specific linear predictor, grand subscore/linear predictor. citeturn30view0turn20view2turn23view2turn23view9  
+  - reference-style feature families: theta, theta SE, reduced subscore, benchmark-specific linear predictor, grand subscore/linear predictor. citeturn30view0turn20view2turn23view2turn23view9  
 - Benchmark-level redundancy/compressibility analysis (no item-level multidimensional models):
   - correlation structure across benchmark thetas,
   - low-dimensional latent structure (EFA/FA or PCA at benchmark level),
@@ -36,11 +36,11 @@ BenchIQ v0.1 is narrowly scoped to the **benchmark-distillation pipeline** and i
 - No dashboards, GUIs, hosted services, benchmark registries, or multimodal extensions.  
 - No benchmark-level leaderboard scraping; users supply the data.  
 - No item-level multidimensional factor models, and no claims of measuring “true intelligence”—only pragmatic latent structure used for score reconstruction and overlap diagnostics. citeturn20view1turn20view2turn20view4  
-- No strict R parity as product identity; R parity is **optional validation-only** (e.g., comparing against metabench’s R scripts). citeturn0search4turn5view0turn23view0  
+- No strict R parity as product identity; R parity is **optional validation-only** (e.g., comparing against the reference workflow's R scripts). citeturn0search4turn5view0turn23view0  
 
 ## Statistical assumptions and minimum data requirements
 
-BenchIQ v0.1 inherits the practical assumptions discussed in metabench’s justification for applying IRT to LLM benchmark response matrices: multiple items intended to measure a common trait (within benchmark), multiple “test takers” (models) per item, dichotomous scoring, and conditional independence of item responses given latent ability. citeturn20view1turn15view1turn28view0  
+BenchIQ v0.1 inherits the practical assumptions discussed in the reference workflow's justification for applying IRT to LLM benchmark response matrices: multiple items intended to measure a common trait (within benchmark), multiple “test takers” (models) per item, dichotomous scoring, and conditional independence of item responses given latent ability. citeturn20view1turn15view1turn28view0  
 
 ### What bundles BenchIQ can handle well (v0.1)
 BenchIQ is designed for benchmark bundles where:
@@ -49,7 +49,7 @@ BenchIQ is designed for benchmark bundles where:
 
 ### Minimum data conditions (defaults; configurable)
 BenchIQ should **refuse to run** a given benchmark’s distillation if any of the following holds after canonicalization + basic filtering:
-- **Binary scoring requirement (v0.1):** `score ∈ {0,1}` (nullable allowed). If non-binary is detected, refuse with an actionable error (“v0.1 requires dichotomous item scores; pre-score your rubric into 0/1”). This aligns with 2PL assumptions and metabench’s predominant multiple-choice framing. citeturn20view1turn28view0  
+- **Binary scoring requirement (v0.1):** `score ∈ {0,1}` (nullable allowed). If non-binary is detected, refuse with an actionable error (“v0.1 requires dichotomous item scores; pre-score your rubric into 0/1”). This aligns with 2PL assumptions and the reference workflow's predominant multiple-choice framing. citeturn20view1turn28view0  
 - **Too few models with sufficient coverage (per benchmark):**
   - `n_models_benchmark < 100` → refuse.  
   - `100 ≤ n_models_benchmark < 200` → warn strongly; run only if user sets `allow_low_n=True`.  
@@ -68,7 +68,7 @@ BenchIQ should **refuse joint (cross-benchmark) stages** if:
 
 ### When BenchIQ should warn but proceed
 BenchIQ should proceed with warnings (and prominently record them in artifacts) when:
-- **Item-to-model ratio too high** after preselection (`n_preselect_items > n_train_models/4`), mirroring metabench’s item-to-subject sanity check. BenchIQ should auto-cap the default preselection size to `floor(n_train_models/4)` unless the user explicitly overrides. citeturn7view5turn5view0  
+- **Item-to-model ratio too high** after preselection (`n_preselect_items > n_train_models/4`), mirroring the reference workflow's item-to-subject sanity check. BenchIQ should auto-cap the default preselection size to `floor(n_train_models/4)` unless the user explicitly overrides. citeturn7view5turn5view0  
 - Benchmarks exhibit **near-degenerate score distributions** after preprocessing (e.g., very high mean accuracy remains, or extremely low variance in total scores), which undermines discrimination and reconstruction. citeturn7view5turn20view1  
 
 ## End-to-end workflow specification
@@ -77,14 +77,14 @@ BenchIQ v0.1 is a deterministic, staged pipeline; each stage writes inspectable 
 
 **Stage flow (high level)**
 1. Ingest & canonicalize user data into a single long-format response table (+ optional model/item metadata tables).  
-2. Benchmark-wise preprocessing and filtering (variance/easy/discrimination/coverage; optional low-tail model outliers). Defaults mirror metabench’s preprocessing script. citeturn7view5turn8view0  
+2. Benchmark-wise preprocessing and filtering (variance/easy/discrimination/coverage; optional low-tail model outliers). Defaults mirror the reference workflow's preprocessing script. citeturn7view5turn8view0  
 3. Compute normalized full-benchmark scores (target = percent score) and produce score summaries. citeturn30view0turn23view2  
 4. Split models into train/validation/test (global test split stratified on “grand mean” when available; benchmark-local validation splits within training). Model-level only. citeturn30view3turn32view5  
-5. Cross-validated subsampling to preselect exactly `k_preselect[b]` items per benchmark using metabench-like random search with k-fold CV on models. citeturn32view5turn32view9turn20view0  
+5. Cross-validated subsampling to preselect exactly `k_preselect[b]` items per benchmark using the reference workflow-like random search with k-fold CV on models. citeturn32view5turn32view9turn20view0  
 6. Fit benchmark-specific unidimensional 2PL IRT on the preselected items (train models only). Use a stable Python IRT backend (see dependencies section). citeturn15view1turn28view0  
 7. Compute Fisher information curves for each item across a theta grid; select `k_final[b]` items across the ability range (quantile/bin coverage) using information filtering. citeturn19view0turn17view0turn20view1  
 8. Estimate benchmark-specific theta and theta SE per model on the reduced subset (train/val/test). citeturn15view1turn20view1  
-9. Build reconstruction feature tables (per benchmark and bundle-wide), including reduced subscores and metabench-style linear predictors and grand summaries. citeturn23view2turn23view9turn20view2  
+9. Build reconstruction feature tables (per benchmark and bundle-wide), including reduced subscores and reference-style linear predictors and grand summaries. citeturn23view2turn23view9turn20view2  
 10. Reconstruct full benchmark scores via GAMs with cross-validation (marginal and joint); evaluate reconstruction error on held-out test models. citeturn20view2turn32view0turn24search15  
 11. Benchmark-level redundancy/compressibility analysis from thetas and reconstruction behavior; emit conservative overlap metrics and factor structure. citeturn23view7turn26view0turn9search2  
 
@@ -117,7 +117,7 @@ BenchIQ v0.1 uses **one canonical long-format response table** as source-of-trut
 **`benchmarks`**
 - `benchmark_id` (string; required)
 - `display_name` (string; optional)
-- `n_options_default` (int; optional): used only if user wants chance-corrected difficulty during preprocessing; metabench assumed 4-choice for their difficulty correction logic. citeturn8view0turn7view5  
+- `n_options_default` (int; optional): used only if user wants chance-corrected difficulty during preprocessing; the reference workflow assumed 4-choice for their difficulty correction logic. citeturn8view0turn7view5  
 
 ### Derived tables (BenchIQ emits; not user inputs)
 - `scores_full` (per model × benchmark): percent score target for reconstruction. citeturn30view0turn23view2  
@@ -143,7 +143,6 @@ benchiq/
     design/
       v0_1_scope.md
       schema.md
-      metabench_validation.md
     cli.md
   src/benchiq/
     __init__.py
@@ -184,7 +183,6 @@ benchiq/
       main.py                # entrypoint
       commands_run.py
       commands_validate.py
-      commands_metabench.py  # validation-mode helper (optional download)
     viz/
       plots.py               # matplotlib plots written to disk
   tests/
@@ -246,13 +244,6 @@ CLI must be small, reproducible, and artifact-first.
 - Inputs: same as validate plus `--run-id` optional.
 - Behavior: executes full pipeline end-to-end, writing artifacts under `out/<run-id>/` and a `manifest.json` that records config, versions, seeds, and hashes.
 
-**`benchiq metabench run`** (validation-mode helper; optional but recommended)
-- Behavior:
-  - prepare the metabench validation dataset (either by downloading a pinned snapshot or by requiring the user to place files locally),
-  - run with metabench-like defaults (preprocess thresholds, split logic, preselect size, selection settings),
-  - write a “validation report” comparing BenchIQ outputs to expected reference metrics (stored in repo as toleranced assertions).
-- This command exists to maintain the “methodological backbone” and publishable evaluation story without turning BenchIQ into a metabench-only reproduction. citeturn0search4turn5view0turn30view3turn33view0  
-
 ## Stage-by-stage algorithms
 
 Below, each stage is specified with: input, output, method, key parameters, and failure modes/diagnostics. (All stages write artifacts.)
@@ -293,22 +284,22 @@ Below, each stage is specified with: input, output, method, key parameters, and 
 - `artifacts/01_preprocess/summary.parquet`
 
 **Method**
-BenchIQ mirrors metabench’s preprocessing logic as default behavior:
+BenchIQ mirrors the reference workflow's preprocessing logic as default behavior:
 - Optional **tail outlier model removal**: drop models in the lowest 0.1% of full-score distribution (per benchmark) as “tail outliers.” citeturn7view5turn8view0  
 - Compute per-item:
   - `sd(score)`,
-  - `mean(score)` (difficulty proxy; metabench used a chance-corrected form but the operational “too easy” threshold corresponds to raw mean accuracy > 0.95). citeturn7view5turn8view0  
-  - point-biserial discrimination: correlation between item score and total score (part-whole correlation), as implemented in metabench’s script. citeturn7view3turn8view0  
+  - `mean(score)` (difficulty proxy; the reference workflow used a chance-corrected form but the operational “too easy” threshold corresponds to raw mean accuracy > 0.95). citeturn7view5turn8view0  
+  - point-biserial discrimination: correlation between item score and total score (part-whole correlation), as implemented in the reference workflow's script. citeturn7view3turn8view0  
 - Apply filters (defaults):
   - `sd <= 0.01` → drop (low variance). citeturn7view0  
-  - `mean >= 0.95` → drop (near-ceiling). (BenchIQ default expresses directly in raw mean; metabench’s code computes an equivalent threshold via a guessing coefficient.) citeturn7view5turn8view0  
-  - `abs(point_biserial) < 0.05` → drop (near-zero discrimination). Metabench used 0.05 generally and 0.02 for Winogrande; BenchIQ defaults to 0.05 unless overridden per benchmark. citeturn7view5turn8view0  
+  - `mean >= 0.95` → drop (near-ceiling). (BenchIQ default expresses directly in raw mean; the reference workflow's code computes an equivalent threshold via a guessing coefficient.) citeturn7view5turn8view0  
+  - `abs(point_biserial) < 0.05` → drop (near-zero discrimination). Reference Workflow used 0.05 generally and 0.02 for Winogrande; BenchIQ defaults to 0.05 unless overridden per benchmark. citeturn7view5turn8view0  
   - Coverage filters (BenchIQ definition; v0.1):
     - drop items with < `min_models_per_item` responses,
     - drop models with < `min_item_coverage` coverage of retained items.
 
 **Key parameters**
-- `drop_low_tail_models_quantile` (default `0.001` to match metabench script). citeturn7view5  
+- `drop_low_tail_models_quantile` (default `0.001` to match the reference workflow script). citeturn7view5  
 - `min_item_sd` (default `0.01`). citeturn7view0  
 - `max_item_mean` (default `0.95`). citeturn7view5turn8view0  
 - `min_abs_point_biserial` (default `0.05`, per-benchmark override). citeturn7view5turn8view0  
@@ -316,7 +307,7 @@ BenchIQ mirrors metabench’s preprocessing logic as default behavior:
 
 **Failure modes / diagnostics**
 - If filtering leaves too few items/models → refuse that benchmark and record refusal in summary.
-- Emit plots to disk (histograms of item mean/sd/discrimination) mirroring metabench’s diagnostic plots, but optional in CLI for speed. citeturn7view3turn7view0  
+- Emit plots to disk (histograms of item mean/sd/discrimination) mirroring the reference workflow's diagnostic plots, but optional in CLI for speed. citeturn7view3turn7view0  
 
 ### Score normalization
 **Input**
@@ -331,7 +322,7 @@ BenchIQ mirrors metabench’s preprocessing logic as default behavior:
 - For each model×benchmark: compute full benchmark score as percent correct:
   - `score_full = 100 * mean(item_score)` over the benchmark’s filtered item set, using only non-missing items; require coverage ≥ `min_item_coverage` (or set missing). citeturn30view0turn23view2  
 - Grand mean score across benchmarks:
-  - computed only for models with valid scores on all benchmarks in the configured bundle, mirroring metabench’s “mean across benchmarks” use in splitting. citeturn30view3  
+  - computed only for models with valid scores on all benchmarks in the configured bundle, mirroring the reference workflow's “mean across benchmarks” use in splitting. citeturn30view3  
 
 **Key parameters**
 - `score_scale = "percent"` (fixed v0.1 target).
@@ -350,10 +341,10 @@ BenchIQ mirrors metabench’s preprocessing logic as default behavior:
 - `artifacts/03_splits/split_report.json`
 
 **Method**
-BenchIQ implements metabench-like split logic:
+BenchIQ implements the reference workflow-like split logic:
 - **Global test split (preferred):** if enough models have scores for all benchmarks in the bundle:
   - stratify on `grand_mean_score`,
-  - sample `p_test = 0.10` into test set (metabench used 10% via caret’s stratified partition). citeturn30view3  
+  - sample `p_test = 0.10` into test set (the reference workflow used 10% via caret’s stratified partition). citeturn30view3  
 - **Local validation split per benchmark (within remaining train+val pool):**
   - for each benchmark, split train vs val (default `p_val = 0.10`) stratified on that benchmark’s full score. (BenchIQ uses binned scores + `StratifiedShuffleSplit`.) citeturn32view5turn20view0  
 
@@ -375,29 +366,29 @@ BenchIQ implements metabench-like split logic:
 - `artifacts/04_subsample/per_benchmark/<benchmark_id>/cv_results.parquet`
 - `artifacts/04_subsample/per_benchmark/<benchmark_id>/subsample_report.json`
 
-**Method (metabench-style random CV subsampling)**
-BenchIQ follows metabench’s random subsampling design:
+**Method (reference-style random CV subsampling)**
+BenchIQ follows the reference workflow's random subsampling design:
 - Choose target preselection size `k_preselect[b]`.
-- On benchmark train+val pool (excluding global test), create **k-fold CV splits across models** (metabench used 5 folds). citeturn32view5turn32view9  
+- On benchmark train+val pool (excluding global test), create **k-fold CV splits across models** (the reference workflow used 5 folds). citeturn32view5turn32view9  
 - Repeat for `n_iter` random seeds:
   - sample `k_preselect` items uniformly without replacement,
   - for each fold:
     - build reduced subscore = mean of selected item scores (percent),
     - fit a one-dimensional GAM `full_score ~ s(reduced_score)` on fold-train models,
     - compute RMSE on fold-val models,
-    - also compute RMSE on the held-out global test set for tracking (metabench did this). citeturn32view0turn32view2  
-- Selection criterion (v0.1 default = metabench-like “minimax validation”):
+    - also compute RMSE on the held-out global test set for tracking (the reference workflow did this). citeturn32view0turn32view2  
+- Selection criterion (v0.1 default = the reference workflow-like “minimax validation”):
   - For each random seed, compute `max_rmse_val` across folds,
   - select the seed minimizing `max_rmse_val`. citeturn32view2turn32view3  
 
 **Key parameters**
 - `k_preselect` per benchmark (user-configurable; default cap based on N_train_models/4). citeturn7view5  
 - `n_folds` (default 5). citeturn32view5  
-- `n_iter` (default 2000 generic, 10000 for metabench validation parity; record runtime and allow early-stop if plateau). citeturn32view9  
+- `n_iter` (default 2000 generic, 10000 for reference validation parity; record runtime and allow early-stop if plateau). citeturn32view9  
 - `gam_backend = "pygam"`; fit using adaptive splines if supported, otherwise standard spline terms (see dependency choice). citeturn24search15turn24search7turn20view2  
 
 **Failure modes / diagnostics**
-- If benchmark is extremely large and `n_iter` is high, runtime can be significant; BenchIQ must (a) log progress, (b) allow reducing `n_iter`, and (c) write intermediate results every K iterations (crash-safe). Metabench used parallel processing; BenchIQ should implement parallelization via `joblib` or `multiprocessing` but keep it optional for v0.1. citeturn32view9turn33view0  
+- If benchmark is extremely large and `n_iter` is high, runtime can be significant; BenchIQ must (a) log progress, (b) allow reducing `n_iter`, and (c) write intermediate results every K iterations (crash-safe). Reference Workflow used parallel processing; BenchIQ should implement parallelization via `joblib` or `multiprocessing` but keep it optional for v0.1. citeturn32view9turn33view0  
 - If selected subset yields too small effective coverage (many missing), discard and resample (count as failed iteration) with explicit counters.
 
 ### Benchmark-specific IRT fitting
@@ -409,7 +400,7 @@ BenchIQ follows metabench’s random subsampling design:
 - `artifacts/05_irt/per_benchmark/<benchmark_id>/irt_fit_report.json`
 
 **Method**
-- Fit a **unidimensional 2PL** model on train models’ responses to preselected items. metabench used mirt with EM for 1D models; BenchIQ will use a Python backend but keep the model class fixed to 2PL in v0.1. citeturn15view1turn19view0turn20view1  
+- Fit a **unidimensional 2PL** model on train models’ responses to preselected items. the reference workflow used mirt with EM for 1D models; BenchIQ will use a Python backend but keep the model class fixed to 2PL in v0.1. citeturn15view1turn19view0turn20view1  
 - Core backend choice (recommended for v0.1):
   - Use `girth`’s `twopl_mml` (marginal maximum likelihood) to estimate item discrimination and difficulty, with missing data tagged via `tag_missing_data`. citeturn28view0turn10view0  
 - Optional experimental backend:
@@ -417,13 +408,13 @@ BenchIQ follows metabench’s random subsampling design:
 
 **Key parameters**
 - `irt_backend = "girth"` (default).
-- `theta_prior = Normal(0,1)` for downstream theta estimation (consistent with metabench’s Gaussian latent density setting in mirt). citeturn15view1turn20view1  
+- `theta_prior = Normal(0,1)` for downstream theta estimation (consistent with the reference workflow's Gaussian latent density setting in mirt). citeturn15view1turn20view1  
 - `max_iter`, `tol` forwarded to backend where available.
 
 **Failure modes / diagnostics**
 - Non-convergence / pathological parameters (e.g., extreme discrimination, infinite difficulty):
   - clamp or drop items based on explicit rules (e.g., `a_j` outside [0.1, 5.0] triggers warning; outside [0.05, 10.0] triggers exclusion), and record counts.
-- Emit item parameter distribution plots (difficulty vs discrimination scatter) similar to metabench’s exploratory diagnostics, written to disk. citeturn7view3turn28view0  
+- Emit item parameter distribution plots (difficulty vs discrimination scatter) similar to the reference workflow's exploratory diagnostics, written to disk. citeturn7view3turn28view0  
 
 ### Fisher-information item selection
 **Input**
@@ -436,17 +427,17 @@ BenchIQ follows metabench’s random subsampling design:
 - `artifacts/06_select/per_benchmark/<benchmark_id>/plots/` (test information curves)
 
 **Method**
-BenchIQ implements metabench’s information filtering concept:
+BenchIQ implements the reference workflow's information filtering concept:
 - Build a theta grid:
   - default: empirical theta estimates from a preliminary theta pass (or, if not available yet, use a grid spanning the item difficulty range),
   - alternative: uniform grid over `[min_theta, max_theta]`. citeturn17view1turn16view5turn20view1  
 - Compute per-item Fisher information across theta:
   - For 2PL logistic, `I_j(θ) = a_j^2 * p_j(θ) * (1 - p_j(θ))`. (BenchIQ uses this analytic form rather than calling R’s `iteminfo`, but it matches the same concept.) citeturn19view0turn20view1  
-- Partition theta range into `n_bins` (default = `k_final[b]` or a capped value), using quantiles of theta grid (metabench used quantiles). citeturn16view5turn17view0  
+- Partition theta range into `n_bins` (default = `k_final[b]` or a capped value), using quantiles of theta grid (the reference workflow used quantiles). citeturn16view5turn17view0  
 - Selection loop:
-  - For each bin, choose the remaining item with the maximum information within that bin, subject to an information threshold `info_min` (metabench used a `threshold` hyperparameter when selecting items). citeturn17view0turn17view2  
+  - For each bin, choose the remaining item with the maximum information within that bin, subject to an information threshold `info_min` (the reference workflow used a `threshold` hyperparameter when selecting items). citeturn17view0turn17view2  
   - Remove chosen item from candidate pool, continue until `k_final` items selected or no items meet threshold.
-- BenchIQ v0.1 **does not implement Bayesian hyperparameter optimization** over selection settings (metabench’s `reduce.R` included this); instead, v0.1 exposes `info_min`, `n_bins`, and `k_final` directly and logs sensitivity diagnostics. citeturn16view8turn17view2  
+- BenchIQ v0.1 **does not implement Bayesian hyperparameter optimization** over selection settings (the reference workflow's `reduce.R` included this); instead, v0.1 exposes `info_min`, `n_bins`, and `k_final` directly and logs sensitivity diagnostics. citeturn16view8turn17view2  
 
 **Key parameters**
 - `k_final[b]` per benchmark (required user-configurable budget).
@@ -456,7 +447,7 @@ BenchIQ implements metabench’s information filtering concept:
 
 **Failure modes / diagnostics**
 - If selection yields < 20 items, warn that the reduced benchmark may be too small for stable reconstruction; proceed but flag.
-- Emit “expected test information” curves for full vs reduced sets (metabench plotted these). citeturn19view1turn18view0  
+- Emit “expected test information” curves for full vs reduced sets (the reference workflow plotted these). citeturn19view1turn18view0  
 
 ### Ability estimation
 **Input**
@@ -468,7 +459,7 @@ BenchIQ implements metabench’s information filtering concept:
 
 **Method**
 - Estimate theta per model per benchmark using:
-  - `method = MAP` (default) and optionally `EAP`. Metabench used MAP and EAPsum as scoring options via mirt’s `fscores`. BenchIQ v0.1 implements MAP and EAP on a fixed grid; EAPsum is not separately implemented unless a clear operational definition is added later. citeturn15view0turn17view2turn20view1  
+  - `method = MAP` (default) and optionally `EAP`. Reference Workflow used MAP and EAPsum as scoring options via mirt’s `fscores`. BenchIQ v0.1 implements MAP and EAP on a fixed grid; EAPsum is not separately implemented unless a clear operational definition is added later. citeturn15view0turn17view2turn20view1  
 - Standard error:
   - `theta_se = 1 / sqrt( I_test(theta_hat) )` where `I_test` is the sum of item information values at `theta_hat`. This is consistent with the Fisher information focus of the pipeline. citeturn19view0turn20view1  
 
@@ -491,13 +482,13 @@ BenchIQ implements metabench’s information filtering concept:
 - `artifacts/08_features/feature_report.json`
 
 **Method**
-BenchIQ implements the reconstruction predictor families described in metabench’s Appendix predictors section:
+BenchIQ implements the reconstruction predictor families described in the reference workflow's Appendix predictors section:
 - Per-benchmark features (for benchmark `b`):
   - `theta_b`, `theta_se_b`, reduced subscore `sub_b` (= percent correct on reduced items). citeturn20view2turn23view2turn15view0  
 - Benchmark-specific linear predictor (`lin_b`):
-  - Fit a **linear model without intercept** predicting the full score from the reduced-item response vector (metabench did this via `train.lm`, yielding `.l` predictions and `.s` subscores). BenchIQ implements the same concept with OLS or ridge-regularized OLS to prevent instability when items are correlated. citeturn23view2turn23view5turn20view2  
+  - Fit a **linear model without intercept** predicting the full score from the reduced-item response vector (the reference workflow did this via `train.lm`, yielding `.l` predictions and `.s` subscores). BenchIQ implements the same concept with OLS or ridge-regularized OLS to prevent instability when items are correlated. citeturn23view2turn23view5turn20view2  
 - Grand summary features (if joint enabled and overlap sufficient):
-  - `grand_sub = mean_b(sub_b)` and `grand_lin = mean_b(lin_b)` across benchmarks in the bundle, mirroring metabench’s `grand.s` and `grand.l`. citeturn23view9turn22view3turn20view2  
+  - `grand_sub = mean_b(sub_b)` and `grand_lin = mean_b(lin_b)` across benchmarks in the bundle, mirroring the reference workflow's `grand.s` and `grand.l`. citeturn23view9turn22view3turn20view2  
 
 **Key parameters**
 - `linear_predictor_model = "ols_no_intercept"` (default) with optional `ridge_alpha` smoothing.
@@ -525,16 +516,16 @@ BenchIQ uses a true GAM implementation in Python:
 
 **Models**
 - Marginal reconstruction per benchmark `b`:
-  - Fit `score_full_b ~ s(theta_b) + s(theta_se_b) + s(sub_b) + s(lin_b)` with adaptive spline basis where supported (metabench used adaptive splines `bs="ad"` and specifically chose adaptive splines for fidelity over non-uniform predictor distributions). citeturn20view2turn23view0turn32view0  
+  - Fit `score_full_b ~ s(theta_b) + s(theta_se_b) + s(sub_b) + s(lin_b)` with adaptive spline basis where supported (the reference workflow used adaptive splines `bs="ad"` and specifically chose adaptive splines for fidelity over non-uniform predictor distributions). citeturn20view2turn23view0turn32view0  
 - Joint reconstruction per benchmark `b` (only if overlap sufficient):
-  - Fit `score_full_b ~ Σ_{b'} s(theta_{b'}) + s(sub_b) + s(grand_sub) + s(lin_b) + s(grand_lin)` (exact formula configurable, but feature families match metabench’s described joint use of all latent abilities plus specific and grand summaries, and their additional linear predictor terms). citeturn20view2turn23view9turn22view3  
+  - Fit `score_full_b ~ Σ_{b'} s(theta_{b'}) + s(sub_b) + s(grand_sub) + s(lin_b) + s(grand_lin)` (exact formula configurable, but feature families match the reference workflow's described joint use of all latent abilities plus specific and grand summaries, and their additional linear predictor terms). citeturn20view2turn23view9turn22view3  
 - Grand mean reconstruction (optional output but first-class in workflow):
-  - Fit `grand_score ~ Σ_{b} s(theta_b) + s(grand_sub) + s(grand_lin)`; metabench notes that for mean-score joint models some terms are discarded. BenchIQ mirrors this by using only bundle-wide summaries. citeturn20view2turn23view9  
+  - Fit `grand_score ~ Σ_{b} s(theta_b) + s(grand_sub) + s(grand_lin)`; the reference workflow notes that for mean-score joint models some terms are discarded. BenchIQ mirrors this by using only bundle-wide summaries. citeturn20view2turn23view9  
 
 **Cross-validation**
 - For each GAM, choose smoothing parameters via:
   - k-fold CV on training models (default 5-fold) minimizing RMSE on validation folds,
-  - then evaluate once on held-out test models (global test split). This matches the broader metabench practice of CV-on-train and report-on-test. citeturn32view5turn30view3turn20view2  
+  - then evaluate once on held-out test models (global test split). This matches the broader the reference workflow practice of CV-on-train and report-on-test. citeturn32view5turn30view3turn20view2  
 
 **Key parameters**
 - `gam_terms` per model type (marginal/joint) as a config object, not hard-coded strings.
@@ -562,7 +553,7 @@ Keep analysis conservative and benchmark-level:
 - Compute correlation matrices across benchmarks:
   - `corr(theta_b, theta_b')` and `corr(score_b, score_b')` on the overlap model set; default correlation = Spearman (robust to monotone transforms common in leaderboard scales). citeturn23view7turn23view0  
 - Factor analysis (benchmark-level, not item-level):
-  - Preferred optional backend: `factor_analyzer`, which explicitly supports EFA with MINRES and rotations, and notes it is partially ported from R’s `psych`—close to metabench’s R implementation. BenchIQ can use it when installed. citeturn26view0turn15view0  
+  - Preferred optional backend: `factor_analyzer`, which explicitly supports EFA with MINRES and rotations, and notes it is partially ported from R’s `psych`—close to the reference workflow's R implementation. BenchIQ can use it when installed. citeturn26view0turn15view0  
   - Fallback: scikit-learn `FactorAnalysis` (ML) for environments without factor_analyzer. citeturn9search2  
 - Compressibility metrics:
   - For each benchmark `b`, quantify how well it is predictable from others:
@@ -638,7 +629,7 @@ BenchIQ needs tests that verify both engineering correctness and statistical san
   - enforces PK uniqueness,
   - preserves dtypes and IDs.
 - Preprocessing stats:
-  - point-biserial computation matches the formula used in metabench’s preprocessing script (numerical tolerance). citeturn7view3turn8view0  
+  - point-biserial computation matches the formula used in the reference workflow's preprocessing script (numerical tolerance). citeturn7view3turn8view0  
 - Splitters:
   - splitting is model-level only,
   - global test set has correct size and approximate stratification properties. citeturn30view3  
@@ -652,7 +643,7 @@ BenchIQ needs tests that verify both engineering correctness and statistical san
   - generate item params + theta, sample responses,
   - ensure BenchIQ recovers monotone ranking of model abilities and reasonable reconstruction of full scores from reduced subsets under known generative structure. citeturn20view4turn28view0  
 - Synthetic multi-benchmark overlap:
-  - generate two or three correlated theta dimensions and create benchmarks that load on them (similar to metabench’s synergy simulation idea),
+  - generate two or three correlated theta dimensions and create benchmarks that load on them (similar to the reference workflow's synergy simulation idea),
   - verify redundancy metrics move in the expected direction as correlation increases. citeturn20view3turn20view4  
 
 ### Integration tests (end-to-end)
@@ -661,21 +652,26 @@ BenchIQ needs tests that verify both engineering correctness and statistical san
   - reconstructed RMSE is finite and improves from random baseline as n_iter increases,
   - selection produces exactly `k_final[b]` items when feasible.
 
-### Regression tests (metabench as primary validation case)
-BenchIQ’s v0.1 acceptance suite should include a **metabench-validation mode** that runs the pipeline on a pinned metabench dataset snapshot and checks toleranced expectations:
-- Preprocessing removes items according to the metabench-derived default thresholds (sd<=0.01, mean>=0.95, abs(point-biserial)<0.05) and tail outliers at 0.1% quantile, within exact match for that snapshot. citeturn7view5turn8view0  
-- The split logic matches metabench’s approach: global test split stratified on grand mean score with ~10% test proportion. citeturn30view3  
-- Cross-validated subsampling uses 5-fold CV and selects subsets by minimax validation RMSE (same criterion). citeturn32view5turn32view2  
-- Reconstruction features include benchmark-specific linear predictors and grand summaries, matching metabench’s `train.lm`/`grand.l`/`grand.s` structure. citeturn23view2turn23view9  
+### Regression tests
+BenchIQ’s v0.1 acceptance suite should include a compact regression fixture and a synthetic
+end-to-end fixture that check stable, inspectable behavior:
+- Preprocessing removes items according to the documented strict-threshold baseline when that
+  baseline is explicitly configured. citeturn7view5turn8view0  
+- The split logic keeps the documented global test split stratified on grand mean score with ~10%
+  test proportion. citeturn30view3  
+- Cross-validated subsampling uses the configured fold count and selection rule, and the saved
+  artifact set stays reproducible. citeturn32view5turn32view2  
+- Reconstruction features include benchmark-specific linear predictors and grand summaries. citeturn23view2turn23view9  
 
-BenchIQ should not assert exact numeric parity with metabench’s R outputs in CI (different backends and optimization), but it **can** assert:
+BenchIQ should not assert exact numeric parity with any external reference stack in CI
+(different backends and optimization), but it **can** assert:
 - directions and magnitudes are comparable (e.g., RMSE within a tolerance band and monotone relationships preserved),
 - the pipeline completes and produces a consistent artifact set.
 
 ### Acceptance criteria (v0.1 “done when”)
 - `benchiq run` completes on:
   1) synthetic integration fixture, and  
-  2) metabench validation snapshot (or a reduced metabench subset fixture if size is too large for CI). citeturn33view0turn5view0  
+  2) a compact regression fixture that exercises the saved product path.  
 - All stages write artifacts; manifest lists versions and seeds.
 - Joint reconstruction + redundancy stages either run or are explicitly skipped with a recorded reason (no silent skipping).
 - Public API and CLI are stable enough to support a “methods + tooling” paper’s reproducibility checklist.
@@ -685,21 +681,21 @@ BenchIQ should not assert exact numeric parity with metabench’s R outputs in C
 ### Publishability plan (tooling/evaluation paper)
 The publishable contribution is: **a reusable, artifact-first implementation of a benchmark-bundle distillation workflow** for LLM evaluation matrices, plus conservative overlap diagnostics. The paper should position BenchIQ as:
 - a workflow that users apply to *their own* bundles,
-- methodologically grounded by metabench, validated on metabench, and stress-tested on synthetic bundles (for controlled redundancy experiments). citeturn0search0turn20view2turn20view4turn33view0  
+- methodologically grounded by the reference workflow, validated on the reference workflow, and stress-tested on synthetic bundles (for controlled redundancy experiments). citeturn0search0turn20view2turn20view4turn33view0  
 
 **Experiments/results to include**
-- **Metabench replication (core):**
+- **Reference Workflow replication (core):**
   - show reconstruction RMSE on held-out test models for marginal vs joint GAMs,
   - show distillation curves: RMSE vs subset size (preselect and final),
   - show benchmark theta correlation matrix and benchmark-level factor structure. citeturn20view0turn23view7turn32view2turn20view2  
 - **Synthetic overlap study (supports redundancy claims):**
-  - vary inter-benchmark latent correlation and cross-loading; show redundancy metrics behave sensibly (mirrors metabench’s synergy simulation motivation). citeturn20view3turn20view4  
+  - vary inter-benchmark latent correlation and cross-loading; show redundancy metrics behave sensibly (mirrors the reference workflow's synergy simulation motivation). citeturn20view3turn20view4  
 - **“Arbitrary bundle” demonstration (non-universal, honest):**
   - include at least one additional bundle format (even if small) to demonstrate that BenchIQ’s schema + pipeline generalize operationally (not claiming validity across all benchmarks). This can be a user-provided bundle in supplementary material or a small public bundle if available; the paper should state explicitly that general validity is not proven and BenchIQ provides diagnostics/warnings instead. citeturn20view1turn33view0  
 
 ### Smallest honest paper claim
 BenchIQ v0.1 can claim (defensibly):
-- “BenchIQ implements an open-source, benchmark-bundle-agnostic pipeline for distilling LLM benchmarks and analyzing benchmark-level overlap using unidimensional IRT, Fisher-information-based item selection, and GAM-based reconstruction; it reproduces the qualitative findings and reconstruction behavior reported in metabench on the metabench dataset and provides artifact-first diagnostics for applying the workflow to new benchmark bundles.” citeturn0search0turn0search4turn20view2turn23view9turn33view0  
+- “BenchIQ implements an open-source, benchmark-bundle-agnostic pipeline for distilling LLM benchmarks and analyzing benchmark-level overlap using unidimensional IRT, Fisher-information-based item selection, and GAM-based reconstruction; it reproduces the qualitative findings and reconstruction behavior reported in the reference workflow on the the reference workflow dataset and provides artifact-first diagnostics for applying the workflow to new benchmark bundles.” citeturn0search0turn0search4turn20view2turn23view9turn33view0  
 
 ## Ordered Codex implementation roadmap
 
@@ -800,7 +796,7 @@ Load CSV/Parquet inputs, canonicalize, and write stage artifacts + manifest.
 
 ### Ticket 3 — Preprocessing stats: item SD/mean/point-biserial + filters
 **Goal**  
-Compute metabench-style item statistics and apply first-class preprocessing filters.
+Compute reference-style item statistics and apply first-class preprocessing filters.
 
 **Files/modules**
 - `src/benchiq/preprocess/stats.py`
@@ -808,14 +804,14 @@ Compute metabench-style item statistics and apply first-class preprocessing filt
 
 **Implementation tasks**
 - Implement per-benchmark pivot to matrix (models × items) for computation, but preserve long-table as truth.
-- Implement point-biserial per metabench formula (correlation of item with total score). citeturn7view3turn8view0  
-- Implement filters with defaults mirroring metabench’s preprocessing script thresholds:
+- Implement point-biserial per the reference workflow formula (correlation of item with total score). citeturn7view3turn8view0  
+- Implement filters with defaults mirroring the reference workflow's preprocessing script thresholds:
   - `sd<=0.01`, `mean>=0.95`, `abs(disc)<0.05`, drop low-tail 0.1% models (optional toggle). citeturn7view5turn8view0  
 - Add “insufficient coverage” filters (BenchIQ-defined): item coverage and model coverage thresholds.
 
 **Tests to add**
 - Unit tests on small constructed matrices where the filtered items are known.
-- Test that thresholds match expected metabench values.
+- Test that thresholds match expected the reference workflow values.
 
 **Acceptance criteria**
 - For toy benchmark, preprocessing emits item_stats and filtered lists to disk.
@@ -851,7 +847,7 @@ Compute full benchmark percent scores and grand mean scores.
 
 ### Ticket 5 — Model-level splitting (global + per-benchmark)
 **Goal**  
-Implement metabench-like global test split stratified on grand mean score, plus per-benchmark train/val splits.
+Implement the reference workflow-like global test split stratified on grand mean score, plus per-benchmark train/val splits.
 
 **Files/modules**
 - `src/benchiq/split/splitters.py`
@@ -859,7 +855,7 @@ Implement metabench-like global test split stratified on grand mean score, plus 
 **Implementation tasks**
 - Implement score binning for stratification (quantile bins).
 - If grand score available with sufficient N:
-  - split `p_test=0.1` into global test set, mirroring metabench’s approach. citeturn30view3  
+  - split `p_test=0.1` into global test set, mirroring the reference workflow's approach. citeturn30view3  
 - Otherwise:
   - create per-benchmark splits only (still by model).
 - Emit split diagnostics.
@@ -904,7 +900,7 @@ Provide a stable, testable GAM abstraction and cross-validation utilities.
 
 ### Ticket 7 — Cross-validated subsampling to k_preselect
 **Goal**  
-Implement metabench-style random CV subsampling with minimax validation selection.
+Implement reference-style random CV subsampling with minimax validation selection.
 
 **Files/modules**
 - `src/benchiq/subsample/random_cv.py`
@@ -1015,7 +1011,7 @@ Compute theta and theta SE per model per benchmark on reduced items.
 
 ### Ticket 11 — Linear predictor feature (no-intercept weighted-average model)
 **Goal**  
-Implement benchmark-specific linear predictor and reduced subscore generation consistent with metabench’s `train.lm` concept.
+Implement benchmark-specific linear predictor and reduced subscore generation consistent with the reference workflow's `train.lm` concept.
 
 **Files/modules**
 - `src/benchiq/reconstruct/linear_predictor.py`
@@ -1123,7 +1119,7 @@ Implement correlation matrices, optional factor analysis, and cross-benchmark pr
 
 ### Ticket 15 — CLI implementation
 **Goal**  
-Implement `benchiq validate`, `benchiq run`, and `benchiq metabench run`.
+Implement `benchiq validate` and `benchiq run`.
 
 **Files/modules**
 - `src/benchiq/cli/main.py`
@@ -1172,34 +1168,31 @@ Implement the orchestrator that runs all stages, writes stage-level manifests, a
 
 ---
 
-### Ticket 17 — Metabench validation mode (data + toleranced assertions)
+### Ticket 17 — Compact regression coverage
 **Goal**  
-Provide a validation-mode harness that demonstrates methodological correctness without making BenchIQ a metabench-only tool.
+Provide a compact regression harness that demonstrates methodological correctness without adding a
+separate benchmark-specific CLI mode.
 
 **Files/modules**
-- `src/benchiq/cli/commands_metabench.py`
-- `docs/design/metabench_validation.md`
-- `tests/regression/test_metabench_validation.py`
-- `tests/regression/expected/metabench_metrics.json` (toleranced expectations)
+- `tests/integration/`
+- `tests/regression/`
+- `docs/cli.md`
 
 **Implementation tasks**
-- Define “strict metabench-validation mode” config:
-  - preprocessing defaults fixed to metabench thresholds,
-  - split logic matches global grand-mean stratification,
-  - subsampling defaults `k_preselect=350`, `n_folds=5`, `n_iter` reduced for CI but full for manual runs,
-  - selection defaults approximate metabench’s use of ~250 quantiles and lambda recommendation (documented). citeturn5view0turn16view4turn30view3turn32view5  
-- Add a “generic arbitrary-benchmark mode” config path that does not assume metabench benchmark IDs or sizes.
+- Keep a compact saved fixture for fast coverage of the main product path.
+- Ensure the strict baseline profile and the reconstruction-first default are both testable through
+  the normal `validate` / `run` / `calibrate` / `predict` surfaces.
+- Store toleranced expectations only where they support the product workflow directly.
 
 **Tests to add**
-- Regression test that runs a small metabench snapshot (or prepackaged tiny subset) and checks that:
-  - artifacts exist,
-  - key metrics are within tolerance.
+- Regression tests that run the compact fixture through the supported public workflows and check
+  that the expected artifacts exist and key metrics stay finite.
 
 **Acceptance criteria**
-- A reader can run `benchiq metabench run` and get a reproducible report.
+- A reader can run the documented public commands and get reproducible reports.
 
 **Likely failure modes/blockers**
-- Dataset availability/licensing and size; if full dataset can’t ship, ship a tiny derived fixture and document how to fetch the full snapshot.
+- Fixture drift or overly brittle tolerances.
 
 ---
 
@@ -1234,7 +1227,7 @@ Make the repo self-explanatory for contributors and explicitly teach how to driv
 **Minimum Publishable BenchIQ v0.1 checklist**
 - [ ] One canonical `responses_long` table is the internal source of truth; all derived matrices are reproducible views.  
 - [ ] Splits are **by model only**; no item-level split leakage; global test split supported when grand overlap exists. citeturn30view3turn32view5  
-- [ ] Benchmark-wise preprocessing implements (and defaults to) metabench-style variance / ceiling / point-biserial filters + explicit coverage filters; all decisions logged. citeturn7view5turn8view0  
+- [ ] Benchmark-wise preprocessing implements (and defaults to) reference-style variance / ceiling / point-biserial filters + explicit coverage filters; all decisions logged. citeturn7view5turn8view0  
 - [ ] Cross-validated subsampling to fixed `k_preselect[b]` works and writes CV artifacts (minimax selection supported). citeturn32view2turn32view5  
 - [ ] 2PL IRT fitting backend works (core: girth) and produces item parameters. citeturn28view0turn10view0  
 - [ ] Fisher-information selection produces `k_final[b]` reduced subsets across the theta range and writes information diagnostics. citeturn19view0turn17view0  
@@ -1242,7 +1235,7 @@ Make the repo self-explanatory for contributors and explicitly teach how to driv
 - [ ] Reconstruction features include theta/theta SE/subscore + benchmark linear predictor + grand summaries; written to disk. citeturn23view2turn23view9turn20view2  
 - [ ] GAM reconstruction (core: pyGAM) runs marginal and (when overlap permits) joint; cross-validated; writes predictions and RMSE on held-out test models. citeturn24search15turn20view2turn30view3  
 - [ ] Benchmark-level redundancy/compressibility outputs include correlation matrices and a conservative cross-predictability metric; no item-level multidimensional claims. citeturn23view7turn26view0turn20view2  
-- [ ] Strict metabench-validation mode exists and is the primary regression test harness; generic mode works on arbitrary benchmark bundles with explicit warnings/refusals. citeturn0search4turn5view0turn33view0  
+- [ ] Strict reference-validation mode exists and is the primary regression test harness; generic mode works on arbitrary benchmark bundles with explicit warnings/refusals. citeturn0search4turn5view0turn33view0  
 - [ ] Every major stage writes inspectable artifacts + manifest; CLI runs are reproducible. citeturn33view0turn33view3  
 
-**1-sentence product claim:** BenchIQ is an open-source, artifact-first Python workflow that distills user-chosen LLM benchmark bundles into compact subsets and benchmark-specific latent abilities, reconstructs full normalized benchmark scores with cross-validated GAMs, and reports conservative benchmark-level redundancy/compressibility—validated against metabench as a methodological reference case. citeturn0search0turn20view2turn33view0
+**1-sentence product claim:** BenchIQ is an open-source, artifact-first Python workflow that distills user-chosen LLM benchmark bundles into compact subsets and benchmark-specific latent abilities, reconstructs full normalized benchmark scores with cross-validated GAMs, and reports conservative benchmark-level redundancy/compressibility—validated against the reference workflow as a methodological reference case. citeturn0search0turn20view2turn33view0

@@ -1,5 +1,5 @@
 {
-  "source_responses": "tests/data/metabench_validation/responses_long.csv",
+  "source_responses": "tests/data/compact_validation/responses_long.csv",
   "source_config": "tests/data/tiny_example/config.json",
   "feature_run_root": "reports/experiments/reconstruction_heads/workdir/feature_run",
   "report_dir": "reports/experiments/reconstruction_heads",

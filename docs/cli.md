@@ -1,12 +1,11 @@
 # BenchIQ CLI
 
-BenchIQ v0.1 ships an artifact-first CLI with five stable public entrypoints:
+BenchIQ v0.1 ships an artifact-first CLI with four stable public entrypoints:
 
 - `benchiq validate`
 - `benchiq calibrate`
 - `benchiq predict`
 - `benchiq run`
-- `benchiq metabench run`
 
 All commands require an explicit output directory.
 
@@ -211,34 +210,6 @@ Behavior:
 - requires the selected calibrated items for each benchmark to be present in the response file
 - ignores extra non-selected items and extra non-calibrated benchmarks with explicit warnings
 
-## `benchiq metabench run`
-
-Use this only for methodological validation against the metabench reference harness.
-
-Reduced bundled fixture:
-
-```bash
-benchiq metabench run --out out/metabench_docs_example
-```
-
-Manual full profile:
-
-```bash
-benchiq metabench run --profile full --out out/metabench_full_manual
-```
-
-Default run root:
-
-- `OUT/metabench-validation/`
-
-Important outputs:
-
-- full normal BenchIQ run directory
-- `reports/metabench_validation_report.json`
-- `reports/metabench_validation_summary.md`
-
-This mode is strict about validation artifacts and tolerances. It is not the same as generic bundle mode.
-
 ## Config Files
 
 `--config` accepts `.json` or `.toml`.
@@ -329,5 +300,4 @@ Linear predictor artifacts live under:
 python -m json.tool out/tiny_example_docs/tiny-example/manifest.json | head -40
 python -m json.tool out/tiny_example_docs/tiny-example/reports/metrics.json | head -80
 ls out/tiny_example_docs/tiny-example/artifacts/09_reconstruct/per_benchmark/b1
-ls out/metabench_docs_example/metabench-validation/reports
 ```

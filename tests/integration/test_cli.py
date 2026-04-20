@@ -12,7 +12,7 @@ def test_top_level_help_lists_public_commands() -> None:
     result = CliRunner().invoke(main, ["--help"])
 
     assert result.exit_code == 0, result.output
-    for command_name in ("validate", "calibrate", "predict", "run", "metabench"):
+    for command_name in ("validate", "calibrate", "predict", "run"):
         assert command_name in result.output
 
 

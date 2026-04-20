@@ -1,5 +1,5 @@
 {
-  "source_responses": "tests/data/metabench_validation/responses_long.csv",
+  "source_responses": "tests/data/compact_validation/responses_long.csv",
   "source_config": "tests/data/tiny_example/config.json",
   "calibration_run_root": "reports/calibration_deployment/workdir/calibration_run",
   "calibration_bundle_root": "reports/calibration_deployment/workdir/calibration_run/calibration_bundle",

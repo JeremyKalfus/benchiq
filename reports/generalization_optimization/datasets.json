@@ -2,7 +2,7 @@
   "compact_validation_fixture": {
     "dataset_id": "compact_validation_fixture",
     "dataset_label": "compact validation fixture",
-    "source_path": "tests/data/metabench_validation/responses_long.csv",
+    "source_path": "tests/data/compact_validation/responses_long.csv",
     "benchmark_total": 3,
     "model_total": 60,
     "item_total": 21,
@@ -14,7 +14,7 @@
   "large_release_default_subset": {
     "dataset_id": "large_release_default_subset",
     "dataset_label": "large release-default real-data subset",
-    "source_path": "out/metabench_real_source/release_default_subset_responses_long.parquet",
+    "source_path": "out/release_bundle_source/release_default_subset_responses_long.parquet",
     "benchmark_total": 6,
     "model_total": 6832,
     "item_total": 1608,

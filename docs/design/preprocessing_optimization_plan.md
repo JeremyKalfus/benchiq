@@ -3,7 +3,7 @@
 ## purpose
 
 This pass optimizes BenchIQ preprocessing for held-out score-reconstruction quality and
-reproducibility, not for metabench parity.
+reproducibility, not for external benchmark parity.
 
 Companion artifacts from the completed pass:
 
@@ -148,12 +148,12 @@ All profile comparisons keep the following fixed unless a comparison explicitly 
 This pass uses two dataset scales:
 
 - compact search path:
-  - responses: `tests/data/metabench_validation/responses_long.csv`
+  - responses: `tests/data/compact_validation/responses_long.csv`
   - baseline config family anchored to the current saved comparison setup
 - larger confirmation path:
-  - responses: `out/metabench_real_source/release_default_subset_responses_long.parquet`
+  - responses: `out/release_bundle_source/release_default_subset_responses_long.parquet`
   - six-benchmark release-default public subset with 6,832 models and 2,100 benchmark-item rows
-  - stage budgets anchored to the full metabench-style size regime, but interpreted here only as a
+  - stage budgets anchored to the larger historical size regime, but interpreted here only as a
     practical large-bundle BenchIQ confirmation path
 
 ### staged search strategy

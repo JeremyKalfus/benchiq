@@ -13,7 +13,6 @@ import pandas as pd
 from scipy.stats import pearsonr, spearmanr
 
 import benchiq
-from benchiq.cli.commands_metabench import build_metabench_preset
 from benchiq.preprocess.optimization import (
     THRESHOLD_COLUMNS,
     PreprocessingExperimentRawResult,
@@ -200,7 +199,7 @@ def build_compact_dataset() -> PreprocessingOptimizationDataset:
     return PreprocessingOptimizationDataset(
         dataset_id=COMPACT_DATASET_ID,
         label="compact validation fixture",
-        source_path="tests/data/metabench_validation/responses_long.csv",
+        source_path="tests/data/compact_validation/responses_long.csv",
         base_config=config_payload["config"],
         base_stage_options=stage_options,
         notes=("fast continuity check against the earlier compact bundle",),
@@ -208,16 +207,40 @@ def build_compact_dataset() -> PreprocessingOptimizationDataset:
 
 
 def build_real_dataset() -> PreprocessingOptimizationDataset:
-    preset = build_metabench_preset("full")
-    stage_options = json.loads(json.dumps(preset.stage_options))
-    stage_options.setdefault("04_subsample", {})
-    stage_options["04_subsample"]["n_iter"] = 24
-    stage_options["04_subsample"]["checkpoint_interval"] = 8
+    profile = benchiq.build_psychometric_default_profile(random_seed=7)
+    stage_options = {
+        "04_subsample": {
+            "method": "random_cv",
+            "k_preselect": 350,
+            "n_iter": 24,
+            "cv_folds": 5,
+            "checkpoint_interval": 8,
+            "lam_grid": [0.1, 1.0],
+        },
+        "05_irt": {"backend_options": None},
+        "06_select": {
+            "k_final": 250,
+            "n_bins": 250,
+            "theta_grid_size": 251,
+        },
+        "07_theta": {"theta_method": "MAP", "theta_grid_size": 251},
+        "09_reconstruct": {
+            "lam_grid": [0.1, 1.0],
+            "cv_folds": 5,
+            "n_splines": 10,
+        },
+        "10_redundancy": {
+            "lam_grid": [0.1, 1.0],
+            "cv_folds": 5,
+            "n_splines": 10,
+            "n_factors_to_try": [1, 2, 3],
+        },
+    }
     return PreprocessingOptimizationDataset(
         dataset_id=REAL_DATASET_ID,
         label="large release-default real-data subset",
-        source_path="out/metabench_real_source/release_default_subset_responses_long.parquet",
-        base_config=preset.config.model_dump(mode="json"),
+        source_path="out/release_bundle_source/release_default_subset_responses_long.parquet",
+        base_config=profile.config.model_dump(mode="json"),
         base_stage_options=stage_options,
         notes=(
             "primary real-data confirmation bundle",

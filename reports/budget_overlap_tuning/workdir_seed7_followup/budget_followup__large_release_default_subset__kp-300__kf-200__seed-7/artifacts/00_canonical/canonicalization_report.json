@@ -18,7 +18,7 @@
     "responses_long": {
       "derived": false,
       "file_format": "parquet",
-      "path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/metabench_real_source/release_default_subset_responses_long.parquet",
+      "path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/release_bundle_source/release_default_subset_responses_long.parquet",
       "sha256": "986bfe56414123f9f1a8175ab7b5807890de1a27cc3d14722509462a0dd78200",
       "table_name": "responses_long"
     }

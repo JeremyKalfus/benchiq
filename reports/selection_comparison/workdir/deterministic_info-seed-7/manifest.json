@@ -275,7 +275,7 @@
     "responses_long": {
       "derived": false,
       "file_format": "csv",
-      "path": "/Users/jeremykalfus/CodingProjects/BenchIQ/tests/data/metabench_validation/responses_long.csv",
+      "path": "/Users/jeremykalfus/CodingProjects/BenchIQ/tests/data/compact_validation/responses_long.csv",
       "sha256": "5cf38b34ad0a1c2312db6118cb088df3beb16f20c1d1ce6710568a8df911b423",
       "table_name": "responses_long"
     }

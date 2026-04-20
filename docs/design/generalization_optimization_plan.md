@@ -2,9 +2,9 @@
 
 ## purpose
 
-This pass asks a narrower and more product-relevant question than the earlier metabench work:
+This pass asks a narrower and more product-relevant question than the earlier parity work:
 
-- we are not optimizing for metabench parity
+- we are not optimizing for external benchmark parity
 - we are optimizing for held-out score-reconstruction quality, reproducibility, and deployment
   usefulness
 
@@ -82,10 +82,10 @@ This pass uses more than one bundle family and treats them as answering differen
 Required bundle set:
 
 - compact validation fixture
-  - source: `tests/data/metabench_validation/responses_long.csv`
+  - source: `tests/data/compact_validation/responses_long.csv`
   - role: fast fairness check and continuity with the earlier saved bundle
 - stronger real-data confirmation bundle
-  - source: `out/metabench_real_source/release_default_subset_responses_long.parquet`
+  - source: `out/release_bundle_source/release_default_subset_responses_long.parquet`
   - role: highest-signal real-data confirmation path
 - additional generated non-compact bundle family
   - role: stress generalization beyond the one saved real-data bundle

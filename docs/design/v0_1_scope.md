@@ -13,13 +13,10 @@ BenchIQ is:
 
 BenchIQ is not:
 
-- a metabench-only reproduction
 - a hosted platform
 - a dashboard product
 - a broad psychometrics toolkit
 - a generic data-collection system
-
-metabench remains the methodological reference case and validation harness, not the product identity.
 
 ## In Scope for v0.1
 
@@ -36,7 +33,7 @@ metabench remains the methodological reference case and validation harness, not 
 - GAM-based full-score reconstruction
 - benchmark-level redundancy, factor, and compressibility analysis
 - artifact-first python API and CLI
-- metabench validation mode and reduced regression fixture
+- saved optimization and deployment evaluation bundles under `reports/`
 
 ## Out of Scope for v0.1
 
@@ -47,15 +44,14 @@ metabench remains the methodological reference case and validation harness, not 
 - multimodal inputs
 - automatic benchmark scraping or collection
 - broad experiment tracking infrastructure
-- exact R-stack parity claims for metabench
+- parity-only benchmark-comparison work as a product goal
 
 ## Validation Position
 
 BenchIQ v0.1 does implement the methodology end to end.
 
-BenchIQ v0.1 does not yet claim acceptance-grade metabench parity in the default Python-first path. The real-data reviewer bundle exists so users can inspect the current gap honestly:
+BenchIQ v0.1 evaluates itself with held-out reconstruction quality, reproducibility, and deployment usefulness. The repo keeps saved product-facing evidence bundles under `reports/` so users can inspect the current state honestly:
 
-- frozen public snapshot
-- reproducible validation script
-- reported deltas against published targets
-- explicit failure verdict when the tolerance rule is not met
+- saved optimization summaries
+- saved deployment validation artifacts
+- explicit recommendation and default-profile updates only when the evidence improves

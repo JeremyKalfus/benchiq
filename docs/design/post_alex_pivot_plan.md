@@ -1,12 +1,12 @@
-# post-metabench-feedback pivot plan
+# post-parity-feedback pivot plan
 
 ## purpose
 
-This document captures the approved pivot after the first real-data metabench reviewer pass.
+This document captures the approved pivot after the first real-data parity-review pass.
 
 BenchIQ is staying a general benchmark-bundle distillation tool. The work below does **not**
-redefine the product as "metabench in python." metabench remains the reference case, the
-validation harness, and the strongest methodological comparison point.
+redefine the product as a reproduction of someone else's benchmark stack. The saved product-facing
+evaluation bundles are the main comparison point.
 
 This note mixes two perspectives on purpose:
 
@@ -22,7 +22,7 @@ Current status after the pivot implementation pass:
 
 - calibration / deployment split is implemented and tested
 - public package/docs positioning now presents `calibrate` / `predict` as first-class stable
-  workflows alongside `validate`, `run`, and `metabench run`
+  workflows alongside `validate` and `run`
 - optional R-baseline parity harness is implemented and writes skipped reports cleanly when `mirt`
   is unavailable
 - reconstruction-head comparison artifacts are saved under `reports/experiments/`
@@ -93,7 +93,7 @@ The main coupling points are:
    manifest that declares required deployment artifacts and explicitly forbids silent retraining.
 
 5. CLI surface in `src/benchiq/cli/main.py`
-   The CLI currently exposes `validate`, `run`, and `metabench run`, but not the product-level
+   The CLI historically exposed `validate`, `run`, and a parity-validation path, but not the product-level
    split between calibration and deployment.
 
 ### where factor analysis is wired into the mainline path
@@ -133,14 +133,11 @@ deterministic alternative.
 The repo already has a decent artifact and reporting base to build on.
 
 - artifact-first run directories with manifests and plots already exist across stages
-- strict reduced-fixture regression exists in `tests/regression/test_metabench_validation.py`
-- a paper-reviewer style real-data comparison script already exists in
-  `scripts/run_metabench_real_data_comparison.py`
 - frozen markdown and csv reviewer artifacts already exist under `reports/`
 - integration coverage already checks end-to-end CLI and runner behavior
 
 What is missing is a stable experiment namespace for new head-to-head comparisons outside the
-metabench-specific reviewer script.
+older parity-only reviewer scripts.
 
 ## target state
 

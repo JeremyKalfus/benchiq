@@ -11,13 +11,12 @@
 - work ticket-by-ticket in order unless dependencies are updated here first.
 - keep changes small and test after each ticket.
 - if a ticket fails, stop and report the blocker instead of guessing.
-- keep metabench as the validation harness, not the product identity.
 - keep every major stage inspectable and disk-backed.
 
 ## active pivot plan
 
 - current active design plan: [docs/design/post_alex_pivot_plan.md](/Users/jeremykalfus/CodingProjects/BenchIQ/docs/design/post_alex_pivot_plan.md)
-- the current user request explicitly approved the post-metabench-feedback pivot work captured there.
+- the current user request explicitly approved the post-parity-feedback pivot work captured there.
 - the historical v0.1 ticket record below remains useful, but the active next tickets are now the pivot tickets listed in that design note.
 - latest completed experiment pass: multi-bundle generalization optimization for held-out
   reconstruction quality, reproducibility, and deployment usefulness.
@@ -43,9 +42,8 @@
 - T15 is complete: benchmark-level theta/score correlations, overlap-gated factor analysis, cross-only compressibility metrics, and stage-10 redundancy artifacts are in place with unit coverage.
 - T16 is complete: the deterministic `BenchIQRunner`, stage-level manifest records, partial rerun support, and synthetic full-pipeline integration coverage are in place.
 - T17 is complete: the artifact-first `benchiq validate` and `benchiq run` CLI commands, explicit validation failure exits, and CLI integration smoke coverage are in place.
-- T18 is complete: `benchiq metabench run`, the reduced metabench validation fixture, toleranced regression expectations, and validation-mode docs are in place.
-- Post-T18 real-data validation exists on the frozen primary Zenodo snapshot, but the first reviewer pass did not meet the parity acceptance rule.
-- The old parity-repair-only T19 direction is now superseded by the approved post-metabench-feedback pivot.
+- the older parity-only validation surface has been retired and removed from the public repo path.
+- the old parity-repair-only T19 direction is now superseded by the approved product-performance pivot.
 - The next implementation work is:
   - T19 calibration / deployment split
   - T20 optional R-baseline IRT parity harness
@@ -88,7 +86,7 @@
 - T01 project scaffold and toolchain
 - T02 config models, schema constants, and validation report types
 - T03 bundle loading, canonicalization, and artifact writing
-- T04 preprocessing statistics and metabench-style filters
+- T04 preprocessing statistics and strict benchmark-wise filters
 - T05 full-score tables and overlap-aware grand scores
 - T06 model-level splitters and split diagnostics
 - T07 GAM backend wrapper and cross-validation harness
@@ -102,7 +100,6 @@
 - T15 benchmark-level redundancy and compressibility analysis
 - T16 runner orchestration and stage manifests
 - T17 artifact-first cli
-- T18 metabench validation mode and regression harness
 - T25 preprocessing optimization pass for reconstruction-first held-out quality
 - T26 generalization optimization and promotion pass
 
@@ -272,7 +269,7 @@ Blockers:
 - pyarrow/parquet compatibility issues
 - unclear duplicate-resolution edge cases in messy user data
 
-### T04 preprocessing statistics and metabench-style filters
+### T04 preprocessing statistics and strict benchmark-wise filters
 
 Depends on: T03
 
@@ -347,7 +344,7 @@ Blockers:
 Depends on: T07
 
 Scope:
-- implement metabench-style random item subsampling with k-fold cv across models
+- implement cross-validated random item subsampling with k-fold cv across models
 - use reduced subscore as the predictor and minimax validation rmse as the selection rule
 - write iteration-level results, checkpointable progress, and chosen preselect subsets
 
@@ -366,7 +363,7 @@ Depends on: T08
 
 Scope:
 - implement the core `girth` backend adapter and unified item-parameter output schema
-- `girth` is the first-pass core backend for v0.1, but if it fails metabench validation materially, an optional parity backend may be introduced later without changing the product identity.
+- `girth` is the first-pass core backend for v0.1, but if it fails product-relevant validation materially, an optional parity backend may be introduced later without changing the product identity.
 - fit 2pl models on benchmark-specific preselected item sets
 - artifact backend convergence-status unavailability explicitly when `girth` does not expose it
 - capture pathological-parameter diagnostics and dropped-item artifacts
@@ -526,54 +523,14 @@ Acceptance criteria:
 Blockers:
 - packaging entrypoint issues across local environments
 
-### T18 metabench validation mode and regression harness
-
-Depends on: T17
-
-Scope:
-- implement `benchiq metabench run`
-- add a pinned metabench validation fixture or documented fetch path
-- codify toleranced regression expectations for preprocessing, splitting, subsampling structure, and reconstruction outputs
-
-Acceptance criteria:
-- metabench validation mode runs reproducibly on the chosen fixture
-- regression tests assert artifact existence and metric tolerances without demanding exact r parity
-- docs explain how metabench validation differs from generic bundle mode
-
-Blockers:
-- dataset licensing, size, or availability constraints
-- performance limits for full metabench runs in ci
-
-### Post-T18 real-data metabench validation pass
-
-Depends on: T18
-
-Scope:
-- freeze one public metabench paper snapshot with exact hashes
-- add one full-profile manual validation config separate from the reduced ci fixture
-- run the strongest feasible frozen-snapshot comparison path, using the public release-default subset view when the raw snapshot is too large for an in-session full python-only pass
-- write a reviewer-ready comparison bundle with explicit pass/fail criteria and caveats
-
-Acceptance criteria:
-- the exact public source, snapshot, and hashes are recorded on disk
-- one reproducible command or script reruns the same frozen-source comparison
-- any fallback from the raw full snapshot to a public release-artifact path is explicit and justified
-- comparison outputs include benchmark rmse deltas, kept item counts, tolerance-band checks, and an honest overall verdict
-
-Blockers:
-- local runtime or memory limits on the full public snapshot
-- the frozen paper snapshot exposes public `*.rds` release artifacts more tractably than the full ~153M-row raw csv bundle for this focused reviewer pass
-- methodological gaps versus the original r stack that BenchIQ does not yet implement
-
 ### T19 docs, examples, and reproducibility pass
 
 Depends on: T18
 
 Scope:
-- finish `README.md`, `docs/design/schema.md`, `docs/design/v0_1_scope.md`, `docs/design/metabench_validation.md`, `docs/cli.md`, and `docs/contributing.md`
+- finish `README.md`, `docs/design/schema.md`, `docs/design/v0_1_scope.md`, `docs/cli.md`, and `docs/contributing.md`
 - document artifact layouts, failure modes, config examples, and contributor workflow
 - add a tiny synthetic example bundle and an end-to-end example command sequence
-- document the frozen real-data metabench reviewer bundle honestly, including the current non-parity verdict
 
 Acceptance criteria:
 - a new contributor can install the package, run the synthetic example, and understand the emitted artifacts

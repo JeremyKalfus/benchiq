@@ -3,7 +3,7 @@
 ## setup
 
 - dataset: `large_release_default_subset`
-- source_path: `out/metabench_real_source/release_default_subset_responses_long.parquet`
+- source_path: `out/release_bundle_source/release_default_subset_responses_long.parquet`
 - preselection_method: `deterministic_info`
 - exploration seeds: [7]
 - confirmation seeds: [7, 11, 19]

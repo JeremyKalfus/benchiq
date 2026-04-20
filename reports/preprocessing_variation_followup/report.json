@@ -2,7 +2,7 @@
   "dataset": {
     "dataset_id": "large_release_default_subset",
     "label": "large release-default real-data subset",
-    "source_path": "out/metabench_real_source/release_default_subset_responses_long.parquet",
+    "source_path": "out/release_bundle_source/release_default_subset_responses_long.parquet",
     "base_config": {
       "duplicate_policy": "error",
       "allow_low_n": false,

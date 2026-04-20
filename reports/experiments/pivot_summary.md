@@ -1,6 +1,6 @@
-# post-metabench pivot experiment summary
+# post-pivot experiment summary
 
-This note summarizes the compact saved experiment bundle produced for the post-metabench pivot.
+This note summarizes the compact saved experiment bundle produced for the product-performance pivot.
 
 ## reconstruction heads
 

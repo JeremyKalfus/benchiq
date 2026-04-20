@@ -15,7 +15,6 @@ Helpful supporting docs:
 - [`README.md`](../README.md)
 - [`docs/design/v0_1_scope.md`](design/v0_1_scope.md)
 - [`docs/design/schema.md`](design/schema.md)
-- [`docs/design/metabench_validation.md`](design/metabench_validation.md)
 - [`docs/cli.md`](cli.md)
 
 ## Setup
@@ -93,31 +92,23 @@ python -m json.tool out/tiny_example_docs/tiny-example/manifest.json | head -40
 python -m json.tool out/tiny_example_docs/tiny-example/reports/metrics.json | head -80
 ```
 
-## Run the metabench Validation Harness
+## Run the Saved Product Evaluations
 
-Reduced regression fixture:
+Primary saved experiment and optimization surfaces:
 
-```bash
-benchiq metabench run --out out/metabench_docs_example
-```
+- [`reports/preprocessing_optimization/summary.md`](../reports/preprocessing_optimization/summary.md)
+- [`reports/generalization_optimization/summary.md`](../reports/generalization_optimization/summary.md)
+- [`reports/preprocessing_variation_followup/summary.md`](../reports/preprocessing_variation_followup/summary.md)
+- [`reports/deployment_validation/summary.md`](../reports/deployment_validation/summary.md)
 
-Manual full profile reference:
-
-- [`docs/design/metabench_validation_full_profile.json`](design/metabench_validation_full_profile.json)
-
-Frozen real-data reviewer bundle:
+Rebuild them with:
 
 ```bash
-.venv/bin/python scripts/run_metabench_real_data_comparison.py \
-  --out out/metabench_real_validation \
-  --run-id metabench-real-zenodo-12819251-parity
+.venv/bin/python scripts/run_preprocessing_optimization.py
+.venv/bin/python scripts/run_generalization_optimization.py
+.venv/bin/python scripts/run_preprocessing_variation_followup.py
+.venv/bin/python scripts/run_calibration_deployment_walkthrough.py
 ```
-
-Outputs of interest:
-
-- [`reports/metabench_real_data_comparison.md`](../reports/metabench_real_data_comparison.md)
-- [`reports/metabench_real_data_comparison.csv`](../reports/metabench_real_data_comparison.csv)
-- [`reports/metabench_real_data_notes.md`](../reports/metabench_real_data_notes.md)
 
 ## Contribution Boundaries
 
@@ -127,19 +118,16 @@ Good contributions for v0.1:
 - test coverage
 - inspectable artifact/report improvements
 - docs and reproducibility improvements
-- validation harness maintenance
+- product-evaluation maintenance
 
 Avoid widening scope without an approved ticket:
 
 - new modeling families
 - dashboard/platform work
-- metabench-only product framing
 - silent fallback behavior
 - test-set-driven selection logic
 
 ## Current Known Limitations
 
 - binary item scores only
-- Python-first path implements the methodology end to end but does not yet achieve acceptance-grade metabench parity
-- the strongest public real-data parity comparison still relies on a validation-only reviewer harness around frozen public release artifacts
 - BenchIQ is intended for many-model bundles, not single-model one-off evaluation

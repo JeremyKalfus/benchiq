@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare random and deterministic preselection on the compact validation fixture."""
+"""Compare random and deterministic preselection on the compact regression fixture."""
 
 from __future__ import annotations
 
@@ -39,7 +39,7 @@ def main() -> None:
 
             run_id = f"{method}-seed-{seed}"
             run_result = benchiq.run(
-                "tests/data/metabench_validation/responses_long.csv",
+                "tests/data/compact_validation/responses_long.csv",
                 config=config,
                 out_dir=workdir,
                 run_id=run_id,
@@ -108,7 +108,7 @@ def main() -> None:
         encoding="utf-8",
     )
     metadata = {
-        "source_responses": "tests/data/metabench_validation/responses_long.csv",
+        "source_responses": "tests/data/compact_validation/responses_long.csv",
         "source_config": "tests/data/tiny_example/config.json",
         "workdir": str(workdir),
         "methods": list(METHODS),
