@@ -8,11 +8,11 @@ def test_config_accepts_defaults() -> None:
     config = BenchIQConfig()
 
     assert config.duplicate_policy == "error"
-    assert config.drop_low_tail_models_quantile == pytest.approx(0.001)
-    assert config.min_item_sd == pytest.approx(0.01)
-    assert config.max_item_mean == pytest.approx(0.95)
-    assert config.min_abs_point_biserial == pytest.approx(0.05)
-    assert config.min_item_coverage == pytest.approx(0.8)
+    assert config.drop_low_tail_models_quantile == pytest.approx(0.002)
+    assert config.min_item_sd == pytest.approx(0.0)
+    assert config.max_item_mean == pytest.approx(0.99)
+    assert config.min_abs_point_biserial == pytest.approx(0.0)
+    assert config.min_item_coverage == pytest.approx(0.7)
     assert config.min_overlap_models_for_redundancy == 75
     assert config.p_test == pytest.approx(0.10)
     assert config.p_val == pytest.approx(0.10)

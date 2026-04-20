@@ -15,9 +15,13 @@ The preferred reusable workflow is:
 - `benchiq calibrate` to fit and publish a reusable `calibration_bundle/`
 - `benchiq predict` to score new reduced responses later without retraining
 
-The locked psychometric defaults stay as the default config. The current recommended non-default
-product profile is `reconstruction_first`, backed by the saved multi-bundle generalization pass in
+The default product config now follows `reconstruction_first`, backed by the saved multi-bundle
+generalization pass in
 [`reports/generalization_optimization/summary.md`](../reports/generalization_optimization/summary.md).
+The broader real-data preprocessing follow-up in
+[`reports/preprocessing_variation_followup/summary.md`](../reports/preprocessing_variation_followup/summary.md)
+further tightened that runtime default with a light `drop_low_tail_models_quantile=0.002` trim.
+The spec-aligned psychometric baseline remains available explicitly as `psychometric_default`.
 
 `benchiq run` remains the stable full end-to-end path when you want one inspectable local run root
 that also includes the downstream redundancy analysis.
@@ -248,12 +252,16 @@ Two supported shapes:
 
 The tiny example uses the nested form so the docs can show a short, fast full-pipeline run.
 
-Recommended reconstruction-first nested config example:
+When `--config` is omitted, the CLI uses the default reconstruction-first runtime profile:
+light low-tail trimming, relaxed preprocessing thresholds, and `deterministic_info` stage-04
+preselection.
+
+Explicit default-profile nested config example:
 
 ```json
 {
   "config": {
-    "drop_low_tail_models_quantile": 0.0,
+    "drop_low_tail_models_quantile": 0.002,
     "min_item_sd": 0.0,
     "max_item_mean": 0.99,
     "min_abs_point_biserial": 0.0,
@@ -268,9 +276,9 @@ Recommended reconstruction-first nested config example:
 }
 ```
 
-This matches the first-class recommended profile exposed in Python as
-`benchiq.build_reconstruction_first_profile(...)`. It does not change the package defaults; it is
-the recommended override when you want the generalized reconstruction-first path.
+This matches the first-class default profile exposed in Python as
+`benchiq.build_reconstruction_first_profile(...)`. It matches the actual runtime defaults and is
+useful when you want to pin that profile explicitly in a saved config file.
 
 ## Artifact Layout
 

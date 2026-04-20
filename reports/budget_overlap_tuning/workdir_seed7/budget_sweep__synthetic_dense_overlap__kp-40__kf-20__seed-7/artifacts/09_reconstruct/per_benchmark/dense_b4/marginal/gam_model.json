@@ -1,0 +1,42 @@
+{
+  "backend": "pygam",
+  "benchiq_version": "0.1.0a0",
+  "cv_folds": 5,
+  "feature_names": [
+    "theta_b",
+    "theta_se_b",
+    "sub_b",
+    "lin_b"
+  ],
+  "fit_statistics": {
+    "aic": 1016.0033583043887,
+    "edof": 9.538882814785747,
+    "gcv": 32.26223802676416,
+    "loglikelihood": -497.46279633740863,
+    "pseudo_r2": {
+      "McFadden": 0.5037803594392668,
+      "McFadden_adj": 0.48655961804555714,
+      "explained_deviance": 0.8653711355468359
+    },
+    "scale": 5.372323331925167
+  },
+  "fit_warnings": [],
+  "model_hyperparameters": {
+    "fit_intercept": true,
+    "lam": 1.0,
+    "max_iter": 100,
+    "terms": "s(0) + s(1) + s(2) + s(3) + intercept",
+    "tol": 0.0001
+  },
+  "n_features": 4,
+  "n_splines": 8,
+  "pickle_protocol": 5,
+  "pygam_version": "0.12.0",
+  "python_version": "3.14.4",
+  "selected_lam": 1.0,
+  "selection_metric": "rmse",
+  "skipped_lam_settings": [],
+  "target_name": "score_full_b",
+  "test_row_count": 22,
+  "train_row_count": 162
+}

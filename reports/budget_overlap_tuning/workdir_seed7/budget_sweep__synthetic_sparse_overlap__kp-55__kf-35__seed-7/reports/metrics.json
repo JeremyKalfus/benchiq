@@ -1,0 +1,1649 @@
+{
+  "executed_stages": [
+    "00_bundle",
+    "01_preprocess",
+    "02_scores",
+    "03_splits",
+    "04_subsample",
+    "05_irt",
+    "06_select",
+    "07_theta",
+    "08_linear",
+    "08_features",
+    "09_reconstruct"
+  ],
+  "generated_at": "2026-04-19T17:01:41.744354+00:00",
+  "metrics": {
+    "global_test_enabled": false,
+    "joint_reconstruction_skips": {
+      "sparse_b1": "joint_feature_values_missing",
+      "sparse_b2": "joint_feature_values_missing",
+      "sparse_b3": "joint_feature_values_missing",
+      "sparse_b4": "joint_feature_values_missing",
+      "sparse_b5": "joint_feature_values_missing",
+      "sparse_b6": "joint_feature_values_missing"
+    },
+    "joint_test_rmse_by_benchmark": {
+      "sparse_b1": null,
+      "sparse_b2": null,
+      "sparse_b3": null,
+      "sparse_b4": null,
+      "sparse_b5": null,
+      "sparse_b6": null
+    },
+    "marginal_test_rmse_by_benchmark": {
+      "sparse_b1": null,
+      "sparse_b2": null,
+      "sparse_b3": null,
+      "sparse_b4": null,
+      "sparse_b5": null,
+      "sparse_b6": null
+    },
+    "selected_items_by_benchmark": {
+      "sparse_b1": 35,
+      "sparse_b2": 35,
+      "sparse_b3": 35,
+      "sparse_b4": 35,
+      "sparse_b5": 35,
+      "sparse_b6": 35
+    }
+  },
+  "run_id": "budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7",
+  "skip_reasons": {
+    "02_scores": {
+      "grand_scores": "overlap_below_joint_threshold"
+    },
+    "08_features": {
+      "joint_features": "joint_feature_values_missing"
+    },
+    "09_reconstruct": {
+      "sparse_b1": "joint_feature_values_missing",
+      "sparse_b2": "joint_feature_values_missing",
+      "sparse_b3": "joint_feature_values_missing",
+      "sparse_b4": "joint_feature_values_missing",
+      "sparse_b5": "joint_feature_values_missing",
+      "sparse_b6": "joint_feature_values_missing"
+    }
+  },
+  "stage_records": {
+    "00_bundle": {
+      "artifact_paths": {
+        "canonicalization_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/00_canonical/canonicalization_report.json",
+        "items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/00_canonical/items.parquet",
+        "models": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/00_canonical/models.parquet",
+        "responses_long": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/00_canonical/responses_long.parquet"
+      },
+      "dependencies": [],
+      "duration_seconds": 0.045518624945543706,
+      "finished_at": "2026-04-19T17:01:33.091067+00:00",
+      "metrics": {
+        "item_count": 630,
+        "model_count": 650,
+        "responses_row_count": 114661
+      },
+      "skip_reasons": null,
+      "stage": "00_bundle",
+      "started_at": "2026-04-19T17:01:33.045535+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "01_preprocess": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "sparse_b1": {
+            "filtered_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b1/filtered_items.parquet",
+            "filtered_models": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b1/filtered_models.parquet",
+            "item_stats": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b1/item_stats.parquet",
+            "preprocess_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b1/preprocess_report.json"
+          },
+          "sparse_b2": {
+            "filtered_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b2/filtered_items.parquet",
+            "filtered_models": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b2/filtered_models.parquet",
+            "item_stats": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b2/item_stats.parquet",
+            "preprocess_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b2/preprocess_report.json"
+          },
+          "sparse_b3": {
+            "filtered_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b3/filtered_items.parquet",
+            "filtered_models": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b3/filtered_models.parquet",
+            "item_stats": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b3/item_stats.parquet",
+            "preprocess_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b3/preprocess_report.json"
+          },
+          "sparse_b4": {
+            "filtered_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b4/filtered_items.parquet",
+            "filtered_models": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b4/filtered_models.parquet",
+            "item_stats": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b4/item_stats.parquet",
+            "preprocess_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b4/preprocess_report.json"
+          },
+          "sparse_b5": {
+            "filtered_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b5/filtered_items.parquet",
+            "filtered_models": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b5/filtered_models.parquet",
+            "item_stats": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b5/item_stats.parquet",
+            "preprocess_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b5/preprocess_report.json"
+          },
+          "sparse_b6": {
+            "filtered_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b6/filtered_items.parquet",
+            "filtered_models": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b6/filtered_models.parquet",
+            "item_stats": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b6/item_stats.parquet",
+            "preprocess_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/per_benchmark/sparse_b6/preprocess_report.json"
+          }
+        },
+        "summary": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/01_preprocess/summary.parquet"
+      },
+      "dependencies": [
+        "00_bundle"
+      ],
+      "duration_seconds": 1.1841843340080231,
+      "finished_at": "2026-04-19T17:01:34.275484+00:00",
+      "metrics": {
+        "retained_items_by_benchmark": {
+          "sparse_b1": 105,
+          "sparse_b2": 105,
+          "sparse_b3": 105,
+          "sparse_b4": 105,
+          "sparse_b5": 105,
+          "sparse_b6": 105
+        },
+        "summary_rows": 6
+      },
+      "skip_reasons": null,
+      "stage": "01_preprocess",
+      "started_at": "2026-04-19T17:01:33.091293+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "02_scores": {
+      "artifact_paths": {
+        "score_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/02_scores/score_report.json",
+        "scores_full": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/02_scores/scores_full.parquet",
+        "scores_grand": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/02_scores/scores_grand.parquet"
+      },
+      "dependencies": [
+        "00_bundle",
+        "01_preprocess"
+      ],
+      "duration_seconds": 0.12143958290107548,
+      "finished_at": "2026-04-19T17:01:34.397471+00:00",
+      "metrics": {
+        "grand_score_rows": 0,
+        "scores_full_rows": 3900
+      },
+      "skip_reasons": {
+        "grand_scores": "overlap_below_joint_threshold"
+      },
+      "stage": "02_scores",
+      "started_at": "2026-04-19T17:01:34.276026+00:00",
+      "status": "completed",
+      "warnings": [
+        {
+          "benchmark_id": null,
+          "message": "sparse_b1: 470 low-coverage models missing full scores",
+          "stage": "02_scores"
+        },
+        {
+          "benchmark_id": null,
+          "message": "sparse_b2: 440 low-coverage models missing full scores",
+          "stage": "02_scores"
+        },
+        {
+          "benchmark_id": null,
+          "message": "sparse_b3: 440 low-coverage models missing full scores",
+          "stage": "02_scores"
+        },
+        {
+          "benchmark_id": null,
+          "message": "sparse_b4: 440 low-coverage models missing full scores",
+          "stage": "02_scores"
+        },
+        {
+          "benchmark_id": null,
+          "message": "sparse_b5: 440 low-coverage models missing full scores",
+          "stage": "02_scores"
+        },
+        {
+          "benchmark_id": null,
+          "message": "sparse_b6: 470 low-coverage models missing full scores",
+          "stage": "02_scores"
+        },
+        {
+          "benchmark_id": null,
+          "message": "grand scores skipped: complete-overlap models are below min_overlap_models_for_joint",
+          "stage": "02_scores"
+        }
+      ]
+    },
+    "03_splits": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "sparse_b1": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/03_splits/per_benchmark/sparse_b1/splits_models.parquet",
+          "sparse_b2": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/03_splits/per_benchmark/sparse_b2/splits_models.parquet",
+          "sparse_b3": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/03_splits/per_benchmark/sparse_b3/splits_models.parquet",
+          "sparse_b4": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/03_splits/per_benchmark/sparse_b4/splits_models.parquet",
+          "sparse_b5": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/03_splits/per_benchmark/sparse_b5/splits_models.parquet",
+          "sparse_b6": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/03_splits/per_benchmark/sparse_b6/splits_models.parquet"
+        },
+        "split_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/03_splits/split_report.json",
+        "splits_models": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/03_splits/splits_models.parquet"
+      },
+      "dependencies": [
+        "00_bundle",
+        "02_scores"
+      ],
+      "duration_seconds": 0.023501334013417363,
+      "finished_at": "2026-04-19T17:01:34.421170+00:00",
+      "metrics": {
+        "benchmark_count": 6,
+        "global_test_enabled": false,
+        "global_test_model_count": 0
+      },
+      "skip_reasons": null,
+      "stage": "03_splits",
+      "started_at": "2026-04-19T17:01:34.397663+00:00",
+      "status": "completed",
+      "warnings": [
+        {
+          "benchmark_id": null,
+          "message": "global test split disabled: no grand scores available",
+          "stage": "03_splits"
+        },
+        {
+          "benchmark_id": null,
+          "message": "sparse_b1: global overlap too small; benchmark-local train/val only",
+          "stage": "03_splits"
+        },
+        {
+          "benchmark_id": null,
+          "message": "sparse_b2: global overlap too small; benchmark-local train/val only",
+          "stage": "03_splits"
+        },
+        {
+          "benchmark_id": null,
+          "message": "sparse_b3: global overlap too small; benchmark-local train/val only",
+          "stage": "03_splits"
+        },
+        {
+          "benchmark_id": null,
+          "message": "sparse_b4: global overlap too small; benchmark-local train/val only",
+          "stage": "03_splits"
+        },
+        {
+          "benchmark_id": null,
+          "message": "sparse_b5: global overlap too small; benchmark-local train/val only",
+          "stage": "03_splits"
+        },
+        {
+          "benchmark_id": null,
+          "message": "sparse_b6: global overlap too small; benchmark-local train/val only",
+          "stage": "03_splits"
+        },
+        {
+          "benchmark_id": null,
+          "message": "benchmark-local train/val only: global overlap is too small",
+          "stage": "03_splits"
+        }
+      ]
+    },
+    "04_subsample": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "sparse_b1": {
+            "cv_results": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b1/cv_results.parquet",
+            "preselect_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b1/preselect_items.parquet",
+            "progress": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b1/progress.json",
+            "ranking_table": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b1/ranking_table.parquet",
+            "subsample_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b1/subsample_report.json"
+          },
+          "sparse_b2": {
+            "cv_results": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b2/cv_results.parquet",
+            "preselect_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b2/preselect_items.parquet",
+            "progress": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b2/progress.json",
+            "ranking_table": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b2/ranking_table.parquet",
+            "subsample_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b2/subsample_report.json"
+          },
+          "sparse_b3": {
+            "cv_results": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b3/cv_results.parquet",
+            "preselect_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b3/preselect_items.parquet",
+            "progress": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b3/progress.json",
+            "ranking_table": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b3/ranking_table.parquet",
+            "subsample_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b3/subsample_report.json"
+          },
+          "sparse_b4": {
+            "cv_results": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b4/cv_results.parquet",
+            "preselect_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b4/preselect_items.parquet",
+            "progress": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b4/progress.json",
+            "ranking_table": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b4/ranking_table.parquet",
+            "subsample_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b4/subsample_report.json"
+          },
+          "sparse_b5": {
+            "cv_results": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b5/cv_results.parquet",
+            "preselect_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b5/preselect_items.parquet",
+            "progress": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b5/progress.json",
+            "ranking_table": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b5/ranking_table.parquet",
+            "subsample_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b5/subsample_report.json"
+          },
+          "sparse_b6": {
+            "cv_results": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b6/cv_results.parquet",
+            "preselect_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b6/preselect_items.parquet",
+            "progress": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b6/progress.json",
+            "ranking_table": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b6/ranking_table.parquet",
+            "subsample_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/04_subsample/per_benchmark/sparse_b6/subsample_report.json"
+          }
+        }
+      },
+      "dependencies": [
+        "00_bundle",
+        "01_preprocess",
+        "02_scores",
+        "03_splits"
+      ],
+      "duration_seconds": 0.32865316700190306,
+      "finished_at": "2026-04-19T17:01:34.750032+00:00",
+      "metrics": {
+        "sparse_b1": {
+          "best_iteration": {
+            "best_lam": 1.0,
+            "iteration_id": 0,
+            "max_rmse_val": 3.752012533775214,
+            "mean_rmse_test": null,
+            "mean_rmse_val": 3.4276586746604942,
+            "sampled_item_ids": [
+              "sparse_b1_item_002",
+              "sparse_b1_item_004",
+              "sparse_b1_item_006",
+              "sparse_b1_item_008",
+              "sparse_b1_item_009",
+              "sparse_b1_item_010",
+              "sparse_b1_item_011",
+              "sparse_b1_item_012",
+              "sparse_b1_item_013",
+              "sparse_b1_item_014",
+              "sparse_b1_item_019",
+              "sparse_b1_item_020",
+              "sparse_b1_item_021",
+              "sparse_b1_item_022",
+              "sparse_b1_item_023",
+              "sparse_b1_item_024",
+              "sparse_b1_item_026",
+              "sparse_b1_item_027",
+              "sparse_b1_item_028",
+              "sparse_b1_item_030",
+              "sparse_b1_item_031",
+              "sparse_b1_item_032",
+              "sparse_b1_item_034",
+              "sparse_b1_item_036",
+              "sparse_b1_item_037",
+              "sparse_b1_item_038",
+              "sparse_b1_item_039",
+              "sparse_b1_item_040",
+              "sparse_b1_item_041",
+              "sparse_b1_item_042",
+              "sparse_b1_item_043",
+              "sparse_b1_item_045",
+              "sparse_b1_item_046",
+              "sparse_b1_item_047",
+              "sparse_b1_item_048",
+              "sparse_b1_item_049",
+              "sparse_b1_item_050",
+              "sparse_b1_item_051",
+              "sparse_b1_item_052",
+              "sparse_b1_item_053",
+              "sparse_b1_item_054",
+              "sparse_b1_item_055",
+              "sparse_b1_item_056",
+              "sparse_b1_item_057",
+              "sparse_b1_item_058",
+              "sparse_b1_item_059",
+              "sparse_b1_item_060",
+              "sparse_b1_item_064",
+              "sparse_b1_item_065",
+              "sparse_b1_item_069",
+              "sparse_b1_item_070",
+              "sparse_b1_item_075",
+              "sparse_b1_item_092",
+              "sparse_b1_item_093",
+              "sparse_b1_item_094"
+            ],
+            "subset_seed": 7,
+            "valid_pool_model_count": 180,
+            "valid_test_model_count": 0
+          },
+          "method": "deterministic_info"
+        },
+        "sparse_b2": {
+          "best_iteration": {
+            "best_lam": 1.0,
+            "iteration_id": 0,
+            "max_rmse_val": 3.4371810011846113,
+            "mean_rmse_test": null,
+            "mean_rmse_val": 3.109429750344018,
+            "sampled_item_ids": [
+              "sparse_b2_item_003",
+              "sparse_b2_item_008",
+              "sparse_b2_item_012",
+              "sparse_b2_item_013",
+              "sparse_b2_item_015",
+              "sparse_b2_item_016",
+              "sparse_b2_item_017",
+              "sparse_b2_item_018",
+              "sparse_b2_item_019",
+              "sparse_b2_item_020",
+              "sparse_b2_item_021",
+              "sparse_b2_item_022",
+              "sparse_b2_item_023",
+              "sparse_b2_item_025",
+              "sparse_b2_item_026",
+              "sparse_b2_item_027",
+              "sparse_b2_item_028",
+              "sparse_b2_item_030",
+              "sparse_b2_item_031",
+              "sparse_b2_item_032",
+              "sparse_b2_item_033",
+              "sparse_b2_item_034",
+              "sparse_b2_item_035",
+              "sparse_b2_item_036",
+              "sparse_b2_item_037",
+              "sparse_b2_item_038",
+              "sparse_b2_item_039",
+              "sparse_b2_item_040",
+              "sparse_b2_item_041",
+              "sparse_b2_item_042",
+              "sparse_b2_item_043",
+              "sparse_b2_item_044",
+              "sparse_b2_item_046",
+              "sparse_b2_item_047",
+              "sparse_b2_item_048",
+              "sparse_b2_item_049",
+              "sparse_b2_item_050",
+              "sparse_b2_item_052",
+              "sparse_b2_item_053",
+              "sparse_b2_item_054",
+              "sparse_b2_item_055",
+              "sparse_b2_item_056",
+              "sparse_b2_item_057",
+              "sparse_b2_item_059",
+              "sparse_b2_item_060",
+              "sparse_b2_item_061",
+              "sparse_b2_item_064",
+              "sparse_b2_item_065",
+              "sparse_b2_item_066",
+              "sparse_b2_item_068",
+              "sparse_b2_item_071",
+              "sparse_b2_item_074",
+              "sparse_b2_item_075",
+              "sparse_b2_item_076",
+              "sparse_b2_item_077"
+            ],
+            "subset_seed": 7,
+            "valid_pool_model_count": 210,
+            "valid_test_model_count": 0
+          },
+          "method": "deterministic_info"
+        },
+        "sparse_b3": {
+          "best_iteration": {
+            "best_lam": 1.0,
+            "iteration_id": 0,
+            "max_rmse_val": 3.718046556790065,
+            "mean_rmse_test": null,
+            "mean_rmse_val": 3.2461736835799675,
+            "sampled_item_ids": [
+              "sparse_b3_item_005",
+              "sparse_b3_item_008",
+              "sparse_b3_item_009",
+              "sparse_b3_item_010",
+              "sparse_b3_item_011",
+              "sparse_b3_item_014",
+              "sparse_b3_item_015",
+              "sparse_b3_item_016",
+              "sparse_b3_item_019",
+              "sparse_b3_item_021",
+              "sparse_b3_item_022",
+              "sparse_b3_item_023",
+              "sparse_b3_item_024",
+              "sparse_b3_item_027",
+              "sparse_b3_item_028",
+              "sparse_b3_item_029",
+              "sparse_b3_item_031",
+              "sparse_b3_item_032",
+              "sparse_b3_item_033",
+              "sparse_b3_item_034",
+              "sparse_b3_item_035",
+              "sparse_b3_item_036",
+              "sparse_b3_item_037",
+              "sparse_b3_item_038",
+              "sparse_b3_item_039",
+              "sparse_b3_item_040",
+              "sparse_b3_item_041",
+              "sparse_b3_item_042",
+              "sparse_b3_item_043",
+              "sparse_b3_item_044",
+              "sparse_b3_item_045",
+              "sparse_b3_item_046",
+              "sparse_b3_item_047",
+              "sparse_b3_item_048",
+              "sparse_b3_item_049",
+              "sparse_b3_item_051",
+              "sparse_b3_item_052",
+              "sparse_b3_item_053",
+              "sparse_b3_item_054",
+              "sparse_b3_item_055",
+              "sparse_b3_item_056",
+              "sparse_b3_item_057",
+              "sparse_b3_item_058",
+              "sparse_b3_item_060",
+              "sparse_b3_item_061",
+              "sparse_b3_item_062",
+              "sparse_b3_item_063",
+              "sparse_b3_item_066",
+              "sparse_b3_item_068",
+              "sparse_b3_item_069",
+              "sparse_b3_item_070",
+              "sparse_b3_item_071",
+              "sparse_b3_item_074",
+              "sparse_b3_item_075",
+              "sparse_b3_item_076"
+            ],
+            "subset_seed": 7,
+            "valid_pool_model_count": 210,
+            "valid_test_model_count": 0
+          },
+          "method": "deterministic_info"
+        },
+        "sparse_b4": {
+          "best_iteration": {
+            "best_lam": 1.0,
+            "iteration_id": 0,
+            "max_rmse_val": 3.6712686307009745,
+            "mean_rmse_test": null,
+            "mean_rmse_val": 3.272808085233362,
+            "sampled_item_ids": [
+              "sparse_b4_item_003",
+              "sparse_b4_item_004",
+              "sparse_b4_item_005",
+              "sparse_b4_item_007",
+              "sparse_b4_item_008",
+              "sparse_b4_item_009",
+              "sparse_b4_item_010",
+              "sparse_b4_item_011",
+              "sparse_b4_item_012",
+              "sparse_b4_item_013",
+              "sparse_b4_item_015",
+              "sparse_b4_item_016",
+              "sparse_b4_item_017",
+              "sparse_b4_item_018",
+              "sparse_b4_item_019",
+              "sparse_b4_item_020",
+              "sparse_b4_item_022",
+              "sparse_b4_item_023",
+              "sparse_b4_item_024",
+              "sparse_b4_item_025",
+              "sparse_b4_item_026",
+              "sparse_b4_item_027",
+              "sparse_b4_item_028",
+              "sparse_b4_item_029",
+              "sparse_b4_item_030",
+              "sparse_b4_item_032",
+              "sparse_b4_item_034",
+              "sparse_b4_item_035",
+              "sparse_b4_item_036",
+              "sparse_b4_item_037",
+              "sparse_b4_item_038",
+              "sparse_b4_item_039",
+              "sparse_b4_item_040",
+              "sparse_b4_item_041",
+              "sparse_b4_item_042",
+              "sparse_b4_item_043",
+              "sparse_b4_item_044",
+              "sparse_b4_item_045",
+              "sparse_b4_item_046",
+              "sparse_b4_item_047",
+              "sparse_b4_item_048",
+              "sparse_b4_item_049",
+              "sparse_b4_item_050",
+              "sparse_b4_item_051",
+              "sparse_b4_item_052",
+              "sparse_b4_item_053",
+              "sparse_b4_item_054",
+              "sparse_b4_item_055",
+              "sparse_b4_item_057",
+              "sparse_b4_item_059",
+              "sparse_b4_item_060",
+              "sparse_b4_item_061",
+              "sparse_b4_item_064",
+              "sparse_b4_item_065",
+              "sparse_b4_item_073"
+            ],
+            "subset_seed": 7,
+            "valid_pool_model_count": 210,
+            "valid_test_model_count": 0
+          },
+          "method": "deterministic_info"
+        },
+        "sparse_b5": {
+          "best_iteration": {
+            "best_lam": 1.0,
+            "iteration_id": 0,
+            "max_rmse_val": 3.788203636666832,
+            "mean_rmse_test": null,
+            "mean_rmse_val": 3.3920600686436813,
+            "sampled_item_ids": [
+              "sparse_b5_item_002",
+              "sparse_b5_item_004",
+              "sparse_b5_item_005",
+              "sparse_b5_item_006",
+              "sparse_b5_item_007",
+              "sparse_b5_item_008",
+              "sparse_b5_item_009",
+              "sparse_b5_item_010",
+              "sparse_b5_item_011",
+              "sparse_b5_item_012",
+              "sparse_b5_item_013",
+              "sparse_b5_item_015",
+              "sparse_b5_item_016",
+              "sparse_b5_item_017",
+              "sparse_b5_item_018",
+              "sparse_b5_item_019",
+              "sparse_b5_item_020",
+              "sparse_b5_item_022",
+              "sparse_b5_item_023",
+              "sparse_b5_item_024",
+              "sparse_b5_item_025",
+              "sparse_b5_item_026",
+              "sparse_b5_item_029",
+              "sparse_b5_item_030",
+              "sparse_b5_item_031",
+              "sparse_b5_item_032",
+              "sparse_b5_item_033",
+              "sparse_b5_item_034",
+              "sparse_b5_item_035",
+              "sparse_b5_item_036",
+              "sparse_b5_item_037",
+              "sparse_b5_item_038",
+              "sparse_b5_item_039",
+              "sparse_b5_item_040",
+              "sparse_b5_item_041",
+              "sparse_b5_item_042",
+              "sparse_b5_item_043",
+              "sparse_b5_item_044",
+              "sparse_b5_item_045",
+              "sparse_b5_item_046",
+              "sparse_b5_item_047",
+              "sparse_b5_item_048",
+              "sparse_b5_item_049",
+              "sparse_b5_item_050",
+              "sparse_b5_item_051",
+              "sparse_b5_item_053",
+              "sparse_b5_item_056",
+              "sparse_b5_item_057",
+              "sparse_b5_item_058",
+              "sparse_b5_item_062",
+              "sparse_b5_item_063",
+              "sparse_b5_item_066",
+              "sparse_b5_item_067",
+              "sparse_b5_item_075",
+              "sparse_b5_item_095"
+            ],
+            "subset_seed": 7,
+            "valid_pool_model_count": 210,
+            "valid_test_model_count": 0
+          },
+          "method": "deterministic_info"
+        },
+        "sparse_b6": {
+          "best_iteration": {
+            "best_lam": 1.0,
+            "iteration_id": 0,
+            "max_rmse_val": 3.4300591880250337,
+            "mean_rmse_test": null,
+            "mean_rmse_val": 3.076453232398391,
+            "sampled_item_ids": [
+              "sparse_b6_item_001",
+              "sparse_b6_item_002",
+              "sparse_b6_item_003",
+              "sparse_b6_item_004",
+              "sparse_b6_item_005",
+              "sparse_b6_item_006",
+              "sparse_b6_item_008",
+              "sparse_b6_item_009",
+              "sparse_b6_item_010",
+              "sparse_b6_item_011",
+              "sparse_b6_item_012",
+              "sparse_b6_item_013",
+              "sparse_b6_item_014",
+              "sparse_b6_item_016",
+              "sparse_b6_item_018",
+              "sparse_b6_item_019",
+              "sparse_b6_item_020",
+              "sparse_b6_item_021",
+              "sparse_b6_item_022",
+              "sparse_b6_item_023",
+              "sparse_b6_item_024",
+              "sparse_b6_item_026",
+              "sparse_b6_item_027",
+              "sparse_b6_item_028",
+              "sparse_b6_item_029",
+              "sparse_b6_item_030",
+              "sparse_b6_item_032",
+              "sparse_b6_item_033",
+              "sparse_b6_item_034",
+              "sparse_b6_item_035",
+              "sparse_b6_item_036",
+              "sparse_b6_item_037",
+              "sparse_b6_item_038",
+              "sparse_b6_item_040",
+              "sparse_b6_item_041",
+              "sparse_b6_item_042",
+              "sparse_b6_item_043",
+              "sparse_b6_item_044",
+              "sparse_b6_item_046",
+              "sparse_b6_item_048",
+              "sparse_b6_item_049",
+              "sparse_b6_item_050",
+              "sparse_b6_item_051",
+              "sparse_b6_item_053",
+              "sparse_b6_item_054",
+              "sparse_b6_item_057",
+              "sparse_b6_item_064",
+              "sparse_b6_item_065",
+              "sparse_b6_item_068",
+              "sparse_b6_item_080",
+              "sparse_b6_item_082",
+              "sparse_b6_item_085",
+              "sparse_b6_item_088",
+              "sparse_b6_item_090",
+              "sparse_b6_item_092"
+            ],
+            "subset_seed": 7,
+            "valid_pool_model_count": 180,
+            "valid_test_model_count": 0
+          },
+          "method": "deterministic_info"
+        }
+      },
+      "skip_reasons": null,
+      "stage": "04_subsample",
+      "started_at": "2026-04-19T17:01:34.421374+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "05_irt": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "sparse_b1": {
+            "ability_estimates": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b1/ability_estimates.parquet",
+            "dropped_pathological_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b1/dropped_pathological_items.parquet",
+            "irt_fit_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b1/irt_fit_report.json",
+            "irt_item_params": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b1/irt_item_params.parquet",
+            "item_parameter_scatter": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b1/plots/item_parameter_scatter.png"
+          },
+          "sparse_b2": {
+            "ability_estimates": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b2/ability_estimates.parquet",
+            "dropped_pathological_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b2/dropped_pathological_items.parquet",
+            "irt_fit_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b2/irt_fit_report.json",
+            "irt_item_params": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b2/irt_item_params.parquet",
+            "item_parameter_scatter": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b2/plots/item_parameter_scatter.png"
+          },
+          "sparse_b3": {
+            "ability_estimates": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b3/ability_estimates.parquet",
+            "dropped_pathological_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b3/dropped_pathological_items.parquet",
+            "irt_fit_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b3/irt_fit_report.json",
+            "irt_item_params": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b3/irt_item_params.parquet",
+            "item_parameter_scatter": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b3/plots/item_parameter_scatter.png"
+          },
+          "sparse_b4": {
+            "ability_estimates": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b4/ability_estimates.parquet",
+            "dropped_pathological_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b4/dropped_pathological_items.parquet",
+            "irt_fit_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b4/irt_fit_report.json",
+            "irt_item_params": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b4/irt_item_params.parquet",
+            "item_parameter_scatter": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b4/plots/item_parameter_scatter.png"
+          },
+          "sparse_b5": {
+            "ability_estimates": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b5/ability_estimates.parquet",
+            "dropped_pathological_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b5/dropped_pathological_items.parquet",
+            "irt_fit_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b5/irt_fit_report.json",
+            "irt_item_params": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b5/irt_item_params.parquet",
+            "item_parameter_scatter": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b5/plots/item_parameter_scatter.png"
+          },
+          "sparse_b6": {
+            "ability_estimates": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b6/ability_estimates.parquet",
+            "dropped_pathological_items": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b6/dropped_pathological_items.parquet",
+            "irt_fit_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b6/irt_fit_report.json",
+            "irt_item_params": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b6/irt_item_params.parquet",
+            "item_parameter_scatter": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/05_irt/per_benchmark/sparse_b6/plots/item_parameter_scatter.png"
+          }
+        }
+      },
+      "dependencies": [
+        "00_bundle",
+        "03_splits",
+        "04_subsample"
+      ],
+      "duration_seconds": 3.8899639589944854,
+      "finished_at": "2026-04-19T17:01:38.640379+00:00",
+      "metrics": {
+        "sparse_b1": {
+          "missing_response_count": 720,
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 55,
+          "retained_item_count": 55,
+          "train_model_count": 162,
+          "valid_response_count": 8190
+        },
+        "sparse_b2": {
+          "missing_response_count": 827,
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 55,
+          "retained_item_count": 55,
+          "train_model_count": 189,
+          "valid_response_count": 9568
+        },
+        "sparse_b3": {
+          "missing_response_count": 827,
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 55,
+          "retained_item_count": 55,
+          "train_model_count": 189,
+          "valid_response_count": 9568
+        },
+        "sparse_b4": {
+          "missing_response_count": 823,
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 55,
+          "retained_item_count": 55,
+          "train_model_count": 189,
+          "valid_response_count": 9572
+        },
+        "sparse_b5": {
+          "missing_response_count": 810,
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 55,
+          "retained_item_count": 55,
+          "train_model_count": 189,
+          "valid_response_count": 9585
+        },
+        "sparse_b6": {
+          "missing_response_count": 706,
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 55,
+          "retained_item_count": 55,
+          "train_model_count": 162,
+          "valid_response_count": 8204
+        }
+      },
+      "skip_reasons": null,
+      "stage": "05_irt",
+      "started_at": "2026-04-19T17:01:34.750415+00:00",
+      "status": "completed",
+      "warnings": [
+        {
+          "benchmark_id": "sparse_b1",
+          "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+          "stage": "05_irt"
+        },
+        {
+          "benchmark_id": "sparse_b2",
+          "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+          "stage": "05_irt"
+        },
+        {
+          "benchmark_id": "sparse_b3",
+          "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+          "stage": "05_irt"
+        },
+        {
+          "benchmark_id": "sparse_b4",
+          "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+          "stage": "05_irt"
+        },
+        {
+          "benchmark_id": "sparse_b5",
+          "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+          "stage": "05_irt"
+        },
+        {
+          "benchmark_id": "sparse_b6",
+          "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+          "stage": "05_irt"
+        }
+      ]
+    },
+    "06_select": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "sparse_b1": {
+            "expected_test_information_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b1/plots/expected_test_information.png",
+            "info_grid": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b1/info_grid.parquet",
+            "selection_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b1/selection_report.json",
+            "subset_final": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b1/subset_final.parquet"
+          },
+          "sparse_b2": {
+            "expected_test_information_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b2/plots/expected_test_information.png",
+            "info_grid": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b2/info_grid.parquet",
+            "selection_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b2/selection_report.json",
+            "subset_final": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b2/subset_final.parquet"
+          },
+          "sparse_b3": {
+            "expected_test_information_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b3/plots/expected_test_information.png",
+            "info_grid": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b3/info_grid.parquet",
+            "selection_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b3/selection_report.json",
+            "subset_final": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b3/subset_final.parquet"
+          },
+          "sparse_b4": {
+            "expected_test_information_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b4/plots/expected_test_information.png",
+            "info_grid": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b4/info_grid.parquet",
+            "selection_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b4/selection_report.json",
+            "subset_final": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b4/subset_final.parquet"
+          },
+          "sparse_b5": {
+            "expected_test_information_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b5/plots/expected_test_information.png",
+            "info_grid": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b5/info_grid.parquet",
+            "selection_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b5/selection_report.json",
+            "subset_final": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b5/subset_final.parquet"
+          },
+          "sparse_b6": {
+            "expected_test_information_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b6/plots/expected_test_information.png",
+            "info_grid": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b6/info_grid.parquet",
+            "selection_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b6/selection_report.json",
+            "subset_final": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/06_select/per_benchmark/sparse_b6/subset_final.parquet"
+          }
+        }
+      },
+      "dependencies": [
+        "00_bundle",
+        "05_irt"
+      ],
+      "duration_seconds": 0.49803083296865225,
+      "finished_at": "2026-04-19T17:01:39.138829+00:00",
+      "metrics": {
+        "sparse_b1": {
+          "candidate_item_count": 55,
+          "info_grid_row_count": 8305,
+          "selected_item_count": 35
+        },
+        "sparse_b2": {
+          "candidate_item_count": 55,
+          "info_grid_row_count": 8305,
+          "selected_item_count": 35
+        },
+        "sparse_b3": {
+          "candidate_item_count": 55,
+          "info_grid_row_count": 8305,
+          "selected_item_count": 35
+        },
+        "sparse_b4": {
+          "candidate_item_count": 55,
+          "info_grid_row_count": 8305,
+          "selected_item_count": 35
+        },
+        "sparse_b5": {
+          "candidate_item_count": 55,
+          "info_grid_row_count": 8305,
+          "selected_item_count": 35
+        },
+        "sparse_b6": {
+          "candidate_item_count": 55,
+          "info_grid_row_count": 8305,
+          "selected_item_count": 35
+        }
+      },
+      "skip_reasons": null,
+      "stage": "06_select",
+      "started_at": "2026-04-19T17:01:38.640791+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "07_theta": {
+      "artifact_paths": {
+        "plots": {
+          "sparse_b1": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/07_theta/plots/sparse_b1__theta_distribution.png",
+          "sparse_b2": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/07_theta/plots/sparse_b2__theta_distribution.png",
+          "sparse_b3": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/07_theta/plots/sparse_b3__theta_distribution.png",
+          "sparse_b4": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/07_theta/plots/sparse_b4__theta_distribution.png",
+          "sparse_b5": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/07_theta/plots/sparse_b5__theta_distribution.png",
+          "sparse_b6": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/07_theta/plots/sparse_b6__theta_distribution.png"
+        },
+        "theta_estimates": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/07_theta/theta_estimates.parquet",
+        "theta_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/07_theta/theta_report.json"
+      },
+      "dependencies": [
+        "00_bundle",
+        "03_splits",
+        "06_select",
+        "05_irt"
+      ],
+      "duration_seconds": 1.3574293749406934,
+      "finished_at": "2026-04-19T17:01:40.496712+00:00",
+      "metrics": {
+        "all_correct_count": 1,
+        "all_wrong_count": 4,
+        "benchmark_count": 6,
+        "missing_heavy_count": 0,
+        "no_observed_item_count": 0,
+        "row_count": 1200,
+        "saturated_count": 0,
+        "split_counts": {
+          "train": 1080,
+          "val": 120
+        }
+      },
+      "skip_reasons": null,
+      "stage": "07_theta",
+      "started_at": "2026-04-19T17:01:39.139274+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "08_features": {
+      "artifact_paths": {
+        "feature_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/feature_report.json",
+        "features_marginal": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/features_marginal.parquet"
+      },
+      "dependencies": [
+        "00_bundle",
+        "02_scores",
+        "03_splits",
+        "07_theta",
+        "08_linear"
+      ],
+      "duration_seconds": 0.024674792075529695,
+      "finished_at": "2026-04-19T17:01:40.646058+00:00",
+      "metrics": {
+        "benchmark_count": 6,
+        "features_joint_rows": 0,
+        "features_marginal_rows": 1200,
+        "split_counts": {
+          "train": 1080,
+          "val": 120
+        }
+      },
+      "skip_reasons": {
+        "joint_features": "joint_feature_values_missing"
+      },
+      "stage": "08_features",
+      "started_at": "2026-04-19T17:01:40.621370+00:00",
+      "status": "completed",
+      "warnings": [
+        {
+          "benchmark_id": null,
+          "message": "Only 0 complete-overlap models had all benchmark theta/sub/lin features available.",
+          "stage": "08_features"
+        },
+        {
+          "benchmark_id": null,
+          "message": "joint feature table skipped: joint_feature_values_missing",
+          "stage": "08_features"
+        }
+      ]
+    },
+    "08_linear": {
+      "artifact_paths": {
+        "feature_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/feature_report.json",
+        "per_benchmark": {
+          "sparse_b1": {
+            "coefficients": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b1/coefficients.parquet",
+            "linear_predictor_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b1/linear_predictor_report.json",
+            "model_outputs": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b1/model_outputs.parquet"
+          },
+          "sparse_b2": {
+            "coefficients": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b2/coefficients.parquet",
+            "linear_predictor_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b2/linear_predictor_report.json",
+            "model_outputs": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b2/model_outputs.parquet"
+          },
+          "sparse_b3": {
+            "coefficients": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b3/coefficients.parquet",
+            "linear_predictor_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b3/linear_predictor_report.json",
+            "model_outputs": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b3/model_outputs.parquet"
+          },
+          "sparse_b4": {
+            "coefficients": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b4/coefficients.parquet",
+            "linear_predictor_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b4/linear_predictor_report.json",
+            "model_outputs": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b4/model_outputs.parquet"
+          },
+          "sparse_b5": {
+            "coefficients": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b5/coefficients.parquet",
+            "linear_predictor_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b5/linear_predictor_report.json",
+            "model_outputs": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b5/model_outputs.parquet"
+          },
+          "sparse_b6": {
+            "coefficients": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b6/coefficients.parquet",
+            "linear_predictor_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b6/linear_predictor_report.json",
+            "model_outputs": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/08_features/per_benchmark/sparse_b6/model_outputs.parquet"
+          }
+        }
+      },
+      "dependencies": [
+        "00_bundle",
+        "02_scores",
+        "03_splits",
+        "06_select"
+      ],
+      "duration_seconds": 0.1236717919819057,
+      "finished_at": "2026-04-19T17:01:40.620876+00:00",
+      "metrics": {
+        "benchmark_count": 6,
+        "skipped_benchmark_count": 0
+      },
+      "skip_reasons": null,
+      "stage": "08_linear",
+      "started_at": "2026-04-19T17:01:40.497195+00:00",
+      "status": "completed",
+      "warnings": [
+        {
+          "benchmark_id": "sparse_b1",
+          "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+          "stage": "08_linear"
+        },
+        {
+          "benchmark_id": "sparse_b1",
+          "message": "165 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "stage": "08_linear"
+        },
+        {
+          "benchmark_id": "sparse_b2",
+          "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+          "stage": "08_linear"
+        },
+        {
+          "benchmark_id": "sparse_b2",
+          "message": "200 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "stage": "08_linear"
+        },
+        {
+          "benchmark_id": "sparse_b3",
+          "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+          "stage": "08_linear"
+        },
+        {
+          "benchmark_id": "sparse_b3",
+          "message": "191 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "stage": "08_linear"
+        },
+        {
+          "benchmark_id": "sparse_b4",
+          "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+          "stage": "08_linear"
+        },
+        {
+          "benchmark_id": "sparse_b4",
+          "message": "197 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "stage": "08_linear"
+        },
+        {
+          "benchmark_id": "sparse_b5",
+          "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+          "stage": "08_linear"
+        },
+        {
+          "benchmark_id": "sparse_b5",
+          "message": "197 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "stage": "08_linear"
+        },
+        {
+          "benchmark_id": "sparse_b6",
+          "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+          "stage": "08_linear"
+        },
+        {
+          "benchmark_id": "sparse_b6",
+          "message": "173 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "stage": "08_linear"
+        }
+      ]
+    },
+    "09_reconstruct": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "sparse_b1": {
+            "joint": {
+              "skipped": true
+            },
+            "marginal": {
+              "cv_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b1/marginal/cv_report.json",
+              "cv_results": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b1/marginal/cv_results.parquet",
+              "gam_model": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b1/marginal/gam_model.pkl",
+              "gam_model_metadata": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b1/marginal/gam_model.json",
+              "plots": {
+                "calibration_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b1/marginal/plots/calibration.png",
+                "predicted_vs_actual_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b1/marginal/plots/predicted_vs_actual.png",
+                "residual_histogram": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b1/marginal/plots/residual_histogram.png"
+              }
+            },
+            "predictions": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b1/predictions.parquet",
+            "reconstruction_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b1/reconstruction_report.json"
+          },
+          "sparse_b2": {
+            "joint": {
+              "skipped": true
+            },
+            "marginal": {
+              "cv_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b2/marginal/cv_report.json",
+              "cv_results": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b2/marginal/cv_results.parquet",
+              "gam_model": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b2/marginal/gam_model.pkl",
+              "gam_model_metadata": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b2/marginal/gam_model.json",
+              "plots": {
+                "calibration_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b2/marginal/plots/calibration.png",
+                "predicted_vs_actual_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b2/marginal/plots/predicted_vs_actual.png",
+                "residual_histogram": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b2/marginal/plots/residual_histogram.png"
+              }
+            },
+            "predictions": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b2/predictions.parquet",
+            "reconstruction_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b2/reconstruction_report.json"
+          },
+          "sparse_b3": {
+            "joint": {
+              "skipped": true
+            },
+            "marginal": {
+              "cv_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b3/marginal/cv_report.json",
+              "cv_results": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b3/marginal/cv_results.parquet",
+              "gam_model": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b3/marginal/gam_model.pkl",
+              "gam_model_metadata": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b3/marginal/gam_model.json",
+              "plots": {
+                "calibration_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b3/marginal/plots/calibration.png",
+                "predicted_vs_actual_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b3/marginal/plots/predicted_vs_actual.png",
+                "residual_histogram": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b3/marginal/plots/residual_histogram.png"
+              }
+            },
+            "predictions": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b3/predictions.parquet",
+            "reconstruction_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b3/reconstruction_report.json"
+          },
+          "sparse_b4": {
+            "joint": {
+              "skipped": true
+            },
+            "marginal": {
+              "cv_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b4/marginal/cv_report.json",
+              "cv_results": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b4/marginal/cv_results.parquet",
+              "gam_model": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b4/marginal/gam_model.pkl",
+              "gam_model_metadata": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b4/marginal/gam_model.json",
+              "plots": {
+                "calibration_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b4/marginal/plots/calibration.png",
+                "predicted_vs_actual_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b4/marginal/plots/predicted_vs_actual.png",
+                "residual_histogram": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b4/marginal/plots/residual_histogram.png"
+              }
+            },
+            "predictions": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b4/predictions.parquet",
+            "reconstruction_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b4/reconstruction_report.json"
+          },
+          "sparse_b5": {
+            "joint": {
+              "skipped": true
+            },
+            "marginal": {
+              "cv_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b5/marginal/cv_report.json",
+              "cv_results": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b5/marginal/cv_results.parquet",
+              "gam_model": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b5/marginal/gam_model.pkl",
+              "gam_model_metadata": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b5/marginal/gam_model.json",
+              "plots": {
+                "calibration_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b5/marginal/plots/calibration.png",
+                "predicted_vs_actual_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b5/marginal/plots/predicted_vs_actual.png",
+                "residual_histogram": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b5/marginal/plots/residual_histogram.png"
+              }
+            },
+            "predictions": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b5/predictions.parquet",
+            "reconstruction_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b5/reconstruction_report.json"
+          },
+          "sparse_b6": {
+            "joint": {
+              "skipped": true
+            },
+            "marginal": {
+              "cv_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b6/marginal/cv_report.json",
+              "cv_results": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b6/marginal/cv_results.parquet",
+              "gam_model": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b6/marginal/gam_model.pkl",
+              "gam_model_metadata": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b6/marginal/gam_model.json",
+              "plots": {
+                "calibration_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b6/marginal/plots/calibration.png",
+                "predicted_vs_actual_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b6/marginal/plots/predicted_vs_actual.png",
+                "residual_histogram": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b6/marginal/plots/residual_histogram.png"
+              }
+            },
+            "predictions": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b6/predictions.parquet",
+            "reconstruction_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/per_benchmark/sparse_b6/reconstruction_report.json"
+          }
+        },
+        "reconstruction_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/reconstruction_report.json",
+        "reconstruction_summary": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-55__kf-35__seed-7/artifacts/09_reconstruct/reconstruction_summary.parquet"
+      },
+      "dependencies": [
+        "00_bundle",
+        "08_features"
+      ],
+      "duration_seconds": 1.097073332988657,
+      "finished_at": "2026-04-19T17:01:41.743641+00:00",
+      "metrics": {
+        "joint_test_rmse_by_benchmark": {
+          "sparse_b1": null,
+          "sparse_b2": null,
+          "sparse_b3": null,
+          "sparse_b4": null,
+          "sparse_b5": null,
+          "sparse_b6": null
+        },
+        "marginal_test_rmse_by_benchmark": {
+          "sparse_b1": null,
+          "sparse_b2": null,
+          "sparse_b3": null,
+          "sparse_b4": null,
+          "sparse_b5": null,
+          "sparse_b6": null
+        }
+      },
+      "skip_reasons": {
+        "sparse_b1": "joint_feature_values_missing",
+        "sparse_b2": "joint_feature_values_missing",
+        "sparse_b3": "joint_feature_values_missing",
+        "sparse_b4": "joint_feature_values_missing",
+        "sparse_b5": "joint_feature_values_missing",
+        "sparse_b6": "joint_feature_values_missing"
+      },
+      "stage": "09_reconstruct",
+      "started_at": "2026-04-19T17:01:40.646558+00:00",
+      "status": "completed",
+      "warnings": [
+        {
+          "benchmark_id": "sparse_b1",
+          "message": "sparse_b1 marginal reconstruction had no held-out test rows.",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "sparse_b1",
+          "message": "sparse_b1 joint reconstruction skipped: joint_feature_values_missing",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "sparse_b2",
+          "message": "sparse_b2 marginal reconstruction had no held-out test rows.",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "sparse_b2",
+          "message": "sparse_b2 joint reconstruction skipped: joint_feature_values_missing",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "sparse_b3",
+          "message": "sparse_b3 marginal reconstruction had no held-out test rows.",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "sparse_b3",
+          "message": "sparse_b3 joint reconstruction skipped: joint_feature_values_missing",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "sparse_b4",
+          "message": "sparse_b4 marginal reconstruction had no held-out test rows.",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "sparse_b4",
+          "message": "sparse_b4 joint reconstruction skipped: joint_feature_values_missing",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "sparse_b5",
+          "message": "sparse_b5 marginal reconstruction had no held-out test rows.",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "sparse_b5",
+          "message": "sparse_b5 joint reconstruction skipped: joint_feature_values_missing",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "sparse_b6",
+          "message": "sparse_b6 marginal reconstruction had no held-out test rows.",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "sparse_b6",
+          "message": "sparse_b6 joint reconstruction skipped: joint_feature_values_missing",
+          "stage": "09_reconstruct"
+        }
+      ]
+    }
+  },
+  "warning_count": 47,
+  "warnings": [
+    {
+      "benchmark_id": null,
+      "message": "sparse_b1: 470 low-coverage models missing full scores",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "sparse_b2: 440 low-coverage models missing full scores",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "sparse_b3: 440 low-coverage models missing full scores",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "sparse_b4: 440 low-coverage models missing full scores",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "sparse_b5: 440 low-coverage models missing full scores",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "sparse_b6: 470 low-coverage models missing full scores",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "grand scores skipped: complete-overlap models are below min_overlap_models_for_joint",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "global test split disabled: no grand scores available",
+      "stage": "03_splits"
+    },
+    {
+      "benchmark_id": null,
+      "message": "sparse_b1: global overlap too small; benchmark-local train/val only",
+      "stage": "03_splits"
+    },
+    {
+      "benchmark_id": null,
+      "message": "sparse_b2: global overlap too small; benchmark-local train/val only",
+      "stage": "03_splits"
+    },
+    {
+      "benchmark_id": null,
+      "message": "sparse_b3: global overlap too small; benchmark-local train/val only",
+      "stage": "03_splits"
+    },
+    {
+      "benchmark_id": null,
+      "message": "sparse_b4: global overlap too small; benchmark-local train/val only",
+      "stage": "03_splits"
+    },
+    {
+      "benchmark_id": null,
+      "message": "sparse_b5: global overlap too small; benchmark-local train/val only",
+      "stage": "03_splits"
+    },
+    {
+      "benchmark_id": null,
+      "message": "sparse_b6: global overlap too small; benchmark-local train/val only",
+      "stage": "03_splits"
+    },
+    {
+      "benchmark_id": null,
+      "message": "benchmark-local train/val only: global overlap is too small",
+      "stage": "03_splits"
+    },
+    {
+      "benchmark_id": "sparse_b1",
+      "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+      "stage": "05_irt"
+    },
+    {
+      "benchmark_id": "sparse_b2",
+      "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+      "stage": "05_irt"
+    },
+    {
+      "benchmark_id": "sparse_b3",
+      "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+      "stage": "05_irt"
+    },
+    {
+      "benchmark_id": "sparse_b4",
+      "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+      "stage": "05_irt"
+    },
+    {
+      "benchmark_id": "sparse_b5",
+      "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+      "stage": "05_irt"
+    },
+    {
+      "benchmark_id": "sparse_b6",
+      "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+      "stage": "05_irt"
+    },
+    {
+      "benchmark_id": "sparse_b1",
+      "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+      "stage": "08_linear"
+    },
+    {
+      "benchmark_id": "sparse_b1",
+      "message": "165 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+      "stage": "08_linear"
+    },
+    {
+      "benchmark_id": "sparse_b2",
+      "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+      "stage": "08_linear"
+    },
+    {
+      "benchmark_id": "sparse_b2",
+      "message": "200 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+      "stage": "08_linear"
+    },
+    {
+      "benchmark_id": "sparse_b3",
+      "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+      "stage": "08_linear"
+    },
+    {
+      "benchmark_id": "sparse_b3",
+      "message": "191 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+      "stage": "08_linear"
+    },
+    {
+      "benchmark_id": "sparse_b4",
+      "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+      "stage": "08_linear"
+    },
+    {
+      "benchmark_id": "sparse_b4",
+      "message": "197 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+      "stage": "08_linear"
+    },
+    {
+      "benchmark_id": "sparse_b5",
+      "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+      "stage": "08_linear"
+    },
+    {
+      "benchmark_id": "sparse_b5",
+      "message": "197 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+      "stage": "08_linear"
+    },
+    {
+      "benchmark_id": "sparse_b6",
+      "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+      "stage": "08_linear"
+    },
+    {
+      "benchmark_id": "sparse_b6",
+      "message": "173 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+      "stage": "08_linear"
+    },
+    {
+      "benchmark_id": null,
+      "message": "Only 0 complete-overlap models had all benchmark theta/sub/lin features available.",
+      "stage": "08_features"
+    },
+    {
+      "benchmark_id": null,
+      "message": "joint feature table skipped: joint_feature_values_missing",
+      "stage": "08_features"
+    },
+    {
+      "benchmark_id": "sparse_b1",
+      "message": "sparse_b1 marginal reconstruction had no held-out test rows.",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "sparse_b1",
+      "message": "sparse_b1 joint reconstruction skipped: joint_feature_values_missing",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "sparse_b2",
+      "message": "sparse_b2 marginal reconstruction had no held-out test rows.",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "sparse_b2",
+      "message": "sparse_b2 joint reconstruction skipped: joint_feature_values_missing",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "sparse_b3",
+      "message": "sparse_b3 marginal reconstruction had no held-out test rows.",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "sparse_b3",
+      "message": "sparse_b3 joint reconstruction skipped: joint_feature_values_missing",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "sparse_b4",
+      "message": "sparse_b4 marginal reconstruction had no held-out test rows.",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "sparse_b4",
+      "message": "sparse_b4 joint reconstruction skipped: joint_feature_values_missing",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "sparse_b5",
+      "message": "sparse_b5 marginal reconstruction had no held-out test rows.",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "sparse_b5",
+      "message": "sparse_b5 joint reconstruction skipped: joint_feature_values_missing",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "sparse_b6",
+      "message": "sparse_b6 marginal reconstruction had no held-out test rows.",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "sparse_b6",
+      "message": "sparse_b6 joint reconstruction skipped: joint_feature_values_missing",
+      "stage": "09_reconstruct"
+    }
+  ]
+}

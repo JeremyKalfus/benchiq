@@ -1,0 +1,5 @@
+{
+  "decision": "keep_current_budgets",
+  "adopt": false,
+  "reason": "smaller budgets improved feature completeness on the dense synthetic bundle but still worsened held-out RMSE, and a mild real-bundle shrink from 350/250 to 300/200 degraded mean best-available test RMSE from 0.9015 to 1.1260."
+}

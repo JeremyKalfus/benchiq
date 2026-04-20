@@ -1,0 +1,38 @@
+{
+  "artifacts": {
+    "dropped_pathological_items_written": false,
+    "item_parameter_scatter": null,
+    "plots_reason": "no_plot_written_for_skipped_fit",
+    "plots_written": false
+  },
+  "benchmark_id": "hellaswag",
+  "convergence": {
+    "backend_exposes_flag": false,
+    "status": null,
+    "status_available": false,
+    "warning_code": null
+  },
+  "counts": {
+    "pathology_excluded_count": 0,
+    "pathology_warning_count": 0,
+    "preselect_item_count": 0,
+    "retained_item_count": 0
+  },
+  "fit_metrics": {
+    "runtime_seconds": 0.0
+  },
+  "generated_at": "2026-04-19T23:39:03.396319+00:00",
+  "irt_backend": "girth",
+  "model": "2pl",
+  "pathology": {
+    "excluded_item_ids": [],
+    "excluded_items": [],
+    "exclusion_is_data_dependent": true,
+    "exclusion_note": "real-backend pathological exclusion is data-dependent and may be absent on well-behaved fixtures",
+    "retained_item_ids": [],
+    "warning_item_ids": []
+  },
+  "skipped": true,
+  "skipped_reason": "k_preselect_exceeds_candidate_items",
+  "warnings": []
+}

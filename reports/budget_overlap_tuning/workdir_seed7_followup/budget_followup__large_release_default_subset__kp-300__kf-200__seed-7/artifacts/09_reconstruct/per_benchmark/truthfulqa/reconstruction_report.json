@@ -1,0 +1,357 @@
+{
+  "benchmark_id": "truthfulqa",
+  "generated_at": "2026-04-19T17:07:47.698335+00:00",
+  "joint": {
+    "available_row_count": 4634,
+    "benchmark_id": "truthfulqa",
+    "cv_report": {
+      "backend": "pygam",
+      "best_holdout_rmse": 1.3364889824078576,
+      "best_lam": 1.0,
+      "best_max_val_rmse": 1.17408402784965,
+      "best_mean_baseline_val_rmse": 14.399553261669078,
+      "best_mean_val_rmse": 1.1191468898233154,
+      "best_model_metadata": {
+        "backend": "pygam",
+        "benchiq_version": "0.1.0a0",
+        "cv_folds": 5,
+        "feature_names": [
+          "theta_arc",
+          "theta_gsm8k",
+          "theta_hellaswag",
+          "theta_mmlu",
+          "theta_se_b",
+          "theta_truthfulqa",
+          "theta_winogrande",
+          "sub_b",
+          "grand_sub",
+          "lin_b",
+          "grand_lin"
+        ],
+        "fit_statistics": {
+          "aic": 11518.295714666243,
+          "edof": 58.8260377179659,
+          "gcv": 1.2633435278729759,
+          "loglikelihood": -5699.321819615156,
+          "pseudo_r2": {
+            "McFadden": 0.0177158045717726,
+            "McFadden_adj": 0.9821013402358155,
+            "explained_deviance": 0.9941701541740355
+          },
+          "scale": 1.1080899696959619
+        },
+        "fit_warnings": [],
+        "model_hyperparameters": {
+          "fit_intercept": true,
+          "lam": 1.0,
+          "max_iter": 100,
+          "terms": "s(0) + s(1) + s(2) + s(3) + s(4) + s(5) + s(6) + s(7) + s(8) + s(9) + s(10) + intercept",
+          "tol": 0.0001
+        },
+        "n_features": 11,
+        "n_splines": 10,
+        "pickle_protocol": 5,
+        "pygam_version": "0.12.0",
+        "python_version": "3.14.4",
+        "selected_lam": 1.0,
+        "selection_metric": "rmse",
+        "skipped_lam_settings": [],
+        "target_name": "score_full_b",
+        "test_row_count": 464,
+        "train_row_count": 3765
+      },
+      "cv_folds": 5,
+      "holdout_row_count": 464,
+      "lam_grid": [
+        0.1,
+        1.0
+      ],
+      "lam_summaries": [
+        {
+          "fold_count": 5,
+          "lam": 0.1,
+          "max_val_rmse": 1.1710650330149974,
+          "mean_baseline_val_rmse": 14.399553261669078,
+          "mean_test_rmse": 1.406818033451615,
+          "mean_val_rmse": 1.1198032431157823
+        },
+        {
+          "fold_count": 5,
+          "lam": 1.0,
+          "max_val_rmse": 1.17408402784965,
+          "mean_baseline_val_rmse": 14.399553261669078,
+          "mean_test_rmse": 1.323598828375882,
+          "mean_val_rmse": 1.1191468898233154
+        }
+      ],
+      "selection_metric": "rmse",
+      "skipped_lam_settings": []
+    },
+    "feature_columns": [
+      "theta_arc",
+      "theta_gsm8k",
+      "theta_hellaswag",
+      "theta_mmlu",
+      "theta_se_b",
+      "theta_truthfulqa",
+      "theta_winogrande",
+      "sub_b",
+      "grand_sub",
+      "lin_b",
+      "grand_lin"
+    ],
+    "metrics": {
+      "test": {
+        "baseline_mae": 11.946672750704897,
+        "baseline_rmse": 14.567863186608085,
+        "mae": 0.9268399373426819,
+        "pearson_r": 0.9958470299909975,
+        "rmse": 1.3364889824078576,
+        "row_count": 464,
+        "spearman_r": 0.9953788637009374
+      },
+      "train": {
+        "baseline_mae": 12.034079136561955,
+        "baseline_rmse": 14.398819876231691,
+        "mae": 0.8397144082649735,
+        "pearson_r": 0.9970808174733166,
+        "rmse": 1.0993992433733883,
+        "row_count": 3765,
+        "spearman_r": 0.9962338058552554
+      },
+      "val": {
+        "baseline_mae": 12.30832933990083,
+        "baseline_rmse": 14.68053202848898,
+        "mae": 0.8472565839632277,
+        "pearson_r": 0.9972631910379606,
+        "rmse": 1.0982184072070478,
+        "row_count": 405,
+        "spearman_r": 0.9963557712906507
+      }
+    },
+    "model_type": "joint",
+    "skip_reason": null,
+    "skipped": false,
+    "split_counts": {
+      "test": 464,
+      "train": 3765,
+      "val": 405
+    },
+    "test_row_count": 464,
+    "train_row_count": 3765,
+    "val_row_count": 405
+  },
+  "marginal": {
+    "available_row_count": 5222,
+    "benchmark_id": "truthfulqa",
+    "cv_report": {
+      "backend": "pygam",
+      "best_holdout_rmse": 1.256449074096635,
+      "best_lam": 0.1,
+      "best_max_val_rmse": 1.16586038166677,
+      "best_mean_baseline_val_rmse": 15.563449166346022,
+      "best_mean_val_rmse": 1.145510770360281,
+      "best_model_metadata": {
+        "backend": "pygam",
+        "benchiq_version": "0.1.0a0",
+        "cv_folds": 5,
+        "feature_names": [
+          "theta_b",
+          "theta_se_b",
+          "sub_b",
+          "lin_b"
+        ],
+        "fit_statistics": {
+          "aic": 13328.33963802733,
+          "edof": 23.16146699815769,
+          "gcv": 1.3213706650499077,
+          "loglikelihood": -6640.008352015508,
+          "pseudo_r2": {
+            "McFadden": 0.016565644143682473,
+            "McFadden_adj": 0.983376572100666,
+            "explained_deviance": 0.9946270134254561
+          },
+          "scale": 1.1439019554100993
+        },
+        "fit_warnings": [],
+        "model_hyperparameters": {
+          "fit_intercept": true,
+          "lam": 0.1,
+          "max_iter": 100,
+          "terms": "s(0) + s(1) + s(2) + s(3) + intercept",
+          "tol": 0.0001
+        },
+        "n_features": 4,
+        "n_splines": 10,
+        "pickle_protocol": 5,
+        "pygam_version": "0.12.0",
+        "python_version": "3.14.4",
+        "selected_lam": 0.1,
+        "selection_metric": "rmse",
+        "skipped_lam_settings": [],
+        "target_name": "score_full_b",
+        "test_row_count": 464,
+        "train_row_count": 4282
+      },
+      "cv_folds": 5,
+      "holdout_row_count": 464,
+      "lam_grid": [
+        0.1,
+        1.0
+      ],
+      "lam_summaries": [
+        {
+          "fold_count": 5,
+          "lam": 0.1,
+          "max_val_rmse": 1.16586038166677,
+          "mean_baseline_val_rmse": 15.563449166346022,
+          "mean_test_rmse": 1.256398041341,
+          "mean_val_rmse": 1.145510770360281
+        },
+        {
+          "fold_count": 5,
+          "lam": 1.0,
+          "max_val_rmse": 1.1723304110960098,
+          "mean_baseline_val_rmse": 15.563449166346022,
+          "mean_test_rmse": 1.2511420546396042,
+          "mean_val_rmse": 1.150263567890891
+        }
+      ],
+      "selection_metric": "rmse",
+      "skipped_lam_settings": []
+    },
+    "feature_columns": [
+      "theta_b",
+      "theta_se_b",
+      "sub_b",
+      "lin_b"
+    ],
+    "metrics": {
+      "test": {
+        "baseline_mae": 11.838508316402951,
+        "baseline_rmse": 14.623364317538908,
+        "mae": 0.9404597056107444,
+        "pearson_r": 0.9962888941305755,
+        "rmse": 1.256449074096635,
+        "row_count": 464,
+        "spearman_r": 0.9949409043931932
+      },
+      "train": {
+        "baseline_mae": 12.548535525121304,
+        "baseline_rmse": 15.563353451649842,
+        "mae": 0.8771325726398114,
+        "pearson_r": 0.9973098884830056,
+        "rmse": 1.1408040605093859,
+        "row_count": 4282,
+        "spearman_r": 0.995590468207903
+      },
+      "val": {
+        "baseline_mae": 12.712594332455074,
+        "baseline_rmse": 15.69306138971175,
+        "mae": 0.9245719390794657,
+        "pearson_r": 0.9971792868240072,
+        "rmse": 1.1849123621045061,
+        "row_count": 476,
+        "spearman_r": 0.9953312057622304
+      }
+    },
+    "model_type": "marginal",
+    "skip_reason": null,
+    "skipped": false,
+    "split_counts": {
+      "test": 464,
+      "train": 4282,
+      "val": 476
+    },
+    "test_row_count": 464,
+    "train_row_count": 4282,
+    "val_row_count": 476
+  },
+  "summary_rows": [
+    {
+      "baseline_mae": 12.548535525121304,
+      "baseline_rmse": 15.563353451649842,
+      "benchmark_id": "truthfulqa",
+      "mae": 0.8771325726398114,
+      "model_type": "marginal",
+      "pearson_r": 0.9973098884830056,
+      "rmse": 1.1408040605093859,
+      "row_count": 4282,
+      "skip_reason": null,
+      "skipped": false,
+      "spearman_r": 0.995590468207903,
+      "split": "train"
+    },
+    {
+      "baseline_mae": 12.712594332455074,
+      "baseline_rmse": 15.69306138971175,
+      "benchmark_id": "truthfulqa",
+      "mae": 0.9245719390794657,
+      "model_type": "marginal",
+      "pearson_r": 0.9971792868240072,
+      "rmse": 1.1849123621045061,
+      "row_count": 476,
+      "skip_reason": null,
+      "skipped": false,
+      "spearman_r": 0.9953312057622304,
+      "split": "val"
+    },
+    {
+      "baseline_mae": 11.838508316402951,
+      "baseline_rmse": 14.623364317538908,
+      "benchmark_id": "truthfulqa",
+      "mae": 0.9404597056107444,
+      "model_type": "marginal",
+      "pearson_r": 0.9962888941305755,
+      "rmse": 1.256449074096635,
+      "row_count": 464,
+      "skip_reason": null,
+      "skipped": false,
+      "spearman_r": 0.9949409043931932,
+      "split": "test"
+    },
+    {
+      "baseline_mae": 12.034079136561955,
+      "baseline_rmse": 14.398819876231691,
+      "benchmark_id": "truthfulqa",
+      "mae": 0.8397144082649735,
+      "model_type": "joint",
+      "pearson_r": 0.9970808174733166,
+      "rmse": 1.0993992433733883,
+      "row_count": 3765,
+      "skip_reason": null,
+      "skipped": false,
+      "spearman_r": 0.9962338058552554,
+      "split": "train"
+    },
+    {
+      "baseline_mae": 12.30832933990083,
+      "baseline_rmse": 14.68053202848898,
+      "benchmark_id": "truthfulqa",
+      "mae": 0.8472565839632277,
+      "model_type": "joint",
+      "pearson_r": 0.9972631910379606,
+      "rmse": 1.0982184072070478,
+      "row_count": 405,
+      "skip_reason": null,
+      "skipped": false,
+      "spearman_r": 0.9963557712906507,
+      "split": "val"
+    },
+    {
+      "baseline_mae": 11.946672750704897,
+      "baseline_rmse": 14.567863186608085,
+      "benchmark_id": "truthfulqa",
+      "mae": 0.9268399373426819,
+      "model_type": "joint",
+      "pearson_r": 0.9958470299909975,
+      "rmse": 1.3364889824078576,
+      "row_count": 464,
+      "skip_reason": null,
+      "skipped": false,
+      "spearman_r": 0.9953788637009374,
+      "split": "test"
+    }
+  ],
+  "warnings": []
+}

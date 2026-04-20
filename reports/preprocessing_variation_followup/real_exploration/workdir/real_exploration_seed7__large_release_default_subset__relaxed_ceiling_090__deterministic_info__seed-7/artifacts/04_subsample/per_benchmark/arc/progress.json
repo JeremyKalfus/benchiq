@@ -1,0 +1,12 @@
+{
+  "benchmark_id": "arc",
+  "best_iteration": null,
+  "candidate_item_count": 329,
+  "completed_iterations": 0,
+  "effective_k_preselect": 0,
+  "failed_iterations": 0,
+  "n_iter": 1,
+  "requested_k_preselect": 350,
+  "updated_at": "2026-04-19T23:47:04.215006+00:00",
+  "valid_iterations": 0
+}

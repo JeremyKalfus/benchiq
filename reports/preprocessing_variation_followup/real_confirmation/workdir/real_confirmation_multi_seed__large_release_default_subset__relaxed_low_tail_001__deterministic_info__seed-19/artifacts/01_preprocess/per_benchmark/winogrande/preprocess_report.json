@@ -1,0 +1,41 @@
+{
+  "benchmark_id": "winogrande",
+  "counts": {
+    "coverage_models_dropped": 0,
+    "dropped_low_coverage_items": 0,
+    "dropped_low_discrimination_items": 0,
+    "dropped_low_variance_items": 0,
+    "dropped_near_ceiling_items": 0,
+    "initial_items": 350,
+    "initial_models": 6550,
+    "low_tail_models_dropped": 6,
+    "retained_items": 350,
+    "retained_models": 6544
+  },
+  "dropped_model_ids": {
+    "coverage": [],
+    "low_tail": [
+      "BEE-spoke-data/smol_llama-220M-GQA",
+      "BreadAi/gpt-YA-1-1_70M",
+      "Stefan171/TinyLlama-QuantumQuill-chat-28-05-24",
+      "TFLai/bloom-560m-4bit-alpaca",
+      "abideen/Mistral-v0.2-orpo",
+      "crumb/gpt2023"
+    ]
+  },
+  "generated_at": "2026-04-20T00:24:00.228366+00:00",
+  "refusal_reasons": [],
+  "refused": false,
+  "thresholds": {
+    "drop_low_tail_models_quantile": 0.001,
+    "max_item_mean": 0.99,
+    "min_abs_point_biserial": 0.0,
+    "min_item_coverage": 0.7,
+    "min_item_sd": 0.0,
+    "min_items_after_filtering": 50,
+    "min_models_per_benchmark": 100,
+    "min_models_per_item": 1309,
+    "warn_models_per_benchmark": 200
+  },
+  "warnings": []
+}

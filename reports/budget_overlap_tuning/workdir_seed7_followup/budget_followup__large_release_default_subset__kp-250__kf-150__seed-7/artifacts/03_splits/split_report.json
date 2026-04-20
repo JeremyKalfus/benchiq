@@ -1,0 +1,237 @@
+{
+  "benchmarks": {
+    "arc": {
+      "diagnostics": {
+        "test": {
+          "count": 464,
+          "score_max": 75.14285714285714,
+          "score_mean": 56.91194581280788,
+          "score_min": 10.0
+        },
+        "train": {
+          "count": 4281,
+          "score_max": 87.71428571428571,
+          "score_mean": 53.87419494777589,
+          "score_min": 9.428571428571429
+        },
+        "val": {
+          "count": 476,
+          "score_max": 77.42857142857143,
+          "score_mean": 53.723889555822325,
+          "score_min": 10.285714285714285
+        }
+      },
+      "effective_bins": 10,
+      "fallback_reason": null,
+      "strategy": "global_plus_local_val",
+      "stratification_used": true,
+      "test_model_count": 464,
+      "train_model_count": 4281,
+      "val_model_count": 476,
+      "val_split_method": "stratified",
+      "valid_model_count": 5221,
+      "warnings": []
+    },
+    "gsm8k": {
+      "diagnostics": {
+        "test": {
+          "count": 464,
+          "score_max": 87.42857142857143,
+          "score_mean": 44.89408866995074,
+          "score_min": 0.0
+        },
+        "train": {
+          "count": 5043,
+          "score_max": 88.28571428571429,
+          "score_mean": 36.47936319084445,
+          "score_min": 0.0
+        },
+        "val": {
+          "count": 561,
+          "score_max": 81.71428571428572,
+          "score_mean": 36.45072574484339,
+          "score_min": 0.0
+        }
+      },
+      "effective_bins": 10,
+      "fallback_reason": null,
+      "strategy": "global_plus_local_val",
+      "stratification_used": true,
+      "test_model_count": 464,
+      "train_model_count": 5043,
+      "val_model_count": 561,
+      "val_split_method": "stratified",
+      "valid_model_count": 6068,
+      "warnings": []
+    },
+    "hellaswag": {
+      "diagnostics": {
+        "test": {
+          "count": 464,
+          "score_max": 90.28571428571428,
+          "score_mean": 74.10160098522167,
+          "score_min": 3.428571428571429
+        },
+        "train": {
+          "count": 4281,
+          "score_max": 91.71428571428571,
+          "score_mean": 69.74879033603631,
+          "score_min": 2.571428571428571
+        },
+        "val": {
+          "count": 476,
+          "score_max": 90.57142857142857,
+          "score_mean": 69.74369747899159,
+          "score_min": 3.7142857142857144
+        }
+      },
+      "effective_bins": 10,
+      "fallback_reason": null,
+      "strategy": "global_plus_local_val",
+      "stratification_used": true,
+      "test_model_count": 464,
+      "train_model_count": 4281,
+      "val_model_count": 476,
+      "val_split_method": "stratified",
+      "valid_model_count": 5221,
+      "warnings": []
+    },
+    "mmlu": {
+      "diagnostics": {
+        "test": {
+          "count": 464,
+          "score_max": 88.0,
+          "score_mean": 62.431650246305416,
+          "score_min": 20.57142857142857
+        },
+        "train": {
+          "count": 4279,
+          "score_max": 92.0,
+          "score_mean": 59.2694554802524,
+          "score_min": 17.42857142857143
+        },
+        "val": {
+          "count": 476,
+          "score_max": 84.57142857142857,
+          "score_mean": 59.39195678271308,
+          "score_min": 19.428571428571427
+        }
+      },
+      "effective_bins": 10,
+      "fallback_reason": null,
+      "strategy": "global_plus_local_val",
+      "stratification_used": true,
+      "test_model_count": 464,
+      "train_model_count": 4279,
+      "val_model_count": 476,
+      "val_split_method": "stratified",
+      "valid_model_count": 5219,
+      "warnings": []
+    },
+    "truthfulqa": {
+      "diagnostics": {
+        "test": {
+          "count": 464,
+          "score_max": 100.0,
+          "score_mean": 30.826354679802957,
+          "score_min": 7.428571428571429
+        },
+        "train": {
+          "count": 4282,
+          "score_max": 100.0,
+          "score_mean": 29.548341896310134,
+          "score_min": 6.571428571428571
+        },
+        "val": {
+          "count": 476,
+          "score_max": 100.0,
+          "score_mean": 29.597238895558224,
+          "score_min": 7.428571428571429
+        }
+      },
+      "effective_bins": 10,
+      "fallback_reason": null,
+      "strategy": "global_plus_local_val",
+      "stratification_used": true,
+      "test_model_count": 464,
+      "train_model_count": 4282,
+      "val_model_count": 476,
+      "val_split_method": "stratified",
+      "valid_model_count": 5222,
+      "warnings": []
+    },
+    "winogrande": {
+      "diagnostics": {
+        "test": {
+          "count": 464,
+          "score_max": 93.42857142857143,
+          "score_mean": 77.67179802955665,
+          "score_min": 46.285714285714285
+        },
+        "train": {
+          "count": 5477,
+          "score_max": 91.14285714285715,
+          "score_mean": 73.91027413338898,
+          "score_min": 42.57142857142857
+        },
+        "val": {
+          "count": 609,
+          "score_max": 92.85714285714286,
+          "score_mean": 73.95355383532724,
+          "score_min": 44.57142857142857
+        }
+      },
+      "effective_bins": 10,
+      "fallback_reason": null,
+      "strategy": "global_plus_local_val",
+      "stratification_used": true,
+      "test_model_count": 464,
+      "train_model_count": 5477,
+      "val_model_count": 609,
+      "val_split_method": "stratified",
+      "valid_model_count": 6550,
+      "warnings": []
+    }
+  },
+  "counts": {
+    "benchmark_count": 6,
+    "global_test_enabled": true,
+    "global_test_model_count": 464
+  },
+  "generated_at": "2026-04-19T17:08:59.354670+00:00",
+  "global_test": {
+    "assigned_test_count": 464,
+    "assigned_train_pool_count": 4170,
+    "diagnostics": {
+      "benchmark_local_only": {
+        "count": 2198,
+        "score_max": null,
+        "score_mean": null,
+        "score_min": null
+      },
+      "test": {
+        "count": 464,
+        "score_max": 75.42857142857143,
+        "score_mean": 57.80623973727422,
+        "score_min": 15.95238095238095
+      },
+      "train_pool": {
+        "count": 4170,
+        "score_max": 79.57142857142857,
+        "score_mean": 57.85024551787142,
+        "score_min": 15.904761904761905
+      }
+    },
+    "effective_bins": 10,
+    "eligible_model_count": 4634,
+    "enabled": true,
+    "fallback_reason": null,
+    "skip_reason": null,
+    "split_method": "stratified",
+    "stratification_used": true,
+    "test_model_count": 464,
+    "train_val_pool_count": 4170,
+    "warnings": []
+  },
+  "warnings": []
+}

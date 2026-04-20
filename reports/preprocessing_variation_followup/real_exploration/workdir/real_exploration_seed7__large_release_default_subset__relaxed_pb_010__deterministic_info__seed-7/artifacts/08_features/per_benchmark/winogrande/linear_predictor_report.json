@@ -1,0 +1,37 @@
+{
+  "benchmark_id": "winogrande",
+  "counts": {
+    "coefficient_count": 0,
+    "incomplete_coverage_count": 0,
+    "model_count": 0,
+    "predicted_model_count": 0,
+    "training_eligible_count": 0
+  },
+  "generated_at": "2026-04-19T23:41:49.533595+00:00",
+  "parameters": {
+    "ridge_alpha_grid": [
+      1e-06,
+      0.0001,
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "selected_item_count": 0
+  },
+  "skipped": true,
+  "skipped_reason": "benchmark_skipped_in_irt",
+  "training_diagnostics": {
+    "chosen_alpha": null,
+    "condition_number": null,
+    "fallback_reason": null,
+    "fallback_used": false,
+    "feature_count": 0,
+    "model_kind": null,
+    "rank": null,
+    "ridge_candidates": [],
+    "train_rmse": null,
+    "train_row_count": 0
+  },
+  "warnings": []
+}

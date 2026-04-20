@@ -26,38 +26,45 @@ class BenchIQProfile:
 
 
 def build_psychometric_default_profile(*, random_seed: int = 0) -> BenchIQProfile:
-    """Return the spec-aligned v0.1 baseline profile."""
+    """Return the spec-aligned psychometric baseline profile."""
 
     return BenchIQProfile(
         profile_id="psychometric_default",
-        description="spec-aligned v0.1 psychometric baseline with random-cv preselection",
-        config=BenchIQConfig(random_seed=random_seed),
+        description="spec-aligned psychometric baseline with random-cv preselection",
+        config=BenchIQConfig(
+            drop_low_tail_models_quantile=0.001,
+            min_item_sd=0.01,
+            max_item_mean=0.95,
+            min_abs_point_biserial=0.05,
+            min_item_coverage=0.80,
+            random_seed=random_seed,
+        ),
         stage_options={"04_subsample": {"method": "random_cv"}},
-        notes=("leaves size-dependent budgets like k_preselect and k_final to the caller",),
+        notes=(
+            "retains the locked v0.1 psychometric thresholds as an explicit legacy baseline",
+            "leaves size-dependent budgets like k_preselect and k_final to the caller",
+        ),
     )
 
 
 def build_reconstruction_first_profile(*, random_seed: int = 0) -> BenchIQProfile:
-    """Return the generalized reconstruction-first recommended profile."""
+    """Return the default reconstruction-first product profile."""
 
     return BenchIQProfile(
         profile_id="reconstruction_first",
         description=(
-            "multi-bundle recommended reconstruction-first profile built from the "
-            "reconstruction_relaxed winner with deterministic-info preselection"
+            "default reconstruction-first profile built from the "
+            "relaxed-low-tail follow-up winner with deterministic-info preselection"
         ),
-        config=BenchIQConfig(
-            drop_low_tail_models_quantile=0.0,
-            min_item_sd=0.0,
-            max_item_mean=0.99,
-            min_abs_point_biserial=0.0,
-            min_item_coverage=0.70,
-            random_seed=random_seed,
-        ),
+        config=BenchIQConfig(random_seed=random_seed),
         stage_options={"04_subsample": {"method": "deterministic_info"}},
         notes=(
-            "keeps the spec item-count floors and split policy intact",
-            "changes only the generalized preprocessing thresholds and the stage-04 method",
+            "matches the current BenchIQ runtime defaults",
+            (
+                "adds a light 0.002 low-tail trim on top of the relaxed "
+                "reconstruction-first thresholds"
+            ),
+            "keeps the item-count floors and split policy intact",
             "leaves size-dependent budgets like k_preselect and k_final to the caller",
         ),
     )
@@ -67,10 +74,15 @@ def load_profile(profile_id: str, *, random_seed: int = 0) -> BenchIQProfile:
     """Resolve a named public product profile."""
 
     normalized = profile_id.strip().lower().replace("-", "_")
-    if normalized in {"psychometric_default", "default", "baseline"}:
-        return build_psychometric_default_profile(random_seed=random_seed)
-    if normalized in {"reconstruction_first", "recommended", "reconstruction_recommended"}:
+    if normalized in {
+        "reconstruction_first",
+        "default",
+        "recommended",
+        "reconstruction_recommended",
+    }:
         return build_reconstruction_first_profile(random_seed=random_seed)
+    if normalized in {"psychometric_default", "baseline", "legacy", "spec"}:
+        return build_psychometric_default_profile(random_seed=random_seed)
     raise ValueError(f"unsupported BenchIQ profile: {profile_id}")
 
 
@@ -78,13 +90,14 @@ def product_profiles() -> dict[str, str]:
     """Return the public product profiles and when to use them."""
 
     return {
-        "psychometric_default": (
-            "spec-aligned v0.1 baseline with psychometric-style thresholds and random-cv "
-            "preselection"
-        ),
         "reconstruction_first": (
-            "recommended reconstruction-first profile with relaxed preprocessing and "
+            "default reconstruction-first profile with light low-tail trimming, "
+            "relaxed preprocessing, and "
             "deterministic-info preselection"
+        ),
+        "psychometric_default": (
+            "spec-aligned psychometric baseline with metabench-style thresholds and "
+            "random-cv preselection"
         ),
     }
 

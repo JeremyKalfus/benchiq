@@ -1,0 +1,56 @@
+{
+  "artifacts": {
+    "expected_test_information_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-40__kf-20__seed-7/artifacts/06_select/per_benchmark/dense_b2/plots/expected_test_information.png",
+    "plots_reason": null,
+    "plots_written": true
+  },
+  "benchmark_id": "dense_b2",
+  "counts": {
+    "candidate_item_count": 40,
+    "info_grid_row_count": 6040,
+    "selected_item_count": 20
+  },
+  "expected_test_information": {
+    "full_sum_max": 9.402377128781858,
+    "reduced_sum_max": 5.645919137336175
+  },
+  "generated_at": "2026-04-19T17:01:18.406033+00:00",
+  "parameters": {
+    "effective_k_final": 20,
+    "info_min": 0.0,
+    "n_bins": 20,
+    "requested_k_final": 20,
+    "theta_grid_size": 151,
+    "theta_grid_type": "difficulty_range"
+  },
+  "selected_item_ids": [
+    "dense_b2_item_027",
+    "dense_b2_item_009",
+    "dense_b2_item_020",
+    "dense_b2_item_014",
+    "dense_b2_item_052",
+    "dense_b2_item_060",
+    "dense_b2_item_058",
+    "dense_b2_item_070",
+    "dense_b2_item_056",
+    "dense_b2_item_059",
+    "dense_b2_item_075",
+    "dense_b2_item_071",
+    "dense_b2_item_082",
+    "dense_b2_item_069",
+    "dense_b2_item_064",
+    "dense_b2_item_073",
+    "dense_b2_item_068",
+    "dense_b2_item_063",
+    "dense_b2_item_061",
+    "dense_b2_item_039"
+  ],
+  "skipped": false,
+  "skipped_reason": null,
+  "theta_grid": {
+    "grid_size": 151,
+    "max_theta": 2.3859835849896935,
+    "min_theta": -2.314695913454306
+  },
+  "warnings": []
+}

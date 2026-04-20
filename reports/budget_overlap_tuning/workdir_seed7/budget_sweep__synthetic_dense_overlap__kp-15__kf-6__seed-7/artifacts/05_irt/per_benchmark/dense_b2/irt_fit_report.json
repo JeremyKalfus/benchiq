@@ -1,0 +1,87 @@
+{
+  "artifacts": {
+    "dropped_pathological_items_written": false,
+    "item_parameter_scatter": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-15__kf-6__seed-7/artifacts/05_irt/per_benchmark/dense_b2/plots/item_parameter_scatter.png",
+    "plots_reason": null,
+    "plots_written": true
+  },
+  "backend_options": {},
+  "benchmark_id": "dense_b2",
+  "convergence": {
+    "backend_exposes_flag": false,
+    "max_iteration": null,
+    "status": null,
+    "status_available": false,
+    "warning_code": "backend_convergence_status_unavailable"
+  },
+  "counts": {
+    "missing_response_count": 73,
+    "pathology_excluded_count": 0,
+    "pathology_warning_count": 0,
+    "preselect_item_count": 15,
+    "retained_item_count": 15,
+    "train_model_count": 259,
+    "valid_response_count": 3812
+  },
+  "fit_metrics": {
+    "ability_mean": 0.0016394111160853817,
+    "ability_sd": 0.8807444729134652,
+    "aic": {
+      "delta": 0.0,
+      "final": 4668.511811891072,
+      "null": 4668.511811891072
+    },
+    "bic": {
+      "delta": 0.0,
+      "final": 4668.511811891072,
+      "null": 4668.511811891072
+    },
+    "runtime_seconds": 0.08805766701698303
+  },
+  "generated_at": "2026-04-19T17:01:29.433347+00:00",
+  "irt_backend": "girth",
+  "model": "2pl",
+  "pathology": {
+    "excluded_item_ids": [],
+    "excluded_items": [],
+    "exclusion_is_data_dependent": true,
+    "exclusion_note": "real-backend pathological exclusion is data-dependent and may be absent on well-behaved fixtures",
+    "exclusion_thresholds": {
+      "difficulty_must_be_finite": true,
+      "discrimination_max": 10.0,
+      "discrimination_min": 0.05
+    },
+    "retained_item_ids": [
+      "dense_b2_item_020",
+      "dense_b2_item_034",
+      "dense_b2_item_035",
+      "dense_b2_item_037",
+      "dense_b2_item_039",
+      "dense_b2_item_040",
+      "dense_b2_item_048",
+      "dense_b2_item_050",
+      "dense_b2_item_052",
+      "dense_b2_item_056",
+      "dense_b2_item_058",
+      "dense_b2_item_059",
+      "dense_b2_item_060",
+      "dense_b2_item_070",
+      "dense_b2_item_075"
+    ],
+    "warning_item_ids": [],
+    "warning_thresholds": {
+      "discrimination_max": 5.0,
+      "discrimination_min": 0.1
+    }
+  },
+  "skipped": false,
+  "skipped_reason": null,
+  "warnings": [
+    {
+      "code": "backend_convergence_status_unavailable",
+      "limitation": true,
+      "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+      "severity": "warning"
+    }
+  ]
+}

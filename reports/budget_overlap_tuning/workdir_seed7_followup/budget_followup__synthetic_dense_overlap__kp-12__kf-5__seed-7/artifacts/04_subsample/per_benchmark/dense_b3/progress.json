@@ -1,0 +1,35 @@
+{
+  "benchmark_id": "dense_b3",
+  "best_iteration": {
+    "best_lam": 1.0,
+    "iteration_id": 0,
+    "max_rmse_val": 7.994723868839519,
+    "mean_rmse_test": 7.869224949297907,
+    "mean_rmse_val": 7.442990172732642,
+    "sampled_item_ids": [
+      "dense_b3_item_023",
+      "dense_b3_item_024",
+      "dense_b3_item_026",
+      "dense_b3_item_033",
+      "dense_b3_item_035",
+      "dense_b3_item_041",
+      "dense_b3_item_043",
+      "dense_b3_item_045",
+      "dense_b3_item_048",
+      "dense_b3_item_052",
+      "dense_b3_item_058",
+      "dense_b3_item_060"
+    ],
+    "subset_seed": 7,
+    "valid_pool_model_count": 288,
+    "valid_test_model_count": 32
+  },
+  "candidate_item_count": 120,
+  "completed_iterations": 1,
+  "effective_k_preselect": 12,
+  "failed_iterations": 0,
+  "n_iter": 1,
+  "requested_k_preselect": 12,
+  "updated_at": "2026-04-19T17:03:08.793636+00:00",
+  "valid_iterations": 1
+}

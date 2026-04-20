@@ -1,0 +1,19 @@
+{
+  "allow_low_n": false,
+  "drop_low_tail_models_quantile": 0.0005,
+  "duplicate_policy": "error",
+  "max_item_mean": 0.99,
+  "min_abs_point_biserial": 0.0,
+  "min_item_coverage": 0.7,
+  "min_item_sd": 0.0,
+  "min_items_after_filtering": 50,
+  "min_models_per_benchmark": 100,
+  "min_models_per_item": 50,
+  "min_overlap_models_for_joint": 75,
+  "min_overlap_models_for_redundancy": 75,
+  "n_strata_bins": 10,
+  "p_test": 0.1,
+  "p_val": 0.1,
+  "random_seed": 19,
+  "warn_models_per_benchmark": 200
+}

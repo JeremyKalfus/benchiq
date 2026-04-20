@@ -11,6 +11,17 @@ Companion artifacts from the completed pass:
 - [`reports/preprocessing_optimization/best_config.json`](/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_optimization/best_config.json)
 - [`scripts/run_preprocessing_optimization.py`](/Users/jeremykalfus/CodingProjects/BenchIQ/scripts/run_preprocessing_optimization.py)
 
+Follow-up on 2026-04-19:
+
+- the product runtime default now follows the promoted `reconstruction_first` profile
+- the psychometric configuration documented below is the historical baseline used during this pass
+  and remains available explicitly as `psychometric_default`
+- a broader real-data follow-up later tightened that runtime default with a light
+  `drop_low_tail_models_quantile=0.002` trim; see
+  [`reports/preprocessing_variation_followup/summary.md`](/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/summary.md)
+  and
+  [`reports/preprocessing_variation_followup/decision.json`](/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/decision.json)
+
 The compact saved comparison harness and the real-data release subset are both useful here, but
 they answer different questions:
 
@@ -22,9 +33,18 @@ they answer different questions:
 
 There are two current baselines that matter for this pass.
 
-### product default config
+For the actual current product default after the later follow-up, the live runtime stack is:
 
-`BenchIQConfig()` currently means:
+- `drop_low_tail_models_quantile = 0.002`
+- `min_item_sd = 0.0`
+- `max_item_mean = 0.99`
+- `min_abs_point_biserial = 0.0`
+- `min_item_coverage = 0.7`
+- stage 04 method: `deterministic_info`
+
+### historical baseline config at experiment time
+
+The pre-promotion `psychometric_default` baseline means:
 
 - `drop_low_tail_models_quantile = 0.001`
 - `min_item_sd = 0.01`

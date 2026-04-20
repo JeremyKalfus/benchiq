@@ -1,0 +1,43 @@
+{
+  "benchmark_id": "dense_b4",
+  "counts": {
+    "coefficient_count": 10,
+    "incomplete_coverage_count": 64,
+    "model_count": 320,
+    "predicted_model_count": 256,
+    "training_eligible_count": 204
+  },
+  "generated_at": "2026-04-19T17:01:26.286540+00:00",
+  "parameters": {
+    "ridge_alpha_grid": [
+      1e-06,
+      0.0001,
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "selected_item_count": 10
+  },
+  "skipped": false,
+  "skipped_reason": null,
+  "training_diagnostics": {
+    "chosen_alpha": 0.0,
+    "condition_number": 22.311353893329972,
+    "fallback_reason": null,
+    "fallback_used": false,
+    "feature_count": 10,
+    "model_kind": "ols_no_intercept",
+    "rank": 10,
+    "ridge_candidates": [],
+    "train_rmse": 16.273204877963067,
+    "train_row_count": 204
+  },
+  "warnings": [
+    {
+      "code": "incomplete_reduced_item_coverage",
+      "message": "64 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+      "severity": "warning"
+    }
+  ]
+}

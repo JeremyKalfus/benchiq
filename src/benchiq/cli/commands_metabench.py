@@ -77,6 +77,7 @@ def build_metabench_preset(profile: str = DEFAULT_PROFILE) -> MetabenchPreset:
             ),
             stage_options={
                 "04_subsample": {
+                    "method": "random_cv",
                     "k_preselect": 4,
                     "n_iter": 8,
                     "cv_folds": 5,
@@ -133,6 +134,7 @@ def build_metabench_preset(profile: str = DEFAULT_PROFILE) -> MetabenchPreset:
             ),
             stage_options={
                 "04_subsample": {
+                    "method": "random_cv",
                     "k_preselect": 350,
                     "n_iter": 10000,
                     "cv_folds": 5,

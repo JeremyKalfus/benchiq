@@ -1,0 +1,37 @@
+{
+  "benchmark_id": "mmlu",
+  "counts": {
+    "coefficient_count": 250,
+    "incomplete_coverage_count": 0,
+    "model_count": 5219,
+    "predicted_model_count": 5219,
+    "training_eligible_count": 4279
+  },
+  "generated_at": "2026-04-20T00:12:51.555343+00:00",
+  "parameters": {
+    "ridge_alpha_grid": [
+      1e-06,
+      0.0001,
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "selected_item_count": 250
+  },
+  "skipped": false,
+  "skipped_reason": null,
+  "training_diagnostics": {
+    "chosen_alpha": 0.0,
+    "condition_number": 10054.00483056577,
+    "fallback_reason": null,
+    "fallback_used": false,
+    "feature_count": 250,
+    "model_kind": "ols_no_intercept",
+    "rank": 250,
+    "ridge_candidates": [],
+    "train_rmse": 0.9259112039603852,
+    "train_row_count": 4279
+  },
+  "warnings": []
+}

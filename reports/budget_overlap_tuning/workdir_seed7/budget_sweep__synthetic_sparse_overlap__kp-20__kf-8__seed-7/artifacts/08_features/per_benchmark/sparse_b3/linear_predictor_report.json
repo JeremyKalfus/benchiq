@@ -1,0 +1,43 @@
+{
+  "benchmark_id": "sparse_b3",
+  "counts": {
+    "coefficient_count": 8,
+    "incomplete_coverage_count": 106,
+    "model_count": 210,
+    "predicted_model_count": 104,
+    "training_eligible_count": 94
+  },
+  "generated_at": "2026-04-19T17:01:52.411060+00:00",
+  "parameters": {
+    "ridge_alpha_grid": [
+      1e-06,
+      0.0001,
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "selected_item_count": 8
+  },
+  "skipped": false,
+  "skipped_reason": null,
+  "training_diagnostics": {
+    "chosen_alpha": 0.0,
+    "condition_number": 28.752264923269344,
+    "fallback_reason": null,
+    "fallback_used": false,
+    "feature_count": 8,
+    "model_kind": "ols_no_intercept",
+    "rank": 8,
+    "ridge_candidates": [],
+    "train_rmse": 18.671843898214185,
+    "train_row_count": 94
+  },
+  "warnings": [
+    {
+      "code": "incomplete_reduced_item_coverage",
+      "message": "106 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+      "severity": "warning"
+    }
+  ]
+}

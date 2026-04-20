@@ -21,6 +21,15 @@ Status after completion on 2026-04-18:
 - report bundle:
   [`reports/generalization_optimization/summary.md`](/Users/jeremykalfus/CodingProjects/BenchIQ/reports/generalization_optimization/summary.md)
 
+Follow-up on 2026-04-19:
+
+- the repo runtime default was later promoted to `reconstruction_first`
+- the psychometric baseline remains available explicitly as `psychometric_default`
+- a later preprocessing follow-up then tightened the live `reconstruction_first` runtime default
+  with a light `drop_low_tail_models_quantile=0.002` trim while keeping
+  `deterministic_info`; see
+  [`reports/preprocessing_variation_followup/summary.md`](/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/summary.md)
+
 ## current winner
 
 The current best evidence-backed stack coming into this pass is:
@@ -35,6 +44,13 @@ That winner came from:
 - compact auxiliary head checks
 
 This new pass is explicitly about validating that winner more broadly before promotion.
+
+Historical note:
+
+- this section describes the winner coming into the generalization pass
+- the actual current runtime default is now the later follow-up variant under
+  `reconstruction_first`, which adds the light `0.002` low-tail trim on top of the relaxed
+  preprocessing settings
 
 ## candidate comparisons
 

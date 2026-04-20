@@ -1,0 +1,212 @@
+{
+  "benchmarks": {
+    "sparse_b1": {
+      "diagnostics": {
+        "train": {
+          "count": 162,
+          "score_max": 87.77777777777777,
+          "score_mean": 51.200867872220805,
+          "score_min": 17.17171717171717
+        },
+        "val": {
+          "count": 18,
+          "score_max": 82.0,
+          "score_mean": 50.59256990970189,
+          "score_min": 15.730337078651685
+        }
+      },
+      "effective_bins": 10,
+      "fallback_reason": "benchmark_local_only",
+      "strategy": "benchmark_local_only",
+      "stratification_used": true,
+      "test_model_count": 0,
+      "train_model_count": 162,
+      "val_model_count": 18,
+      "val_split_method": "stratified",
+      "valid_model_count": 180,
+      "warnings": [
+        "sparse_b1: global overlap too small; benchmark-local train/val only"
+      ]
+    },
+    "sparse_b2": {
+      "diagnostics": {
+        "train": {
+          "count": 189,
+          "score_max": 93.75,
+          "score_mean": 52.777144881234946,
+          "score_min": 17.391304347826086
+        },
+        "val": {
+          "count": 21,
+          "score_max": 88.0,
+          "score_mean": 53.540276298707894,
+          "score_min": 23.46938775510204
+        }
+      },
+      "effective_bins": 10,
+      "fallback_reason": "benchmark_local_only",
+      "strategy": "benchmark_local_only",
+      "stratification_used": true,
+      "test_model_count": 0,
+      "train_model_count": 189,
+      "val_model_count": 21,
+      "val_split_method": "stratified",
+      "valid_model_count": 210,
+      "warnings": [
+        "sparse_b2: global overlap too small; benchmark-local train/val only"
+      ]
+    },
+    "sparse_b3": {
+      "diagnostics": {
+        "train": {
+          "count": 189,
+          "score_max": 94.89795918367348,
+          "score_mean": 58.03491030999234,
+          "score_min": 23.157894736842106
+        },
+        "val": {
+          "count": 21,
+          "score_max": 86.73469387755102,
+          "score_mean": 58.65412609499196,
+          "score_min": 30.612244897959183
+        }
+      },
+      "effective_bins": 10,
+      "fallback_reason": "benchmark_local_only",
+      "strategy": "benchmark_local_only",
+      "stratification_used": true,
+      "test_model_count": 0,
+      "train_model_count": 189,
+      "val_model_count": 21,
+      "val_split_method": "stratified",
+      "valid_model_count": 210,
+      "warnings": [
+        "sparse_b3: global overlap too small; benchmark-local train/val only"
+      ]
+    },
+    "sparse_b4": {
+      "diagnostics": {
+        "train": {
+          "count": 189,
+          "score_max": 93.75,
+          "score_mean": 50.496377155987005,
+          "score_min": 14.285714285714285
+        },
+        "val": {
+          "count": 21,
+          "score_max": 85.71428571428571,
+          "score_mean": 49.42752398122258,
+          "score_min": 25.0
+        }
+      },
+      "effective_bins": 10,
+      "fallback_reason": "benchmark_local_only",
+      "strategy": "benchmark_local_only",
+      "stratification_used": true,
+      "test_model_count": 0,
+      "train_model_count": 189,
+      "val_model_count": 21,
+      "val_split_method": "stratified",
+      "valid_model_count": 210,
+      "warnings": [
+        "sparse_b4: global overlap too small; benchmark-local train/val only"
+      ]
+    },
+    "sparse_b5": {
+      "diagnostics": {
+        "train": {
+          "count": 189,
+          "score_max": 92.78350515463917,
+          "score_mean": 48.77792227645404,
+          "score_min": 15.217391304347828
+        },
+        "val": {
+          "count": 21,
+          "score_max": 80.0,
+          "score_mean": 47.474682377176194,
+          "score_min": 21.34831460674157
+        }
+      },
+      "effective_bins": 10,
+      "fallback_reason": "benchmark_local_only",
+      "strategy": "benchmark_local_only",
+      "stratification_used": true,
+      "test_model_count": 0,
+      "train_model_count": 189,
+      "val_model_count": 21,
+      "val_split_method": "stratified",
+      "valid_model_count": 210,
+      "warnings": [
+        "sparse_b5: global overlap too small; benchmark-local train/val only"
+      ]
+    },
+    "sparse_b6": {
+      "diagnostics": {
+        "train": {
+          "count": 162,
+          "score_max": 93.75,
+          "score_mean": 44.05358807494615,
+          "score_min": 15.789473684210526
+        },
+        "val": {
+          "count": 18,
+          "score_max": 82.79569892473118,
+          "score_mean": 41.480882598778024,
+          "score_min": 13.095238095238097
+        }
+      },
+      "effective_bins": 10,
+      "fallback_reason": "benchmark_local_only",
+      "strategy": "benchmark_local_only",
+      "stratification_used": true,
+      "test_model_count": 0,
+      "train_model_count": 162,
+      "val_model_count": 18,
+      "val_split_method": "stratified",
+      "valid_model_count": 180,
+      "warnings": [
+        "sparse_b6: global overlap too small; benchmark-local train/val only"
+      ]
+    }
+  },
+  "counts": {
+    "benchmark_count": 6,
+    "global_test_enabled": false,
+    "global_test_model_count": 0
+  },
+  "generated_at": "2026-04-19T17:01:49.170794+00:00",
+  "global_test": {
+    "assigned_test_count": 0,
+    "assigned_train_pool_count": 0,
+    "diagnostics": {
+      "benchmark_local_only": {
+        "count": 650,
+        "score_max": null,
+        "score_mean": null,
+        "score_min": null
+      }
+    },
+    "effective_bins": 0,
+    "eligible_model_count": 0,
+    "enabled": false,
+    "fallback_reason": "overlap_below_joint_threshold",
+    "skip_reason": "overlap_below_joint_threshold",
+    "split_method": "unavailable",
+    "stratification_used": false,
+    "test_model_count": 0,
+    "train_val_pool_count": 0,
+    "warnings": [
+      "global test split disabled: no grand scores available"
+    ]
+  },
+  "warnings": [
+    "global test split disabled: no grand scores available",
+    "sparse_b1: global overlap too small; benchmark-local train/val only",
+    "sparse_b2: global overlap too small; benchmark-local train/val only",
+    "sparse_b3: global overlap too small; benchmark-local train/val only",
+    "sparse_b4: global overlap too small; benchmark-local train/val only",
+    "sparse_b5: global overlap too small; benchmark-local train/val only",
+    "sparse_b6: global overlap too small; benchmark-local train/val only",
+    "benchmark-local train/val only: global overlap is too small"
+  ]
+}

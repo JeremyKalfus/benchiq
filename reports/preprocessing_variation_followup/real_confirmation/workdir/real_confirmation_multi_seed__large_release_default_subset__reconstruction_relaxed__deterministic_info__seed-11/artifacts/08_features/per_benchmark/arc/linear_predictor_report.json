@@ -1,0 +1,37 @@
+{
+  "benchmark_id": "arc",
+  "counts": {
+    "coefficient_count": 250,
+    "incomplete_coverage_count": 0,
+    "model_count": 5221,
+    "predicted_model_count": 5221,
+    "training_eligible_count": 4281
+  },
+  "generated_at": "2026-04-20T00:08:29.881262+00:00",
+  "parameters": {
+    "ridge_alpha_grid": [
+      1e-06,
+      0.0001,
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "selected_item_count": 250
+  },
+  "skipped": false,
+  "skipped_reason": null,
+  "training_diagnostics": {
+    "chosen_alpha": 0.0,
+    "condition_number": 122214.5518211154,
+    "fallback_reason": null,
+    "fallback_used": false,
+    "feature_count": 250,
+    "model_kind": "ols_no_intercept",
+    "rank": 250,
+    "ridge_candidates": [],
+    "train_rmse": 1.0320300501370863,
+    "train_row_count": 4281
+  },
+  "warnings": []
+}

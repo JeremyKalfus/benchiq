@@ -14,15 +14,15 @@ class BenchIQConfig(BaseModel):
 
     duplicate_policy: DuplicatePolicy = "error"
     allow_low_n: bool = False
-    drop_low_tail_models_quantile: float = Field(default=0.001, ge=0.0, lt=1.0)
-    min_item_sd: float = Field(default=0.01, ge=0.0)
-    max_item_mean: float = Field(default=0.95, ge=0.0, le=1.0)
-    min_abs_point_biserial: float = Field(default=0.05, ge=0.0, le=1.0)
+    drop_low_tail_models_quantile: float = Field(default=0.002, ge=0.0, lt=1.0)
+    min_item_sd: float = Field(default=0.0, ge=0.0)
+    max_item_mean: float = Field(default=0.99, ge=0.0, le=1.0)
+    min_abs_point_biserial: float = Field(default=0.0, ge=0.0, le=1.0)
     min_models_per_benchmark: int = Field(default=100, ge=1)
     warn_models_per_benchmark: int = Field(default=200, ge=1)
     min_items_after_filtering: int = Field(default=50, ge=1)
     min_models_per_item: int = Field(default=50, ge=1)
-    min_item_coverage: float = Field(default=0.8, gt=0.0, le=1.0)
+    min_item_coverage: float = Field(default=0.7, gt=0.0, le=1.0)
     min_overlap_models_for_joint: int = Field(default=75, ge=1)
     min_overlap_models_for_redundancy: int = Field(default=75, ge=1)
     p_test: float = Field(default=0.10, gt=0.0, lt=1.0)

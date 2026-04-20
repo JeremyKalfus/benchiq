@@ -1,0 +1,54 @@
+{
+  "benchmark_id": "dense_b3",
+  "best_iteration": {
+    "best_lam": 1.0,
+    "iteration_id": 0,
+    "max_rmse_val": 7.994723868839519,
+    "mean_rmse_test": 7.869224949297907,
+    "mean_rmse_val": 7.442990172732642,
+    "sampled_item_ids": [
+      "dense_b3_item_023",
+      "dense_b3_item_024",
+      "dense_b3_item_026",
+      "dense_b3_item_033",
+      "dense_b3_item_035",
+      "dense_b3_item_041",
+      "dense_b3_item_043",
+      "dense_b3_item_045",
+      "dense_b3_item_048",
+      "dense_b3_item_052",
+      "dense_b3_item_058",
+      "dense_b3_item_060"
+    ],
+    "subset_seed": 7,
+    "valid_pool_model_count": 288,
+    "valid_test_model_count": 32
+  },
+  "counts": {
+    "candidate_item_count": 120,
+    "completed_iterations": 1,
+    "cv_rows": 5,
+    "failed_iterations": 0,
+    "pool_model_count": 288,
+    "test_model_count": 32,
+    "valid_iterations": 1
+  },
+  "generated_at": "2026-04-19T17:03:08.795915+00:00",
+  "method": "deterministic_info",
+  "parameters": {
+    "checkpoint_interval": 1,
+    "cv_folds": 5,
+    "effective_k_preselect": 12,
+    "lam_grid": [
+      0.1,
+      1.0
+    ],
+    "min_item_coverage": 0.7,
+    "n_iter": 1,
+    "requested_k_preselect": 12
+  },
+  "selection_rule": "top_k_information_proxy",
+  "skipped": false,
+  "skipped_reason": null,
+  "warnings": []
+}

@@ -1,0 +1,47 @@
+{
+  "decision": "adopt_new_profile",
+  "adopt": true,
+  "baseline_profile_id": "reconstruction_relaxed",
+  "winner_profile_id": "relaxed_low_tail_002",
+  "confirmation_profile_ids": [
+    "reconstruction_relaxed",
+    "relaxed_low_tail_001",
+    "relaxed_low_tail_0005",
+    "relaxed_low_tail_0005_pb_002",
+    "relaxed_low_tail_002"
+  ],
+  "baseline_rmse_mean": 0.8954542106651314,
+  "winner_rmse_mean": 0.878611144973008,
+  "rmse_delta_vs_baseline": -0.01684306569212346,
+  "baseline_seed_rmse_std": 0.02204518618780841,
+  "winner_seed_rmse_std": 0.019917644199675656,
+  "winner_retained_items_mean": 350.0,
+  "winner_retained_models_mean": 5572.666666666667,
+  "benchmark_rmse_deltas_vs_baseline": [
+    {
+      "benchmark_id": "truthfulqa",
+      "rmse_delta": -0.05205728068204163
+    },
+    {
+      "benchmark_id": "hellaswag",
+      "rmse_delta": -0.046181132443251394
+    },
+    {
+      "benchmark_id": "winogrande",
+      "rmse_delta": -0.005201737645332716
+    },
+    {
+      "benchmark_id": "mmlu",
+      "rmse_delta": -0.003548963445621389
+    },
+    {
+      "benchmark_id": "arc",
+      "rmse_delta": -0.0029574712821893723
+    },
+    {
+      "benchmark_id": "gsm8k",
+      "rmse_delta": 0.00888819134569574
+    }
+  ],
+  "reason": "relaxed_low_tail_002 lowered mean held-out best-available RMSE from 0.8955 to 0.8786 on the multi-seed confirmation pass."
+}

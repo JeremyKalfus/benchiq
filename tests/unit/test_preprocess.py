@@ -47,6 +47,9 @@ def test_preprocess_bundle_filters_expected_items_and_writes_artifacts(tmp_path)
     config = benchiq.BenchIQConfig(
         allow_low_n=True,
         drop_low_tail_models_quantile=0.0,
+        min_item_sd=0.01,
+        max_item_mean=0.95,
+        min_abs_point_biserial=0.05,
         min_models_per_benchmark=1,
         warn_models_per_benchmark=1,
         min_items_after_filtering=1,
@@ -247,7 +250,7 @@ def test_compute_item_stats_matches_part_whole_point_biserial_with_missing_data(
 
 
 def test_apply_item_filter_flags_uses_spec_threshold_boundaries() -> None:
-    config = benchiq.BenchIQConfig()
+    config = benchiq.build_psychometric_default_profile().config
     item_stats = pd.DataFrame(
         [
             {

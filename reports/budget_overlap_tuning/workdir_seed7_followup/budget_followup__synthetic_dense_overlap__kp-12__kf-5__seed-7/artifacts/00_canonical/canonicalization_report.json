@@ -1,0 +1,56 @@
+{
+  "duplicate_policy": "error",
+  "sources": {
+    "items": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "items"
+    },
+    "models": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "models"
+    },
+    "responses_long": {
+      "derived": false,
+      "file_format": "parquet",
+      "path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/generalization_optimization/generated_bundles/synthetic_dense_overlap/responses_long.parquet",
+      "sha256": "6c55e4ebf292f829539a91f3a29a12a544ae952cd3000954d0bcd973f71da58f",
+      "table_name": "responses_long"
+    }
+  },
+  "validation": {
+    "counts": {
+      "error_count": 0,
+      "table_count": 3,
+      "warning_count": 0
+    },
+    "errors": [],
+    "ok": true,
+    "summary": {
+      "error_count": 0,
+      "ok": true,
+      "table_count": 3,
+      "tables": {
+        "items": {
+          "columns": 2,
+          "rows": 600
+        },
+        "models": {
+          "columns": 1,
+          "rows": 320
+        },
+        "responses_long": {
+          "columns": 4,
+          "rows": 187564
+        }
+      },
+      "warning_count": 0
+    },
+    "warnings": []
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "backend": "pygam",
+  "best_holdout_rmse": 0.607825299775033,
+  "best_lam": 0.1,
+  "best_max_val_rmse": 0.6546790280243185,
+  "best_mean_baseline_val_rmse": 16.41862824425332,
+  "best_mean_val_rmse": 0.5811491143601769,
+  "best_model_metadata": {
+    "backend": "pygam",
+    "benchiq_version": "0.1.0a0",
+    "cv_folds": 5,
+    "feature_names": [
+      "theta_arc",
+      "theta_gsm8k",
+      "theta_hellaswag",
+      "theta_mmlu",
+      "theta_se_b",
+      "theta_truthfulqa",
+      "theta_winogrande",
+      "sub_b",
+      "grand_sub",
+      "lin_b",
+      "grand_lin"
+    ],
+    "fit_statistics": {
+      "aic": 6280.176911889961,
+      "edof": 70.31640795336449,
+      "gcv": 0.31822032309984094,
+      "loglikelihood": -3068.772047991616,
+      "pseudo_r2": {
+        "McFadden": 0.0018675513467165414,
+        "McFadden_adj": 0.9980896564548679,
+        "explained_deviance": 0.9988816254119168
+      },
+      "scale": 0.554507003306161
+    },
+    "fit_warnings": [],
+    "model_hyperparameters": {
+      "fit_intercept": true,
+      "lam": 0.1,
+      "max_iter": 100,
+      "terms": "s(0) + s(1) + s(2) + s(3) + s(4) + s(5) + s(6) + s(7) + s(8) + s(9) + s(10) + intercept",
+      "tol": 0.0001
+    },
+    "n_features": 11,
+    "n_splines": 10,
+    "pickle_protocol": 5,
+    "pygam_version": "0.12.0",
+    "python_version": "3.14.4",
+    "selected_lam": 0.1,
+    "selection_metric": "rmse",
+    "skipped_lam_settings": [],
+    "target_name": "score_full_b",
+    "test_row_count": 462,
+    "train_row_count": 3743
+  },
+  "cv_folds": 5,
+  "holdout_row_count": 462,
+  "lam_grid": [
+    0.1,
+    1.0
+  ],
+  "lam_summaries": [
+    {
+      "fold_count": 5,
+      "lam": 0.1,
+      "max_val_rmse": 0.6546790280243185,
+      "mean_baseline_val_rmse": 16.41862824425332,
+      "mean_test_rmse": 0.6127673163691103,
+      "mean_val_rmse": 0.5811491143601769
+    },
+    {
+      "fold_count": 5,
+      "lam": 1.0,
+      "max_val_rmse": 0.662188484275414,
+      "mean_baseline_val_rmse": 16.41862824425332,
+      "mean_test_rmse": 0.6377460231535961,
+      "mean_val_rmse": 0.5874641692220233
+    }
+  ],
+  "selection_metric": "rmse",
+  "skipped_lam_settings": []
+}

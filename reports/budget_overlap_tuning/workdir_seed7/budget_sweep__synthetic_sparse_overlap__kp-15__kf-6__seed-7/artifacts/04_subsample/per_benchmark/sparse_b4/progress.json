@@ -1,0 +1,38 @@
+{
+  "benchmark_id": "sparse_b4",
+  "best_iteration": {
+    "best_lam": 1.0,
+    "iteration_id": 0,
+    "max_rmse_val": 7.010407375342959,
+    "mean_rmse_test": null,
+    "mean_rmse_val": 6.719036472588421,
+    "sampled_item_ids": [
+      "sparse_b4_item_009",
+      "sparse_b4_item_016",
+      "sparse_b4_item_019",
+      "sparse_b4_item_023",
+      "sparse_b4_item_035",
+      "sparse_b4_item_038",
+      "sparse_b4_item_039",
+      "sparse_b4_item_041",
+      "sparse_b4_item_042",
+      "sparse_b4_item_043",
+      "sparse_b4_item_046",
+      "sparse_b4_item_047",
+      "sparse_b4_item_048",
+      "sparse_b4_item_049",
+      "sparse_b4_item_057"
+    ],
+    "subset_seed": 7,
+    "valid_pool_model_count": 210,
+    "valid_test_model_count": 0
+  },
+  "candidate_item_count": 105,
+  "completed_iterations": 1,
+  "effective_k_preselect": 15,
+  "failed_iterations": 0,
+  "n_iter": 1,
+  "requested_k_preselect": 15,
+  "updated_at": "2026-04-19T17:01:55.232999+00:00",
+  "valid_iterations": 1
+}

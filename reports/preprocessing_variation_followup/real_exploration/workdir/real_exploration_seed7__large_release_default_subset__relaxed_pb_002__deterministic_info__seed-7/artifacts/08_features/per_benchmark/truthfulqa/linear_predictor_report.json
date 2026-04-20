@@ -1,0 +1,68 @@
+{
+  "benchmark_id": "truthfulqa",
+  "counts": {
+    "coefficient_count": 250,
+    "incomplete_coverage_count": 0,
+    "model_count": 5222,
+    "predicted_model_count": 5222,
+    "training_eligible_count": 4282
+  },
+  "generated_at": "2026-04-19T23:36:48.622146+00:00",
+  "parameters": {
+    "ridge_alpha_grid": [
+      1e-06,
+      0.0001,
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "selected_item_count": 250
+  },
+  "skipped": false,
+  "skipped_reason": null,
+  "training_diagnostics": {
+    "chosen_alpha": 1e-06,
+    "condition_number": 4.0541415094962946e+20,
+    "fallback_reason": "rank_deficient_design_matrix",
+    "fallback_used": true,
+    "feature_count": 250,
+    "model_kind": "ridge_no_intercept",
+    "rank": 243,
+    "ridge_candidates": [
+      {
+        "alpha": 1e-06,
+        "train_rmse": 0.818139761751131
+      },
+      {
+        "alpha": 0.0001,
+        "train_rmse": 0.8181397624801494
+      },
+      {
+        "alpha": 0.01,
+        "train_rmse": 0.8181455184928998
+      },
+      {
+        "alpha": 0.1,
+        "train_rmse": 0.8183841277073175
+      },
+      {
+        "alpha": 1.0,
+        "train_rmse": 0.8214201096463665
+      },
+      {
+        "alpha": 10.0,
+        "train_rmse": 0.8306072682211001
+      }
+    ],
+    "train_rmse": 0.818139761751131,
+    "train_row_count": 4282
+  },
+  "warnings": [
+    {
+      "code": "ridge_fallback_used",
+      "message": "rank_deficient_design_matrix triggered deterministic ridge fallback with alpha=1e-06.",
+      "severity": "warning"
+    }
+  ]
+}

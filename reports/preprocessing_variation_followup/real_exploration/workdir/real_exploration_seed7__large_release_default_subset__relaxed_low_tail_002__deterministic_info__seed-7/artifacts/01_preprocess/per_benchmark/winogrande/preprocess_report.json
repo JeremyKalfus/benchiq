@@ -1,0 +1,48 @@
+{
+  "benchmark_id": "winogrande",
+  "counts": {
+    "coverage_models_dropped": 0,
+    "dropped_low_coverage_items": 0,
+    "dropped_low_discrimination_items": 0,
+    "dropped_low_variance_items": 0,
+    "dropped_near_ceiling_items": 0,
+    "initial_items": 350,
+    "initial_models": 6550,
+    "low_tail_models_dropped": 13,
+    "retained_items": 350,
+    "retained_models": 6537
+  },
+  "dropped_model_ids": {
+    "coverage": [],
+    "low_tail": [
+      "BEE-spoke-data/smol_llama-220M-GQA",
+      "BEE-spoke-data/smol_llama-220M-open_instruct",
+      "BreadAi/gpt-YA-1-1_70M",
+      "SaylorTwift/gpt2_test",
+      "Sharathhebbar24/Med_GPT2",
+      "Stefan171/TinyLlama-QuantumQuill-chat-28-05-24",
+      "TFLai/bloom-560m-4bit-alpaca",
+      "Tincando/fiction_story_generator",
+      "abideen/Mistral-v0.2-orpo",
+      "crumb/gpt2023",
+      "dpv/finetuned-gpt2-tiny",
+      "ewqr2130/alignment-handbook-zephyr-7b_ppostep_100",
+      "maximuslee07/llama-2-13b-rockwellautomation"
+    ]
+  },
+  "generated_at": "2026-04-19T23:27:35.944762+00:00",
+  "refusal_reasons": [],
+  "refused": false,
+  "thresholds": {
+    "drop_low_tail_models_quantile": 0.002,
+    "max_item_mean": 0.99,
+    "min_abs_point_biserial": 0.0,
+    "min_item_coverage": 0.7,
+    "min_item_sd": 0.0,
+    "min_items_after_filtering": 50,
+    "min_models_per_benchmark": 100,
+    "min_models_per_item": 1308,
+    "warn_models_per_benchmark": 200
+  },
+  "warnings": []
+}

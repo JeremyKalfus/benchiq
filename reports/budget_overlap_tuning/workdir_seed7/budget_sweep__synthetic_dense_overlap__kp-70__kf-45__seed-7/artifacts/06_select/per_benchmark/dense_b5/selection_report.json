@@ -1,0 +1,81 @@
+{
+  "artifacts": {
+    "expected_test_information_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/06_select/per_benchmark/dense_b5/plots/expected_test_information.png",
+    "plots_reason": null,
+    "plots_written": true
+  },
+  "benchmark_id": "dense_b5",
+  "counts": {
+    "candidate_item_count": 70,
+    "info_grid_row_count": 10570,
+    "selected_item_count": 45
+  },
+  "expected_test_information": {
+    "full_sum_max": 15.610922960025103,
+    "reduced_sum_max": 11.25600801895071
+  },
+  "generated_at": "2026-04-19T17:01:11.658020+00:00",
+  "parameters": {
+    "effective_k_final": 45,
+    "info_min": 0.0,
+    "n_bins": 45,
+    "requested_k_final": 45,
+    "theta_grid_size": 151,
+    "theta_grid_type": "difficulty_range"
+  },
+  "selected_item_ids": [
+    "dense_b5_item_004",
+    "dense_b5_item_108",
+    "dense_b5_item_008",
+    "dense_b5_item_005",
+    "dense_b5_item_001",
+    "dense_b5_item_014",
+    "dense_b5_item_027",
+    "dense_b5_item_011",
+    "dense_b5_item_015",
+    "dense_b5_item_031",
+    "dense_b5_item_041",
+    "dense_b5_item_022",
+    "dense_b5_item_024",
+    "dense_b5_item_037",
+    "dense_b5_item_033",
+    "dense_b5_item_058",
+    "dense_b5_item_046",
+    "dense_b5_item_057",
+    "dense_b5_item_068",
+    "dense_b5_item_069",
+    "dense_b5_item_054",
+    "dense_b5_item_051",
+    "dense_b5_item_040",
+    "dense_b5_item_070",
+    "dense_b5_item_039",
+    "dense_b5_item_073",
+    "dense_b5_item_063",
+    "dense_b5_item_066",
+    "dense_b5_item_076",
+    "dense_b5_item_075",
+    "dense_b5_item_077",
+    "dense_b5_item_061",
+    "dense_b5_item_064",
+    "dense_b5_item_071",
+    "dense_b5_item_062",
+    "dense_b5_item_065",
+    "dense_b5_item_078",
+    "dense_b5_item_059",
+    "dense_b5_item_048",
+    "dense_b5_item_049",
+    "dense_b5_item_067",
+    "dense_b5_item_055",
+    "dense_b5_item_050",
+    "dense_b5_item_044",
+    "dense_b5_item_053"
+  ],
+  "skipped": false,
+  "skipped_reason": null,
+  "theta_grid": {
+    "grid_size": 151,
+    "max_theta": 2.7955833615978096,
+    "min_theta": -2.9621818475048682
+  },
+  "warnings": []
+}

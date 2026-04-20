@@ -1,0 +1,19 @@
+# preprocessing optimization
+
+## winners
+
+- real_exploration_seed7 / large_release_default_subset / deterministic_info: `relaxed_low_tail_001` (rmse_mean=0.8805, seed_rmse_std=0.0000, final_stability=1.0000)
+
+## summary
+
+- real_exploration_seed7 / large_release_default_subset / deterministic_info / `relaxed_low_tail_001`: rmse_mean=0.8805, mae_mean=0.5935, pearson_mean=0.9980, spearman_mean=0.9974, seed_rmse_std=0.0000, runtime_mean_seconds=288.5326, retained_items_mean=350.00, selected_items_final_mean=250.00, final_selection_stability_mean=1.0000
+- real_exploration_seed7 / large_release_default_subset / deterministic_info / `relaxed_low_tail_0005`: rmse_mean=0.8963, mae_mean=0.5949, pearson_mean=0.9980, spearman_mean=0.9972, seed_rmse_std=0.0000, runtime_mean_seconds=293.0167, retained_items_mean=350.00, selected_items_final_mean=250.00, final_selection_stability_mean=1.0000
+- real_exploration_seed7 / large_release_default_subset / deterministic_info / `relaxed_low_tail_0005_pb_002`: rmse_mean=0.8963, mae_mean=0.5949, pearson_mean=0.9980, spearman_mean=0.9972, seed_rmse_std=0.0000, runtime_mean_seconds=350.0377, retained_items_mean=350.00, selected_items_final_mean=250.00, final_selection_stability_mean=1.0000
+- real_exploration_seed7 / large_release_default_subset / deterministic_info / `relaxed_low_tail_002`: rmse_mean=0.9014, mae_mean=0.6061, pearson_mean=0.9979, spearman_mean=0.9972, seed_rmse_std=0.0000, runtime_mean_seconds=291.1986, retained_items_mean=350.00, selected_items_final_mean=250.00, final_selection_stability_mean=1.0000
+- real_exploration_seed7 / large_release_default_subset / deterministic_info / `reconstruction_relaxed`: rmse_mean=0.9015, mae_mean=0.5959, pearson_mean=0.9980, spearman_mean=0.9974, seed_rmse_std=0.0000, runtime_mean_seconds=347.9163, retained_items_mean=350.00, selected_items_final_mean=250.00, final_selection_stability_mean=1.0000
+- real_exploration_seed7 / large_release_default_subset / deterministic_info / `relaxed_pb_002`: rmse_mean=0.9015, mae_mean=0.5959, pearson_mean=0.9980, spearman_mean=0.9974, seed_rmse_std=0.0000, runtime_mean_seconds=331.4253, retained_items_mean=350.00, selected_items_final_mean=250.00, final_selection_stability_mean=1.0000
+- real_exploration_seed7 / large_release_default_subset / deterministic_info / `relaxed_ceiling_092`: rmse_mean=0.9855, mae_mean=0.7220, pearson_mean=0.9984, spearman_mean=0.9969, seed_rmse_std=0.0000, runtime_mean_seconds=230.9614, retained_items_mean=330.67, selected_items_final_mean=125.00, final_selection_stability_mean=1.0000
+- real_exploration_seed7 / large_release_default_subset / deterministic_info / `relaxed_low_tail_001_pb_005`: rmse_mean=1.0066, mae_mean=0.7338, pearson_mean=0.9983, spearman_mean=0.9969, seed_rmse_std=0.0000, runtime_mean_seconds=240.1361, retained_items_mean=348.50, selected_items_final_mean=125.00, final_selection_stability_mean=1.0000
+- real_exploration_seed7 / large_release_default_subset / deterministic_info / `relaxed_pb_005`: rmse_mean=1.0088, mae_mean=0.7295, pearson_mean=0.9982, spearman_mean=0.9970, seed_rmse_std=0.0000, runtime_mean_seconds=209.0724, retained_items_mean=348.33, selected_items_final_mean=125.00, final_selection_stability_mean=1.0000
+- real_exploration_seed7 / large_release_default_subset / deterministic_info / `relaxed_ceiling_090`: rmse_mean=1.0407, mae_mean=0.7931, pearson_mean=0.9985, spearman_mean=0.9973, seed_rmse_std=0.0000, runtime_mean_seconds=192.6458, retained_items_mean=313.67, selected_items_final_mean=83.33, final_selection_stability_mean=1.0000
+- real_exploration_seed7 / large_release_default_subset / deterministic_info / `relaxed_pb_010`: rmse_mean=n/a, mae_mean=n/a, pearson_mean=n/a, spearman_mean=n/a, seed_rmse_std=0.0000, runtime_mean_seconds=82.9003, retained_items_mean=336.17, selected_items_final_mean=0.00, final_selection_stability_mean=1.0000

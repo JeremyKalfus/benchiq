@@ -1,0 +1,50 @@
+{
+  "artifacts": {
+    "expected_test_information_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-20__kf-8__seed-7/artifacts/06_select/per_benchmark/sparse_b6/plots/expected_test_information.png",
+    "plots_reason": null,
+    "plots_written": true
+  },
+  "benchmark_id": "sparse_b6",
+  "counts": {
+    "candidate_item_count": 20,
+    "info_grid_row_count": 3020,
+    "selected_item_count": 8
+  },
+  "expected_test_information": {
+    "full_sum_max": 8.79537011968775,
+    "reduced_sum_max": 4.906616552765572
+  },
+  "generated_at": "2026-04-19T17:01:50.740144+00:00",
+  "parameters": {
+    "effective_k_final": 8,
+    "info_min": 0.0,
+    "n_bins": 8,
+    "requested_k_final": 8,
+    "theta_grid_size": 151,
+    "theta_grid_type": "difficulty_range"
+  },
+  "selected_item_ids": [
+    "sparse_b6_item_012",
+    "sparse_b6_item_030",
+    "sparse_b6_item_013",
+    "sparse_b6_item_046",
+    "sparse_b6_item_041",
+    "sparse_b6_item_027",
+    "sparse_b6_item_033",
+    "sparse_b6_item_042"
+  ],
+  "skipped": false,
+  "skipped_reason": null,
+  "theta_grid": {
+    "grid_size": 151,
+    "max_theta": 1.7899486420919946,
+    "min_theta": -1.5293228952418314
+  },
+  "warnings": [
+    {
+      "code": "small_final_subset",
+      "message": "selected only 8 final items; reduced benchmark may be too small for stable downstream reconstruction.",
+      "severity": "warning"
+    }
+  ]
+}

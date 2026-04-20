@@ -1,0 +1,76 @@
+{
+  "backend": "pygam",
+  "best_holdout_rmse": 0.9529715512254678,
+  "best_lam": 0.1,
+  "best_max_val_rmse": 0.9175317877660116,
+  "best_mean_baseline_val_rmse": 16.688487159755006,
+  "best_mean_val_rmse": 0.8682155572730696,
+  "best_model_metadata": {
+    "backend": "pygam",
+    "benchiq_version": "0.1.0a0",
+    "cv_folds": 5,
+    "feature_names": [
+      "theta_b",
+      "theta_se_b",
+      "sub_b",
+      "lin_b"
+    ],
+    "fit_statistics": {
+      "aic": 10936.514431521684,
+      "edof": 22.878013329148644,
+      "gcv": 0.7571698394088011,
+      "loglikelihood": -5444.379202431694,
+      "pseudo_r2": {
+        "McFadden": 0.006825447339734017,
+        "McFadden_adj": 0.9931458712129586,
+        "explained_deviance": 0.9973209785162699
+      },
+      "scale": 0.8659598359646176
+    },
+    "fit_warnings": [],
+    "model_hyperparameters": {
+      "fit_intercept": true,
+      "lam": 0.1,
+      "max_iter": 100,
+      "terms": "s(0) + s(1) + s(2) + s(3) + intercept",
+      "tol": 0.0001
+    },
+    "n_features": 4,
+    "n_splines": 10,
+    "pickle_protocol": 5,
+    "pygam_version": "0.12.0",
+    "python_version": "3.14.4",
+    "selected_lam": 0.1,
+    "selection_metric": "rmse",
+    "skipped_lam_settings": [],
+    "target_name": "score_full_b",
+    "test_row_count": 464,
+    "train_row_count": 4279
+  },
+  "cv_folds": 5,
+  "holdout_row_count": 464,
+  "lam_grid": [
+    0.1,
+    1.0
+  ],
+  "lam_summaries": [
+    {
+      "fold_count": 5,
+      "lam": 0.1,
+      "max_val_rmse": 0.9175317877660116,
+      "mean_baseline_val_rmse": 16.688487159755006,
+      "mean_test_rmse": 0.9531262180619237,
+      "mean_val_rmse": 0.8682155572730696
+    },
+    {
+      "fold_count": 5,
+      "lam": 1.0,
+      "max_val_rmse": 0.9225573971052093,
+      "mean_baseline_val_rmse": 16.688487159755006,
+      "mean_test_rmse": 0.9507540200626524,
+      "mean_val_rmse": 0.8700764823827359
+    }
+  ],
+  "selection_metric": "rmse",
+  "skipped_lam_settings": []
+}

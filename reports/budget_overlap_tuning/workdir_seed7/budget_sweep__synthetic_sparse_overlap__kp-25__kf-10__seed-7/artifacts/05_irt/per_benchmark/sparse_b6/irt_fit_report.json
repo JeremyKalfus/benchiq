@@ -1,0 +1,97 @@
+{
+  "artifacts": {
+    "dropped_pathological_items_written": false,
+    "item_parameter_scatter": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/05_irt/per_benchmark/sparse_b6/plots/item_parameter_scatter.png",
+    "plots_reason": null,
+    "plots_written": true
+  },
+  "backend_options": {},
+  "benchmark_id": "sparse_b6",
+  "convergence": {
+    "backend_exposes_flag": false,
+    "max_iteration": null,
+    "status": null,
+    "status_available": false,
+    "warning_code": "backend_convergence_status_unavailable"
+  },
+  "counts": {
+    "missing_response_count": 338,
+    "pathology_excluded_count": 0,
+    "pathology_warning_count": 0,
+    "preselect_item_count": 25,
+    "retained_item_count": 25,
+    "train_model_count": 162,
+    "valid_response_count": 3712
+  },
+  "fit_metrics": {
+    "ability_mean": 0.007085886607602723,
+    "ability_sd": 0.9279343283517538,
+    "aic": {
+      "delta": 0.0,
+      "final": 4298.613740161947,
+      "null": 4298.613740161947
+    },
+    "bic": {
+      "delta": 0.0,
+      "final": 4298.613740161947,
+      "null": 4298.613740161947
+    },
+    "runtime_seconds": 0.1644628340145573
+  },
+  "generated_at": "2026-04-19T17:01:44.556097+00:00",
+  "irt_backend": "girth",
+  "model": "2pl",
+  "pathology": {
+    "excluded_item_ids": [],
+    "excluded_items": [],
+    "exclusion_is_data_dependent": true,
+    "exclusion_note": "real-backend pathological exclusion is data-dependent and may be absent on well-behaved fixtures",
+    "exclusion_thresholds": {
+      "difficulty_must_be_finite": true,
+      "discrimination_max": 10.0,
+      "discrimination_min": 0.05
+    },
+    "retained_item_ids": [
+      "sparse_b6_item_001",
+      "sparse_b6_item_002",
+      "sparse_b6_item_006",
+      "sparse_b6_item_008",
+      "sparse_b6_item_009",
+      "sparse_b6_item_012",
+      "sparse_b6_item_013",
+      "sparse_b6_item_016",
+      "sparse_b6_item_018",
+      "sparse_b6_item_019",
+      "sparse_b6_item_021",
+      "sparse_b6_item_022",
+      "sparse_b6_item_023",
+      "sparse_b6_item_024",
+      "sparse_b6_item_026",
+      "sparse_b6_item_027",
+      "sparse_b6_item_030",
+      "sparse_b6_item_032",
+      "sparse_b6_item_033",
+      "sparse_b6_item_037",
+      "sparse_b6_item_041",
+      "sparse_b6_item_042",
+      "sparse_b6_item_043",
+      "sparse_b6_item_044",
+      "sparse_b6_item_046"
+    ],
+    "warning_item_ids": [],
+    "warning_thresholds": {
+      "discrimination_max": 5.0,
+      "discrimination_min": 0.1
+    }
+  },
+  "skipped": false,
+  "skipped_reason": null,
+  "warnings": [
+    {
+      "code": "backend_convergence_status_unavailable",
+      "limitation": true,
+      "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+      "severity": "warning"
+    }
+  ]
+}

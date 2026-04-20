@@ -1,0 +1,56 @@
+{
+  "duplicate_policy": "error",
+  "sources": {
+    "items": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "items"
+    },
+    "models": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "models"
+    },
+    "responses_long": {
+      "derived": false,
+      "file_format": "parquet",
+      "path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/metabench_real_source/release_default_subset_responses_long.parquet",
+      "sha256": "986bfe56414123f9f1a8175ab7b5807890de1a27cc3d14722509462a0dd78200",
+      "table_name": "responses_long"
+    }
+  },
+  "validation": {
+    "counts": {
+      "error_count": 0,
+      "table_count": 3,
+      "warning_count": 0
+    },
+    "errors": [],
+    "ok": true,
+    "summary": {
+      "error_count": 0,
+      "ok": true,
+      "table_count": 3,
+      "tables": {
+        "items": {
+          "columns": 2,
+          "rows": 2100
+        },
+        "models": {
+          "columns": 1,
+          "rows": 6832
+        },
+        "responses_long": {
+          "columns": 4,
+          "rows": 11725350
+        }
+      },
+      "warning_count": 0
+    },
+    "warnings": []
+  }
+}

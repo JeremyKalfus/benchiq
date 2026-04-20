@@ -1,0 +1,25 @@
+{
+  "benchmark_id": "winogrande",
+  "best_iteration": null,
+  "counts": {
+    "candidate_item_count": 281,
+    "completed_iterations": 0,
+    "cv_rows": 0,
+    "failed_iterations": 0,
+    "pool_model_count": 0,
+    "test_model_count": 0,
+    "valid_iterations": 0
+  },
+  "generated_at": "2026-04-19T23:43:16.830148+00:00",
+  "method": "deterministic_info",
+  "parameters": {
+    "cv_folds": 5,
+    "effective_k_preselect": 0,
+    "n_iter": 1,
+    "requested_k_preselect": 350
+  },
+  "selection_rule": "top_k_information_proxy",
+  "skipped": true,
+  "skipped_reason": "k_preselect_exceeds_candidate_items",
+  "warnings": []
+}

@@ -1,0 +1,1116 @@
+{
+  "counts": {
+    "benchmark_count": 5,
+    "features_joint_rows": 0,
+    "features_marginal_rows": 1600,
+    "split_counts": {
+      "test": 160,
+      "train": 1295,
+      "val": 145
+    }
+  },
+  "generated_at": "2026-04-19T17:01:13.610116+00:00",
+  "joint": {
+    "benchmark_row_counts": {
+      "dense_b1": 0,
+      "dense_b2": 0,
+      "dense_b3": 0,
+      "dense_b4": 0,
+      "dense_b5": 0
+    },
+    "complete_feature_model_count": 4,
+    "overlap_model_count_from_scores": 320,
+    "required_overlap_count": 180,
+    "skip_reason": "joint_feature_overlap_below_threshold",
+    "skipped": true,
+    "warnings": [
+      {
+        "code": "joint_features_incomplete",
+        "message": "Only 4 complete-overlap models had all benchmark theta/sub/lin features available.",
+        "severity": "warning"
+      }
+    ],
+    "written": false
+  },
+  "marginal": {
+    "row_counts": {
+      "dense_b1": 320,
+      "dense_b2": 320,
+      "dense_b3": 320,
+      "dense_b4": 320,
+      "dense_b5": 320
+    },
+    "written": true
+  },
+  "parameters": {
+    "benchmark_ids": [
+      "dense_b1",
+      "dense_b2",
+      "dense_b3",
+      "dense_b4",
+      "dense_b5"
+    ],
+    "min_overlap_models_for_joint": 180
+  },
+  "upstream": {
+    "linear_predictors": {
+      "benchmarks": {
+        "dense_b1": {
+          "benchmark_id": "dense_b1",
+          "counts": {
+            "coefficient_count": 45,
+            "incomplete_coverage_count": 201,
+            "model_count": 320,
+            "predicted_model_count": 119,
+            "training_eligible_count": 97
+          },
+          "generated_at": "2026-04-19T17:01:13.479688+00:00",
+          "parameters": {
+            "ridge_alpha_grid": [
+              1e-06,
+              0.0001,
+              0.01,
+              0.1,
+              1.0,
+              10.0
+            ],
+            "selected_item_count": 45
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "training_diagnostics": {
+            "chosen_alpha": 0.0,
+            "condition_number": 787.0466097008285,
+            "fallback_reason": null,
+            "fallback_used": false,
+            "feature_count": 45,
+            "model_kind": "ols_no_intercept",
+            "rank": 45,
+            "ridge_candidates": [],
+            "train_rmse": 4.90088826450256,
+            "train_row_count": 97
+          },
+          "warnings": [
+            {
+              "code": "incomplete_reduced_item_coverage",
+              "message": "201 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+              "severity": "warning"
+            }
+          ]
+        },
+        "dense_b2": {
+          "benchmark_id": "dense_b2",
+          "counts": {
+            "coefficient_count": 45,
+            "incomplete_coverage_count": 194,
+            "model_count": 320,
+            "predicted_model_count": 126,
+            "training_eligible_count": 101
+          },
+          "generated_at": "2026-04-19T17:01:13.505603+00:00",
+          "parameters": {
+            "ridge_alpha_grid": [
+              1e-06,
+              0.0001,
+              0.01,
+              0.1,
+              1.0,
+              10.0
+            ],
+            "selected_item_count": 45
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "training_diagnostics": {
+            "chosen_alpha": 0.0,
+            "condition_number": 652.7621904397997,
+            "fallback_reason": null,
+            "fallback_used": false,
+            "feature_count": 45,
+            "model_kind": "ols_no_intercept",
+            "rank": 45,
+            "ridge_candidates": [],
+            "train_rmse": 4.7496351826786976,
+            "train_row_count": 101
+          },
+          "warnings": [
+            {
+              "code": "incomplete_reduced_item_coverage",
+              "message": "194 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+              "severity": "warning"
+            }
+          ]
+        },
+        "dense_b3": {
+          "benchmark_id": "dense_b3",
+          "counts": {
+            "coefficient_count": 45,
+            "incomplete_coverage_count": 193,
+            "model_count": 320,
+            "predicted_model_count": 127,
+            "training_eligible_count": 100
+          },
+          "generated_at": "2026-04-19T17:01:13.531956+00:00",
+          "parameters": {
+            "ridge_alpha_grid": [
+              1e-06,
+              0.0001,
+              0.01,
+              0.1,
+              1.0,
+              10.0
+            ],
+            "selected_item_count": 45
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "training_diagnostics": {
+            "chosen_alpha": 0.0,
+            "condition_number": 465.53088213652865,
+            "fallback_reason": null,
+            "fallback_used": false,
+            "feature_count": 45,
+            "model_kind": "ols_no_intercept",
+            "rank": 45,
+            "ridge_candidates": [],
+            "train_rmse": 6.715964793362246,
+            "train_row_count": 100
+          },
+          "warnings": [
+            {
+              "code": "incomplete_reduced_item_coverage",
+              "message": "193 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+              "severity": "warning"
+            }
+          ]
+        },
+        "dense_b4": {
+          "benchmark_id": "dense_b4",
+          "counts": {
+            "coefficient_count": 45,
+            "incomplete_coverage_count": 198,
+            "model_count": 320,
+            "predicted_model_count": 122,
+            "training_eligible_count": 93
+          },
+          "generated_at": "2026-04-19T17:01:13.558226+00:00",
+          "parameters": {
+            "ridge_alpha_grid": [
+              1e-06,
+              0.0001,
+              0.01,
+              0.1,
+              1.0,
+              10.0
+            ],
+            "selected_item_count": 45
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "training_diagnostics": {
+            "chosen_alpha": 0.0,
+            "condition_number": 801.2427850658592,
+            "fallback_reason": null,
+            "fallback_used": false,
+            "feature_count": 45,
+            "model_kind": "ols_no_intercept",
+            "rank": 45,
+            "ridge_candidates": [],
+            "train_rmse": 4.627466657259796,
+            "train_row_count": 93
+          },
+          "warnings": [
+            {
+              "code": "incomplete_reduced_item_coverage",
+              "message": "198 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+              "severity": "warning"
+            }
+          ]
+        },
+        "dense_b5": {
+          "benchmark_id": "dense_b5",
+          "counts": {
+            "coefficient_count": 45,
+            "incomplete_coverage_count": 177,
+            "model_count": 320,
+            "predicted_model_count": 143,
+            "training_eligible_count": 120
+          },
+          "generated_at": "2026-04-19T17:01:13.584030+00:00",
+          "parameters": {
+            "ridge_alpha_grid": [
+              1e-06,
+              0.0001,
+              0.01,
+              0.1,
+              1.0,
+              10.0
+            ],
+            "selected_item_count": 45
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "training_diagnostics": {
+            "chosen_alpha": 0.0,
+            "condition_number": 363.9891434288212,
+            "fallback_reason": null,
+            "fallback_used": false,
+            "feature_count": 45,
+            "model_kind": "ols_no_intercept",
+            "rank": 45,
+            "ridge_candidates": [],
+            "train_rmse": 5.441594938247223,
+            "train_row_count": 120
+          },
+          "warnings": [
+            {
+              "code": "incomplete_reduced_item_coverage",
+              "message": "177 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+              "severity": "warning"
+            }
+          ]
+        }
+      },
+      "counts": {
+        "benchmark_count": 5,
+        "skipped_benchmark_count": 0
+      },
+      "generated_at": "2026-04-19T17:01:13.584068+00:00",
+      "parameters": {
+        "ridge_alpha_grid": [
+          1e-06,
+          0.0001,
+          0.01,
+          0.1,
+          1.0,
+          10.0
+        ]
+      },
+      "warnings": [
+        {
+          "benchmark_id": "dense_b1",
+          "code": "incomplete_reduced_item_coverage",
+          "message": "201 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "severity": "warning"
+        },
+        {
+          "benchmark_id": "dense_b2",
+          "code": "incomplete_reduced_item_coverage",
+          "message": "194 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "severity": "warning"
+        },
+        {
+          "benchmark_id": "dense_b3",
+          "code": "incomplete_reduced_item_coverage",
+          "message": "193 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "severity": "warning"
+        },
+        {
+          "benchmark_id": "dense_b4",
+          "code": "incomplete_reduced_item_coverage",
+          "message": "198 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "severity": "warning"
+        },
+        {
+          "benchmark_id": "dense_b5",
+          "code": "incomplete_reduced_item_coverage",
+          "message": "177 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "severity": "warning"
+        }
+      ]
+    },
+    "scores": {
+      "benchmark_ids": [
+        "dense_b1",
+        "dense_b2",
+        "dense_b3",
+        "dense_b4",
+        "dense_b5"
+      ],
+      "benchmarks": {
+        "dense_b1": {
+          "missing_benchmark_refused_count": 0,
+          "missing_low_coverage_count": 0,
+          "missing_preprocess_filtered_out_count": 0,
+          "missing_score_count": 0,
+          "preprocess_retained_model_count": 320,
+          "refusal_reasons": [],
+          "refused": false,
+          "retained_item_count": 120,
+          "valid_score_count": 320
+        },
+        "dense_b2": {
+          "missing_benchmark_refused_count": 0,
+          "missing_low_coverage_count": 0,
+          "missing_preprocess_filtered_out_count": 0,
+          "missing_score_count": 0,
+          "preprocess_retained_model_count": 320,
+          "refusal_reasons": [],
+          "refused": false,
+          "retained_item_count": 120,
+          "valid_score_count": 320
+        },
+        "dense_b3": {
+          "missing_benchmark_refused_count": 0,
+          "missing_low_coverage_count": 0,
+          "missing_preprocess_filtered_out_count": 0,
+          "missing_score_count": 0,
+          "preprocess_retained_model_count": 320,
+          "refusal_reasons": [],
+          "refused": false,
+          "retained_item_count": 120,
+          "valid_score_count": 320
+        },
+        "dense_b4": {
+          "missing_benchmark_refused_count": 0,
+          "missing_low_coverage_count": 0,
+          "missing_preprocess_filtered_out_count": 0,
+          "missing_score_count": 0,
+          "preprocess_retained_model_count": 320,
+          "refusal_reasons": [],
+          "refused": false,
+          "retained_item_count": 120,
+          "valid_score_count": 320
+        },
+        "dense_b5": {
+          "missing_benchmark_refused_count": 0,
+          "missing_low_coverage_count": 0,
+          "missing_preprocess_filtered_out_count": 0,
+          "missing_score_count": 0,
+          "preprocess_retained_model_count": 320,
+          "refusal_reasons": [],
+          "refused": false,
+          "retained_item_count": 120,
+          "valid_score_count": 320
+        }
+      },
+      "counts": {
+        "benchmark_count": 5,
+        "scores_full_missing": 0,
+        "scores_full_rows": 1600,
+        "scores_full_valid": 1600,
+        "scores_grand_rows": 320
+      },
+      "generated_at": "2026-04-19T17:01:06.032356+00:00",
+      "grand_scores": {
+        "complete_overlap_model_count": 320,
+        "min_overlap_models_for_joint": 180,
+        "overlap_model_ids": [
+          "dense_m0001",
+          "dense_m0002",
+          "dense_m0003",
+          "dense_m0004",
+          "dense_m0005",
+          "dense_m0006",
+          "dense_m0007",
+          "dense_m0008",
+          "dense_m0009",
+          "dense_m0010",
+          "dense_m0011",
+          "dense_m0012",
+          "dense_m0013",
+          "dense_m0014",
+          "dense_m0015",
+          "dense_m0016",
+          "dense_m0017",
+          "dense_m0018",
+          "dense_m0019",
+          "dense_m0020",
+          "dense_m0021",
+          "dense_m0022",
+          "dense_m0023",
+          "dense_m0024",
+          "dense_m0025",
+          "dense_m0026",
+          "dense_m0027",
+          "dense_m0028",
+          "dense_m0029",
+          "dense_m0030",
+          "dense_m0031",
+          "dense_m0032",
+          "dense_m0033",
+          "dense_m0034",
+          "dense_m0035",
+          "dense_m0036",
+          "dense_m0037",
+          "dense_m0038",
+          "dense_m0039",
+          "dense_m0040",
+          "dense_m0041",
+          "dense_m0042",
+          "dense_m0043",
+          "dense_m0044",
+          "dense_m0045",
+          "dense_m0046",
+          "dense_m0047",
+          "dense_m0048",
+          "dense_m0049",
+          "dense_m0050",
+          "dense_m0051",
+          "dense_m0052",
+          "dense_m0053",
+          "dense_m0054",
+          "dense_m0055",
+          "dense_m0056",
+          "dense_m0057",
+          "dense_m0058",
+          "dense_m0059",
+          "dense_m0060",
+          "dense_m0061",
+          "dense_m0062",
+          "dense_m0063",
+          "dense_m0064",
+          "dense_m0065",
+          "dense_m0066",
+          "dense_m0067",
+          "dense_m0068",
+          "dense_m0069",
+          "dense_m0070",
+          "dense_m0071",
+          "dense_m0072",
+          "dense_m0073",
+          "dense_m0074",
+          "dense_m0075",
+          "dense_m0076",
+          "dense_m0077",
+          "dense_m0078",
+          "dense_m0079",
+          "dense_m0080",
+          "dense_m0081",
+          "dense_m0082",
+          "dense_m0083",
+          "dense_m0084",
+          "dense_m0085",
+          "dense_m0086",
+          "dense_m0087",
+          "dense_m0088",
+          "dense_m0089",
+          "dense_m0090",
+          "dense_m0091",
+          "dense_m0092",
+          "dense_m0093",
+          "dense_m0094",
+          "dense_m0095",
+          "dense_m0096",
+          "dense_m0097",
+          "dense_m0098",
+          "dense_m0099",
+          "dense_m0100",
+          "dense_m0101",
+          "dense_m0102",
+          "dense_m0103",
+          "dense_m0104",
+          "dense_m0105",
+          "dense_m0106",
+          "dense_m0107",
+          "dense_m0108",
+          "dense_m0109",
+          "dense_m0110",
+          "dense_m0111",
+          "dense_m0112",
+          "dense_m0113",
+          "dense_m0114",
+          "dense_m0115",
+          "dense_m0116",
+          "dense_m0117",
+          "dense_m0118",
+          "dense_m0119",
+          "dense_m0120",
+          "dense_m0121",
+          "dense_m0122",
+          "dense_m0123",
+          "dense_m0124",
+          "dense_m0125",
+          "dense_m0126",
+          "dense_m0127",
+          "dense_m0128",
+          "dense_m0129",
+          "dense_m0130",
+          "dense_m0131",
+          "dense_m0132",
+          "dense_m0133",
+          "dense_m0134",
+          "dense_m0135",
+          "dense_m0136",
+          "dense_m0137",
+          "dense_m0138",
+          "dense_m0139",
+          "dense_m0140",
+          "dense_m0141",
+          "dense_m0142",
+          "dense_m0143",
+          "dense_m0144",
+          "dense_m0145",
+          "dense_m0146",
+          "dense_m0147",
+          "dense_m0148",
+          "dense_m0149",
+          "dense_m0150",
+          "dense_m0151",
+          "dense_m0152",
+          "dense_m0153",
+          "dense_m0154",
+          "dense_m0155",
+          "dense_m0156",
+          "dense_m0157",
+          "dense_m0158",
+          "dense_m0159",
+          "dense_m0160",
+          "dense_m0161",
+          "dense_m0162",
+          "dense_m0163",
+          "dense_m0164",
+          "dense_m0165",
+          "dense_m0166",
+          "dense_m0167",
+          "dense_m0168",
+          "dense_m0169",
+          "dense_m0170",
+          "dense_m0171",
+          "dense_m0172",
+          "dense_m0173",
+          "dense_m0174",
+          "dense_m0175",
+          "dense_m0176",
+          "dense_m0177",
+          "dense_m0178",
+          "dense_m0179",
+          "dense_m0180",
+          "dense_m0181",
+          "dense_m0182",
+          "dense_m0183",
+          "dense_m0184",
+          "dense_m0185",
+          "dense_m0186",
+          "dense_m0187",
+          "dense_m0188",
+          "dense_m0189",
+          "dense_m0190",
+          "dense_m0191",
+          "dense_m0192",
+          "dense_m0193",
+          "dense_m0194",
+          "dense_m0195",
+          "dense_m0196",
+          "dense_m0197",
+          "dense_m0198",
+          "dense_m0199",
+          "dense_m0200",
+          "dense_m0201",
+          "dense_m0202",
+          "dense_m0203",
+          "dense_m0204",
+          "dense_m0205",
+          "dense_m0206",
+          "dense_m0207",
+          "dense_m0208",
+          "dense_m0209",
+          "dense_m0210",
+          "dense_m0211",
+          "dense_m0212",
+          "dense_m0213",
+          "dense_m0214",
+          "dense_m0215",
+          "dense_m0216",
+          "dense_m0217",
+          "dense_m0218",
+          "dense_m0219",
+          "dense_m0220",
+          "dense_m0221",
+          "dense_m0222",
+          "dense_m0223",
+          "dense_m0224",
+          "dense_m0225",
+          "dense_m0226",
+          "dense_m0227",
+          "dense_m0228",
+          "dense_m0229",
+          "dense_m0230",
+          "dense_m0231",
+          "dense_m0232",
+          "dense_m0233",
+          "dense_m0234",
+          "dense_m0235",
+          "dense_m0236",
+          "dense_m0237",
+          "dense_m0238",
+          "dense_m0239",
+          "dense_m0240",
+          "dense_m0241",
+          "dense_m0242",
+          "dense_m0243",
+          "dense_m0244",
+          "dense_m0245",
+          "dense_m0246",
+          "dense_m0247",
+          "dense_m0248",
+          "dense_m0249",
+          "dense_m0250",
+          "dense_m0251",
+          "dense_m0252",
+          "dense_m0253",
+          "dense_m0254",
+          "dense_m0255",
+          "dense_m0256",
+          "dense_m0257",
+          "dense_m0258",
+          "dense_m0259",
+          "dense_m0260",
+          "dense_m0261",
+          "dense_m0262",
+          "dense_m0263",
+          "dense_m0264",
+          "dense_m0265",
+          "dense_m0266",
+          "dense_m0267",
+          "dense_m0268",
+          "dense_m0269",
+          "dense_m0270",
+          "dense_m0271",
+          "dense_m0272",
+          "dense_m0273",
+          "dense_m0274",
+          "dense_m0275",
+          "dense_m0276",
+          "dense_m0277",
+          "dense_m0278",
+          "dense_m0279",
+          "dense_m0280",
+          "dense_m0281",
+          "dense_m0282",
+          "dense_m0283",
+          "dense_m0284",
+          "dense_m0285",
+          "dense_m0286",
+          "dense_m0287",
+          "dense_m0288",
+          "dense_m0289",
+          "dense_m0290",
+          "dense_m0291",
+          "dense_m0292",
+          "dense_m0293",
+          "dense_m0294",
+          "dense_m0295",
+          "dense_m0296",
+          "dense_m0297",
+          "dense_m0298",
+          "dense_m0299",
+          "dense_m0300",
+          "dense_m0301",
+          "dense_m0302",
+          "dense_m0303",
+          "dense_m0304",
+          "dense_m0305",
+          "dense_m0306",
+          "dense_m0307",
+          "dense_m0308",
+          "dense_m0309",
+          "dense_m0310",
+          "dense_m0311",
+          "dense_m0312",
+          "dense_m0313",
+          "dense_m0314",
+          "dense_m0315",
+          "dense_m0316",
+          "dense_m0317",
+          "dense_m0318",
+          "dense_m0319",
+          "dense_m0320"
+        ],
+        "required_benchmark_count": 5,
+        "required_benchmark_ids": [
+          "dense_b1",
+          "dense_b2",
+          "dense_b3",
+          "dense_b4",
+          "dense_b5"
+        ],
+        "skip_reason": null,
+        "skipped": false
+      },
+      "score_scale": "percent",
+      "warnings": []
+    },
+    "splits": {
+      "benchmarks": {
+        "dense_b1": {
+          "diagnostics": {
+            "test": {
+              "count": 32,
+              "score_max": 90.75630252100841,
+              "score_mean": 61.3970862342127,
+              "score_min": 16.80672268907563
+            },
+            "train": {
+              "count": 259,
+              "score_max": 94.01709401709401,
+              "score_mean": 61.29554589240666,
+              "score_min": 24.786324786324787
+            },
+            "val": {
+              "count": 29,
+              "score_max": 89.07563025210085,
+              "score_mean": 62.24006843425855,
+              "score_min": 32.773109243697476
+            }
+          },
+          "effective_bins": 10,
+          "fallback_reason": null,
+          "strategy": "global_plus_local_val",
+          "stratification_used": true,
+          "test_model_count": 32,
+          "train_model_count": 259,
+          "val_model_count": 29,
+          "val_split_method": "stratified",
+          "valid_model_count": 320,
+          "warnings": []
+        },
+        "dense_b2": {
+          "diagnostics": {
+            "test": {
+              "count": 32,
+              "score_max": 83.89830508474576,
+              "score_mean": 56.940415068600615,
+              "score_min": 13.675213675213676
+            },
+            "train": {
+              "count": 259,
+              "score_max": 92.17391304347827,
+              "score_mean": 57.468626534446216,
+              "score_min": 18.96551724137931
+            },
+            "val": {
+              "count": 29,
+              "score_max": 85.21739130434783,
+              "score_mean": 57.48866522195494,
+              "score_min": 32.47863247863248
+            }
+          },
+          "effective_bins": 10,
+          "fallback_reason": null,
+          "strategy": "global_plus_local_val",
+          "stratification_used": true,
+          "test_model_count": 32,
+          "train_model_count": 259,
+          "val_model_count": 29,
+          "val_split_method": "stratified",
+          "valid_model_count": 320,
+          "warnings": []
+        },
+        "dense_b3": {
+          "diagnostics": {
+            "test": {
+              "count": 32,
+              "score_max": 82.35294117647058,
+              "score_mean": 58.54428807745453,
+              "score_min": 15.254237288135593
+            },
+            "train": {
+              "count": 259,
+              "score_max": 88.88888888888889,
+              "score_mean": 59.096348700094175,
+              "score_min": 26.05042016806723
+            },
+            "val": {
+              "count": 29,
+              "score_max": 82.90598290598291,
+              "score_mean": 58.84745180233254,
+              "score_min": 19.166666666666668
+            }
+          },
+          "effective_bins": 10,
+          "fallback_reason": null,
+          "strategy": "global_plus_local_val",
+          "stratification_used": true,
+          "test_model_count": 32,
+          "train_model_count": 259,
+          "val_model_count": 29,
+          "val_split_method": "stratified",
+          "valid_model_count": 320,
+          "warnings": []
+        },
+        "dense_b4": {
+          "diagnostics": {
+            "test": {
+              "count": 32,
+              "score_max": 86.32478632478633,
+              "score_mean": 53.17184208419209,
+              "score_min": 9.322033898305085
+            },
+            "train": {
+              "count": 259,
+              "score_max": 91.45299145299145,
+              "score_mean": 53.705048941587194,
+              "score_min": 19.65811965811966
+            },
+            "val": {
+              "count": 29,
+              "score_max": 83.33333333333334,
+              "score_mean": 53.79351013036106,
+              "score_min": 22.033898305084744
+            }
+          },
+          "effective_bins": 10,
+          "fallback_reason": null,
+          "strategy": "global_plus_local_val",
+          "stratification_used": true,
+          "test_model_count": 32,
+          "train_model_count": 259,
+          "val_model_count": 29,
+          "val_split_method": "stratified",
+          "valid_model_count": 320,
+          "warnings": []
+        },
+        "dense_b5": {
+          "diagnostics": {
+            "test": {
+              "count": 32,
+              "score_max": 81.35593220338984,
+              "score_mean": 54.27200832952434,
+              "score_min": 10.344827586206897
+            },
+            "train": {
+              "count": 259,
+              "score_max": 92.92035398230088,
+              "score_mean": 53.72873494207614,
+              "score_min": 17.94871794871795
+            },
+            "val": {
+              "count": 29,
+              "score_max": 83.05084745762711,
+              "score_mean": 54.21818311600523,
+              "score_min": 27.966101694915253
+            }
+          },
+          "effective_bins": 10,
+          "fallback_reason": null,
+          "strategy": "global_plus_local_val",
+          "stratification_used": true,
+          "test_model_count": 32,
+          "train_model_count": 259,
+          "val_model_count": 29,
+          "val_split_method": "stratified",
+          "valid_model_count": 320,
+          "warnings": []
+        }
+      },
+      "counts": {
+        "benchmark_count": 5,
+        "global_test_enabled": true,
+        "global_test_model_count": 32
+      },
+      "generated_at": "2026-04-19T17:01:06.055156+00:00",
+      "global_test": {
+        "assigned_test_count": 32,
+        "assigned_train_pool_count": 288,
+        "diagnostics": {
+          "test": {
+            "count": 32,
+            "score_max": 83.27538751267565,
+            "score_mean": 56.865127958796855,
+            "score_min": 13.080607027387376
+          },
+          "train_pool": {
+            "count": 288,
+            "score_max": 90.45830767069705,
+            "score_mean": 57.08491213902121,
+            "score_min": 22.473786862224994
+          }
+        },
+        "effective_bins": 10,
+        "eligible_model_count": 320,
+        "enabled": true,
+        "fallback_reason": null,
+        "skip_reason": null,
+        "split_method": "stratified",
+        "stratification_used": true,
+        "test_model_count": 32,
+        "train_val_pool_count": 288,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    "theta": {
+      "artifacts": {
+        "plots": {
+          "dense_b1": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/07_theta/plots/dense_b1__theta_distribution.png",
+          "dense_b2": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/07_theta/plots/dense_b2__theta_distribution.png",
+          "dense_b3": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/07_theta/plots/dense_b3__theta_distribution.png",
+          "dense_b4": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/07_theta/plots/dense_b4__theta_distribution.png",
+          "dense_b5": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/07_theta/plots/dense_b5__theta_distribution.png"
+        },
+        "theta_estimates": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/07_theta/theta_estimates.parquet",
+        "theta_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/07_theta/theta_report.json"
+      },
+      "benchmarks": {
+        "dense_b1": {
+          "benchmark_id": "dense_b1",
+          "counts": {
+            "all_correct_count": 0,
+            "all_wrong_count": 0,
+            "missing_heavy_count": 0,
+            "model_count": 320,
+            "no_observed_item_count": 0,
+            "saturated_count": 0,
+            "selected_item_count": 45,
+            "split_counts": {
+              "test": 32,
+              "train": 259,
+              "val": 29
+            }
+          },
+          "parameters": {
+            "theta_method": "MAP"
+          },
+          "plots": {
+            "theta_distribution": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/07_theta/plots/dense_b1__theta_distribution.png"
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "warnings": []
+        },
+        "dense_b2": {
+          "benchmark_id": "dense_b2",
+          "counts": {
+            "all_correct_count": 0,
+            "all_wrong_count": 0,
+            "missing_heavy_count": 0,
+            "model_count": 320,
+            "no_observed_item_count": 0,
+            "saturated_count": 0,
+            "selected_item_count": 45,
+            "split_counts": {
+              "test": 32,
+              "train": 259,
+              "val": 29
+            }
+          },
+          "parameters": {
+            "theta_method": "MAP"
+          },
+          "plots": {
+            "theta_distribution": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/07_theta/plots/dense_b2__theta_distribution.png"
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "warnings": []
+        },
+        "dense_b3": {
+          "benchmark_id": "dense_b3",
+          "counts": {
+            "all_correct_count": 0,
+            "all_wrong_count": 0,
+            "missing_heavy_count": 0,
+            "model_count": 320,
+            "no_observed_item_count": 0,
+            "saturated_count": 0,
+            "selected_item_count": 45,
+            "split_counts": {
+              "test": 32,
+              "train": 259,
+              "val": 29
+            }
+          },
+          "parameters": {
+            "theta_method": "MAP"
+          },
+          "plots": {
+            "theta_distribution": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/07_theta/plots/dense_b3__theta_distribution.png"
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "warnings": []
+        },
+        "dense_b4": {
+          "benchmark_id": "dense_b4",
+          "counts": {
+            "all_correct_count": 0,
+            "all_wrong_count": 0,
+            "missing_heavy_count": 0,
+            "model_count": 320,
+            "no_observed_item_count": 0,
+            "saturated_count": 0,
+            "selected_item_count": 45,
+            "split_counts": {
+              "test": 32,
+              "train": 259,
+              "val": 29
+            }
+          },
+          "parameters": {
+            "theta_method": "MAP"
+          },
+          "plots": {
+            "theta_distribution": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/07_theta/plots/dense_b4__theta_distribution.png"
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "warnings": []
+        },
+        "dense_b5": {
+          "benchmark_id": "dense_b5",
+          "counts": {
+            "all_correct_count": 0,
+            "all_wrong_count": 2,
+            "missing_heavy_count": 0,
+            "model_count": 320,
+            "no_observed_item_count": 0,
+            "saturated_count": 0,
+            "selected_item_count": 45,
+            "split_counts": {
+              "test": 32,
+              "train": 259,
+              "val": 29
+            }
+          },
+          "parameters": {
+            "theta_method": "MAP"
+          },
+          "plots": {
+            "theta_distribution": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-70__kf-45__seed-7/artifacts/07_theta/plots/dense_b5__theta_distribution.png"
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "warnings": []
+        }
+      },
+      "counts": {
+        "all_correct_count": 0,
+        "all_wrong_count": 2,
+        "benchmark_count": 5,
+        "missing_heavy_count": 0,
+        "no_observed_item_count": 0,
+        "row_count": 1600,
+        "saturated_count": 0,
+        "split_counts": {
+          "test": 160,
+          "train": 1295,
+          "val": 145
+        }
+      },
+      "generated_at": "2026-04-19T17:01:13.084062+00:00",
+      "parameters": {
+        "missing_heavy_threshold": 0.5,
+        "prior": "Normal(0,1)",
+        "theta_grid_size": 151,
+        "theta_max": 4.0,
+        "theta_method": "MAP",
+        "theta_min": -4.0
+      },
+      "theta_method": "MAP",
+      "warnings": []
+    }
+  },
+  "warnings": [
+    {
+      "code": "joint_features_incomplete",
+      "message": "Only 4 complete-overlap models had all benchmark theta/sub/lin features available.",
+      "severity": "warning"
+    },
+    {
+      "code": "joint_features_skipped",
+      "message": "joint feature table skipped: joint_feature_overlap_below_threshold",
+      "severity": "warning"
+    }
+  ]
+}

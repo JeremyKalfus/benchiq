@@ -1,0 +1,112 @@
+{
+  "artifacts": {
+    "dropped_pathological_items_written": false,
+    "item_parameter_scatter": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-40__kf-20__seed-7/artifacts/05_irt/per_benchmark/dense_b2/plots/item_parameter_scatter.png",
+    "plots_reason": null,
+    "plots_written": true
+  },
+  "backend_options": {},
+  "benchmark_id": "dense_b2",
+  "convergence": {
+    "backend_exposes_flag": false,
+    "max_iteration": null,
+    "status": null,
+    "status_available": false,
+    "warning_code": "backend_convergence_status_unavailable"
+  },
+  "counts": {
+    "missing_response_count": 222,
+    "pathology_excluded_count": 0,
+    "pathology_warning_count": 0,
+    "preselect_item_count": 40,
+    "retained_item_count": 40,
+    "train_model_count": 259,
+    "valid_response_count": 10138
+  },
+  "fit_metrics": {
+    "ability_mean": -0.0012022072355405906,
+    "ability_sd": 0.9405014151079457,
+    "aic": {
+      "delta": 0.0,
+      "final": 11891.979035990356,
+      "null": 11891.979035990356
+    },
+    "bic": {
+      "delta": 0.0,
+      "final": 11891.979035990356,
+      "null": 11891.979035990356
+    },
+    "runtime_seconds": 0.32874633301980793
+  },
+  "generated_at": "2026-04-19T17:01:17.072420+00:00",
+  "irt_backend": "girth",
+  "model": "2pl",
+  "pathology": {
+    "excluded_item_ids": [],
+    "excluded_items": [],
+    "exclusion_is_data_dependent": true,
+    "exclusion_note": "real-backend pathological exclusion is data-dependent and may be absent on well-behaved fixtures",
+    "exclusion_thresholds": {
+      "difficulty_must_be_finite": true,
+      "discrimination_max": 10.0,
+      "discrimination_min": 0.05
+    },
+    "retained_item_ids": [
+      "dense_b2_item_009",
+      "dense_b2_item_014",
+      "dense_b2_item_020",
+      "dense_b2_item_022",
+      "dense_b2_item_024",
+      "dense_b2_item_026",
+      "dense_b2_item_027",
+      "dense_b2_item_029",
+      "dense_b2_item_031",
+      "dense_b2_item_032",
+      "dense_b2_item_034",
+      "dense_b2_item_035",
+      "dense_b2_item_037",
+      "dense_b2_item_038",
+      "dense_b2_item_039",
+      "dense_b2_item_040",
+      "dense_b2_item_043",
+      "dense_b2_item_045",
+      "dense_b2_item_047",
+      "dense_b2_item_048",
+      "dense_b2_item_049",
+      "dense_b2_item_050",
+      "dense_b2_item_051",
+      "dense_b2_item_052",
+      "dense_b2_item_054",
+      "dense_b2_item_056",
+      "dense_b2_item_057",
+      "dense_b2_item_058",
+      "dense_b2_item_059",
+      "dense_b2_item_060",
+      "dense_b2_item_061",
+      "dense_b2_item_063",
+      "dense_b2_item_064",
+      "dense_b2_item_068",
+      "dense_b2_item_069",
+      "dense_b2_item_070",
+      "dense_b2_item_071",
+      "dense_b2_item_073",
+      "dense_b2_item_075",
+      "dense_b2_item_082"
+    ],
+    "warning_item_ids": [],
+    "warning_thresholds": {
+      "discrimination_max": 5.0,
+      "discrimination_min": 0.1
+    }
+  },
+  "skipped": false,
+  "skipped_reason": null,
+  "warnings": [
+    {
+      "code": "backend_convergence_status_unavailable",
+      "limitation": true,
+      "message": "girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.",
+      "severity": "warning"
+    }
+  ]
+}

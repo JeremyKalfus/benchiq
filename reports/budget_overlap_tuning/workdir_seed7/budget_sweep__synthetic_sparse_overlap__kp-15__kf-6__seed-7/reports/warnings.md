@@ -1,0 +1,49 @@
+# warnings
+
+- `02_scores`: sparse_b1: 470 low-coverage models missing full scores
+- `02_scores`: sparse_b2: 440 low-coverage models missing full scores
+- `02_scores`: sparse_b3: 440 low-coverage models missing full scores
+- `02_scores`: sparse_b4: 440 low-coverage models missing full scores
+- `02_scores`: sparse_b5: 440 low-coverage models missing full scores
+- `02_scores`: sparse_b6: 470 low-coverage models missing full scores
+- `02_scores`: grand scores skipped: complete-overlap models are below min_overlap_models_for_joint
+- `03_splits`: global test split disabled: no grand scores available
+- `03_splits`: sparse_b1: global overlap too small; benchmark-local train/val only
+- `03_splits`: sparse_b2: global overlap too small; benchmark-local train/val only
+- `03_splits`: sparse_b3: global overlap too small; benchmark-local train/val only
+- `03_splits`: sparse_b4: global overlap too small; benchmark-local train/val only
+- `03_splits`: sparse_b5: global overlap too small; benchmark-local train/val only
+- `03_splits`: sparse_b6: global overlap too small; benchmark-local train/val only
+- `03_splits`: benchmark-local train/val only: global overlap is too small
+- `05_irt` `sparse_b1`: girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.
+- `05_irt` `sparse_b2`: girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.
+- `05_irt` `sparse_b3`: girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.
+- `05_irt` `sparse_b4`: girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.
+- `05_irt` `sparse_b5`: girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.
+- `05_irt` `sparse_b6`: girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.
+- `06_select` `sparse_b1`: selected only 6 final items; reduced benchmark may be too small for stable downstream reconstruction.
+- `06_select` `sparse_b2`: selected only 6 final items; reduced benchmark may be too small for stable downstream reconstruction.
+- `06_select` `sparse_b3`: selected only 6 final items; reduced benchmark may be too small for stable downstream reconstruction.
+- `06_select` `sparse_b4`: selected only 6 final items; reduced benchmark may be too small for stable downstream reconstruction.
+- `06_select` `sparse_b5`: selected only 6 final items; reduced benchmark may be too small for stable downstream reconstruction.
+- `06_select` `sparse_b6`: selected only 6 final items; reduced benchmark may be too small for stable downstream reconstruction.
+- `08_linear` `sparse_b1`: 70 models were not scored by the linear predictor because their reduced-item coverage was incomplete.
+- `08_linear` `sparse_b2`: 79 models were not scored by the linear predictor because their reduced-item coverage was incomplete.
+- `08_linear` `sparse_b3`: 78 models were not scored by the linear predictor because their reduced-item coverage was incomplete.
+- `08_linear` `sparse_b4`: 73 models were not scored by the linear predictor because their reduced-item coverage was incomplete.
+- `08_linear` `sparse_b5`: 83 models were not scored by the linear predictor because their reduced-item coverage was incomplete.
+- `08_linear` `sparse_b6`: 82 models were not scored by the linear predictor because their reduced-item coverage was incomplete.
+- `08_features`: Only 6 complete-overlap models had all benchmark theta/sub/lin features available.
+- `08_features`: joint feature table skipped: joint_feature_overlap_below_threshold
+- `09_reconstruct` `sparse_b1`: sparse_b1 marginal reconstruction had no held-out test rows.
+- `09_reconstruct` `sparse_b1`: sparse_b1 joint reconstruction skipped: joint_feature_overlap_below_threshold
+- `09_reconstruct` `sparse_b2`: sparse_b2 marginal reconstruction had no held-out test rows.
+- `09_reconstruct` `sparse_b2`: sparse_b2 joint reconstruction skipped: joint_feature_overlap_below_threshold
+- `09_reconstruct` `sparse_b3`: sparse_b3 marginal reconstruction had no held-out test rows.
+- `09_reconstruct` `sparse_b3`: sparse_b3 joint reconstruction skipped: joint_feature_overlap_below_threshold
+- `09_reconstruct` `sparse_b4`: sparse_b4 marginal reconstruction had no held-out test rows.
+- `09_reconstruct` `sparse_b4`: sparse_b4 joint reconstruction skipped: joint_feature_overlap_below_threshold
+- `09_reconstruct` `sparse_b5`: sparse_b5 marginal reconstruction had no held-out test rows.
+- `09_reconstruct` `sparse_b5`: sparse_b5 joint reconstruction skipped: joint_feature_overlap_below_threshold
+- `09_reconstruct` `sparse_b6`: sparse_b6 marginal reconstruction had no held-out test rows.
+- `09_reconstruct` `sparse_b6`: sparse_b6 joint reconstruction skipped: joint_feature_overlap_below_threshold

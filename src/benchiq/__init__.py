@@ -50,7 +50,7 @@ _PUBLIC_WORKFLOWS = {
     "predict": "score new reduced responses from a saved calibration bundle",
     "deploy": "alias for predict() when you want deployment wording in python code",
     "run": "execute the full end-to-end pipeline, including secondary redundancy analysis",
-    "reconstruction_first": "load the recommended reconstruction-first product profile",
+    "reconstruction_first": "load the default reconstruction-first product profile",
 }
 
 

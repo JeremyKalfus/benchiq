@@ -1,0 +1,981 @@
+{
+  "counts": {
+    "benchmark_count": 6,
+    "features_joint_rows": 0,
+    "features_marginal_rows": 1200,
+    "split_counts": {
+      "train": 1080,
+      "val": 120
+    }
+  },
+  "generated_at": "2026-04-19T17:01:46.676569+00:00",
+  "joint": {
+    "benchmark_row_counts": {
+      "sparse_b1": 0,
+      "sparse_b2": 0,
+      "sparse_b3": 0,
+      "sparse_b4": 0,
+      "sparse_b5": 0,
+      "sparse_b6": 0
+    },
+    "complete_feature_model_count": 1,
+    "overlap_model_count_from_scores": 80,
+    "required_overlap_count": 90,
+    "skip_reason": "joint_feature_overlap_below_threshold",
+    "skipped": true,
+    "warnings": [
+      {
+        "code": "joint_features_incomplete",
+        "message": "Only 1 complete-overlap models had all benchmark theta/sub/lin features available.",
+        "severity": "warning"
+      }
+    ],
+    "written": false
+  },
+  "marginal": {
+    "row_counts": {
+      "sparse_b1": 180,
+      "sparse_b2": 210,
+      "sparse_b3": 210,
+      "sparse_b4": 210,
+      "sparse_b5": 210,
+      "sparse_b6": 180
+    },
+    "written": true
+  },
+  "parameters": {
+    "benchmark_ids": [
+      "sparse_b1",
+      "sparse_b2",
+      "sparse_b3",
+      "sparse_b4",
+      "sparse_b5",
+      "sparse_b6"
+    ],
+    "min_overlap_models_for_joint": 90
+  },
+  "upstream": {
+    "linear_predictors": {
+      "benchmarks": {
+        "sparse_b1": {
+          "benchmark_id": "sparse_b1",
+          "counts": {
+            "coefficient_count": 10,
+            "incomplete_coverage_count": 106,
+            "model_count": 180,
+            "predicted_model_count": 74,
+            "training_eligible_count": 68
+          },
+          "generated_at": "2026-04-19T17:01:46.551789+00:00",
+          "parameters": {
+            "ridge_alpha_grid": [
+              1e-06,
+              0.0001,
+              0.01,
+              0.1,
+              1.0,
+              10.0
+            ],
+            "selected_item_count": 10
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "training_diagnostics": {
+            "chosen_alpha": 0.0,
+            "condition_number": 56.92118476507525,
+            "fallback_reason": null,
+            "fallback_used": false,
+            "feature_count": 10,
+            "model_kind": "ols_no_intercept",
+            "rank": 10,
+            "ridge_candidates": [],
+            "train_rmse": 13.059976218464316,
+            "train_row_count": 68
+          },
+          "warnings": [
+            {
+              "code": "incomplete_reduced_item_coverage",
+              "message": "106 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+              "severity": "warning"
+            }
+          ]
+        },
+        "sparse_b2": {
+          "benchmark_id": "sparse_b2",
+          "counts": {
+            "coefficient_count": 10,
+            "incomplete_coverage_count": 113,
+            "model_count": 210,
+            "predicted_model_count": 97,
+            "training_eligible_count": 88
+          },
+          "generated_at": "2026-04-19T17:01:46.572152+00:00",
+          "parameters": {
+            "ridge_alpha_grid": [
+              1e-06,
+              0.0001,
+              0.01,
+              0.1,
+              1.0,
+              10.0
+            ],
+            "selected_item_count": 10
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "training_diagnostics": {
+            "chosen_alpha": 0.0,
+            "condition_number": 44.31190070792716,
+            "fallback_reason": null,
+            "fallback_used": false,
+            "feature_count": 10,
+            "model_kind": "ols_no_intercept",
+            "rank": 10,
+            "ridge_candidates": [],
+            "train_rmse": 13.229468038743105,
+            "train_row_count": 88
+          },
+          "warnings": [
+            {
+              "code": "incomplete_reduced_item_coverage",
+              "message": "113 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+              "severity": "warning"
+            }
+          ]
+        },
+        "sparse_b3": {
+          "benchmark_id": "sparse_b3",
+          "counts": {
+            "coefficient_count": 10,
+            "incomplete_coverage_count": 133,
+            "model_count": 210,
+            "predicted_model_count": 77,
+            "training_eligible_count": 69
+          },
+          "generated_at": "2026-04-19T17:01:46.592170+00:00",
+          "parameters": {
+            "ridge_alpha_grid": [
+              1e-06,
+              0.0001,
+              0.01,
+              0.1,
+              1.0,
+              10.0
+            ],
+            "selected_item_count": 10
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "training_diagnostics": {
+            "chosen_alpha": 0.0,
+            "condition_number": 39.74948343681248,
+            "fallback_reason": null,
+            "fallback_used": false,
+            "feature_count": 10,
+            "model_kind": "ols_no_intercept",
+            "rank": 10,
+            "ridge_candidates": [],
+            "train_rmse": 14.223700230685983,
+            "train_row_count": 69
+          },
+          "warnings": [
+            {
+              "code": "incomplete_reduced_item_coverage",
+              "message": "133 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+              "severity": "warning"
+            }
+          ]
+        },
+        "sparse_b4": {
+          "benchmark_id": "sparse_b4",
+          "counts": {
+            "coefficient_count": 10,
+            "incomplete_coverage_count": 112,
+            "model_count": 210,
+            "predicted_model_count": 98,
+            "training_eligible_count": 90
+          },
+          "generated_at": "2026-04-19T17:01:46.610331+00:00",
+          "parameters": {
+            "ridge_alpha_grid": [
+              1e-06,
+              0.0001,
+              0.01,
+              0.1,
+              1.0,
+              10.0
+            ],
+            "selected_item_count": 10
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "training_diagnostics": {
+            "chosen_alpha": 0.0,
+            "condition_number": 29.641413575560332,
+            "fallback_reason": null,
+            "fallback_used": false,
+            "feature_count": 10,
+            "model_kind": "ols_no_intercept",
+            "rank": 10,
+            "ridge_candidates": [],
+            "train_rmse": 14.014785517243471,
+            "train_row_count": 90
+          },
+          "warnings": [
+            {
+              "code": "incomplete_reduced_item_coverage",
+              "message": "112 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+              "severity": "warning"
+            }
+          ]
+        },
+        "sparse_b5": {
+          "benchmark_id": "sparse_b5",
+          "counts": {
+            "coefficient_count": 10,
+            "incomplete_coverage_count": 116,
+            "model_count": 210,
+            "predicted_model_count": 94,
+            "training_eligible_count": 87
+          },
+          "generated_at": "2026-04-19T17:01:46.628621+00:00",
+          "parameters": {
+            "ridge_alpha_grid": [
+              1e-06,
+              0.0001,
+              0.01,
+              0.1,
+              1.0,
+              10.0
+            ],
+            "selected_item_count": 10
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "training_diagnostics": {
+            "chosen_alpha": 0.0,
+            "condition_number": 37.51177876075109,
+            "fallback_reason": null,
+            "fallback_used": false,
+            "feature_count": 10,
+            "model_kind": "ols_no_intercept",
+            "rank": 10,
+            "ridge_candidates": [],
+            "train_rmse": 12.2120925635264,
+            "train_row_count": 87
+          },
+          "warnings": [
+            {
+              "code": "incomplete_reduced_item_coverage",
+              "message": "116 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+              "severity": "warning"
+            }
+          ]
+        },
+        "sparse_b6": {
+          "benchmark_id": "sparse_b6",
+          "counts": {
+            "coefficient_count": 10,
+            "incomplete_coverage_count": 99,
+            "model_count": 180,
+            "predicted_model_count": 81,
+            "training_eligible_count": 73
+          },
+          "generated_at": "2026-04-19T17:01:46.646352+00:00",
+          "parameters": {
+            "ridge_alpha_grid": [
+              1e-06,
+              0.0001,
+              0.01,
+              0.1,
+              1.0,
+              10.0
+            ],
+            "selected_item_count": 10
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "training_diagnostics": {
+            "chosen_alpha": 0.0,
+            "condition_number": 34.4655695067444,
+            "fallback_reason": null,
+            "fallback_used": false,
+            "feature_count": 10,
+            "model_kind": "ols_no_intercept",
+            "rank": 10,
+            "ridge_candidates": [],
+            "train_rmse": 12.789832334457031,
+            "train_row_count": 73
+          },
+          "warnings": [
+            {
+              "code": "incomplete_reduced_item_coverage",
+              "message": "99 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+              "severity": "warning"
+            }
+          ]
+        }
+      },
+      "counts": {
+        "benchmark_count": 6,
+        "skipped_benchmark_count": 0
+      },
+      "generated_at": "2026-04-19T17:01:46.646378+00:00",
+      "parameters": {
+        "ridge_alpha_grid": [
+          1e-06,
+          0.0001,
+          0.01,
+          0.1,
+          1.0,
+          10.0
+        ]
+      },
+      "warnings": [
+        {
+          "benchmark_id": "sparse_b1",
+          "code": "incomplete_reduced_item_coverage",
+          "message": "106 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "severity": "warning"
+        },
+        {
+          "benchmark_id": "sparse_b2",
+          "code": "incomplete_reduced_item_coverage",
+          "message": "113 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "severity": "warning"
+        },
+        {
+          "benchmark_id": "sparse_b3",
+          "code": "incomplete_reduced_item_coverage",
+          "message": "133 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "severity": "warning"
+        },
+        {
+          "benchmark_id": "sparse_b4",
+          "code": "incomplete_reduced_item_coverage",
+          "message": "112 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "severity": "warning"
+        },
+        {
+          "benchmark_id": "sparse_b5",
+          "code": "incomplete_reduced_item_coverage",
+          "message": "116 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "severity": "warning"
+        },
+        {
+          "benchmark_id": "sparse_b6",
+          "code": "incomplete_reduced_item_coverage",
+          "message": "99 models were not scored by the linear predictor because their reduced-item coverage was incomplete.",
+          "severity": "warning"
+        }
+      ]
+    },
+    "scores": {
+      "benchmark_ids": [
+        "sparse_b1",
+        "sparse_b2",
+        "sparse_b3",
+        "sparse_b4",
+        "sparse_b5",
+        "sparse_b6"
+      ],
+      "benchmarks": {
+        "sparse_b1": {
+          "missing_benchmark_refused_count": 0,
+          "missing_low_coverage_count": 470,
+          "missing_preprocess_filtered_out_count": 0,
+          "missing_score_count": 470,
+          "preprocess_retained_model_count": 180,
+          "refusal_reasons": [],
+          "refused": false,
+          "retained_item_count": 105,
+          "valid_score_count": 180
+        },
+        "sparse_b2": {
+          "missing_benchmark_refused_count": 0,
+          "missing_low_coverage_count": 440,
+          "missing_preprocess_filtered_out_count": 0,
+          "missing_score_count": 440,
+          "preprocess_retained_model_count": 210,
+          "refusal_reasons": [],
+          "refused": false,
+          "retained_item_count": 105,
+          "valid_score_count": 210
+        },
+        "sparse_b3": {
+          "missing_benchmark_refused_count": 0,
+          "missing_low_coverage_count": 440,
+          "missing_preprocess_filtered_out_count": 0,
+          "missing_score_count": 440,
+          "preprocess_retained_model_count": 210,
+          "refusal_reasons": [],
+          "refused": false,
+          "retained_item_count": 105,
+          "valid_score_count": 210
+        },
+        "sparse_b4": {
+          "missing_benchmark_refused_count": 0,
+          "missing_low_coverage_count": 440,
+          "missing_preprocess_filtered_out_count": 0,
+          "missing_score_count": 440,
+          "preprocess_retained_model_count": 210,
+          "refusal_reasons": [],
+          "refused": false,
+          "retained_item_count": 105,
+          "valid_score_count": 210
+        },
+        "sparse_b5": {
+          "missing_benchmark_refused_count": 0,
+          "missing_low_coverage_count": 440,
+          "missing_preprocess_filtered_out_count": 0,
+          "missing_score_count": 440,
+          "preprocess_retained_model_count": 210,
+          "refusal_reasons": [],
+          "refused": false,
+          "retained_item_count": 105,
+          "valid_score_count": 210
+        },
+        "sparse_b6": {
+          "missing_benchmark_refused_count": 0,
+          "missing_low_coverage_count": 470,
+          "missing_preprocess_filtered_out_count": 0,
+          "missing_score_count": 470,
+          "preprocess_retained_model_count": 180,
+          "refusal_reasons": [],
+          "refused": false,
+          "retained_item_count": 105,
+          "valid_score_count": 180
+        }
+      },
+      "counts": {
+        "benchmark_count": 6,
+        "scores_full_missing": 2700,
+        "scores_full_rows": 3900,
+        "scores_full_valid": 1200,
+        "scores_grand_rows": 0
+      },
+      "generated_at": "2026-04-19T17:01:43.081206+00:00",
+      "grand_scores": {
+        "complete_overlap_model_count": 80,
+        "min_overlap_models_for_joint": 90,
+        "overlap_model_ids": [
+          "sparse_core_001",
+          "sparse_core_002",
+          "sparse_core_003",
+          "sparse_core_004",
+          "sparse_core_005",
+          "sparse_core_006",
+          "sparse_core_007",
+          "sparse_core_008",
+          "sparse_core_009",
+          "sparse_core_010",
+          "sparse_core_011",
+          "sparse_core_012",
+          "sparse_core_013",
+          "sparse_core_014",
+          "sparse_core_015",
+          "sparse_core_016",
+          "sparse_core_017",
+          "sparse_core_018",
+          "sparse_core_019",
+          "sparse_core_020",
+          "sparse_core_021",
+          "sparse_core_022",
+          "sparse_core_023",
+          "sparse_core_024",
+          "sparse_core_025",
+          "sparse_core_026",
+          "sparse_core_027",
+          "sparse_core_028",
+          "sparse_core_029",
+          "sparse_core_030",
+          "sparse_core_031",
+          "sparse_core_032",
+          "sparse_core_033",
+          "sparse_core_034",
+          "sparse_core_035",
+          "sparse_core_036",
+          "sparse_core_037",
+          "sparse_core_038",
+          "sparse_core_039",
+          "sparse_core_040",
+          "sparse_core_041",
+          "sparse_core_042",
+          "sparse_core_043",
+          "sparse_core_044",
+          "sparse_core_045",
+          "sparse_core_046",
+          "sparse_core_047",
+          "sparse_core_048",
+          "sparse_core_049",
+          "sparse_core_050",
+          "sparse_core_051",
+          "sparse_core_052",
+          "sparse_core_053",
+          "sparse_core_054",
+          "sparse_core_055",
+          "sparse_core_056",
+          "sparse_core_057",
+          "sparse_core_058",
+          "sparse_core_059",
+          "sparse_core_060",
+          "sparse_core_061",
+          "sparse_core_062",
+          "sparse_core_063",
+          "sparse_core_064",
+          "sparse_core_065",
+          "sparse_core_066",
+          "sparse_core_067",
+          "sparse_core_068",
+          "sparse_core_069",
+          "sparse_core_070",
+          "sparse_core_071",
+          "sparse_core_072",
+          "sparse_core_073",
+          "sparse_core_074",
+          "sparse_core_075",
+          "sparse_core_076",
+          "sparse_core_077",
+          "sparse_core_078",
+          "sparse_core_079",
+          "sparse_core_080"
+        ],
+        "required_benchmark_count": 6,
+        "required_benchmark_ids": [
+          "sparse_b1",
+          "sparse_b2",
+          "sparse_b3",
+          "sparse_b4",
+          "sparse_b5",
+          "sparse_b6"
+        ],
+        "skip_reason": "overlap_below_joint_threshold",
+        "skipped": true
+      },
+      "score_scale": "percent",
+      "warnings": [
+        "sparse_b1: 470 low-coverage models missing full scores",
+        "sparse_b2: 440 low-coverage models missing full scores",
+        "sparse_b3: 440 low-coverage models missing full scores",
+        "sparse_b4: 440 low-coverage models missing full scores",
+        "sparse_b5: 440 low-coverage models missing full scores",
+        "sparse_b6: 470 low-coverage models missing full scores",
+        "grand scores skipped: complete-overlap models are below min_overlap_models_for_joint"
+      ]
+    },
+    "splits": {
+      "benchmarks": {
+        "sparse_b1": {
+          "diagnostics": {
+            "train": {
+              "count": 162,
+              "score_max": 87.77777777777777,
+              "score_mean": 51.200867872220805,
+              "score_min": 17.17171717171717
+            },
+            "val": {
+              "count": 18,
+              "score_max": 82.0,
+              "score_mean": 50.59256990970189,
+              "score_min": 15.730337078651685
+            }
+          },
+          "effective_bins": 10,
+          "fallback_reason": "benchmark_local_only",
+          "strategy": "benchmark_local_only",
+          "stratification_used": true,
+          "test_model_count": 0,
+          "train_model_count": 162,
+          "val_model_count": 18,
+          "val_split_method": "stratified",
+          "valid_model_count": 180,
+          "warnings": [
+            "sparse_b1: global overlap too small; benchmark-local train/val only"
+          ]
+        },
+        "sparse_b2": {
+          "diagnostics": {
+            "train": {
+              "count": 189,
+              "score_max": 93.75,
+              "score_mean": 52.777144881234946,
+              "score_min": 17.391304347826086
+            },
+            "val": {
+              "count": 21,
+              "score_max": 88.0,
+              "score_mean": 53.540276298707894,
+              "score_min": 23.46938775510204
+            }
+          },
+          "effective_bins": 10,
+          "fallback_reason": "benchmark_local_only",
+          "strategy": "benchmark_local_only",
+          "stratification_used": true,
+          "test_model_count": 0,
+          "train_model_count": 189,
+          "val_model_count": 21,
+          "val_split_method": "stratified",
+          "valid_model_count": 210,
+          "warnings": [
+            "sparse_b2: global overlap too small; benchmark-local train/val only"
+          ]
+        },
+        "sparse_b3": {
+          "diagnostics": {
+            "train": {
+              "count": 189,
+              "score_max": 94.89795918367348,
+              "score_mean": 58.03491030999234,
+              "score_min": 23.157894736842106
+            },
+            "val": {
+              "count": 21,
+              "score_max": 86.73469387755102,
+              "score_mean": 58.65412609499196,
+              "score_min": 30.612244897959183
+            }
+          },
+          "effective_bins": 10,
+          "fallback_reason": "benchmark_local_only",
+          "strategy": "benchmark_local_only",
+          "stratification_used": true,
+          "test_model_count": 0,
+          "train_model_count": 189,
+          "val_model_count": 21,
+          "val_split_method": "stratified",
+          "valid_model_count": 210,
+          "warnings": [
+            "sparse_b3: global overlap too small; benchmark-local train/val only"
+          ]
+        },
+        "sparse_b4": {
+          "diagnostics": {
+            "train": {
+              "count": 189,
+              "score_max": 93.75,
+              "score_mean": 50.496377155987005,
+              "score_min": 14.285714285714285
+            },
+            "val": {
+              "count": 21,
+              "score_max": 85.71428571428571,
+              "score_mean": 49.42752398122258,
+              "score_min": 25.0
+            }
+          },
+          "effective_bins": 10,
+          "fallback_reason": "benchmark_local_only",
+          "strategy": "benchmark_local_only",
+          "stratification_used": true,
+          "test_model_count": 0,
+          "train_model_count": 189,
+          "val_model_count": 21,
+          "val_split_method": "stratified",
+          "valid_model_count": 210,
+          "warnings": [
+            "sparse_b4: global overlap too small; benchmark-local train/val only"
+          ]
+        },
+        "sparse_b5": {
+          "diagnostics": {
+            "train": {
+              "count": 189,
+              "score_max": 92.78350515463917,
+              "score_mean": 48.77792227645404,
+              "score_min": 15.217391304347828
+            },
+            "val": {
+              "count": 21,
+              "score_max": 80.0,
+              "score_mean": 47.474682377176194,
+              "score_min": 21.34831460674157
+            }
+          },
+          "effective_bins": 10,
+          "fallback_reason": "benchmark_local_only",
+          "strategy": "benchmark_local_only",
+          "stratification_used": true,
+          "test_model_count": 0,
+          "train_model_count": 189,
+          "val_model_count": 21,
+          "val_split_method": "stratified",
+          "valid_model_count": 210,
+          "warnings": [
+            "sparse_b5: global overlap too small; benchmark-local train/val only"
+          ]
+        },
+        "sparse_b6": {
+          "diagnostics": {
+            "train": {
+              "count": 162,
+              "score_max": 93.75,
+              "score_mean": 44.05358807494615,
+              "score_min": 15.789473684210526
+            },
+            "val": {
+              "count": 18,
+              "score_max": 82.79569892473118,
+              "score_mean": 41.480882598778024,
+              "score_min": 13.095238095238097
+            }
+          },
+          "effective_bins": 10,
+          "fallback_reason": "benchmark_local_only",
+          "strategy": "benchmark_local_only",
+          "stratification_used": true,
+          "test_model_count": 0,
+          "train_model_count": 162,
+          "val_model_count": 18,
+          "val_split_method": "stratified",
+          "valid_model_count": 180,
+          "warnings": [
+            "sparse_b6: global overlap too small; benchmark-local train/val only"
+          ]
+        }
+      },
+      "counts": {
+        "benchmark_count": 6,
+        "global_test_enabled": false,
+        "global_test_model_count": 0
+      },
+      "generated_at": "2026-04-19T17:01:43.102874+00:00",
+      "global_test": {
+        "assigned_test_count": 0,
+        "assigned_train_pool_count": 0,
+        "diagnostics": {
+          "benchmark_local_only": {
+            "count": 650,
+            "score_max": null,
+            "score_mean": null,
+            "score_min": null
+          }
+        },
+        "effective_bins": 0,
+        "eligible_model_count": 0,
+        "enabled": false,
+        "fallback_reason": "overlap_below_joint_threshold",
+        "skip_reason": "overlap_below_joint_threshold",
+        "split_method": "unavailable",
+        "stratification_used": false,
+        "test_model_count": 0,
+        "train_val_pool_count": 0,
+        "warnings": [
+          "global test split disabled: no grand scores available"
+        ]
+      },
+      "warnings": [
+        "global test split disabled: no grand scores available",
+        "sparse_b1: global overlap too small; benchmark-local train/val only",
+        "sparse_b2: global overlap too small; benchmark-local train/val only",
+        "sparse_b3: global overlap too small; benchmark-local train/val only",
+        "sparse_b4: global overlap too small; benchmark-local train/val only",
+        "sparse_b5: global overlap too small; benchmark-local train/val only",
+        "sparse_b6: global overlap too small; benchmark-local train/val only",
+        "benchmark-local train/val only: global overlap is too small"
+      ]
+    },
+    "theta": {
+      "artifacts": {
+        "plots": {
+          "sparse_b1": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/plots/sparse_b1__theta_distribution.png",
+          "sparse_b2": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/plots/sparse_b2__theta_distribution.png",
+          "sparse_b3": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/plots/sparse_b3__theta_distribution.png",
+          "sparse_b4": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/plots/sparse_b4__theta_distribution.png",
+          "sparse_b5": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/plots/sparse_b5__theta_distribution.png",
+          "sparse_b6": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/plots/sparse_b6__theta_distribution.png"
+        },
+        "theta_estimates": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/theta_estimates.parquet",
+        "theta_report": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/theta_report.json"
+      },
+      "benchmarks": {
+        "sparse_b1": {
+          "benchmark_id": "sparse_b1",
+          "counts": {
+            "all_correct_count": 11,
+            "all_wrong_count": 17,
+            "missing_heavy_count": 0,
+            "model_count": 180,
+            "no_observed_item_count": 0,
+            "saturated_count": 0,
+            "selected_item_count": 10,
+            "split_counts": {
+              "train": 162,
+              "val": 18
+            }
+          },
+          "parameters": {
+            "theta_method": "MAP"
+          },
+          "plots": {
+            "theta_distribution": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/plots/sparse_b1__theta_distribution.png"
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "warnings": []
+        },
+        "sparse_b2": {
+          "benchmark_id": "sparse_b2",
+          "counts": {
+            "all_correct_count": 7,
+            "all_wrong_count": 14,
+            "missing_heavy_count": 0,
+            "model_count": 210,
+            "no_observed_item_count": 0,
+            "saturated_count": 0,
+            "selected_item_count": 10,
+            "split_counts": {
+              "train": 189,
+              "val": 21
+            }
+          },
+          "parameters": {
+            "theta_method": "MAP"
+          },
+          "plots": {
+            "theta_distribution": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/plots/sparse_b2__theta_distribution.png"
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "warnings": []
+        },
+        "sparse_b3": {
+          "benchmark_id": "sparse_b3",
+          "counts": {
+            "all_correct_count": 11,
+            "all_wrong_count": 12,
+            "missing_heavy_count": 0,
+            "model_count": 210,
+            "no_observed_item_count": 0,
+            "saturated_count": 0,
+            "selected_item_count": 10,
+            "split_counts": {
+              "train": 189,
+              "val": 21
+            }
+          },
+          "parameters": {
+            "theta_method": "MAP"
+          },
+          "plots": {
+            "theta_distribution": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/plots/sparse_b3__theta_distribution.png"
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "warnings": []
+        },
+        "sparse_b4": {
+          "benchmark_id": "sparse_b4",
+          "counts": {
+            "all_correct_count": 8,
+            "all_wrong_count": 23,
+            "missing_heavy_count": 0,
+            "model_count": 210,
+            "no_observed_item_count": 0,
+            "saturated_count": 0,
+            "selected_item_count": 10,
+            "split_counts": {
+              "train": 189,
+              "val": 21
+            }
+          },
+          "parameters": {
+            "theta_method": "MAP"
+          },
+          "plots": {
+            "theta_distribution": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/plots/sparse_b4__theta_distribution.png"
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "warnings": []
+        },
+        "sparse_b5": {
+          "benchmark_id": "sparse_b5",
+          "counts": {
+            "all_correct_count": 12,
+            "all_wrong_count": 14,
+            "missing_heavy_count": 0,
+            "model_count": 210,
+            "no_observed_item_count": 0,
+            "saturated_count": 0,
+            "selected_item_count": 10,
+            "split_counts": {
+              "train": 189,
+              "val": 21
+            }
+          },
+          "parameters": {
+            "theta_method": "MAP"
+          },
+          "plots": {
+            "theta_distribution": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/plots/sparse_b5__theta_distribution.png"
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "warnings": []
+        },
+        "sparse_b6": {
+          "benchmark_id": "sparse_b6",
+          "counts": {
+            "all_correct_count": 7,
+            "all_wrong_count": 14,
+            "missing_heavy_count": 0,
+            "model_count": 180,
+            "no_observed_item_count": 0,
+            "saturated_count": 0,
+            "selected_item_count": 10,
+            "split_counts": {
+              "train": 162,
+              "val": 18
+            }
+          },
+          "parameters": {
+            "theta_method": "MAP"
+          },
+          "plots": {
+            "theta_distribution": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_sparse_overlap__kp-25__kf-10__seed-7/artifacts/07_theta/plots/sparse_b6__theta_distribution.png"
+          },
+          "skipped": false,
+          "skipped_reason": null,
+          "warnings": []
+        }
+      },
+      "counts": {
+        "all_correct_count": 56,
+        "all_wrong_count": 94,
+        "benchmark_count": 6,
+        "missing_heavy_count": 0,
+        "no_observed_item_count": 0,
+        "row_count": 1200,
+        "saturated_count": 0,
+        "split_counts": {
+          "train": 1080,
+          "val": 120
+        }
+      },
+      "generated_at": "2026-04-19T17:01:46.056860+00:00",
+      "parameters": {
+        "missing_heavy_threshold": 0.5,
+        "prior": "Normal(0,1)",
+        "theta_grid_size": 151,
+        "theta_max": 4.0,
+        "theta_method": "MAP",
+        "theta_min": -4.0
+      },
+      "theta_method": "MAP",
+      "warnings": []
+    }
+  },
+  "warnings": [
+    {
+      "code": "joint_features_incomplete",
+      "message": "Only 1 complete-overlap models had all benchmark theta/sub/lin features available.",
+      "severity": "warning"
+    },
+    {
+      "code": "joint_features_skipped",
+      "message": "joint feature table skipped: joint_feature_overlap_below_threshold",
+      "severity": "warning"
+    }
+  ]
+}

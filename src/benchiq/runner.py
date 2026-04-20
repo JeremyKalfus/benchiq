@@ -78,7 +78,7 @@ STAGE_DEPENDENCIES: dict[StageName, tuple[StageName, ...]] = {
 
 DEFAULT_STAGE_OPTIONS: dict[str, dict[str, Any]] = {
     "04_subsample": {
-        "method": "random_cv",
+        "method": "deterministic_info",
         "k_preselect": None,
         "n_iter": 2000,
         "cv_folds": 5,

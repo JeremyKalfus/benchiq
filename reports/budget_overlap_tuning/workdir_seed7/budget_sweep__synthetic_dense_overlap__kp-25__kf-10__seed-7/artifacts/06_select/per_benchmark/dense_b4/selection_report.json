@@ -1,0 +1,52 @@
+{
+  "artifacts": {
+    "expected_test_information_plot": "reports/budget_overlap_tuning/workdir_seed7/budget_sweep__synthetic_dense_overlap__kp-25__kf-10__seed-7/artifacts/06_select/per_benchmark/dense_b4/plots/expected_test_information.png",
+    "plots_reason": null,
+    "plots_written": true
+  },
+  "benchmark_id": "dense_b4",
+  "counts": {
+    "candidate_item_count": 25,
+    "info_grid_row_count": 3775,
+    "selected_item_count": 10
+  },
+  "expected_test_information": {
+    "full_sum_max": 6.274073170591205,
+    "reduced_sum_max": 3.0779388985110026
+  },
+  "generated_at": "2026-04-19T17:01:24.422036+00:00",
+  "parameters": {
+    "effective_k_final": 10,
+    "info_min": 0.0,
+    "n_bins": 10,
+    "requested_k_final": 10,
+    "theta_grid_size": 151,
+    "theta_grid_type": "difficulty_range"
+  },
+  "selected_item_ids": [
+    "dense_b4_item_023",
+    "dense_b4_item_030",
+    "dense_b4_item_043",
+    "dense_b4_item_045",
+    "dense_b4_item_058",
+    "dense_b4_item_069",
+    "dense_b4_item_057",
+    "dense_b4_item_068",
+    "dense_b4_item_052",
+    "dense_b4_item_051"
+  ],
+  "skipped": false,
+  "skipped_reason": null,
+  "theta_grid": {
+    "grid_size": 151,
+    "max_theta": 2.134670364269575,
+    "min_theta": -1.806107155100675
+  },
+  "warnings": [
+    {
+      "code": "small_final_subset",
+      "message": "selected only 10 final items; reduced benchmark may be too small for stable downstream reconstruction.",
+      "severity": "warning"
+    }
+  ]
+}

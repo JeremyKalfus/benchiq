@@ -1,0 +1,188 @@
+{
+  "artifacts": {
+    "plots": {
+      "gsm8k": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_005__deterministic_info__seed-7/artifacts/07_theta/plots/gsm8k__theta_distribution.png",
+      "mmlu": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_005__deterministic_info__seed-7/artifacts/07_theta/plots/mmlu__theta_distribution.png",
+      "truthfulqa": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_005__deterministic_info__seed-7/artifacts/07_theta/plots/truthfulqa__theta_distribution.png"
+    },
+    "theta_estimates": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_005__deterministic_info__seed-7/artifacts/07_theta/theta_estimates.parquet",
+    "theta_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_005__deterministic_info__seed-7/artifacts/07_theta/theta_report.json"
+  },
+  "benchmarks": {
+    "arc": {
+      "benchmark_id": "arc",
+      "counts": {
+        "all_correct_count": 0,
+        "all_wrong_count": 0,
+        "missing_heavy_count": 0,
+        "model_count": 0,
+        "no_observed_item_count": 0,
+        "saturated_count": 0,
+        "selected_item_count": 0,
+        "split_counts": {}
+      },
+      "parameters": {},
+      "plots": {
+        "theta_distribution": null
+      },
+      "skipped": true,
+      "skipped_reason": "benchmark_skipped_in_irt",
+      "warnings": []
+    },
+    "gsm8k": {
+      "benchmark_id": "gsm8k",
+      "counts": {
+        "all_correct_count": 0,
+        "all_wrong_count": 177,
+        "missing_heavy_count": 0,
+        "model_count": 6068,
+        "no_observed_item_count": 0,
+        "saturated_count": 0,
+        "selected_item_count": 250,
+        "split_counts": {
+          "test": 464,
+          "train": 5043,
+          "val": 561
+        }
+      },
+      "parameters": {
+        "theta_method": "MAP"
+      },
+      "plots": {
+        "theta_distribution": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_005__deterministic_info__seed-7/artifacts/07_theta/plots/gsm8k__theta_distribution.png"
+      },
+      "skipped": false,
+      "skipped_reason": null,
+      "warnings": []
+    },
+    "hellaswag": {
+      "benchmark_id": "hellaswag",
+      "counts": {
+        "all_correct_count": 0,
+        "all_wrong_count": 0,
+        "missing_heavy_count": 0,
+        "model_count": 0,
+        "no_observed_item_count": 0,
+        "saturated_count": 0,
+        "selected_item_count": 0,
+        "split_counts": {}
+      },
+      "parameters": {},
+      "plots": {
+        "theta_distribution": null
+      },
+      "skipped": true,
+      "skipped_reason": "benchmark_skipped_in_irt",
+      "warnings": []
+    },
+    "mmlu": {
+      "benchmark_id": "mmlu",
+      "counts": {
+        "all_correct_count": 0,
+        "all_wrong_count": 0,
+        "missing_heavy_count": 0,
+        "model_count": 5219,
+        "no_observed_item_count": 0,
+        "saturated_count": 0,
+        "selected_item_count": 250,
+        "split_counts": {
+          "test": 464,
+          "train": 4279,
+          "val": 476
+        }
+      },
+      "parameters": {
+        "theta_method": "MAP"
+      },
+      "plots": {
+        "theta_distribution": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_005__deterministic_info__seed-7/artifacts/07_theta/plots/mmlu__theta_distribution.png"
+      },
+      "skipped": false,
+      "skipped_reason": null,
+      "warnings": []
+    },
+    "truthfulqa": {
+      "benchmark_id": "truthfulqa",
+      "counts": {
+        "all_correct_count": 33,
+        "all_wrong_count": 0,
+        "missing_heavy_count": 0,
+        "model_count": 5222,
+        "no_observed_item_count": 0,
+        "saturated_count": 33,
+        "selected_item_count": 250,
+        "split_counts": {
+          "test": 464,
+          "train": 4282,
+          "val": 476
+        }
+      },
+      "parameters": {
+        "theta_method": "MAP"
+      },
+      "plots": {
+        "theta_distribution": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_005__deterministic_info__seed-7/artifacts/07_theta/plots/truthfulqa__theta_distribution.png"
+      },
+      "skipped": false,
+      "skipped_reason": null,
+      "warnings": [
+        {
+          "code": "theta_saturation",
+          "message": "33 models hit theta bounds during MAP estimation.",
+          "severity": "warning"
+        }
+      ]
+    },
+    "winogrande": {
+      "benchmark_id": "winogrande",
+      "counts": {
+        "all_correct_count": 0,
+        "all_wrong_count": 0,
+        "missing_heavy_count": 0,
+        "model_count": 0,
+        "no_observed_item_count": 0,
+        "saturated_count": 0,
+        "selected_item_count": 0,
+        "split_counts": {}
+      },
+      "parameters": {},
+      "plots": {
+        "theta_distribution": null
+      },
+      "skipped": true,
+      "skipped_reason": "benchmark_skipped_in_irt",
+      "warnings": []
+    }
+  },
+  "counts": {
+    "all_correct_count": 33,
+    "all_wrong_count": 177,
+    "benchmark_count": 6,
+    "missing_heavy_count": 0,
+    "no_observed_item_count": 0,
+    "row_count": 16509,
+    "saturated_count": 33,
+    "split_counts": {
+      "test": 1392,
+      "train": 13604,
+      "val": 1513
+    }
+  },
+  "generated_at": "2026-04-19T23:40:21.261902+00:00",
+  "parameters": {
+    "missing_heavy_threshold": 0.5,
+    "prior": "Normal(0,1)",
+    "theta_grid_size": 251,
+    "theta_max": 4.0,
+    "theta_method": "MAP",
+    "theta_min": -4.0
+  },
+  "theta_method": "MAP",
+  "warnings": [
+    {
+      "code": "theta_saturation",
+      "message": "33 models hit theta bounds during MAP estimation.",
+      "severity": "warning"
+    }
+  ]
+}

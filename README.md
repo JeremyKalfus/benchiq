@@ -39,8 +39,8 @@ BenchIQ v0.1 is implemented end to end through:
 - a saved preprocessing optimization bundle under `reports/preprocessing_optimization/`
 - a saved multi-bundle generalization and deployment bundle under
   `reports/generalization_optimization/` and `reports/deployment_validation/`
-- a first-class recommended reconstruction-first product profile, while the locked psychometric
-  defaults remain unchanged
+- a first-class default reconstruction-first product profile, while the locked psychometric
+  baseline remains available explicitly as `psychometric_default`
 
 Honest metabench-validation status:
 
@@ -55,10 +55,12 @@ The reviewer bundle and comparison reports live in:
 
 Held-out reconstruction optimization status:
 
-> The current psychometric defaults remain the locked v0.1 baseline. The completed multi-bundle
-> generalization pass promoted a first-class recommended profile, `reconstruction_first`, which
-> corresponds to `reconstruction_relaxed` plus `deterministic_info` preselection. This was
-> promoted as the recommended product path, not the actual default config.
+> The completed multi-bundle generalization pass identified `reconstruction_first` as the winning
+> product path. A later broader real-data preprocessing follow-up found that adding a light
+> `drop_low_tail_models_quantile=0.002` trim improved held-out reconstruction RMSE again, so
+> BenchIQ now uses that relaxed-low-tail reconstruction-first stack as the runtime default, while
+> the locked psychometric baseline remains available explicitly as `psychometric_default` for
+> spec-aligned and metabench-style comparisons.
 
 The supporting optimization and promotion bundles live in:
 
@@ -67,8 +69,11 @@ The supporting optimization and promotion bundles live in:
 - [`reports/preprocessing_optimization/head_checks/head_check_summary.md`](reports/preprocessing_optimization/head_checks/head_check_summary.md)
 - [`reports/generalization_optimization/summary.md`](reports/generalization_optimization/summary.md)
 - [`reports/generalization_optimization/best_profile.json`](reports/generalization_optimization/best_profile.json)
+- [`reports/preprocessing_variation_followup/summary.md`](reports/preprocessing_variation_followup/summary.md)
+- [`reports/preprocessing_variation_followup/decision.json`](reports/preprocessing_variation_followup/decision.json)
 - [`reports/deployment_validation/summary.md`](reports/deployment_validation/summary.md)
 - [`scripts/run_preprocessing_optimization.py`](scripts/run_preprocessing_optimization.py)
+- [`scripts/run_preprocessing_variation_followup.py`](scripts/run_preprocessing_variation_followup.py)
 - [`scripts/run_generalization_optimization.py`](scripts/run_generalization_optimization.py)
 
 ## What BenchIQ Expects
@@ -123,7 +128,8 @@ from benchiq import (
 alias for the same behavior so the calibration / deployment split is discoverable from `import
 benchiq`.
 
-The recommended non-default product profile is exposed directly from the package root:
+The default product profile is exposed directly from the package root if you want to pin it
+explicitly:
 
 ```python
 from benchiq import build_reconstruction_first_profile

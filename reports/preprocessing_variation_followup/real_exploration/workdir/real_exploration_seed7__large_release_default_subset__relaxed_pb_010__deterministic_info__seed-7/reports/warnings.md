@@ -1,0 +1,22 @@
+# warnings
+
+- `02_scores`: arc: 1611 low-coverage models missing full scores
+- `02_scores`: gsm8k: 764 low-coverage models missing full scores
+- `02_scores`: hellaswag: 1611 low-coverage models missing full scores
+- `02_scores`: mmlu: 1613 low-coverage models missing full scores
+- `02_scores`: truthfulqa: 1610 low-coverage models missing full scores
+- `02_scores`: winogrande: 282 low-coverage models missing full scores
+- `08_features`: Only 0 complete-overlap models had all benchmark theta/sub/lin features available.
+- `08_features`: joint feature table skipped: joint_feature_values_missing
+- `09_reconstruct` `arc`: arc marginal reconstruction skipped: no_complete_feature_rows_available
+- `09_reconstruct` `arc`: arc joint reconstruction skipped: joint_feature_values_missing
+- `09_reconstruct` `gsm8k`: gsm8k marginal reconstruction skipped: no_complete_feature_rows_available
+- `09_reconstruct` `gsm8k`: gsm8k joint reconstruction skipped: joint_feature_values_missing
+- `09_reconstruct` `hellaswag`: hellaswag marginal reconstruction skipped: no_complete_feature_rows_available
+- `09_reconstruct` `hellaswag`: hellaswag joint reconstruction skipped: joint_feature_values_missing
+- `09_reconstruct` `mmlu`: mmlu marginal reconstruction skipped: no_complete_feature_rows_available
+- `09_reconstruct` `mmlu`: mmlu joint reconstruction skipped: joint_feature_values_missing
+- `09_reconstruct` `truthfulqa`: truthfulqa marginal reconstruction skipped: no_complete_feature_rows_available
+- `09_reconstruct` `truthfulqa`: truthfulqa joint reconstruction skipped: joint_feature_values_missing
+- `09_reconstruct` `winogrande`: winogrande marginal reconstruction skipped: no_complete_feature_rows_available
+- `09_reconstruct` `winogrande`: winogrande joint reconstruction skipped: joint_feature_values_missing

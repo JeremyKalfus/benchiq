@@ -1,0 +1,34 @@
+{
+  "benchmark_id": "sparse_b5",
+  "counts": {
+    "coverage_models_dropped": 0,
+    "dropped_low_coverage_items": 0,
+    "dropped_low_discrimination_items": 0,
+    "dropped_low_variance_items": 0,
+    "dropped_near_ceiling_items": 0,
+    "initial_items": 105,
+    "initial_models": 210,
+    "low_tail_models_dropped": 0,
+    "retained_items": 105,
+    "retained_models": 210
+  },
+  "dropped_model_ids": {
+    "coverage": [],
+    "low_tail": []
+  },
+  "generated_at": "2026-04-19T17:01:34.080668+00:00",
+  "refusal_reasons": [],
+  "refused": false,
+  "thresholds": {
+    "drop_low_tail_models_quantile": 0.0,
+    "max_item_mean": 0.99,
+    "min_abs_point_biserial": 0.0,
+    "min_item_coverage": 0.7,
+    "min_item_sd": 0.0,
+    "min_items_after_filtering": 45,
+    "min_models_per_benchmark": 120,
+    "min_models_per_item": 42,
+    "warn_models_per_benchmark": 160
+  },
+  "warnings": []
+}

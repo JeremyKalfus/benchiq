@@ -1,0 +1,12 @@
+{
+  "benchmark_id": "hellaswag",
+  "best_iteration": null,
+  "candidate_item_count": 340,
+  "completed_iterations": 0,
+  "effective_k_preselect": 0,
+  "failed_iterations": 0,
+  "n_iter": 1,
+  "requested_k_preselect": 350,
+  "updated_at": "2026-04-19T23:41:49.368899+00:00",
+  "valid_iterations": 0
+}

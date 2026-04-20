@@ -1,11 +1,13 @@
 import json
 
 import pandas as pd
+import pytest
 
 import benchiq
 from benchiq.preprocess import compute_scores, preprocess_bundle
 from benchiq.split import split_models
 from benchiq.subsample import subsample_bundle
+from benchiq.subsample.random_cv import _build_information_proxy_ranking_table
 
 
 def test_subsample_bundle_writes_artifacts_and_respects_k_preselect(tmp_path) -> None:
@@ -254,3 +256,26 @@ def test_subsample_bundle_supports_deterministic_information_ranking(tmp_path) -
         assert (stage_dir / "ranking_table.parquet").exists()
 
     assert selected_item_sets[0] == selected_item_sets[1]
+
+
+def test_information_proxy_ranking_uses_absolute_point_biserial() -> None:
+    filtered_items = pd.DataFrame(
+        {
+            "item_id": ["negative_balanced", "positive_easy", "weak"],
+            "point_biserial": [-0.60, 0.70, 0.20],
+            "mean": [0.50, 0.95, 0.50],
+            "sd": [0.50, 0.22, 0.50],
+            "item_coverage": [1.0, 1.0, 1.0],
+        }
+    )
+
+    ranking = _build_information_proxy_ranking_table(
+        benchmark_id="b1",
+        filtered_items=filtered_items,
+    )
+
+    assert ranking.iloc[0]["item_id"] == "negative_balanced"
+    assert ranking.iloc[0]["information_proxy_score"] == pytest.approx(0.09)
+    assert ranking.loc[ranking["item_id"] == "positive_easy", "information_proxy_score"].item() == (
+        pytest.approx(0.70**2 * 0.95 * 0.05)
+    )

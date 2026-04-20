@@ -69,12 +69,19 @@
   preselection, and optional IRT-parity reports live under stable `reports/` paths.
 - T25 is now complete: the preprocessing optimization sweep, real-data confirmation, method check,
   and saved report bundle live under `reports/preprocessing_optimization/`, with
-  `reconstruction_relaxed` documented as the recommended reconstruction-first profile while the
-  spec-aligned psychometric defaults remain the baseline story.
+  `reconstruction_relaxed` documented as the winning reconstruction-first profile for that pass,
+  while the spec-aligned psychometric baseline remains available explicitly.
 - T26 is now complete: the multi-bundle generalization pass, deployment validation, paper-ready
   plots/tables, and explicit promotion decision live under `reports/generalization_optimization/`
-  and `reports/deployment_validation/`, with `reconstruction_first` promoted as the first-class
-  recommended profile while the actual defaults remain unchanged.
+  and `reports/deployment_validation/`, with `reconstruction_first` now promoted into the actual
+  runtime defaults.
+- T26 follow-up guardrails are now complete: stage-04 keeps the documented
+  `deterministic_info` ranking rule with regression coverage, and reconstruction-head experiments
+  remain comparison-only rather than a promoted product-head change.
+- T26 preprocessing follow-up is now complete: the broader real-data variation sweep lives under
+  `reports/preprocessing_variation_followup/`, `relaxed_low_tail_002` beat the previous promoted
+  runtime default on the multi-seed confirmation pass, and `reconstruction_first` now uses that
+  light `drop_low_tail_models_quantile=0.002` trim while keeping `deterministic_info`.
 
 ## completed tickets
 

@@ -1,0 +1,927 @@
+{
+  "executed_stages": [
+    "00_bundle",
+    "01_preprocess",
+    "02_scores",
+    "03_splits",
+    "04_subsample",
+    "05_irt",
+    "06_select",
+    "07_theta",
+    "08_linear",
+    "08_features",
+    "09_reconstruct"
+  ],
+  "generated_at": "2026-04-19T23:41:49.658869+00:00",
+  "metrics": {
+    "global_test_enabled": true,
+    "joint_reconstruction_skips": {
+      "arc": "joint_feature_values_missing",
+      "gsm8k": "joint_feature_values_missing",
+      "hellaswag": "joint_feature_values_missing",
+      "mmlu": "joint_feature_values_missing",
+      "truthfulqa": "joint_feature_values_missing",
+      "winogrande": "joint_feature_values_missing"
+    },
+    "joint_test_rmse_by_benchmark": {
+      "arc": null,
+      "gsm8k": null,
+      "hellaswag": null,
+      "mmlu": null,
+      "truthfulqa": null,
+      "winogrande": null
+    },
+    "marginal_test_rmse_by_benchmark": {
+      "arc": null,
+      "gsm8k": null,
+      "hellaswag": null,
+      "mmlu": null,
+      "truthfulqa": null,
+      "winogrande": null
+    },
+    "selected_items_by_benchmark": {
+      "arc": 0,
+      "gsm8k": 0,
+      "hellaswag": 0,
+      "mmlu": 0,
+      "truthfulqa": 0,
+      "winogrande": 0
+    }
+  },
+  "run_id": "real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7",
+  "skip_reasons": {
+    "04_subsample": {
+      "arc": "k_preselect_exceeds_candidate_items",
+      "gsm8k": "k_preselect_exceeds_candidate_items",
+      "hellaswag": "k_preselect_exceeds_candidate_items",
+      "mmlu": "k_preselect_exceeds_candidate_items",
+      "truthfulqa": "k_preselect_exceeds_candidate_items",
+      "winogrande": "k_preselect_exceeds_candidate_items"
+    },
+    "05_irt": {
+      "arc": "k_preselect_exceeds_candidate_items",
+      "gsm8k": "k_preselect_exceeds_candidate_items",
+      "hellaswag": "k_preselect_exceeds_candidate_items",
+      "mmlu": "k_preselect_exceeds_candidate_items",
+      "truthfulqa": "k_preselect_exceeds_candidate_items",
+      "winogrande": "k_preselect_exceeds_candidate_items"
+    },
+    "06_select": {
+      "arc": "benchmark_skipped_in_irt",
+      "gsm8k": "benchmark_skipped_in_irt",
+      "hellaswag": "benchmark_skipped_in_irt",
+      "mmlu": "benchmark_skipped_in_irt",
+      "truthfulqa": "benchmark_skipped_in_irt",
+      "winogrande": "benchmark_skipped_in_irt"
+    },
+    "08_features": {
+      "joint_features": "joint_feature_values_missing"
+    },
+    "09_reconstruct": {
+      "arc": "joint_feature_values_missing",
+      "gsm8k": "joint_feature_values_missing",
+      "hellaswag": "joint_feature_values_missing",
+      "mmlu": "joint_feature_values_missing",
+      "truthfulqa": "joint_feature_values_missing",
+      "winogrande": "joint_feature_values_missing"
+    }
+  },
+  "stage_records": {
+    "00_bundle": {
+      "artifact_paths": {
+        "canonicalization_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/00_canonical/canonicalization_report.json",
+        "items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/00_canonical/items.parquet",
+        "models": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/00_canonical/models.parquet",
+        "responses_long": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/00_canonical/responses_long.parquet"
+      },
+      "dependencies": [],
+      "duration_seconds": 2.5671259170630947,
+      "finished_at": "2026-04-19T23:40:29.318355+00:00",
+      "metrics": {
+        "item_count": 2100,
+        "model_count": 6832,
+        "responses_row_count": 11725350
+      },
+      "skip_reasons": null,
+      "stage": "00_bundle",
+      "started_at": "2026-04-19T23:40:26.751233+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "01_preprocess": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "arc": {
+            "filtered_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/arc/filtered_items.parquet",
+            "filtered_models": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/arc/filtered_models.parquet",
+            "item_stats": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/arc/item_stats.parquet",
+            "preprocess_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/arc/preprocess_report.json"
+          },
+          "gsm8k": {
+            "filtered_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/gsm8k/filtered_items.parquet",
+            "filtered_models": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/gsm8k/filtered_models.parquet",
+            "item_stats": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/gsm8k/item_stats.parquet",
+            "preprocess_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/gsm8k/preprocess_report.json"
+          },
+          "hellaswag": {
+            "filtered_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/hellaswag/filtered_items.parquet",
+            "filtered_models": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/hellaswag/filtered_models.parquet",
+            "item_stats": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/hellaswag/item_stats.parquet",
+            "preprocess_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/hellaswag/preprocess_report.json"
+          },
+          "mmlu": {
+            "filtered_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/mmlu/filtered_items.parquet",
+            "filtered_models": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/mmlu/filtered_models.parquet",
+            "item_stats": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/mmlu/item_stats.parquet",
+            "preprocess_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/mmlu/preprocess_report.json"
+          },
+          "truthfulqa": {
+            "filtered_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/truthfulqa/filtered_items.parquet",
+            "filtered_models": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/truthfulqa/filtered_models.parquet",
+            "item_stats": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/truthfulqa/item_stats.parquet",
+            "preprocess_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/truthfulqa/preprocess_report.json"
+          },
+          "winogrande": {
+            "filtered_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/winogrande/filtered_items.parquet",
+            "filtered_models": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/winogrande/filtered_models.parquet",
+            "item_stats": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/winogrande/item_stats.parquet",
+            "preprocess_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/per_benchmark/winogrande/preprocess_report.json"
+          }
+        },
+        "summary": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/01_preprocess/summary.parquet"
+      },
+      "dependencies": [
+        "00_bundle"
+      ],
+      "duration_seconds": 73.54546645795926,
+      "finished_at": "2026-04-19T23:41:42.863305+00:00",
+      "metrics": {
+        "retained_items_by_benchmark": {
+          "arc": 332,
+          "gsm8k": 343,
+          "hellaswag": 340,
+          "mmlu": 328,
+          "truthfulqa": 342,
+          "winogrande": 332
+        },
+        "summary_rows": 6
+      },
+      "skip_reasons": null,
+      "stage": "01_preprocess",
+      "started_at": "2026-04-19T23:40:29.318680+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "02_scores": {
+      "artifact_paths": {
+        "score_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/02_scores/score_report.json",
+        "scores_full": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/02_scores/scores_full.parquet",
+        "scores_grand": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/02_scores/scores_grand.parquet"
+      },
+      "dependencies": [
+        "00_bundle",
+        "01_preprocess"
+      ],
+      "duration_seconds": 5.868748667067848,
+      "finished_at": "2026-04-19T23:41:48.732996+00:00",
+      "metrics": {
+        "grand_score_rows": 4634,
+        "scores_full_rows": 40992
+      },
+      "skip_reasons": null,
+      "stage": "02_scores",
+      "started_at": "2026-04-19T23:41:42.864306+00:00",
+      "status": "completed",
+      "warnings": [
+        {
+          "benchmark_id": null,
+          "message": "arc: 1611 low-coverage models missing full scores",
+          "stage": "02_scores"
+        },
+        {
+          "benchmark_id": null,
+          "message": "gsm8k: 764 low-coverage models missing full scores",
+          "stage": "02_scores"
+        },
+        {
+          "benchmark_id": null,
+          "message": "hellaswag: 1611 low-coverage models missing full scores",
+          "stage": "02_scores"
+        },
+        {
+          "benchmark_id": null,
+          "message": "mmlu: 1613 low-coverage models missing full scores",
+          "stage": "02_scores"
+        },
+        {
+          "benchmark_id": null,
+          "message": "truthfulqa: 1610 low-coverage models missing full scores",
+          "stage": "02_scores"
+        },
+        {
+          "benchmark_id": null,
+          "message": "winogrande: 282 low-coverage models missing full scores",
+          "stage": "02_scores"
+        }
+      ]
+    },
+    "03_splits": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "arc": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/03_splits/per_benchmark/arc/splits_models.parquet",
+          "gsm8k": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/03_splits/per_benchmark/gsm8k/splits_models.parquet",
+          "hellaswag": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/03_splits/per_benchmark/hellaswag/splits_models.parquet",
+          "mmlu": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/03_splits/per_benchmark/mmlu/splits_models.parquet",
+          "truthfulqa": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/03_splits/per_benchmark/truthfulqa/splits_models.parquet",
+          "winogrande": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/03_splits/per_benchmark/winogrande/splits_models.parquet"
+        },
+        "split_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/03_splits/split_report.json",
+        "splits_models": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/03_splits/splits_models.parquet"
+      },
+      "dependencies": [
+        "00_bundle",
+        "02_scores"
+      ],
+      "duration_seconds": 0.5339904999127612,
+      "finished_at": "2026-04-19T23:41:49.267618+00:00",
+      "metrics": {
+        "benchmark_count": 6,
+        "global_test_enabled": true,
+        "global_test_model_count": 464
+      },
+      "skip_reasons": null,
+      "stage": "03_splits",
+      "started_at": "2026-04-19T23:41:48.733621+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "04_subsample": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "arc": {
+            "cv_results": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/arc/cv_results.parquet",
+            "preselect_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/arc/preselect_items.parquet",
+            "progress": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/arc/progress.json",
+            "subsample_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/arc/subsample_report.json"
+          },
+          "gsm8k": {
+            "cv_results": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/gsm8k/cv_results.parquet",
+            "preselect_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/gsm8k/preselect_items.parquet",
+            "progress": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/gsm8k/progress.json",
+            "subsample_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/gsm8k/subsample_report.json"
+          },
+          "hellaswag": {
+            "cv_results": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/hellaswag/cv_results.parquet",
+            "preselect_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/hellaswag/preselect_items.parquet",
+            "progress": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/hellaswag/progress.json",
+            "subsample_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/hellaswag/subsample_report.json"
+          },
+          "mmlu": {
+            "cv_results": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/mmlu/cv_results.parquet",
+            "preselect_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/mmlu/preselect_items.parquet",
+            "progress": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/mmlu/progress.json",
+            "subsample_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/mmlu/subsample_report.json"
+          },
+          "truthfulqa": {
+            "cv_results": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/truthfulqa/cv_results.parquet",
+            "preselect_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/truthfulqa/preselect_items.parquet",
+            "progress": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/truthfulqa/progress.json",
+            "subsample_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/truthfulqa/subsample_report.json"
+          },
+          "winogrande": {
+            "cv_results": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/winogrande/cv_results.parquet",
+            "preselect_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/winogrande/preselect_items.parquet",
+            "progress": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/winogrande/progress.json",
+            "subsample_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/04_subsample/per_benchmark/winogrande/subsample_report.json"
+          }
+        }
+      },
+      "dependencies": [
+        "00_bundle",
+        "01_preprocess",
+        "02_scores",
+        "03_splits"
+      ],
+      "duration_seconds": 0.21707212505862117,
+      "finished_at": "2026-04-19T23:41:49.485210+00:00",
+      "metrics": {
+        "arc": {
+          "best_iteration": null,
+          "method": "deterministic_info"
+        },
+        "gsm8k": {
+          "best_iteration": null,
+          "method": "deterministic_info"
+        },
+        "hellaswag": {
+          "best_iteration": null,
+          "method": "deterministic_info"
+        },
+        "mmlu": {
+          "best_iteration": null,
+          "method": "deterministic_info"
+        },
+        "truthfulqa": {
+          "best_iteration": null,
+          "method": "deterministic_info"
+        },
+        "winogrande": {
+          "best_iteration": null,
+          "method": "deterministic_info"
+        }
+      },
+      "skip_reasons": {
+        "arc": "k_preselect_exceeds_candidate_items",
+        "gsm8k": "k_preselect_exceeds_candidate_items",
+        "hellaswag": "k_preselect_exceeds_candidate_items",
+        "mmlu": "k_preselect_exceeds_candidate_items",
+        "truthfulqa": "k_preselect_exceeds_candidate_items",
+        "winogrande": "k_preselect_exceeds_candidate_items"
+      },
+      "stage": "04_subsample",
+      "started_at": "2026-04-19T23:41:49.268132+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "05_irt": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "arc": {
+            "ability_estimates": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/arc/ability_estimates.parquet",
+            "dropped_pathological_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/arc/dropped_pathological_items.parquet",
+            "irt_fit_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/arc/irt_fit_report.json",
+            "irt_item_params": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/arc/irt_item_params.parquet"
+          },
+          "gsm8k": {
+            "ability_estimates": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/gsm8k/ability_estimates.parquet",
+            "dropped_pathological_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/gsm8k/dropped_pathological_items.parquet",
+            "irt_fit_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/gsm8k/irt_fit_report.json",
+            "irt_item_params": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/gsm8k/irt_item_params.parquet"
+          },
+          "hellaswag": {
+            "ability_estimates": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/hellaswag/ability_estimates.parquet",
+            "dropped_pathological_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/hellaswag/dropped_pathological_items.parquet",
+            "irt_fit_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/hellaswag/irt_fit_report.json",
+            "irt_item_params": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/hellaswag/irt_item_params.parquet"
+          },
+          "mmlu": {
+            "ability_estimates": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/mmlu/ability_estimates.parquet",
+            "dropped_pathological_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/mmlu/dropped_pathological_items.parquet",
+            "irt_fit_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/mmlu/irt_fit_report.json",
+            "irt_item_params": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/mmlu/irt_item_params.parquet"
+          },
+          "truthfulqa": {
+            "ability_estimates": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/truthfulqa/ability_estimates.parquet",
+            "dropped_pathological_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/truthfulqa/dropped_pathological_items.parquet",
+            "irt_fit_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/truthfulqa/irt_fit_report.json",
+            "irt_item_params": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/truthfulqa/irt_item_params.parquet"
+          },
+          "winogrande": {
+            "ability_estimates": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/winogrande/ability_estimates.parquet",
+            "dropped_pathological_items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/winogrande/dropped_pathological_items.parquet",
+            "irt_fit_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/winogrande/irt_fit_report.json",
+            "irt_item_params": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/05_irt/per_benchmark/winogrande/irt_item_params.parquet"
+          }
+        }
+      },
+      "dependencies": [
+        "00_bundle",
+        "03_splits",
+        "04_subsample"
+      ],
+      "duration_seconds": 0.018997000064700842,
+      "finished_at": "2026-04-19T23:41:49.504749+00:00",
+      "metrics": {
+        "arc": {
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 0,
+          "retained_item_count": 0
+        },
+        "gsm8k": {
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 0,
+          "retained_item_count": 0
+        },
+        "hellaswag": {
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 0,
+          "retained_item_count": 0
+        },
+        "mmlu": {
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 0,
+          "retained_item_count": 0
+        },
+        "truthfulqa": {
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 0,
+          "retained_item_count": 0
+        },
+        "winogrande": {
+          "pathology_excluded_count": 0,
+          "pathology_warning_count": 0,
+          "preselect_item_count": 0,
+          "retained_item_count": 0
+        }
+      },
+      "skip_reasons": {
+        "arc": "k_preselect_exceeds_candidate_items",
+        "gsm8k": "k_preselect_exceeds_candidate_items",
+        "hellaswag": "k_preselect_exceeds_candidate_items",
+        "mmlu": "k_preselect_exceeds_candidate_items",
+        "truthfulqa": "k_preselect_exceeds_candidate_items",
+        "winogrande": "k_preselect_exceeds_candidate_items"
+      },
+      "stage": "05_irt",
+      "started_at": "2026-04-19T23:41:49.485740+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "06_select": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "arc": {
+            "info_grid": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/arc/info_grid.parquet",
+            "selection_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/arc/selection_report.json",
+            "subset_final": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/arc/subset_final.parquet"
+          },
+          "gsm8k": {
+            "info_grid": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/gsm8k/info_grid.parquet",
+            "selection_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/gsm8k/selection_report.json",
+            "subset_final": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/gsm8k/subset_final.parquet"
+          },
+          "hellaswag": {
+            "info_grid": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/hellaswag/info_grid.parquet",
+            "selection_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/hellaswag/selection_report.json",
+            "subset_final": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/hellaswag/subset_final.parquet"
+          },
+          "mmlu": {
+            "info_grid": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/mmlu/info_grid.parquet",
+            "selection_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/mmlu/selection_report.json",
+            "subset_final": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/mmlu/subset_final.parquet"
+          },
+          "truthfulqa": {
+            "info_grid": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/truthfulqa/info_grid.parquet",
+            "selection_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/truthfulqa/selection_report.json",
+            "subset_final": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/truthfulqa/subset_final.parquet"
+          },
+          "winogrande": {
+            "info_grid": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/winogrande/info_grid.parquet",
+            "selection_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/winogrande/selection_report.json",
+            "subset_final": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/06_select/per_benchmark/winogrande/subset_final.parquet"
+          }
+        }
+      },
+      "dependencies": [
+        "00_bundle",
+        "05_irt"
+      ],
+      "duration_seconds": 0.014576415996998549,
+      "finished_at": "2026-04-19T23:41:49.520153+00:00",
+      "metrics": {
+        "arc": {
+          "candidate_item_count": 0,
+          "info_grid_row_count": 0,
+          "selected_item_count": 0
+        },
+        "gsm8k": {
+          "candidate_item_count": 0,
+          "info_grid_row_count": 0,
+          "selected_item_count": 0
+        },
+        "hellaswag": {
+          "candidate_item_count": 0,
+          "info_grid_row_count": 0,
+          "selected_item_count": 0
+        },
+        "mmlu": {
+          "candidate_item_count": 0,
+          "info_grid_row_count": 0,
+          "selected_item_count": 0
+        },
+        "truthfulqa": {
+          "candidate_item_count": 0,
+          "info_grid_row_count": 0,
+          "selected_item_count": 0
+        },
+        "winogrande": {
+          "candidate_item_count": 0,
+          "info_grid_row_count": 0,
+          "selected_item_count": 0
+        }
+      },
+      "skip_reasons": {
+        "arc": "benchmark_skipped_in_irt",
+        "gsm8k": "benchmark_skipped_in_irt",
+        "hellaswag": "benchmark_skipped_in_irt",
+        "mmlu": "benchmark_skipped_in_irt",
+        "truthfulqa": "benchmark_skipped_in_irt",
+        "winogrande": "benchmark_skipped_in_irt"
+      },
+      "stage": "06_select",
+      "started_at": "2026-04-19T23:41:49.505567+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "07_theta": {
+      "artifact_paths": {
+        "plots": {},
+        "theta_estimates": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/07_theta/theta_estimates.parquet",
+        "theta_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/07_theta/theta_report.json"
+      },
+      "dependencies": [
+        "00_bundle",
+        "03_splits",
+        "06_select",
+        "05_irt"
+      ],
+      "duration_seconds": 0.007616457995027304,
+      "finished_at": "2026-04-19T23:41:49.528609+00:00",
+      "metrics": {
+        "all_correct_count": 0,
+        "all_wrong_count": 0,
+        "benchmark_count": 6,
+        "missing_heavy_count": 0,
+        "no_observed_item_count": 0,
+        "row_count": 0,
+        "saturated_count": 0,
+        "split_counts": {}
+      },
+      "skip_reasons": null,
+      "stage": "07_theta",
+      "started_at": "2026-04-19T23:41:49.520981+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "08_features": {
+      "artifact_paths": {
+        "feature_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/feature_report.json",
+        "features_marginal": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/features_marginal.parquet"
+      },
+      "dependencies": [
+        "00_bundle",
+        "02_scores",
+        "03_splits",
+        "07_theta",
+        "08_linear"
+      ],
+      "duration_seconds": 0.07981666701380163,
+      "finished_at": "2026-04-19T23:41:49.622816+00:00",
+      "metrics": {
+        "benchmark_count": 6,
+        "features_joint_rows": 0,
+        "features_marginal_rows": 33501,
+        "split_counts": {
+          "test": 2784,
+          "train": 27643,
+          "val": 3074
+        }
+      },
+      "skip_reasons": {
+        "joint_features": "joint_feature_values_missing"
+      },
+      "stage": "08_features",
+      "started_at": "2026-04-19T23:41:49.542990+00:00",
+      "status": "completed",
+      "warnings": [
+        {
+          "benchmark_id": null,
+          "message": "Only 0 complete-overlap models had all benchmark theta/sub/lin features available.",
+          "stage": "08_features"
+        },
+        {
+          "benchmark_id": null,
+          "message": "joint feature table skipped: joint_feature_values_missing",
+          "stage": "08_features"
+        }
+      ]
+    },
+    "08_linear": {
+      "artifact_paths": {
+        "feature_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/feature_report.json",
+        "per_benchmark": {
+          "arc": {
+            "coefficients": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/arc/coefficients.parquet",
+            "linear_predictor_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/arc/linear_predictor_report.json",
+            "model_outputs": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/arc/model_outputs.parquet"
+          },
+          "gsm8k": {
+            "coefficients": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/gsm8k/coefficients.parquet",
+            "linear_predictor_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/gsm8k/linear_predictor_report.json",
+            "model_outputs": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/gsm8k/model_outputs.parquet"
+          },
+          "hellaswag": {
+            "coefficients": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/hellaswag/coefficients.parquet",
+            "linear_predictor_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/hellaswag/linear_predictor_report.json",
+            "model_outputs": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/hellaswag/model_outputs.parquet"
+          },
+          "mmlu": {
+            "coefficients": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/mmlu/coefficients.parquet",
+            "linear_predictor_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/mmlu/linear_predictor_report.json",
+            "model_outputs": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/mmlu/model_outputs.parquet"
+          },
+          "truthfulqa": {
+            "coefficients": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/truthfulqa/coefficients.parquet",
+            "linear_predictor_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/truthfulqa/linear_predictor_report.json",
+            "model_outputs": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/truthfulqa/model_outputs.parquet"
+          },
+          "winogrande": {
+            "coefficients": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/winogrande/coefficients.parquet",
+            "linear_predictor_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/winogrande/linear_predictor_report.json",
+            "model_outputs": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/08_features/per_benchmark/winogrande/model_outputs.parquet"
+          }
+        }
+      },
+      "dependencies": [
+        "00_bundle",
+        "02_scores",
+        "03_splits",
+        "06_select"
+      ],
+      "duration_seconds": 0.012594666914083064,
+      "finished_at": "2026-04-19T23:41:49.542232+00:00",
+      "metrics": {
+        "benchmark_count": 6,
+        "skipped_benchmark_count": 6
+      },
+      "skip_reasons": null,
+      "stage": "08_linear",
+      "started_at": "2026-04-19T23:41:49.529627+00:00",
+      "status": "completed",
+      "warnings": []
+    },
+    "09_reconstruct": {
+      "artifact_paths": {
+        "per_benchmark": {
+          "arc": {
+            "joint": {
+              "skipped": true
+            },
+            "marginal": {
+              "skipped": true
+            },
+            "predictions": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/per_benchmark/arc/predictions.parquet",
+            "reconstruction_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/per_benchmark/arc/reconstruction_report.json"
+          },
+          "gsm8k": {
+            "joint": {
+              "skipped": true
+            },
+            "marginal": {
+              "skipped": true
+            },
+            "predictions": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/per_benchmark/gsm8k/predictions.parquet",
+            "reconstruction_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/per_benchmark/gsm8k/reconstruction_report.json"
+          },
+          "hellaswag": {
+            "joint": {
+              "skipped": true
+            },
+            "marginal": {
+              "skipped": true
+            },
+            "predictions": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/per_benchmark/hellaswag/predictions.parquet",
+            "reconstruction_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/per_benchmark/hellaswag/reconstruction_report.json"
+          },
+          "mmlu": {
+            "joint": {
+              "skipped": true
+            },
+            "marginal": {
+              "skipped": true
+            },
+            "predictions": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/per_benchmark/mmlu/predictions.parquet",
+            "reconstruction_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/per_benchmark/mmlu/reconstruction_report.json"
+          },
+          "truthfulqa": {
+            "joint": {
+              "skipped": true
+            },
+            "marginal": {
+              "skipped": true
+            },
+            "predictions": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/per_benchmark/truthfulqa/predictions.parquet",
+            "reconstruction_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/per_benchmark/truthfulqa/reconstruction_report.json"
+          },
+          "winogrande": {
+            "joint": {
+              "skipped": true
+            },
+            "marginal": {
+              "skipped": true
+            },
+            "predictions": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/per_benchmark/winogrande/predictions.parquet",
+            "reconstruction_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/per_benchmark/winogrande/reconstruction_report.json"
+          }
+        },
+        "reconstruction_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/reconstruction_report.json",
+        "reconstruction_summary": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/real_exploration/workdir/real_exploration_seed7__large_release_default_subset__relaxed_pb_010__deterministic_info__seed-7/artifacts/09_reconstruct/reconstruction_summary.parquet"
+      },
+      "dependencies": [
+        "00_bundle",
+        "08_features"
+      ],
+      "duration_seconds": 0.034247833071276546,
+      "finished_at": "2026-04-19T23:41:49.657997+00:00",
+      "metrics": {
+        "joint_test_rmse_by_benchmark": {
+          "arc": null,
+          "gsm8k": null,
+          "hellaswag": null,
+          "mmlu": null,
+          "truthfulqa": null,
+          "winogrande": null
+        },
+        "marginal_test_rmse_by_benchmark": {
+          "arc": null,
+          "gsm8k": null,
+          "hellaswag": null,
+          "mmlu": null,
+          "truthfulqa": null,
+          "winogrande": null
+        }
+      },
+      "skip_reasons": {
+        "arc": "joint_feature_values_missing",
+        "gsm8k": "joint_feature_values_missing",
+        "hellaswag": "joint_feature_values_missing",
+        "mmlu": "joint_feature_values_missing",
+        "truthfulqa": "joint_feature_values_missing",
+        "winogrande": "joint_feature_values_missing"
+      },
+      "stage": "09_reconstruct",
+      "started_at": "2026-04-19T23:41:49.623735+00:00",
+      "status": "completed",
+      "warnings": [
+        {
+          "benchmark_id": "arc",
+          "message": "arc marginal reconstruction skipped: no_complete_feature_rows_available",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "arc",
+          "message": "arc joint reconstruction skipped: joint_feature_values_missing",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "gsm8k",
+          "message": "gsm8k marginal reconstruction skipped: no_complete_feature_rows_available",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "gsm8k",
+          "message": "gsm8k joint reconstruction skipped: joint_feature_values_missing",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "hellaswag",
+          "message": "hellaswag marginal reconstruction skipped: no_complete_feature_rows_available",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "hellaswag",
+          "message": "hellaswag joint reconstruction skipped: joint_feature_values_missing",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "mmlu",
+          "message": "mmlu marginal reconstruction skipped: no_complete_feature_rows_available",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "mmlu",
+          "message": "mmlu joint reconstruction skipped: joint_feature_values_missing",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "truthfulqa",
+          "message": "truthfulqa marginal reconstruction skipped: no_complete_feature_rows_available",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "truthfulqa",
+          "message": "truthfulqa joint reconstruction skipped: joint_feature_values_missing",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "winogrande",
+          "message": "winogrande marginal reconstruction skipped: no_complete_feature_rows_available",
+          "stage": "09_reconstruct"
+        },
+        {
+          "benchmark_id": "winogrande",
+          "message": "winogrande joint reconstruction skipped: joint_feature_values_missing",
+          "stage": "09_reconstruct"
+        }
+      ]
+    }
+  },
+  "warning_count": 20,
+  "warnings": [
+    {
+      "benchmark_id": null,
+      "message": "arc: 1611 low-coverage models missing full scores",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "gsm8k: 764 low-coverage models missing full scores",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "hellaswag: 1611 low-coverage models missing full scores",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "mmlu: 1613 low-coverage models missing full scores",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "truthfulqa: 1610 low-coverage models missing full scores",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "winogrande: 282 low-coverage models missing full scores",
+      "stage": "02_scores"
+    },
+    {
+      "benchmark_id": null,
+      "message": "Only 0 complete-overlap models had all benchmark theta/sub/lin features available.",
+      "stage": "08_features"
+    },
+    {
+      "benchmark_id": null,
+      "message": "joint feature table skipped: joint_feature_values_missing",
+      "stage": "08_features"
+    },
+    {
+      "benchmark_id": "arc",
+      "message": "arc marginal reconstruction skipped: no_complete_feature_rows_available",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "arc",
+      "message": "arc joint reconstruction skipped: joint_feature_values_missing",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "gsm8k",
+      "message": "gsm8k marginal reconstruction skipped: no_complete_feature_rows_available",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "gsm8k",
+      "message": "gsm8k joint reconstruction skipped: joint_feature_values_missing",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "hellaswag",
+      "message": "hellaswag marginal reconstruction skipped: no_complete_feature_rows_available",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "hellaswag",
+      "message": "hellaswag joint reconstruction skipped: joint_feature_values_missing",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "mmlu",
+      "message": "mmlu marginal reconstruction skipped: no_complete_feature_rows_available",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "mmlu",
+      "message": "mmlu joint reconstruction skipped: joint_feature_values_missing",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "truthfulqa",
+      "message": "truthfulqa marginal reconstruction skipped: no_complete_feature_rows_available",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "truthfulqa",
+      "message": "truthfulqa joint reconstruction skipped: joint_feature_values_missing",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "winogrande",
+      "message": "winogrande marginal reconstruction skipped: no_complete_feature_rows_available",
+      "stage": "09_reconstruct"
+    },
+    {
+      "benchmark_id": "winogrande",
+      "message": "winogrande joint reconstruction skipped: joint_feature_values_missing",
+      "stage": "09_reconstruct"
+    }
+  ]
+}

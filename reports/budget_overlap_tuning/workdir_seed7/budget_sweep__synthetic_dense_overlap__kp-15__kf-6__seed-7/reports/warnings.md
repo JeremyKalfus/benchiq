@@ -1,0 +1,24 @@
+# warnings
+
+- `05_irt` `dense_b1`: girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.
+- `05_irt` `dense_b2`: girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.
+- `05_irt` `dense_b3`: girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.
+- `05_irt` `dense_b4`: girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.
+- `05_irt` `dense_b5`: girth does not expose a convergence-status flag; BenchIQ cannot confirm optimizer convergence from backend outputs.
+- `06_select` `dense_b1`: selected only 6 final items; reduced benchmark may be too small for stable downstream reconstruction.
+- `06_select` `dense_b2`: selected only 6 final items; reduced benchmark may be too small for stable downstream reconstruction.
+- `06_select` `dense_b3`: selected only 6 final items; reduced benchmark may be too small for stable downstream reconstruction.
+- `06_select` `dense_b4`: selected only 6 final items; reduced benchmark may be too small for stable downstream reconstruction.
+- `06_select` `dense_b5`: selected only 6 final items; reduced benchmark may be too small for stable downstream reconstruction.
+- `08_linear` `dense_b1`: 36 models were not scored by the linear predictor because their reduced-item coverage was incomplete.
+- `08_linear` `dense_b2`: 31 models were not scored by the linear predictor because their reduced-item coverage was incomplete.
+- `08_linear` `dense_b3`: 32 models were not scored by the linear predictor because their reduced-item coverage was incomplete.
+- `08_linear` `dense_b4`: 40 models were not scored by the linear predictor because their reduced-item coverage was incomplete.
+- `08_linear` `dense_b5`: 34 models were not scored by the linear predictor because their reduced-item coverage was incomplete.
+- `08_features`: Only 179 complete-overlap models had all benchmark theta/sub/lin features available.
+- `08_features`: joint feature table skipped: joint_feature_overlap_below_threshold
+- `09_reconstruct` `dense_b1`: dense_b1 joint reconstruction skipped: joint_feature_overlap_below_threshold
+- `09_reconstruct` `dense_b2`: dense_b2 joint reconstruction skipped: joint_feature_overlap_below_threshold
+- `09_reconstruct` `dense_b3`: dense_b3 joint reconstruction skipped: joint_feature_overlap_below_threshold
+- `09_reconstruct` `dense_b4`: dense_b4 joint reconstruction skipped: joint_feature_overlap_below_threshold
+- `09_reconstruct` `dense_b5`: dense_b5 joint reconstruction skipped: joint_feature_overlap_below_threshold

@@ -1,0 +1,45 @@
+{
+  "benchmark_id": "hellaswag",
+  "counts": {
+    "coverage_models_dropped": 0,
+    "dropped_low_coverage_items": 0,
+    "dropped_low_discrimination_items": 0,
+    "dropped_low_variance_items": 0,
+    "dropped_near_ceiling_items": 0,
+    "initial_items": 350,
+    "initial_models": 5221,
+    "low_tail_models_dropped": 10,
+    "retained_items": 350,
+    "retained_models": 5211
+  },
+  "dropped_model_ids": {
+    "coverage": [],
+    "low_tail": [
+      "BEE-spoke-data/smol_llama-101M-GQA",
+      "BFauber/opt125m_10e2",
+      "BFauber/opt125m_10e3",
+      "BFauber/opt125m_10e4",
+      "BFauber/opt125m_10e5_1ep",
+      "BFauber/opt125m_10e5_lr2e-6",
+      "BFauber/opt125m_10e5_lr2e-7",
+      "DrNicefellow/GPT-2-Large-115k-steps",
+      "Felladrin/Smol-Llama-101M-Chat-v1",
+      "Sharathhebbar24/chat_gpt2"
+    ]
+  },
+  "generated_at": "2026-04-20T00:59:57.269208+00:00",
+  "refusal_reasons": [],
+  "refused": false,
+  "thresholds": {
+    "drop_low_tail_models_quantile": 0.002,
+    "max_item_mean": 0.99,
+    "min_abs_point_biserial": 0.0,
+    "min_item_coverage": 0.7,
+    "min_item_sd": 0.0,
+    "min_items_after_filtering": 50,
+    "min_models_per_benchmark": 100,
+    "min_models_per_item": 1043,
+    "warn_models_per_benchmark": 200
+  },
+  "warnings": []
+}

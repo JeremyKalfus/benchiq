@@ -1,0 +1,37 @@
+{
+  "benchmark_id": "gsm8k",
+  "counts": {
+    "coefficient_count": 250,
+    "incomplete_coverage_count": 0,
+    "model_count": 6056,
+    "predicted_model_count": 6056,
+    "training_eligible_count": 5035
+  },
+  "generated_at": "2026-04-19T23:31:15.926269+00:00",
+  "parameters": {
+    "ridge_alpha_grid": [
+      1e-06,
+      0.0001,
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "selected_item_count": 250
+  },
+  "skipped": false,
+  "skipped_reason": null,
+  "training_diagnostics": {
+    "chosen_alpha": 0.0,
+    "condition_number": 12865.469702068563,
+    "fallback_reason": null,
+    "fallback_used": false,
+    "feature_count": 250,
+    "model_kind": "ols_no_intercept",
+    "rank": 250,
+    "ridge_candidates": [],
+    "train_rmse": 1.1835146033299409,
+    "train_row_count": 5035
+  },
+  "warnings": []
+}

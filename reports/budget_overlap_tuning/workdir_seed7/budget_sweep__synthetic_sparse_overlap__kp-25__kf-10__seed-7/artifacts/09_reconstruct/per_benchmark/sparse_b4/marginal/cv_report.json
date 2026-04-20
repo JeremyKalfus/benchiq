@@ -1,0 +1,76 @@
+{
+  "backend": "pygam",
+  "best_holdout_rmse": null,
+  "best_lam": 1.0,
+  "best_max_val_rmse": 9.786876938971831,
+  "best_mean_baseline_val_rmse": 17.599745902713416,
+  "best_mean_val_rmse": 8.268527642444287,
+  "best_model_metadata": {
+    "backend": "pygam",
+    "benchiq_version": "0.1.0a0",
+    "cv_folds": 5,
+    "feature_names": [
+      "theta_b",
+      "theta_se_b",
+      "sub_b",
+      "lin_b"
+    ],
+    "fit_statistics": {
+      "aic": 639.0355289543166,
+      "edof": 9.001656842436862,
+      "gcv": 76.44731534483645,
+      "loglikelihood": -309.51610763472144,
+      "pseudo_r2": {
+        "McFadden": 0.6306744377235224,
+        "McFadden_adj": 0.3509836578403315,
+        "explained_deviance": 0.8173681713675434
+      },
+      "scale": 7.925921052006295
+    },
+    "fit_warnings": [],
+    "model_hyperparameters": {
+      "fit_intercept": true,
+      "lam": 1.0,
+      "max_iter": 100,
+      "terms": "s(0) + s(1) + s(2) + s(3) + intercept",
+      "tol": 0.0001
+    },
+    "n_features": 4,
+    "n_splines": 8,
+    "pickle_protocol": 5,
+    "pygam_version": "0.12.0",
+    "python_version": "3.14.4",
+    "selected_lam": 1.0,
+    "selection_metric": "rmse",
+    "skipped_lam_settings": [],
+    "target_name": "score_full_b",
+    "test_row_count": 0,
+    "train_row_count": 90
+  },
+  "cv_folds": 5,
+  "holdout_row_count": 0,
+  "lam_grid": [
+    0.1,
+    1.0
+  ],
+  "lam_summaries": [
+    {
+      "fold_count": 5,
+      "lam": 0.1,
+      "max_val_rmse": 9.884280562081011,
+      "mean_baseline_val_rmse": 17.599745902713416,
+      "mean_test_rmse": null,
+      "mean_val_rmse": 8.489698551810259
+    },
+    {
+      "fold_count": 5,
+      "lam": 1.0,
+      "max_val_rmse": 9.786876938971831,
+      "mean_baseline_val_rmse": 17.599745902713416,
+      "mean_test_rmse": null,
+      "mean_val_rmse": 8.268527642444287
+    }
+  ],
+  "selection_metric": "rmse",
+  "skipped_lam_settings": []
+}
