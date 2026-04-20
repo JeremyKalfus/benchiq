@@ -10,5 +10,3 @@ dist/
 out/
 reports/**/workdir/
 reports/**/workdir_*/
-AGENTS.md
-PLANS.md
