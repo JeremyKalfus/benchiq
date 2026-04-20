@@ -63,6 +63,17 @@ WINNER_STRATEGY_ID = "reconstruction_relaxed__deterministic_info"
 CHALLENGER_STRATEGY_ID = "minimal_cleaning__deterministic_info"
 
 
+def _rename_summary_artifact(artifact_paths: dict[str, Path], filename: str) -> None:
+    summary_path = artifact_paths.get("summary_md")
+    if summary_path is None or not summary_path.exists():
+        return
+    target_path = summary_path.with_name(filename)
+    if target_path.exists():
+        target_path.unlink()
+    summary_path.rename(target_path)
+    artifact_paths["summary_md"] = target_path
+
+
 def main() -> None:
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     PLOTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -1234,6 +1245,7 @@ def run_head_checks(
             n_splines=int(stage_options["09_reconstruct"]["n_splines"]),
             out_dir=case_dir,
         )
+        _rename_summary_artifact(experiment_result.artifact_paths, "head_comparison.md")
         summary = experiment_result.summary.copy()
         summary["case_id"] = case_id
         summary["dataset_id"] = dataset_id

@@ -3,12 +3,12 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .venv/
+.venv_verify*/
 build/
 dist/
 *.egg-info/
 out/
-reports/preprocessing_optimization/**/workdir/
-reports/generalization_optimization/**/workdir/
-reports/deployment_validation/**/workdir/
+reports/**/workdir/
+reports/**/workdir_*/
 AGENTS.md
 PLANS.md

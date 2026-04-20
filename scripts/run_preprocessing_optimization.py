@@ -43,6 +43,17 @@ LARGE_PROFILE_ALIASES = {
 }
 
 
+def _rename_summary_artifact(artifact_paths: dict[str, Path], filename: str) -> None:
+    summary_path = artifact_paths.get("summary_md")
+    if summary_path is None or not summary_path.exists():
+        return
+    target_path = summary_path.with_name(filename)
+    if target_path.exists():
+        target_path.unlink()
+    summary_path.rename(target_path)
+    artifact_paths["summary_md"] = target_path
+
+
 def main() -> None:
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -71,6 +82,7 @@ def main() -> None:
         compact_raw,
         out_dir=COMPACT_SEARCH_DIR,
     )
+    _rename_summary_artifact(compact_summary.artifact_paths, "search_results.md")
 
     compact_top_rows = top_summary_rows(
         compact_summary.summary,
@@ -128,10 +140,11 @@ def main() -> None:
         ],
         out_dir=LARGE_METHOD_DIR,
     )
-    summarize_preprocessing_experiments(
+    large_method_summary = summarize_preprocessing_experiments(
         large_method_raw,
         out_dir=LARGE_METHOD_DIR,
     )
+    _rename_summary_artifact(large_method_summary.artifact_paths, "method_check.md")
 
     combined_raw = combine_preprocessing_experiment_raw_results(
         [compact_raw, large_confirmation_raw, large_method_raw],
@@ -546,6 +559,7 @@ def run_head_checks(
             n_splines=int(stage_options["09_reconstruct"]["n_splines"]),
             out_dir=report_dir,
         )
+        _rename_summary_artifact(experiment_result.artifact_paths, "head_comparison.md")
         summary = experiment_result.summary.copy()
         summary["case_id"] = case_id
         summary["dataset_id"] = dataset.dataset_id

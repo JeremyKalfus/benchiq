@@ -10,5 +10,4 @@
 - prediction_available_rate: `1.000000`
 - max_abs_delta_vs_calibration: `0.000000`
 - max_abs_delta_repeat_prediction: `0.000000`
-- calibration_bundle_root: `/Users/jeremykalfus/CodingProjects/BenchIQ/reports/deployment_validation/workdir/real_winner_calibration/calibration_bundle`
-- prediction_run_root: `/Users/jeremykalfus/CodingProjects/BenchIQ/reports/deployment_validation/workdir/real_winner_prediction_a`
+- raw_run_artifacts_pruned: `true`

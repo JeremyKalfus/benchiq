@@ -35,6 +35,17 @@ CONFIRMATION_SEEDS = (7, 11, 19)
 CONFIRMATION_PROFILE_LIMIT = 4
 
 
+def _rename_summary_artifact(artifact_paths: dict[str, Path], filename: str) -> None:
+    summary_path = artifact_paths.get("summary_md")
+    if summary_path is None or not summary_path.exists():
+        return
+    target_path = summary_path.with_name(filename)
+    if target_path.exists():
+        target_path.unlink()
+    summary_path.rename(target_path)
+    artifact_paths["summary_md"] = target_path
+
+
 def main() -> None:
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -62,6 +73,7 @@ def main() -> None:
         exploration_raw,
         out_dir=EXPLORATION_DIR,
     )
+    _rename_summary_artifact(exploration_result.artifact_paths, "exploration_results.md")
     confirmation_profile_ids = shortlist_confirmation_profiles(exploration_result.summary)
 
     confirmation_raw = execute_preprocessing_experiment_plans(
@@ -84,10 +96,11 @@ def main() -> None:
         out_dir=CONFIRMATION_DIR,
     )
 
-    summarize_preprocessing_experiments(
+    combined_result = summarize_preprocessing_experiments(
         combine_preprocessing_experiment_raw_results([exploration_raw, confirmation_raw]),
         out_dir=COMBINED_DIR,
     )
+    _rename_summary_artifact(combined_result.artifact_paths, "combined_results.md")
 
     baseline_row = _require_summary_row(
         confirmation_result.summary,
