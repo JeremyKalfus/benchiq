@@ -14,13 +14,19 @@ The preferred reusable workflow is:
 - `benchiq calibrate` to fit and publish a reusable `calibration_bundle/`
 - `benchiq predict` to score new reduced responses later without retraining
 
-The default product config now follows `reconstruction_first`, backed by the saved multi-bundle
+The shipped runtime default still follows `reconstruction_first`, backed by the saved multi-bundle
 generalization pass in
 [`reports/generalization_optimization/summary.md`](../reports/generalization_optimization/summary.md).
 The broader real-data preprocessing follow-up in
 [`reports/preprocessing_variation_followup/summary.md`](../reports/preprocessing_variation_followup/summary.md)
 further tightened that runtime default with a light `drop_low_tail_models_quantile=0.002` trim.
 The spec-aligned psychometric baseline remains available explicitly as `psychometric_default`.
+The narrowed public-portfolio standing baseline lives under
+[`reports/portfolio_standing/summary.md`](../reports/portfolio_standing/summary.md), while the
+current iterative public-portfolio best-so-far is tracked separately under
+[`reports/portfolio_optimization_cycles/best_so_far.md`](../reports/portfolio_optimization_cycles/best_so_far.md).
+That public-portfolio best-so-far record can differ from the shipped runtime default without
+automatically changing the CLI defaults.
 
 `benchiq run` remains the stable full end-to-end path when you want one inspectable local run root
 that also includes the downstream redundancy analysis.
@@ -223,7 +229,7 @@ Two supported shapes:
 
 The tiny example uses the nested form so the docs can show a short, fast full-pipeline run.
 
-When `--config` is omitted, the CLI uses the default reconstruction-first runtime profile:
+When `--config` is omitted, the CLI uses the shipped reconstruction-first runtime profile:
 light low-tail trimming, relaxed preprocessing thresholds, and `deterministic_info` stage-04
 preselection.
 
@@ -249,7 +255,7 @@ Explicit default-profile nested config example:
 
 This matches the first-class default profile exposed in Python as
 `benchiq.build_reconstruction_first_profile(...)`. It matches the actual runtime defaults and is
-useful when you want to pin that profile explicitly in a saved config file.
+useful when you want to pin that shipped default explicitly in a saved config file.
 
 ## Artifact Layout
 

@@ -30,6 +30,13 @@ Follow-up on 2026-04-19:
   `deterministic_info`; see
   [`reports/preprocessing_variation_followup/summary.md`](/Users/jeremykalfus/CodingProjects/BenchIQ/reports/preprocessing_variation_followup/summary.md)
 
+Later public-portfolio work:
+
+- this document remains the historical plan and decision log for the 2026-04-18 promotion pass
+- the current narrowed public-portfolio best-so-far is tracked separately under
+  [`reports/portfolio_optimization_cycles/best_so_far.md`](/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/best_so_far.md)
+- that later portfolio recommendation does not retroactively change the decision recorded here
+
 ## current winner
 
 The current best evidence-backed stack coming into this pass is:

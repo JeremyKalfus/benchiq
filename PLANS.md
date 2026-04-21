@@ -17,6 +17,10 @@
 - the runtime default is `reconstruction_first`.
 - the explicit alternate baseline is `psychometric_default`.
 - the promoted stage-04 method is `deterministic_info`.
+- the latest narrowed public-portfolio best-so-far is
+  `psychometric_default__deterministic_info` under
+  `reports/portfolio_optimization_cycles/best_so_far.{md,json}`; this is current optimization
+  evidence, not yet a shipped default change.
 - the main saved report bundles live under:
   - `reports/preprocessing_optimization/`
   - `reports/generalization_optimization/`
@@ -24,6 +28,8 @@
   - `reports/deployment_validation/`
   - `reports/selection_comparison/`
   - `reports/experiments/reconstruction_heads/`
+  - `reports/portfolio_standing/`
+  - `reports/portfolio_optimization_cycles/`
 - there is no standing open multi-step roadmap right now. add a short active-work section below when a new approved ticket starts.
 
 ## active work
@@ -64,7 +70,9 @@
 - T26 generalization and promotion: ran the multi-bundle validation and deployment checks that promoted `reconstruction_first` as the product default path.
 - T26 follow-up guardrails: kept `deterministic_info` for stage 04, kept head experiments comparison-only, and adopted the light `drop_low_tail_models_quantile=0.002` follow-up improvement after confirmation.
 - T27 spec refresh: rewrote `docs/specs/benchiq_v0_1_spec.md` into a short current source-of-truth spec aligned with the shipped `validate` / `calibrate` / `predict` / `run` surface and runtime defaults.
-- T28 narrowed public portfolio standing pass: added internal portfolio source specs and adapters, wired the narrowed public materialization and standing-pass scripts, saved `reports/portfolio_standing/`, and confirmed the narrowed portfolio now promotes `reconstruction_first + random_cv` over the current deterministic recommendation on the admitted public sources.
+- T28 narrowed public portfolio standing pass: added internal portfolio source specs and adapters, wired the narrowed public materialization and standing-pass scripts, and saved `reports/portfolio_standing/` as the initial baseline snapshot for the narrowed public portfolio.
+- T29 narrowed public portfolio optimization cycles: iterated beyond the initial standing snapshot, saved the cycle bundle family under `reports/portfolio_optimization_cycles/`, and currently recommends `psychometric_default__deterministic_info` in `best_so_far.{md,json}`.
+- T30 docs/status reconciliation: updated the major docs so the shipped runtime default, the historical standing baseline, and the current narrowed public-portfolio best-so-far record are distinguished explicitly.
 
 ## notes
 

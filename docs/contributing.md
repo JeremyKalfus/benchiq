@@ -100,6 +100,8 @@ Primary saved experiment and optimization surfaces:
 - [`reports/generalization_optimization/summary.md`](../reports/generalization_optimization/summary.md)
 - [`reports/preprocessing_variation_followup/summary.md`](../reports/preprocessing_variation_followup/summary.md)
 - [`reports/deployment_validation/summary.md`](../reports/deployment_validation/summary.md)
+- [`reports/portfolio_standing/summary.md`](../reports/portfolio_standing/summary.md)
+- [`reports/portfolio_optimization_cycles/best_so_far.md`](../reports/portfolio_optimization_cycles/best_so_far.md)
 
 Rebuild them with:
 
@@ -108,7 +110,12 @@ Rebuild them with:
 .venv/bin/python scripts/run_generalization_optimization.py
 .venv/bin/python scripts/run_preprocessing_variation_followup.py
 .venv/bin/python scripts/run_calibration_deployment_walkthrough.py
+.venv/bin/python scripts/run_portfolio_standing.py
 ```
+
+`reports/portfolio_standing/` is the original narrowed public-portfolio baseline snapshot.
+`reports/portfolio_optimization_cycles/` is the later iterative improvement family, and
+`best_so_far.md` is the current summary entrypoint for that track.
 
 ## Contribution Boundaries
 

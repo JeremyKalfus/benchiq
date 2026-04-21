@@ -54,4 +54,7 @@ BenchIQ v0.1 evaluates itself with held-out reconstruction quality, reproducibil
 
 - saved optimization summaries
 - saved deployment validation artifacts
+- the narrowed public-portfolio standing baseline under `reports/portfolio_standing/`
+- the iterative narrowed public-portfolio best-so-far record under
+  `reports/portfolio_optimization_cycles/`
 - explicit recommendation and default-profile updates only when the evidence improves

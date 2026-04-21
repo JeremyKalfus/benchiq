@@ -38,17 +38,21 @@ BenchIQ v0.1 is implemented end to end through:
 - a saved preprocessing optimization bundle under `reports/preprocessing_optimization/`
 - a saved multi-bundle generalization and deployment bundle under
   `reports/generalization_optimization/` and `reports/deployment_validation/`
+- a saved narrowed public-portfolio standing baseline under `reports/portfolio_standing/`
+- a saved iterative narrowed public-portfolio best-so-far record under
+  `reports/portfolio_optimization_cycles/`
 - a first-class default reconstruction-first product profile, while the locked psychometric
   baseline remains available explicitly as `psychometric_default`
 
 Held-out reconstruction optimization status:
 
-> The completed multi-bundle generalization pass identified `reconstruction_first` as the winning
-> product path. A later broader real-data preprocessing follow-up found that adding a light
-> `drop_low_tail_models_quantile=0.002` trim improved held-out reconstruction RMSE again, so
-> BenchIQ now uses that relaxed-low-tail reconstruction-first stack as the runtime default, while
-> the locked psychometric baseline remains available explicitly as `psychometric_default` as a
-> stricter reference baseline.
+> BenchIQ still ships `reconstruction_first` as the runtime default because the broader
+> multi-bundle generalization and deployment-validation evidence promoted that product path. The
+> latest narrowed public-portfolio optimization bundle is tracked separately under
+> `reports/portfolio_optimization_cycles/best_so_far.{md,json}` and may recommend a different
+> profile/method combination than the shipped runtime default. The original narrowed standing pass
+> under `reports/portfolio_standing/` should be read as the baseline snapshot for that public
+> portfolio, not as the latest iterative best-so-far record.
 
 The supporting optimization and promotion bundles live in:
 
@@ -60,9 +64,13 @@ The supporting optimization and promotion bundles live in:
 - [`reports/preprocessing_variation_followup/summary.md`](reports/preprocessing_variation_followup/summary.md)
 - [`reports/preprocessing_variation_followup/decision.json`](reports/preprocessing_variation_followup/decision.json)
 - [`reports/deployment_validation/summary.md`](reports/deployment_validation/summary.md)
+- [`reports/portfolio_standing/summary.md`](reports/portfolio_standing/summary.md)
+- [`reports/portfolio_optimization_cycles/best_so_far.md`](reports/portfolio_optimization_cycles/best_so_far.md)
+- [`reports/portfolio_optimization_cycles/best_so_far.json`](reports/portfolio_optimization_cycles/best_so_far.json)
 - [`scripts/run_preprocessing_optimization.py`](scripts/run_preprocessing_optimization.py)
 - [`scripts/run_preprocessing_variation_followup.py`](scripts/run_preprocessing_variation_followup.py)
 - [`scripts/run_generalization_optimization.py`](scripts/run_generalization_optimization.py)
+- [`scripts/run_portfolio_standing.py`](scripts/run_portfolio_standing.py)
 
 ## What BenchIQ Expects
 

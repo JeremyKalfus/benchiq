@@ -1,5 +1,11 @@
 # best so far
 
+This file tracks the current narrowed public-portfolio best-so-far recommendation across iterative
+optimization cycles.
+
+It is separate from the shipped runtime default and separate from the original narrowed standing
+baseline in `reports/portfolio_standing/summary.md`.
+
 - cycle: `cycle_010_ollb44_44_low_val_chooser`
 - winner: `psychometric_default__deterministic_info`
 - equal-weight rmse: `2.9344`
