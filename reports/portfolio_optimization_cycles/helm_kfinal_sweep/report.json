@@ -1,0 +1,24 @@
+{
+  "search": "helm_kfinal_sweep",
+  "dataset_id": "helm_objective__capabilities_v1_0_0",
+  "k_final_values": [
+    18,
+    20,
+    22,
+    24
+  ],
+  "profiles": [
+    "minimal_cleaning",
+    "reconstruction_first",
+    "reconstruction_first_relaxed"
+  ],
+  "winner": {
+    "profile_id": "minimal_cleaning",
+    "k_final": 18,
+    "best_available_test_rmse_mean": 7.41123815371499,
+    "best_available_test_mae_mean": 6.213834597152658,
+    "selected_items_final_mean": 18.0,
+    "joint_available_rate": 1.0,
+    "benchmark_warning_count_mean": 1.0
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "current_best_cycle": "cycle_010_ollb44_44_low_val_chooser",
+  "winner": {
+    "strategy_id": "psychometric_default__deterministic_info",
+    "equal_weight_rmse_mean": 2.934403282259425,
+    "equal_weight_mae_mean": 2.405118099926431,
+    "equal_weight_pearson_mean": 0.9904130914824752,
+    "equal_weight_spearman_mean": 0.9910572215103144,
+    "equal_weight_seed_rmse_std_mean": 0.0,
+    "informative_source_count": 3
+  },
+  "per_source_rmse": [
+    {
+      "dataset_id": "helm_objective__capabilities_v1_0_0",
+      "best_available_test_rmse_mean": 3.778464682050214,
+      "best_available_test_mae_mean": 3.3180047713662315
+    },
+    {
+      "dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "best_available_test_rmse_mean": 1.749855817195419,
+      "best_available_test_mae_mean": 1.212331299732567
+    },
+    {
+      "dataset_id": "openeval__hf_94f8112_20260314",
+      "best_available_test_rmse_mean": 3.2748893475326417,
+      "best_available_test_mae_mean": 2.6850182286804953
+    }
+  ],
+  "leave_one_out_winners": [
+    {
+      "left_out_dataset_id": "helm_objective__capabilities_v1_0_0",
+      "strategy_id": "psychometric_default__deterministic_info",
+      "equal_weight_rmse_mean": 2.5123725823640304
+    },
+    {
+      "left_out_dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "strategy_id": "psychometric_default__deterministic_info",
+      "equal_weight_rmse_mean": 3.526677014791428
+    },
+    {
+      "left_out_dataset_id": "openeval__hf_94f8112_20260314",
+      "strategy_id": "psychometric_default__deterministic_info",
+      "equal_weight_rmse_mean": 2.7641602496228166
+    }
+  ],
+  "recommended_profile_method": "psychometric_default__deterministic_info",
+  "informative_source_count": 3,
+  "validation_only_status": [
+    {
+      "source_id": "livecodebench",
+      "materialization_status": "skipped",
+      "workflow_note": "official public LiveCodeBench datasets expose benchmark items and execution artifacts, but not a public many-model item-response matrix"
+    },
+    {
+      "source_id": "belebele",
+      "materialization_status": "skipped",
+      "workflow_note": "the official public Belebele dataset exposes benchmark items only; no public many-model item-response bank was configured for BenchIQ ingestion"
+    }
+  ]
+}

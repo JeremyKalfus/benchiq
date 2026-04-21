@@ -415,6 +415,7 @@ def _benchmark_metric_rows(
     stage_records = run_summary["stage_records"]
     preprocess_result = run_result.stage_results["01_preprocess"]
     select_result = run_result.stage_results["06_select"]
+    reconstruction_result = run_result.stage_results["09_reconstruct"]
     reconstruction_summary = run_result.stage_results["09_reconstruct"].reconstruction_summary
     rows: list[dict[str, Any]] = []
     for benchmark_id, preprocess_benchmark in sorted(preprocess_result.benchmarks.items()):
@@ -433,7 +434,17 @@ def _benchmark_metric_rows(
             model_type=JOINT_MODEL,
             split_name="test",
         )
-        best_available = joint_metrics if joint_metrics["rmse"] is not None else marginal_metrics
+        preferred_model_type = reconstruction_result.benchmarks[benchmark_id].reconstruction_report[
+            "preferred_model"
+        ]["model_type"]
+        if preferred_model_type == JOINT_MODEL and joint_metrics["rmse"] is not None:
+            best_available = joint_metrics
+        elif preferred_model_type == MARGINAL_MODEL and marginal_metrics["rmse"] is not None:
+            best_available = marginal_metrics
+        elif joint_metrics["rmse"] is not None:
+            best_available = joint_metrics
+        else:
+            best_available = marginal_metrics
         row = {
             "run_signature": _run_signature(
                 search_stage=plan.search_stage,

@@ -24,6 +24,11 @@ def test_calibrate_then_predict_reuses_saved_models_without_retraining(tmp_path)
     )
 
     assert (calibration_result.calibration_root / "manifest.json").exists()
+    reconstruction_report = json.loads(
+        (
+            calibration_result.calibration_root / "reconstruction_report.json"
+        ).read_text(encoding="utf-8")
+    )
     assert (
         calibration_result.calibration_root
         / "per_benchmark"
@@ -32,6 +37,15 @@ def test_calibrate_then_predict_reuses_saved_models_without_retraining(tmp_path)
         / "marginal"
         / "gam_model.pkl"
     ).exists()
+    assert (
+        calibration_result.calibration_manifest["benchmarks"]["b1"]["preferred_model_type"]
+        in {"marginal", "joint"}
+    )
+    assert reconstruction_report["preferred_model_type_by_benchmark"]["b1"] in {"marginal", "joint"}
+    assert reconstruction_report["benchmarks"]["b1"]["preferred_model"]["model_type"] in {
+        "marginal",
+        "joint",
+    }
 
     reduced_responses_path = _write_reduced_selected_responses(
         tmp_path,
@@ -55,6 +69,7 @@ def test_calibrate_then_predict_reuses_saved_models_without_retraining(tmp_path)
         / "predictions_best_available.parquet"
     ).exists()
     assert prediction_result.predictions_best_available["predicted_score"].notna().any()
+    assert prediction_result.predictions_best_available["selected_model_type"].notna().all()
 
     expected_predictions = (
         pd.concat(

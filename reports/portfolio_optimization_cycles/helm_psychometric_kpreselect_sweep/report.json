@@ -1,0 +1,33 @@
+{
+  "beats_current": false,
+  "best_row": {
+    "benchmark_warning_count_mean": 0.0,
+    "best_available_test_mae_mean": 4.128351856120572,
+    "best_available_test_pearson_mean": 0.9843260831236517,
+    "best_available_test_rmse_mean": 4.495244894885263,
+    "best_available_test_spearman_mean": 1.0,
+    "delta_vs_current": 0.0,
+    "k_final": 22,
+    "k_preselect": 24,
+    "retained_items_mean": 40.5,
+    "run_id": "helm_psychometric_kpreselect__kpreselect-24__kfinal-22__seed-7",
+    "run_warning_count_mean": 4.0,
+    "selected_items_final_mean": 22.0,
+    "selected_items_preselect_mean": 24.0
+  },
+  "current_candidate_rmse": 4.495244894885263,
+  "dataset_id": "helm_objective__capabilities_v1_0_0",
+  "fixed_k_final": 22,
+  "k_preselect_values": [
+    22,
+    24,
+    26,
+    28,
+    32,
+    36
+  ],
+  "preselection_method": "deterministic_info",
+  "profile_id": "psychometric_default",
+  "source_id": "helm_objective",
+  "sweep_type": "k_preselect"
+}

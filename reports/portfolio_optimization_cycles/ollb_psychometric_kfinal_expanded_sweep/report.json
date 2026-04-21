@@ -1,0 +1,33 @@
+{
+  "beats_current": true,
+  "best_row": {
+    "benchmark_warning_count_mean": 0.0,
+    "best_available_test_mae_mean": 1.8279384009523045,
+    "best_available_test_pearson_mean": 0.9915775496709358,
+    "best_available_test_rmse_mean": 2.4232508237787385,
+    "best_available_test_spearman_mean": 0.9806397598325848,
+    "delta_vs_current": -0.856366899767254,
+    "k_final": 40,
+    "k_preselect": 40,
+    "retained_items_mean": 52.5,
+    "run_id": "ollb_psychometric_kfinal_expanded__kpreselect-40__kfinal-40__seed-7",
+    "run_warning_count_mean": 6.0,
+    "selected_items_final_mean": 40.0,
+    "selected_items_preselect_mean": 40.0
+  },
+  "current_candidate_rmse": 3.2796177235459925,
+  "dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+  "fixed_k_preselect": 40,
+  "k_final_values": [
+    30,
+    32,
+    34,
+    36,
+    38,
+    40
+  ],
+  "preselection_method": "deterministic_info",
+  "profile_id": "psychometric_default",
+  "source_id": "ollb_v1_metabench_source",
+  "sweep_type": "k_final"
+}

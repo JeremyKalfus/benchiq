@@ -54,6 +54,7 @@ class CalibrationBenchmarkSpec:
 
     benchmark_id: str
     selected_item_ids: tuple[str, ...]
+    preferred_model_type: str | None
     subset_final_path: Path
     irt_item_params_path: Path
     theta_scoring_metadata_path: Path
@@ -112,6 +113,7 @@ def load_calibration_bundle(path: str | Path) -> LoadedCalibrationBundle:
         spec = CalibrationBenchmarkSpec(
             benchmark_id=benchmark_id,
             selected_item_ids=tuple(payload["selected_item_ids"]),
+            preferred_model_type=payload.get("preferred_model_type"),
             subset_final_path=_require_existing(root / payload["subset_final_path"]),
             irt_item_params_path=_require_existing(root / payload["irt_item_params_path"]),
             theta_scoring_metadata_path=_require_existing(
@@ -259,6 +261,10 @@ def predict(
         predictions=predictions,
         benchmark_ids=calibrated_benchmark_ids,
         model_ids=model_ids,
+        preferred_model_type_by_benchmark={
+            benchmark_id: spec.preferred_model_type
+            for benchmark_id, spec in sorted(loaded_bundle.benchmarks.items())
+        },
     )
 
     prediction_report = _build_prediction_report(
@@ -593,18 +599,30 @@ def _select_best_available_predictions(
     predictions: pd.DataFrame,
     benchmark_ids: list[str],
     model_ids: list[str],
+    preferred_model_type_by_benchmark: dict[str, str | None],
 ) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
     for benchmark_id in benchmark_ids:
         benchmark_predictions = predictions.loc[predictions[BENCHMARK_ID] == benchmark_id].copy()
+        preferred_model_type = preferred_model_type_by_benchmark.get(benchmark_id)
         for model_id in model_ids:
             model_predictions = benchmark_predictions.loc[
                 benchmark_predictions[MODEL_ID] == model_id
             ].copy()
             chosen_row = None
-            for preferred_model_type in (JOINT_MODEL, MARGINAL_MODEL):
+            preferred_order = [
+                model_type
+                for model_type in (
+                    preferred_model_type,
+                    MARGINAL_MODEL if preferred_model_type == JOINT_MODEL else JOINT_MODEL,
+                )
+                if model_type is not None
+            ]
+            if not preferred_order:
+                preferred_order = [JOINT_MODEL, MARGINAL_MODEL]
+            for model_type in preferred_order:
                 candidate_rows = model_predictions.loc[
-                    (model_predictions[MODEL_TYPE] == preferred_model_type)
+                    (model_predictions[MODEL_TYPE] == model_type)
                     & model_predictions[PREDICTION_AVAILABLE]
                 ]
                 if not candidate_rows.empty:

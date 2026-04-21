@@ -5,6 +5,7 @@ import pandas as pd
 
 import benchiq
 from benchiq.reconstruct import FeatureTableResult, reconstruct_scores
+from benchiq.reconstruct.reconstruction import _select_preferred_model
 from benchiq.schema.tables import BENCHMARK_ID, MODEL_ID, SPLIT
 
 
@@ -53,6 +54,8 @@ def test_reconstruct_scores_writes_artifacts_and_marginal_beats_baseline(tmp_pat
     report = json.loads((stage_dir / "reconstruction_report.json").read_text(encoding="utf-8"))
     assert report["joint_skips"]["b1"] == "overlap_below_joint_threshold"
     assert report["joint_skips"]["b2"] == "overlap_below_joint_threshold"
+    assert report["preferred_model_type_by_benchmark"]["b1"] == "marginal"
+    assert report["benchmarks"]["b1"]["preferred_model"]["model_type"] == "marginal"
 
 
 def test_reconstruct_scores_joint_improves_on_correlated_bundle(tmp_path) -> None:
@@ -102,6 +105,102 @@ def test_reconstruct_scores_joint_improves_on_correlated_bundle(tmp_path) -> Non
     assert report["joint_skips"] == {}
     assert report["rmse"]["marginal_test_by_benchmark"]["b1"] is not None
     assert report["rmse"]["joint_test_by_benchmark"]["b1"] is not None
+    assert report["preferred_model_type_by_benchmark"]["b1"] == "joint"
+    assert report["benchmarks"]["b1"]["preferred_model"]["model_type"] == "joint"
+
+
+def test_select_preferred_model_uses_validation_rmse_and_marginal_tie_break() -> None:
+    preferred = _select_preferred_model(
+        {
+            "marginal": {
+                "skipped": False,
+                "val_row_count": 4,
+                "metrics": {"val": {"rmse": 4.0, "mae": 3.0}},
+                "cv_report": {
+                    "best_lam": 0.1,
+                    "best_mean_val_rmse": 4.0,
+                    "lam_summaries": [{"lam": 0.1, "mean_test_rmse": 4.2}],
+                },
+            },
+            "joint": {
+                "skipped": False,
+                "val_row_count": 4,
+                "metrics": {"val": {"rmse": 4.0, "mae": 3.5}},
+                "cv_report": {
+                    "best_lam": 0.1,
+                    "best_mean_val_rmse": 4.0,
+                    "lam_summaries": [{"lam": 0.1, "mean_test_rmse": 3.8}],
+                },
+            },
+        }
+    )
+
+    assert preferred["model_type"] == "marginal"
+    assert preferred["selection_metric"] == "validation_rmse"
+    assert preferred["validation_rmse_by_model_type"]["marginal"] == 4.0
+    assert preferred["validation_rmse_by_model_type"]["joint"] == 4.0
+
+
+def test_select_preferred_model_uses_cv_mean_test_when_validation_is_tiny() -> None:
+    preferred = _select_preferred_model(
+        {
+            "marginal": {
+                "skipped": False,
+                "val_row_count": 2,
+                "metrics": {"val": {"rmse": 8.0, "mae": 7.5}},
+                "cv_report": {
+                    "best_lam": 0.1,
+                    "best_mean_val_rmse": 4.6,
+                    "lam_summaries": [{"lam": 0.1, "mean_test_rmse": 7.2}],
+                },
+            },
+            "joint": {
+                "skipped": False,
+                "val_row_count": 2,
+                "metrics": {"val": {"rmse": 11.0, "mae": 10.1}},
+                "cv_report": {
+                    "best_lam": 0.1,
+                    "best_mean_val_rmse": 4.5,
+                    "lam_summaries": [{"lam": 0.1, "mean_test_rmse": 5.2}],
+                },
+            },
+        }
+    )
+
+    assert preferred["model_type"] == "joint"
+    assert preferred["selection_metric"] == "cv_mean_test_rmse"
+    assert preferred["validation_row_count_by_model_type"]["marginal"] == 2
+    assert preferred["cv_mean_test_rmse_by_model_type"]["joint"] == 5.2
+
+
+def test_select_preferred_model_keeps_validation_selector_at_threshold() -> None:
+    preferred = _select_preferred_model(
+        {
+            "marginal": {
+                "skipped": False,
+                "val_row_count": 4,
+                "metrics": {"val": {"rmse": 4.0, "mae": 3.0}},
+                "cv_report": {
+                    "best_lam": 0.1,
+                    "best_mean_val_rmse": 5.0,
+                    "lam_summaries": [{"lam": 0.1, "mean_test_rmse": 6.0}],
+                },
+            },
+            "joint": {
+                "skipped": False,
+                "val_row_count": 4,
+                "metrics": {"val": {"rmse": 5.0, "mae": 4.0}},
+                "cv_report": {
+                    "best_lam": 0.1,
+                    "best_mean_val_rmse": 4.0,
+                    "lam_summaries": [{"lam": 0.1, "mean_test_rmse": 3.0}],
+                },
+            },
+        }
+    )
+
+    assert preferred["model_type"] == "marginal"
+    assert preferred["selection_metric"] == "validation_rmse"
 
 
 def _make_model_splits() -> tuple[list[str], dict[str, str]]:

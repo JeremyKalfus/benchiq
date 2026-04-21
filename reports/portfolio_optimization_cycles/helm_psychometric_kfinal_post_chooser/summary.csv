@@ -1,0 +1,5 @@
+k_preselect,k_final,best_available_test_rmse_mean,best_available_test_mae_mean,best_available_test_pearson_mean,best_available_test_spearman_mean,selected_items_preselect_mean,selected_items_final_mean,retained_items_mean,benchmark_warning_count_mean,run_warning_count_mean,delta_vs_current,run_id
+24,22,3.778464682050214,3.3180047713662315,0.9822830861957483,1.0,24.0,22.0,40.5,0.0,4.0,1.1008988831662236e-08,helm_psychometric_kfinal_post_chooser__kpreselect-24__kfinal-22__seed-7
+24,18,5.921373434376832,4.718076265540294,0.8975117373989036,1.0,24.0,18.0,40.5,1.0,5.0,2.142908763335607,helm_psychometric_kfinal_post_chooser__kpreselect-24__kfinal-18__seed-7
+24,24,5.952945621671018,4.39117783692516,0.8746307431677831,1.0,24.0,24.0,40.5,0.0,4.0,2.174480950629793,helm_psychometric_kfinal_post_chooser__kpreselect-24__kfinal-24__seed-7
+24,20,8.850465297700469,7.879428428995121,0.6732347548554841,0.75,24.0,20.0,40.5,0.0,4.0,5.072000626659243,helm_psychometric_kfinal_post_chooser__kpreselect-24__kfinal-20__seed-7

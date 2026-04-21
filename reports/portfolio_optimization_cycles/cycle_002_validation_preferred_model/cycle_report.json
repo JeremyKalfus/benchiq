@@ -1,0 +1,291 @@
+{
+  "hypothesis": "benchmarks should choose between marginal and joint reconstruction using validation performance, not a blanket joint-first fallback, so best-available portfolio metrics reflect the model type that generalizes better per benchmark.",
+  "code_changes": [
+    "src/benchiq/reconstruct/reconstruction.py: compute per-benchmark preferred reconstruction model types from validation RMSE and keep them in reconstruction outputs.",
+    "src/benchiq/calibration.py: persist preferred model types into the calibration bundle manifest.",
+    "src/benchiq/deployment.py: prefer the saved model type during best-available prediction selection with explicit fallback if the preferred model is unavailable.",
+    "src/benchiq/preprocess/optimization.py: use the preferred model type when summarizing best-available optimization metrics.",
+    "src/benchiq/reconstruct/reconstruction.py: preserve preferred-model metadata in written reconstruction reports so the choice stays inspectable on disk.",
+    "tests/unit/test_reconstruction.py, tests/unit/test_deployment.py, tests/integration/test_calibration_deployment.py: cover validation-based preference selection and artifact persistence."
+  ],
+  "tests_run": [
+    ".venv/bin/ruff check src/benchiq/reconstruct/reconstruction.py tests/unit/test_reconstruction.py tests/unit/test_deployment.py tests/integration/test_calibration_deployment.py",
+    ".venv/bin/pytest tests/unit/test_reconstruction.py tests/unit/test_deployment.py tests/integration/test_calibration_deployment.py -q",
+    ".venv/bin/ruff check .",
+    ".venv/bin/pytest"
+  ],
+  "baseline": {
+    "strategy_id": "minimal_cleaning__deterministic_info",
+    "equal_weight_rmse_mean": 6.9389525057800965,
+    "equal_weight_mae_mean": 5.409552105526823,
+    "equal_weight_pearson_mean": 0.915420139494398,
+    "equal_weight_spearman_mean": 0.9604070659606702,
+    "equal_weight_seed_rmse_std_mean": 0.0,
+    "informative_source_count": 3
+  },
+  "new_best": {
+    "strategy_id": "reconstruction_first__random_cv",
+    "equal_weight_rmse_mean": 6.134665267399797,
+    "equal_weight_mae_mean": 5.1638625708082015,
+    "equal_weight_pearson_mean": 0.8999947893077619,
+    "equal_weight_spearman_mean": 0.8698869926885794,
+    "equal_weight_seed_rmse_std_mean": 0.0,
+    "informative_source_count": 3
+  },
+  "informative_source_count_unchanged": true,
+  "open_eval_prediction_available_rate_old": 1.0,
+  "open_eval_prediction_available_rate_new": 1.0,
+  "per_source_deltas": [
+    {
+      "dataset_id": "helm_objective__capabilities_v1_0_0",
+      "strategy_id": "reconstruction_first__random_cv",
+      "best_available_test_rmse_mean_old": 10.955363462250205,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 8.588139467819666,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": -2.367223994430539,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "helm_objective__capabilities_v1_0_0",
+      "strategy_id": "psychometric_default__random_cv",
+      "best_available_test_rmse_mean_old": 12.765894326091306,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 9.334729335377101,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": -3.4311649907142048,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "helm_objective__capabilities_v1_0_0",
+      "strategy_id": "minimal_cleaning__deterministic_info",
+      "best_available_test_rmse_mean_old": 9.865253612994055,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 10.472869704954302,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": 0.6076160919602476,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "helm_objective__capabilities_v1_0_0",
+      "strategy_id": "reconstruction_first__deterministic_info",
+      "best_available_test_rmse_mean_old": 9.865253612994055,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 10.472869704954302,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": 0.6076160919602476,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "helm_objective__capabilities_v1_0_0",
+      "strategy_id": "reconstruction_first_relaxed__deterministic_info",
+      "best_available_test_rmse_mean_old": 9.865253612994055,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 10.472869704954302,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": 0.6076160919602476,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "helm_objective__capabilities_v1_0_0",
+      "strategy_id": "psychometric_default__deterministic_info",
+      "best_available_test_rmse_mean_old": 10.48218338973497,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 11.411810923081195,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": 0.929627533346224,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "strategy_id": "minimal_cleaning__deterministic_info",
+      "best_available_test_rmse_mean_old": 4.626740033042612,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 4.5734718746425616,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": -0.0532681584000505,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "strategy_id": "reconstruction_first__deterministic_info",
+      "best_available_test_rmse_mean_old": 4.626740033042612,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 4.5734718746425616,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": -0.0532681584000505,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "strategy_id": "reconstruction_first_relaxed__deterministic_info",
+      "best_available_test_rmse_mean_old": 4.626740033042612,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 4.5734718746425616,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": -0.0532681584000505,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "strategy_id": "psychometric_default__deterministic_info",
+      "best_available_test_rmse_mean_old": 4.3185138038651845,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 4.632464179002571,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": 0.3139503751373862,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "strategy_id": "psychometric_default__random_cv",
+      "best_available_test_rmse_mean_old": 4.926929569556328,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 5.159731564455893,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": 0.23280199489956566,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "strategy_id": "reconstruction_first__random_cv",
+      "best_available_test_rmse_mean_old": 5.630823582534223,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 5.846455641328895,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": 0.21563205879467162,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "openeval__hf_94f8112_20260314",
+      "strategy_id": "reconstruction_first__random_cv",
+      "best_available_test_rmse_mean_old": 4.9125982080582276,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 3.9694006930508303,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": -0.9431975150073972,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "openeval__hf_94f8112_20260314",
+      "strategy_id": "psychometric_default__random_cv",
+      "best_available_test_rmse_mean_old": 4.523069910460518,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 4.523069910460518,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": 0.0,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "openeval__hf_94f8112_20260314",
+      "strategy_id": "minimal_cleaning__deterministic_info",
+      "best_available_test_rmse_mean_old": 6.32486387130362,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 5.943128465368421,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": -0.38173540593519917,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "openeval__hf_94f8112_20260314",
+      "strategy_id": "reconstruction_first__deterministic_info",
+      "best_available_test_rmse_mean_old": 6.32486387130362,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 5.943128465368421,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": -0.38173540593519917,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "openeval__hf_94f8112_20260314",
+      "strategy_id": "reconstruction_first_relaxed__deterministic_info",
+      "best_available_test_rmse_mean_old": 6.32486387130362,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 5.943128465368421,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": -0.38173540593519917,
+      "joint_rate_delta": 0.0
+    },
+    {
+      "dataset_id": "openeval__hf_94f8112_20260314",
+      "strategy_id": "psychometric_default__deterministic_info",
+      "best_available_test_rmse_mean_old": 7.036042265315467,
+      "joint_available_rate_old": 1.0,
+      "best_available_test_rmse_mean_new": 7.036042265315467,
+      "joint_available_rate_new": 1.0,
+      "rmse_delta": 0.0,
+      "joint_rate_delta": 0.0
+    }
+  ],
+  "leave_one_out_old_top": [
+    {
+      "left_out_dataset_id": "helm_objective__capabilities_v1_0_0",
+      "rank": 1,
+      "strategy_id": "psychometric_default__random_cv",
+      "equal_weight_rmse_mean": 4.724999740008423,
+      "equal_weight_mae_mean": 3.556631932059375,
+      "equal_weight_pearson_mean": 0.9712342857029486,
+      "equal_weight_spearman_mean": 0.960757647795065,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "informative_source_count": 2
+    },
+    {
+      "left_out_dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "rank": 1,
+      "strategy_id": "reconstruction_first__random_cv",
+      "equal_weight_rmse_mean": 7.933980835154216,
+      "equal_weight_mae_mean": 6.9326477929636,
+      "equal_weight_pearson_mean": 0.8794907909429666,
+      "equal_weight_spearman_mean": 0.8435854122563142,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "informative_source_count": 2
+    },
+    {
+      "left_out_dataset_id": "openeval__hf_94f8112_20260314",
+      "rank": 1,
+      "strategy_id": "minimal_cleaning__deterministic_info",
+      "equal_weight_rmse_mean": 7.245996823018333,
+      "equal_weight_mae_mean": 5.496532276011561,
+      "equal_weight_pearson_mean": 0.881822360911042,
+      "equal_weight_spearman_mean": 0.972025186684691,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "informative_source_count": 2
+    }
+  ],
+  "leave_one_out_new_top": [
+    {
+      "left_out_dataset_id": "helm_objective__capabilities_v1_0_0",
+      "rank": 1,
+      "strategy_id": "psychometric_default__random_cv",
+      "equal_weight_rmse_mean": 4.841400737458206,
+      "equal_weight_mae_mean": 3.671325286993426,
+      "equal_weight_pearson_mean": 0.969529953385164,
+      "equal_weight_spearman_mean": 0.9596352374123658,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "informative_source_count": 2
+    },
+    {
+      "left_out_dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "rank": 1,
+      "strategy_id": "reconstruction_first__random_cv",
+      "equal_weight_rmse_mean": 6.2787700804352475,
+      "equal_weight_mae_mean": 5.648842682440987,
+      "equal_weight_pearson_mean": 0.8799826181358649,
+      "equal_weight_spearman_mean": 0.8435854122563142,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "informative_source_count": 2
+    },
+    {
+      "left_out_dataset_id": "openeval__hf_94f8112_20260314",
+      "rank": 1,
+      "strategy_id": "reconstruction_first__random_cv",
+      "equal_weight_rmse_mean": 7.21729755457428,
+      "equal_weight_mae_mean": 6.245258317593958,
+      "equal_weight_pearson_mean": 0.8555898401842776,
+      "equal_weight_spearman_mean": 0.8362450767765548,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "informative_source_count": 2
+    }
+  ],
+  "keep_decision": "keep"
+}

@@ -258,6 +258,84 @@ def test_subsample_bundle_supports_deterministic_information_ranking(tmp_path) -
     assert selected_item_sets[0] == selected_item_sets[1]
 
 
+@pytest.mark.parametrize(
+    ("method", "n_iter"),
+    [
+        ("deterministic_info", 1),
+        ("random_cv", 4),
+    ],
+)
+def test_subsample_clamps_requested_k_preselect_to_candidate_pool(
+    tmp_path,
+    method: str,
+    n_iter: int,
+) -> None:
+    rows: list[dict[str, object]] = []
+    thresholds = {"i1": 2, "i2": 5, "i3": 8}
+    responses_path = tmp_path / f"{method}.csv"
+    for model_index in range(1, 13):
+        model_id = f"m{model_index:02d}"
+        for item_id, threshold in thresholds.items():
+            rows.append(
+                {
+                    "model_id": model_id,
+                    "benchmark_id": "b1",
+                    "item_id": item_id,
+                    "score": 1 if model_index >= threshold else 0,
+                }
+            )
+    pd.DataFrame(rows).to_csv(responses_path, index=False)
+
+    bundle = benchiq.load_bundle(
+        responses_path,
+        config=benchiq.BenchIQConfig(
+            allow_low_n=True,
+            drop_low_tail_models_quantile=0.0,
+            min_models_per_benchmark=1,
+            warn_models_per_benchmark=1,
+            min_items_after_filtering=1,
+            min_models_per_item=1,
+            min_item_coverage=1.0,
+            min_item_sd=0.0,
+            max_item_mean=1.0,
+            min_abs_point_biserial=0.0,
+            min_overlap_models_for_joint=4,
+            p_test=0.25,
+            p_val=0.25,
+            n_strata_bins=2,
+            random_seed=13,
+        ),
+    )
+    preprocess_result = preprocess_bundle(bundle)
+    score_result = compute_scores(bundle, preprocess_result)
+    split_result = split_models(bundle, score_result)
+
+    subsample_result = subsample_bundle(
+        bundle,
+        preprocess_result,
+        score_result,
+        split_result,
+        method=method,
+        k_preselect=10,
+        n_iter=n_iter,
+        cv_folds=4,
+        checkpoint_interval=1,
+        lam_grid=(0.1, 1.0),
+    )
+
+    benchmark_result = subsample_result.benchmarks["b1"]
+    assert benchmark_result.subsample_report["skipped"] is False
+    assert benchmark_result.subsample_report["parameters"]["requested_k_preselect"] == 10
+    assert benchmark_result.subsample_report["parameters"]["effective_k_preselect"] == 3
+    assert len(benchmark_result.preselect_items.index) == 3
+    assert any(
+        "clamped from 10 to 3" in warning
+        for warning in benchmark_result.subsample_report["warnings"]
+    )
+    progress_payload = benchmark_result.artifact_paths["progress_payload"]
+    assert any("clamped from 10 to 3" in warning for warning in progress_payload["warnings"])
+
+
 def test_information_proxy_ranking_uses_absolute_point_biserial() -> None:
     filtered_items = pd.DataFrame(
         {

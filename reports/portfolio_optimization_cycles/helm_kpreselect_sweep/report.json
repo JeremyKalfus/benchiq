@@ -1,0 +1,28 @@
+{
+  "search": "helm_kpreselect_sweep",
+  "dataset_id": "helm_objective__capabilities_v1_0_0",
+  "k_preselect_values": [
+    18,
+    24,
+    28,
+    32,
+    36,
+    40
+  ],
+  "k_final": 18,
+  "profiles": [
+    "minimal_cleaning",
+    "reconstruction_first",
+    "reconstruction_first_relaxed"
+  ],
+  "winner": {
+    "profile_id": "minimal_cleaning",
+    "k_preselect": 24,
+    "best_available_test_rmse_mean": 6.49879130364126,
+    "best_available_test_mae_mean": 5.989629514966971,
+    "selected_items_final_mean": 18.0,
+    "selected_items_preselect_mean": 24.0,
+    "joint_available_rate": 1.0,
+    "benchmark_warning_count_mean": 1.0
+  }
+}

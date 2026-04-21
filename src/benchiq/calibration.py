@@ -248,6 +248,9 @@ def write_calibration_bundle(
         benchmark_manifest[benchmark_id] = {
             "selected_item_count": int(len(subset_result.subset_final.index)),
             "selected_item_ids": subset_result.subset_final[ITEM_ID].astype("string").tolist(),
+            "preferred_model_type": reconstruction_benchmark.reconstruction_report[
+                "preferred_model"
+            ]["model_type"],
             "subset_final_path": _relative_path(subset_final_path, calibration_root),
             "selection_report_path": _relative_path(selection_report_path, calibration_root),
             "irt_item_params_path": _relative_path(irt_item_params_path, calibration_root),

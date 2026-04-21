@@ -51,6 +51,7 @@ MARGINAL_MODEL = "marginal"
 JOINT_MODEL = "joint"
 DEFAULT_RECONSTRUCT_CV_FOLDS = 5
 DEFAULT_RECONSTRUCT_N_SPLINES = 20
+MIN_VALIDATION_ROWS_FOR_HOLDOUT_MODEL_SELECTION = 4
 
 
 @dataclass(slots=True)
@@ -233,6 +234,7 @@ def reconstruct_benchmark(
         "summary_rows": summary_rows,
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
+    reconstruction_report["preferred_model"] = _select_preferred_model(reconstruction_report)
     return BenchmarkReconstructionResult(
         benchmark_id=benchmark_id,
         predictions=predictions,
@@ -551,12 +553,14 @@ def _build_reconstruction_report(
     marginal_test_rmse = {}
     joint_test_rmse = {}
     joint_skips = {}
+    preferred_model_types = {}
     for benchmark_id in benchmark_ids:
         benchmark_report = benchmark_results[benchmark_id].reconstruction_report
         marginal_metrics = benchmark_report["marginal"]["metrics"].get("test", {})
         joint_metrics = benchmark_report["joint"]["metrics"].get("test", {})
         marginal_test_rmse[benchmark_id] = marginal_metrics.get(RMSE)
         joint_test_rmse[benchmark_id] = joint_metrics.get(RMSE)
+        preferred_model_types[benchmark_id] = benchmark_report["preferred_model"]["model_type"]
         if benchmark_report["joint"]["skipped"]:
             joint_skips[benchmark_id] = benchmark_report["joint"]["skip_reason"]
 
@@ -577,6 +581,7 @@ def _build_reconstruction_report(
             "marginal_test_by_benchmark": marginal_test_rmse,
             "joint_test_by_benchmark": joint_test_rmse,
         },
+        "preferred_model_type_by_benchmark": preferred_model_types,
         "joint_skips": joint_skips,
         "benchmarks": {
             benchmark_id: result.reconstruction_report
@@ -637,6 +642,123 @@ def _write_reconstruction_artifacts(
         "reconstruction_report": report_path,
         "per_benchmark": per_benchmark_paths,
     }
+
+
+def _select_preferred_model(benchmark_report: dict[str, Any]) -> dict[str, Any]:
+    candidates: list[dict[str, Any]] = []
+    for model_type in (MARGINAL_MODEL, JOINT_MODEL):
+        model_report = benchmark_report[model_type]
+        if model_report["skipped"]:
+            continue
+        val_metrics = model_report["metrics"].get("val", {})
+        cv_report = model_report.get("cv_report") or {}
+        validation_rmse = _coerce_float_or_none(val_metrics.get(RMSE))
+        if validation_rmse is None:
+            validation_rmse = _coerce_float_or_none(cv_report.get("best_mean_val_rmse"))
+        validation_mae = _coerce_float_or_none(val_metrics.get(MAE))
+        val_row_count = _coerce_int_or_none(model_report.get("val_row_count"))
+        cv_mean_test_rmse = _selected_cv_mean_test_rmse(cv_report)
+        candidates.append(
+            {
+                "model_type": model_type,
+                "validation_rmse": validation_rmse,
+                "validation_mae": validation_mae,
+                "val_row_count": val_row_count,
+                "cv_mean_test_rmse": cv_mean_test_rmse,
+            }
+        )
+
+    if not candidates:
+        return {
+            "model_type": None,
+            "selection_metric": "validation_rmse",
+            "validation_rmse_by_model_type": {},
+            "validation_mae_by_model_type": {},
+            "validation_row_count_by_model_type": {},
+            "cv_mean_test_rmse_by_model_type": {},
+            "fallback_used": False,
+        }
+
+    use_cv_test_selector = (
+        all(
+            candidate["val_row_count"] is not None
+            and candidate["val_row_count"] < MIN_VALIDATION_ROWS_FOR_HOLDOUT_MODEL_SELECTION
+            for candidate in candidates
+        )
+        and all(candidate["cv_mean_test_rmse"] is not None for candidate in candidates)
+    )
+    if use_cv_test_selector:
+        preferred = min(
+            candidates,
+            key=lambda candidate: (
+                float(candidate["cv_mean_test_rmse"]),
+                float("inf")
+                if candidate["validation_rmse"] is None
+                else float(candidate["validation_rmse"]),
+                float("inf")
+                if candidate["validation_mae"] is None
+                else float(candidate["validation_mae"]),
+                0 if candidate["model_type"] == MARGINAL_MODEL else 1,
+            ),
+        )
+        selection_metric = "cv_mean_test_rmse"
+    else:
+        preferred = min(
+            candidates,
+            key=lambda candidate: (
+                float("inf")
+                if candidate["validation_rmse"] is None
+                else float(candidate["validation_rmse"]),
+                float("inf")
+                if candidate["validation_mae"] is None
+                else float(candidate["validation_mae"]),
+                0 if candidate["model_type"] == MARGINAL_MODEL else 1,
+            ),
+        )
+        selection_metric = "validation_rmse"
+    return {
+        "model_type": preferred["model_type"],
+        "selection_metric": selection_metric,
+        "validation_rmse_by_model_type": {
+            candidate["model_type"]: candidate["validation_rmse"] for candidate in candidates
+        },
+        "validation_mae_by_model_type": {
+            candidate["model_type"]: candidate["validation_mae"] for candidate in candidates
+        },
+        "validation_row_count_by_model_type": {
+            candidate["model_type"]: candidate["val_row_count"] for candidate in candidates
+        },
+        "cv_mean_test_rmse_by_model_type": {
+            candidate["model_type"]: candidate["cv_mean_test_rmse"] for candidate in candidates
+        },
+        "fallback_used": (
+            preferred["cv_mean_test_rmse"] is None
+            if use_cv_test_selector
+            else preferred["validation_rmse"] is None
+        ),
+    }
+
+
+def _coerce_float_or_none(value: Any) -> float | None:
+    if value is None or pd.isna(value):
+        return None
+    return float(value)
+
+
+def _coerce_int_or_none(value: Any) -> int | None:
+    if value is None or pd.isna(value):
+        return None
+    return int(value)
+
+
+def _selected_cv_mean_test_rmse(cv_report: dict[str, Any]) -> float | None:
+    best_lam = _coerce_float_or_none(cv_report.get("best_lam"))
+    if best_lam is None:
+        return None
+    for summary in cv_report.get("lam_summaries", []):
+        if _coerce_float_or_none(summary.get("lam")) == best_lam:
+            return _coerce_float_or_none(summary.get("mean_test_rmse"))
+    return None
 
 
 def _write_reconstruction_plots(
@@ -806,6 +928,7 @@ def _report_without_cv_objects(report: dict[str, Any]) -> dict[str, Any]:
         "parameters": report["parameters"],
         "counts": report["counts"],
         "rmse": report["rmse"],
+        "preferred_model_type_by_benchmark": report["preferred_model_type_by_benchmark"],
         "joint_skips": report["joint_skips"],
         "generated_at": report["generated_at"],
         "benchmarks": {},
@@ -816,6 +939,7 @@ def _report_without_cv_objects(report: dict[str, Any]) -> dict[str, Any]:
             "warnings": benchmark_report["warnings"],
             "marginal": _sanitize_model_report(benchmark_report["marginal"]),
             "joint": _sanitize_model_report(benchmark_report["joint"]),
+            "preferred_model": benchmark_report["preferred_model"],
             "summary_rows": benchmark_report["summary_rows"],
             "generated_at": benchmark_report["generated_at"],
         }
@@ -834,6 +958,7 @@ def _sanitize_benchmark_report(benchmark_report: dict[str, Any]) -> dict[str, An
         "warnings": benchmark_report["warnings"],
         "marginal": _sanitize_model_report(benchmark_report["marginal"]),
         "joint": _sanitize_model_report(benchmark_report["joint"]),
+        "preferred_model": benchmark_report["preferred_model"],
         "summary_rows": benchmark_report["summary_rows"],
         "generated_at": benchmark_report["generated_at"],
     }

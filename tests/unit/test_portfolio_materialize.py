@@ -104,6 +104,8 @@ def test_ollb_v1_adapter_materializes_local_extract(tmp_path: Path) -> None:
     result = OLLBV1LocalAdapter().materialize(source=source, snapshot=snapshot, out_dir=tmp_path)
     assert result.status == "materialized"
     assert result.dataset is not None
+    assert result.dataset.base_stage_options["04_subsample"]["k_preselect"] == 44
+    assert result.dataset.base_stage_options["06_select"]["k_final"] == 44
     assert (tmp_path / source.source_id / snapshot.snapshot_id / "responses_long.parquet").exists()
 
 
@@ -205,6 +207,9 @@ def test_openeval_and_helm_adapters_materialize_from_mocked_public_data(
         out_dir=tmp_path,
     )
     assert open_result.status == "materialized"
+    assert open_result.dataset is not None
+    assert open_result.dataset.base_stage_options["04_subsample"]["k_preselect"] == 40
+    assert open_result.dataset.base_stage_options["06_select"]["k_final"] == 26
 
     source_helm = BenchmarkSourceSpec(
         source_id="helm_objective",
@@ -261,3 +266,6 @@ def test_openeval_and_helm_adapters_materialize_from_mocked_public_data(
         out_dir=tmp_path,
     )
     assert helm_result.status == "materialized"
+    assert helm_result.dataset is not None
+    assert helm_result.dataset.base_stage_options["04_subsample"]["k_preselect"] == 24
+    assert helm_result.dataset.base_stage_options["06_select"]["k_final"] == 22

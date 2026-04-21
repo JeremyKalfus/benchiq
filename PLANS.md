@@ -28,7 +28,11 @@
 
 ## active work
 
-- none
+- T29 portfolio rmse optimization
+- goal: minimize equal-source-weight held-out RMSE on the narrowed public optimization portfolio, targeting `< 2.0` without reducing informative-source coverage.
+- dependencies: `reports/portfolio_standing/*`, `src/benchiq/portfolio/*`, reconstruction and preprocessing internals, saved public source materializations under `out/portfolio_sources/`.
+- acceptance checks: updated tests for behavior changes; `ruff check .`; `pytest`; fresh saved evidence under `reports/portfolio_optimization_cycles/`; refreshed comparison against the current standing winner with per-source and leave-one-out deltas.
+- status: in progress; cycle 010 lowered the best saved standing rmse to `2.9344` with `psychometric_default__deterministic_info` after raising OLLB to `44/44` while keeping HELM at `24/22`, OpenEval at `40/26`, and the low-support chooser in place; current frontier experiments are whether OLLB still improves with an even larger retained final subset and whether HELM/OpenEval need deeper reconstruction changes rather than more budget tuning.
 
 ## ticket summaries
 

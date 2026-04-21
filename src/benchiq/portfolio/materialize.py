@@ -272,7 +272,7 @@ class OLLBV1LocalAdapter:
                     "min_overlap_models_for_redundancy": 100,
                     "random_seed": 7,
                 },
-                base_stage_options=_portfolio_stage_options(k_preselect=50, k_final=24),
+                base_stage_options=_portfolio_stage_options(k_preselect=44, k_final=44),
                 notes=(
                     "reduced pinned extract from the local release-default source bundle",
                 ),
@@ -506,7 +506,7 @@ class OpenEvalObjectiveAdapter:
                     "min_overlap_models_for_redundancy": 15,
                     "random_seed": 7,
                 },
-                base_stage_options=_portfolio_stage_options(k_preselect=40, k_final=18),
+                base_stage_options=_portfolio_stage_options(k_preselect=40, k_final=26),
                 notes=(
                     "objective-only OpenEval extract",
                     selection_note,
@@ -699,7 +699,7 @@ class HELMObjectiveAdapter:
                     "min_overlap_models_for_redundancy": 10,
                     "random_seed": 7,
                 },
-                base_stage_options=_portfolio_stage_options(k_preselect=28, k_final=12),
+                base_stage_options=_portfolio_stage_options(k_preselect=24, k_final=22),
                 notes=(
                     "objective-only HELM extract",
                     "scenarios with non-binary per-instance metrics were excluded",

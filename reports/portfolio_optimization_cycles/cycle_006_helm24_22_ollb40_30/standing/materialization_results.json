@@ -1,0 +1,443 @@
+{
+  "results": [
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/ollb_v1_metabench_source/release_default_subset_20260405",
+      "dataset": {
+        "base_config": {
+          "allow_low_n": false,
+          "min_items_after_filtering": 40,
+          "min_models_per_benchmark": 100,
+          "min_models_per_item": 40,
+          "min_overlap_models_for_joint": 100,
+          "min_overlap_models_for_redundancy": 100,
+          "random_seed": 7,
+          "warn_models_per_benchmark": 140
+        },
+        "base_stage_options": {
+          "04_subsample": {
+            "checkpoint_interval": 4,
+            "cv_folds": 5,
+            "k_preselect": 40,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_iter": 12
+          },
+          "06_select": {
+            "k_final": 30,
+            "theta_grid_size": 151
+          },
+          "07_theta": {
+            "theta_grid_size": 151
+          },
+          "09_reconstruct": {
+            "cv_folds": 5,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_splines": 8
+          },
+          "10_redundancy": {
+            "cv_folds": 5,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_factors_to_try": [
+              1,
+              2
+            ],
+            "n_splines": 8
+          }
+        },
+        "dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+        "items_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/ollb_v1_metabench_source/release_default_subset_20260405/items.parquet",
+        "label": "Open LLM Leaderboard v1 / MetaBench-source (local release-default subset export)",
+        "models_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/ollb_v1_metabench_source/release_default_subset_20260405/models.parquet",
+        "notes": [
+          "reduced pinned extract from the local release-default source bundle"
+        ],
+        "responses_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/ollb_v1_metabench_source/release_default_subset_20260405/responses_long.parquet",
+        "role": "optimize",
+        "snapshot_id": "release_default_subset_20260405",
+        "source_id": "ollb_v1_metabench_source"
+      },
+      "details": {
+        "counts": {
+          "benchmark_count": 6,
+          "item_count": 360,
+          "model_count": 180,
+          "rows": 64800
+        },
+        "native_benchmark_count": 6,
+        "selected_item_counts": {
+          "arc": 60,
+          "gsm8k": 60,
+          "hellaswag": 60,
+          "mmlu": 60,
+          "truthfulqa": 60,
+          "winogrande": 60
+        },
+        "selected_model_count": 180,
+        "source_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/release_bundle_source/release_default_subset_responses_long.parquet"
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/ollb_v1_metabench_source/release_default_subset_20260405/source_manifest.json",
+      "role": "optimize",
+      "skip_reason": null,
+      "snapshot_id": "release_default_subset_20260405",
+      "source_id": "ollb_v1_metabench_source",
+      "status": "materialized"
+    },
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/ollb_v2/results_20250315",
+      "dataset": NaN,
+      "details": {
+        "details_dataset_id": "open-llm-leaderboard/01-ai__Yi-34B-details",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/ollb_v2/results_20250315/source_manifest.json",
+      "role": "optimize",
+      "skip_reason": "OLLB v2 aggregate results are public, but the required item-level details dataset was not accessible without authentication: open-llm-leaderboard/01-ai__Yi-34B-details",
+      "snapshot_id": "results_20250315",
+      "source_id": "ollb_v2",
+      "status": "skipped"
+    },
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/openeval/hf_94f8112_20260314",
+      "dataset": {
+        "base_config": {
+          "allow_low_n": true,
+          "min_items_after_filtering": 25,
+          "min_models_per_benchmark": 20,
+          "min_models_per_item": 15,
+          "min_overlap_models_for_joint": 15,
+          "min_overlap_models_for_redundancy": 15,
+          "random_seed": 7,
+          "warn_models_per_benchmark": 30
+        },
+        "base_stage_options": {
+          "04_subsample": {
+            "checkpoint_interval": 4,
+            "cv_folds": 5,
+            "k_preselect": 40,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_iter": 12
+          },
+          "06_select": {
+            "k_final": 26,
+            "theta_grid_size": 151
+          },
+          "07_theta": {
+            "theta_grid_size": 151
+          },
+          "09_reconstruct": {
+            "cv_folds": 5,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_splines": 8
+          },
+          "10_redundancy": {
+            "cv_folds": 5,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_factors_to_try": [
+              1,
+              2
+            ],
+            "n_splines": 8
+          }
+        },
+        "dataset_id": "openeval__hf_94f8112_20260314",
+        "items_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/openeval/hf_94f8112_20260314/items.parquet",
+        "label": "OpenEval item-centered repository (Human-Centered Eval OpenEval public dataset snapshot)",
+        "models_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/openeval/hf_94f8112_20260314/models.parquet",
+        "notes": [
+          "objective-only OpenEval extract",
+          "relaxed to top-coverage models because fewer than 20 complete-overlap models were available; dropped low-support benchmarks after model selection"
+        ],
+        "responses_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/openeval/hf_94f8112_20260314/responses_long.parquet",
+        "role": "optimize",
+        "snapshot_id": "hf_94f8112_20260314",
+        "source_id": "openeval"
+      },
+      "details": {
+        "admitted_benchmarks": [
+          "gpqa",
+          "ifeval",
+          "mmlu_pro",
+          "omni_math"
+        ],
+        "bench_tags": {
+          "bbq": [
+            "safety",
+            "bias"
+          ],
+          "bold": [
+            "safety",
+            "bias"
+          ],
+          "boolq": [
+            "question_answering"
+          ],
+          "cnndm": [
+            "summarization",
+            "news"
+          ],
+          "culturalbench": [
+            "cultural knowledge",
+            "culture"
+          ],
+          "disinformation": [
+            "safety",
+            "disinformation"
+          ],
+          "do_not_answer": [
+            "safety"
+          ],
+          "emobench": [
+            "emotion",
+            "emotional intelligence"
+          ],
+          "gpqa": [
+            "question answering"
+          ],
+          "hi_tom": [
+            "reasoning",
+            "theory of mind"
+          ],
+          "ifeval": [
+            "instruction following"
+          ],
+          "imdb": [
+            "sentiment_classification"
+          ],
+          "mmlu_pro": [
+            "knowledge",
+            "multiple_choice",
+            "reasoning"
+          ],
+          "moralbench": [
+            "moral",
+            "value"
+          ],
+          "omni_math": [
+            "math"
+          ],
+          "opentom": [
+            "reasoning",
+            "theory of mind"
+          ],
+          "salad_bench": [
+            "safety",
+            "jailbreak"
+          ],
+          "truthfulqa": [
+            "safety",
+            "truthfulness"
+          ],
+          "xsum": [
+            "summarization",
+            "news"
+          ]
+        },
+        "benchmark_model_support": {
+          "openeval__hf_94f8112_20260314__gpqa": 40,
+          "openeval__hf_94f8112_20260314__ifeval": 40,
+          "openeval__hf_94f8112_20260314__mmlu_pro": 40,
+          "openeval__hf_94f8112_20260314__omni_math": 40
+        },
+        "counts": {
+          "benchmark_count": 4,
+          "item_count": 200,
+          "model_count": 40,
+          "rows": 8000
+        },
+        "duplicate_resolution": {
+          "conflicting_keys": 18,
+          "duplicate_rows": 1240
+        },
+        "exclusions": {
+          "low_model_support_benchmarks": 1,
+          "missing_item_lookup": 29980,
+          "no_binary_metric": 6010,
+          "unsupported_benchmark": 397090
+        },
+        "selected_item_counts": {
+          "openeval__hf_94f8112_20260314__gpqa": 50,
+          "openeval__hf_94f8112_20260314__ifeval": 50,
+          "openeval__hf_94f8112_20260314__mmlu_pro": 50,
+          "openeval__hf_94f8112_20260314__omni_math": 50
+        },
+        "selected_model_count": 40
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/openeval/hf_94f8112_20260314/source_manifest.json",
+      "role": "optimize",
+      "skip_reason": null,
+      "snapshot_id": "hf_94f8112_20260314",
+      "source_id": "openeval",
+      "status": "materialized"
+    },
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/helm_objective/capabilities_v1_0_0",
+      "dataset": {
+        "base_config": {
+          "allow_low_n": true,
+          "min_items_after_filtering": 20,
+          "min_models_per_benchmark": 12,
+          "min_models_per_item": 10,
+          "min_overlap_models_for_joint": 10,
+          "min_overlap_models_for_redundancy": 10,
+          "random_seed": 7,
+          "warn_models_per_benchmark": 18
+        },
+        "base_stage_options": {
+          "04_subsample": {
+            "checkpoint_interval": 4,
+            "cv_folds": 5,
+            "k_preselect": 24,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_iter": 12
+          },
+          "06_select": {
+            "k_final": 22,
+            "theta_grid_size": 151
+          },
+          "07_theta": {
+            "theta_grid_size": 151
+          },
+          "09_reconstruct": {
+            "cv_folds": 5,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_splines": 8
+          },
+          "10_redundancy": {
+            "cv_folds": 5,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_factors_to_try": [
+              1,
+              2
+            ],
+            "n_splines": 8
+          }
+        },
+        "dataset_id": "helm_objective__capabilities_v1_0_0",
+        "items_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/helm_objective/capabilities_v1_0_0/items.parquet",
+        "label": "HELM objective subset (HELM Capabilities v1.0.0 objective subset)",
+        "models_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/helm_objective/capabilities_v1_0_0/models.parquet",
+        "notes": [
+          "objective-only HELM extract",
+          "scenarios with non-binary per-instance metrics were excluded"
+        ],
+        "responses_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/helm_objective/capabilities_v1_0_0/responses_long.parquet",
+        "role": "optimize",
+        "snapshot_id": "capabilities_v1_0_0",
+        "source_id": "helm_objective"
+      },
+      "details": {
+        "admitted_benchmarks": [
+          "mmlu_pro",
+          "gpqa"
+        ],
+        "counts": {
+          "benchmark_count": 2,
+          "item_count": 100,
+          "model_count": 23,
+          "rows": 2300
+        },
+        "exclusions": {
+          "ifeval_non_binary_metric": 204
+        },
+        "selected_item_counts": {
+          "gpqa": 50,
+          "mmlu_pro": 50
+        },
+        "selected_model_count": 23
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/helm_objective/capabilities_v1_0_0/source_manifest.json",
+      "role": "optimize",
+      "skip_reason": null,
+      "snapshot_id": "capabilities_v1_0_0",
+      "source_id": "helm_objective",
+      "status": "materialized"
+    },
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/livecodebench/public_release_202604",
+      "dataset": NaN,
+      "details": {
+        "inspected_features": {
+          "livecodebench/execution": [
+            "id",
+            "function_name",
+            "code",
+            "input",
+            "output",
+            "numsteps",
+            "problem_id"
+          ],
+          "livecodebench/execution-v2": [
+            "question_id",
+            "id",
+            "function_name",
+            "code",
+            "input",
+            "output",
+            "numsteps",
+            "problem_id",
+            "contest_id",
+            "contest_date",
+            "difficulty"
+          ]
+        }
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/livecodebench/public_release_202604/source_manifest.json",
+      "role": "validate",
+      "skip_reason": "official public LiveCodeBench datasets expose benchmark items and execution artifacts, but not a public many-model item-response matrix",
+      "snapshot_id": "public_release_202604",
+      "source_id": "livecodebench",
+      "status": "skipped"
+    },
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/belebele/facebook_20230503",
+      "dataset": NaN,
+      "details": {
+        "inspected_features": [
+          "link",
+          "question_number",
+          "flores_passage",
+          "question",
+          "mc_answer1",
+          "mc_answer2",
+          "mc_answer3",
+          "mc_answer4",
+          "correct_answer_num",
+          "dialect",
+          "ds"
+        ]
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/portfolio_sources/belebele/facebook_20230503/source_manifest.json",
+      "role": "validate",
+      "skip_reason": "the official public Belebele dataset exposes benchmark items only; no public many-model item-response bank was configured for BenchIQ ingestion",
+      "snapshot_id": "facebook_20230503",
+      "source_id": "belebele",
+      "status": "skipped"
+    }
+  ]
+}

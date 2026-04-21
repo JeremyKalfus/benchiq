@@ -266,7 +266,7 @@ def _subsample_benchmark_random_cv(
             cv_folds=cv_folds,
         )
 
-    effective_k = _resolve_k_preselect(
+    effective_k, k_preselect_warning = _resolve_k_preselect(
         requested_k_preselect=k_preselect,
         candidate_item_count=len(candidate_item_ids),
         pool_model_count=len(pool_model_ids),
@@ -306,6 +306,8 @@ def _subsample_benchmark_random_cv(
     iteration_records: list[dict[str, Any]] = []
     valid_iterations: list[dict[str, Any]] = []
     warnings: list[str] = []
+    if k_preselect_warning is not None:
+        warnings.append(k_preselect_warning)
     benchmark_offset = _benchmark_seed_offset(benchmark_id)
     progress_payload = _progress_payload(
         benchmark_id=benchmark_id,
@@ -318,6 +320,8 @@ def _subsample_benchmark_random_cv(
         failed_iterations=0,
         best_iteration=None,
     )
+    if k_preselect_warning is not None:
+        progress_payload["warnings"] = [k_preselect_warning]
 
     for iteration_id in range(n_iter):
         subset_seed = bundle.config.random_seed + benchmark_offset + iteration_id
@@ -435,6 +439,8 @@ def _subsample_benchmark_random_cv(
             failed_iterations=completed_iterations - len(valid_iterations),
             best_iteration=_best_iteration_summary(valid_iterations),
         )
+        if k_preselect_warning is not None:
+            progress_payload["warnings"] = [k_preselect_warning]
         if completed_iterations % checkpoint_interval == 0 or completed_iterations == n_iter:
             warnings_payload = progress_payload.setdefault("warnings", [])
             if completed_iterations < n_iter:
@@ -666,7 +672,7 @@ def _subsample_benchmark_deterministic_info(
             cv_folds=cv_folds,
         )
 
-    effective_k = _resolve_k_preselect(
+    effective_k, k_preselect_warning = _resolve_k_preselect(
         requested_k_preselect=k_preselect,
         candidate_item_count=len(candidate_item_ids),
         pool_model_count=len(pool_model_ids),
@@ -740,6 +746,10 @@ def _subsample_benchmark_deterministic_info(
             failed_iterations=1,
             best_iteration=None,
         )
+        warnings: list[str] = []
+        if k_preselect_warning is not None:
+            warnings.append(k_preselect_warning)
+            progress_payload["warnings"] = [k_preselect_warning]
         _write_checkpoint(
             checkpoint_dir,
             benchmark_id=benchmark_id,
@@ -775,6 +785,7 @@ def _subsample_benchmark_deterministic_info(
         )
         result.ranking_table = ranking_table
         result.artifact_paths["progress_payload"] = progress_payload
+        result.subsample_report["warnings"] = warnings
         return result
 
     gam_result = cross_validate_gam(
@@ -839,6 +850,10 @@ def _subsample_benchmark_deterministic_info(
         failed_iterations=0,
         best_iteration=_best_iteration_summary([best_iteration]),
     )
+    warnings: list[str] = []
+    if k_preselect_warning is not None:
+        warnings.append(k_preselect_warning)
+        progress_payload["warnings"] = [k_preselect_warning]
     _write_checkpoint(
         checkpoint_dir,
         benchmark_id=benchmark_id,
@@ -853,7 +868,7 @@ def _subsample_benchmark_deterministic_info(
         "selection_rule": "top_k_information_proxy",
         "skipped": False,
         "skipped_reason": None,
-        "warnings": [],
+        "warnings": warnings,
         "parameters": {
             "requested_k_preselect": k_preselect,
             "effective_k_preselect": effective_k,
@@ -1197,17 +1212,20 @@ def _resolve_k_preselect(
     requested_k_preselect: int | None,
     candidate_item_count: int,
     pool_model_count: int,
-) -> int | None:
+) -> tuple[int | None, str | None]:
     if candidate_item_count < 1:
-        return None
+        return None, None
     if requested_k_preselect is not None:
         if requested_k_preselect < 1:
             raise ValueError("k_preselect must be at least 1 when provided")
         if requested_k_preselect > candidate_item_count:
-            return None
-        return requested_k_preselect
+            return candidate_item_count, (
+                "requested k_preselect exceeded the surviving candidate pool; "
+                f"clamped from {requested_k_preselect} to {candidate_item_count}"
+            )
+        return requested_k_preselect, None
     default_cap = max(1, pool_model_count // 4)
-    return min(candidate_item_count, default_cap)
+    return min(candidate_item_count, default_cap), None
 
 
 def _sample_item_subset(

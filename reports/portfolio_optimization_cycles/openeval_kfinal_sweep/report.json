@@ -1,0 +1,26 @@
+{
+  "search": "openeval_kfinal_sweep",
+  "dataset_id": "openeval__hf_94f8112_20260314",
+  "k_final_values": [
+    14,
+    18,
+    22,
+    26
+  ],
+  "profiles": [
+    "psychometric_default",
+    "minimal_cleaning",
+    "reconstruction_first",
+    "reconstruction_first_relaxed"
+  ],
+  "winner": {
+    "profile_id": "psychometric_default",
+    "k_final": 26,
+    "best_available_test_rmse_mean": 3.2748893475326417,
+    "best_available_test_mae_mean": 2.6850182286804953,
+    "selected_items_final_mean": 26.0,
+    "selected_items_preselect_mean": 36.75,
+    "joint_available_rate": 1.0,
+    "benchmark_warning_count_mean": 0.0
+  }
+}
