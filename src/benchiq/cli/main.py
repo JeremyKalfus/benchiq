@@ -172,6 +172,12 @@ def validate_command(
     help="Explicit output directory. Runs write to OUT/<run-id>/.",
 )
 @click.option("--run-id", help="Optional explicit run id for stable output paths.")
+@click.option(
+    "--with-redundancy/--without-redundancy",
+    "include_redundancy",
+    default=False,
+    help="Run stage 10 redundancy analysis after reconstruction.",
+)
 def run_command(
     *,
     responses: Path,
@@ -180,6 +186,7 @@ def run_command(
     config_path: Path | None,
     out_dir: Path,
     run_id: str | None,
+    include_redundancy: bool,
 ) -> None:
     """Execute the full deterministic BenchIQ pipeline."""
 
@@ -193,6 +200,7 @@ def run_command(
             items_path=items,
             models_path=models,
             run_id=resolved_run_id,
+            include_redundancy=include_redundancy,
             stage_options=settings.stage_options,
         )
     except SchemaValidationError as exc:

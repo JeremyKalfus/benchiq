@@ -17,6 +17,8 @@
 - the runtime default is `reconstruction_first`.
 - the explicit alternate baseline is `psychometric_default`.
 - the promoted stage-04 method is `deterministic_info`.
+- the shipped stage-05 backend is `girth`.
+- `run` now stops at stage `09_reconstruct` by default; stage `10_redundancy` is opt-in.
 - the latest narrowed public-portfolio best-so-far is
   `psychometric_default__deterministic_info` under
   `reports/portfolio_optimization_cycles/best_so_far.{md,json}`; this is current optimization
@@ -26,6 +28,8 @@
   - `reports/generalization_optimization/`
   - `reports/preprocessing_variation_followup/`
   - `reports/deployment_validation/`
+  - `reports/irt_backend_comparison/`
+  - `reports/irt_r_baseline/`
   - `reports/selection_comparison/`
   - `reports/experiments/reconstruction_heads/`
   - `reports/portfolio_standing/`
@@ -34,11 +38,9 @@
 
 ## active work
 
-- T29 portfolio rmse optimization
-- goal: minimize equal-source-weight held-out RMSE on the narrowed public optimization portfolio, targeting `< 2.0` without reducing informative-source coverage.
-- dependencies: `reports/portfolio_standing/*`, `src/benchiq/portfolio/*`, reconstruction and preprocessing internals, saved public source materializations under `out/portfolio_sources/`.
-- acceptance checks: updated tests for behavior changes; `ruff check .`; `pytest`; fresh saved evidence under `reports/portfolio_optimization_cycles/`; refreshed comparison against the current standing winner with per-source and leave-one-out deltas.
-- status: in progress; cycle 010 lowered the best saved standing rmse to `2.9344` with `psychometric_default__deterministic_info` after raising OLLB to `44/44` while keeping HELM at `24/22`, OpenEval at `40/26`, and the low-support chooser in place; current frontier experiments are whether OLLB still improves with an even larger retained final subset and whether HELM/OpenEval need deeper reconstruction changes rather than more budget tuning.
+- no standing open multi-step ticket right now.
+- latest completed ticket: T31 irt winner promotion and redundancy opt-in.
+- completion note: refreshed `reports/irt_backend_comparison/` and `reports/irt_r_baseline/` now keep `girth` as the eligible winner/default, with `bayes_mcmc` retained only as an internal comparison path after failing the parity gate.
 
 ## ticket summaries
 
@@ -73,6 +75,7 @@
 - T28 narrowed public portfolio standing pass: added internal portfolio source specs and adapters, wired the narrowed public materialization and standing-pass scripts, and saved `reports/portfolio_standing/` as the initial baseline snapshot for the narrowed public portfolio.
 - T29 narrowed public portfolio optimization cycles: iterated beyond the initial standing snapshot, saved the cycle bundle family under `reports/portfolio_optimization_cycles/`, and currently recommends `psychometric_default__deterministic_info` in `best_so_far.{md,json}`.
 - T30 docs/status reconciliation: updated the major docs so the shipped runtime default, the historical standing baseline, and the current narrowed public-portfolio best-so-far record are distinguished explicitly.
+- T31 irt winner promotion and redundancy opt-in: added normalized stage-05 backend selection, a PyMC-backed internal `bayes_mcmc` comparison path, the stricter local R parity gate tooling, the saved backend-comparison harness, refreshed evidence that keeps `girth` as the eligible winner/default, and the stage-09 default `run` path with explicit `--with-redundancy` opt-in.
 
 ## notes
 

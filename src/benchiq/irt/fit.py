@@ -12,9 +12,14 @@ import pandas as pd
 
 from benchiq.io.load import Bundle
 from benchiq.io.write import write_json, write_parquet
-from benchiq.irt.backends.girth_backend import fit_girth_2pl
+from benchiq.irt.backends import fit_irt_backend
+from benchiq.irt.backends.common import (
+    empty_ability_frame,
+    empty_item_params_frame,
+    normalize_backend_name,
+)
 from benchiq.logging import update_manifest
-from benchiq.schema.tables import BENCHMARK_ID, ITEM_ID, MODEL_ID
+from benchiq.schema.tables import ITEM_ID, MODEL_ID
 from benchiq.split.splitters import SplitResult
 from benchiq.subsample.random_cv import SubsampleResult
 
@@ -45,12 +50,14 @@ def fit_irt_bundle(
     split_result: SplitResult,
     subsample_result: SubsampleResult,
     *,
+    backend: str = "girth",
     backend_options: dict[str, Any] | None = None,
     out_dir: str | Path | None = None,
     run_id: str | None = None,
 ) -> IRTResult:
     """Fit benchmark-specific 2PL models on preselected train responses."""
 
+    resolved_backend = normalize_backend_name(backend)
     benchmark_results: dict[str, BenchmarkIRTResult] = {}
     for benchmark_id in sorted(subsample_result.benchmarks):
         benchmark_results[benchmark_id] = fit_irt_benchmark(
@@ -58,6 +65,7 @@ def fit_irt_bundle(
             split_result,
             subsample_result,
             benchmark_id=benchmark_id,
+            backend=resolved_backend,
             backend_options=backend_options,
         )
 
@@ -94,10 +102,12 @@ def fit_irt_benchmark(
     subsample_result: SubsampleResult,
     *,
     benchmark_id: str,
+    backend: str = "girth",
     backend_options: dict[str, Any] | None = None,
 ) -> BenchmarkIRTResult:
     """Fit one benchmark-specific 2PL model using the T08 preselected items."""
 
+    resolved_backend = normalize_backend_name(backend)
     subsample_benchmark = subsample_result.benchmarks[benchmark_id]
     preselect_items = (
         subsample_benchmark.preselect_items[ITEM_ID]
@@ -110,17 +120,21 @@ def fit_irt_benchmark(
     if subsample_benchmark.subsample_report["skipped"] or not preselect_items:
         return _skipped_benchmark_result(
             benchmark_id,
+            irt_backend=resolved_backend,
             skipped_reason=subsample_benchmark.subsample_report["skipped_reason"]
             or "no_preselect_items",
             preselect_items=preselect_items,
+            backend_options=backend_options,
         )
 
     split_frame = split_result.per_benchmark_splits.get(benchmark_id)
     if split_frame is None or split_frame.empty:
         return _skipped_benchmark_result(
             benchmark_id,
+            irt_backend=resolved_backend,
             skipped_reason="no_split_models_available",
             preselect_items=preselect_items,
+            backend_options=backend_options,
         )
     train_model_ids = (
         split_frame.loc[split_frame["split"] == "train", MODEL_ID]
@@ -133,15 +147,18 @@ def fit_irt_benchmark(
     if not train_model_ids:
         return _skipped_benchmark_result(
             benchmark_id,
+            irt_backend=resolved_backend,
             skipped_reason="no_train_models_available",
             preselect_items=preselect_items,
+            backend_options=backend_options,
         )
 
-    fit_result = fit_girth_2pl(
+    fit_result = fit_irt_backend(
         bundle.responses_long,
         benchmark_id=benchmark_id,
         item_ids=preselect_items,
         model_ids=train_model_ids,
+        backend=resolved_backend,
         options=backend_options,
     )
     return BenchmarkIRTResult(
@@ -156,8 +173,10 @@ def fit_irt_benchmark(
 def _skipped_benchmark_result(
     benchmark_id: str,
     *,
+    irt_backend: str,
     skipped_reason: str,
     preselect_items: list[str],
+    backend_options: dict[str, Any] | None = None,
 ) -> BenchmarkIRTResult:
     return BenchmarkIRTResult(
         benchmark_id=benchmark_id,
@@ -165,11 +184,13 @@ def _skipped_benchmark_result(
         dropped_pathological_items=_empty_item_params_frame(),
         irt_fit_report={
             "benchmark_id": benchmark_id,
-            "irt_backend": "girth",
+            "irt_backend": irt_backend,
             "model": "2pl",
+            "parameter_summary": None,
             "skipped": True,
             "skipped_reason": skipped_reason,
             "warnings": [],
+            "backend_options": backend_options or {},
             "convergence": {
                 "status": None,
                 "backend_exposes_flag": False,
@@ -258,29 +279,11 @@ def _write_irt_artifacts(
 
 
 def _empty_item_params_frame() -> pd.DataFrame:
-    return pd.DataFrame(
-        {
-            BENCHMARK_ID: pd.Series(dtype="string"),
-            ITEM_ID: pd.Series(dtype="string"),
-            "irt_backend": pd.Series(dtype="string"),
-            "discrimination": pd.Series(dtype="Float64"),
-            "difficulty": pd.Series(dtype="Float64"),
-            "pathology_warning": pd.Series(dtype=bool),
-            "pathology_warning_reasons": pd.Series(dtype=object),
-            "pathology_excluded": pd.Series(dtype=bool),
-            "pathology_excluded_reasons": pd.Series(dtype=object),
-        }
-    )
+    return empty_item_params_frame()
 
 
 def _empty_ability_frame() -> pd.DataFrame:
-    return pd.DataFrame(
-        {
-            BENCHMARK_ID: pd.Series(dtype="string"),
-            MODEL_ID: pd.Series(dtype="string"),
-            "ability_eap": pd.Series(dtype="Float64"),
-        }
-    )
+    return empty_ability_frame()
 
 
 def _resolve_run_root(

@@ -28,8 +28,9 @@ current iterative public-portfolio best-so-far is tracked separately under
 That public-portfolio best-so-far record can differ from the shipped runtime default without
 automatically changing the CLI defaults.
 
-`benchiq run` remains the stable full end-to-end path when you want one inspectable local run root
-that also includes the downstream redundancy analysis.
+`benchiq run` now defaults to the reconstruction path through stage `09_reconstruct`.
+Use `--with-redundancy` when you want the historical full path that also includes the downstream
+redundancy analysis.
 
 Supported invocation forms after install:
 
@@ -46,7 +47,7 @@ python -m pip install -e '.[dev]'
 
 Core `validate` / `calibrate` / `predict` / `run` workflows do not depend on XGBoost. XGBoost is
 kept as an optional experiment dependency for the reconstruction-head comparison harness, and is
-also exposed through the `.[experiments]` extra.
+also exposed through the `.[experiments]` extra. The shipped runtime IRT path uses `girth`.
 
 ## `benchiq validate`
 
@@ -93,7 +94,7 @@ split is:
 - `benchiq predict` to score new reduced responses later
 
 The stage-10 redundancy outputs from `run` are secondary analysis artifacts rather than the main
-product path.
+product path, so they are now opt-in through `--with-redundancy`.
 
 Example:
 
@@ -122,6 +123,9 @@ Important outputs:
 - `artifacts/08_features/features_marginal.parquet`
 - `artifacts/08_features/features_joint.parquet`
 - `artifacts/09_reconstruct/reconstruction_summary.parquet`
+
+Add `--with-redundancy` when you also want:
+
 - `artifacts/10_redundancy/redundancy_report.json`
 
 Console behavior:
@@ -230,8 +234,8 @@ Two supported shapes:
 The tiny example uses the nested form so the docs can show a short, fast full-pipeline run.
 
 When `--config` is omitted, the CLI uses the shipped reconstruction-first runtime profile:
-light low-tail trimming, relaxed preprocessing thresholds, and `deterministic_info` stage-04
-preselection.
+light low-tail trimming, relaxed preprocessing thresholds, the `girth` stage-05 backend, and
+`deterministic_info` stage-04 preselection.
 
 Explicit default-profile nested config example:
 
@@ -248,6 +252,9 @@ Explicit default-profile nested config example:
   "stage_options": {
     "04_subsample": {
       "method": "deterministic_info"
+    },
+    "05_irt": {
+      "backend": "girth"
     }
   }
 }
@@ -278,7 +285,7 @@ RUN_ROOT/
     07_theta/
     08_features/
     09_reconstruct/
-    10_redundancy/
+    10_redundancy/              # present only with --with-redundancy
   reports/
 ```
 
@@ -291,8 +298,8 @@ Interpretation:
 - skip reasons and warnings are written as stage reports rather than hidden in logs
 - `calibration_bundle/` and `artifacts/01_predict/` are the primary reusable calibration /
   deployment artifacts
-- `artifacts/10_redundancy/` is a secondary analysis path that stays attached to the historical
-  full `run` workflow
+- `artifacts/10_redundancy/` is a secondary analysis path that appears only when redundancy is
+  requested explicitly
 
 Linear predictor artifacts live under:
 

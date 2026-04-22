@@ -1,0 +1,83 @@
+{
+  "benchmarks": {
+    "arc": {
+      "benchmark_id": "arc",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 461,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 461,
+      "selected_item_count": 250,
+      "warnings": []
+    },
+    "gsm8k": {
+      "benchmark_id": "gsm8k",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 461,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 461,
+      "selected_item_count": 250,
+      "warnings": []
+    },
+    "hellaswag": {
+      "benchmark_id": "hellaswag",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 461,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 461,
+      "selected_item_count": 250,
+      "warnings": []
+    },
+    "mmlu": {
+      "benchmark_id": "mmlu",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 461,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 461,
+      "selected_item_count": 250,
+      "warnings": []
+    },
+    "truthfulqa": {
+      "benchmark_id": "truthfulqa",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 461,
+      "linear_model_kind": "ridge_no_intercept",
+      "predicted_linear_count": 461,
+      "selected_item_count": 250,
+      "warnings": []
+    },
+    "winogrande": {
+      "benchmark_id": "winogrande",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 461,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 461,
+      "selected_item_count": 250,
+      "warnings": []
+    }
+  },
+  "calibration_bundle_manifest": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/irt_backend_comparison/workdir/large_release_default_subset/girth/large_release_default_subset__girth__seed_7/calibration_bundle/manifest.json",
+  "counts": {
+    "best_available_non_null_predictions": 2766,
+    "best_available_rows": 2766,
+    "calibrated_benchmark_count": 6,
+    "input_benchmark_count": 6,
+    "prediction_rows": 5532,
+    "theta_rows": 2766
+  },
+  "generated_at": "2026-04-21T23:09:31.852619+00:00",
+  "prediction_availability": {
+    "best_available_non_null_by_benchmark": {
+      "arc": 461,
+      "gsm8k": 461,
+      "hellaswag": 461,
+      "mmlu": 461,
+      "truthfulqa": 461,
+      "winogrande": 461
+    },
+    "by_model_type": {
+      "joint": 2766,
+      "marginal": 2766
+    }
+  },
+  "warnings": []
+}

@@ -1,0 +1,876 @@
+{
+  "aggregate_ranking": [
+    {
+      "equal_weight_mae_mean": 2.405118099926431,
+      "equal_weight_pearson_mean": 0.9904130914824751,
+      "equal_weight_rmse_mean": 2.934403282259425,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9910572215103143,
+      "informative_source_count": 3,
+      "strategy_id": "psychometric_default__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 2.689400030238307,
+      "equal_weight_pearson_mean": 0.9871833402226112,
+      "equal_weight_rmse_mean": 3.333904767822171,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9735813921176965,
+      "informative_source_count": 3,
+      "strategy_id": "minimal_cleaning__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 2.689400030238307,
+      "equal_weight_pearson_mean": 0.9871833402226112,
+      "equal_weight_rmse_mean": 3.333904767822171,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9735813921176965,
+      "informative_source_count": 3,
+      "strategy_id": "reconstruction_first__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 2.689400030238307,
+      "equal_weight_pearson_mean": 0.9871833402226112,
+      "equal_weight_rmse_mean": 3.333904767822171,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9735813921176965,
+      "informative_source_count": 3,
+      "strategy_id": "reconstruction_first_relaxed__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 3.4884167633217102,
+      "equal_weight_pearson_mean": 0.9887817060900246,
+      "equal_weight_rmse_mean": 4.094646471691746,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9090198771535191,
+      "informative_source_count": 3,
+      "strategy_id": "psychometric_default__random_cv"
+    },
+    {
+      "equal_weight_mae_mean": 3.739877245840919,
+      "equal_weight_pearson_mean": 0.9220223064304113,
+      "equal_weight_rmse_mean": 4.708460387276001,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9252169028031197,
+      "informative_source_count": 3,
+      "strategy_id": "reconstruction_first__random_cv"
+    }
+  ],
+  "leave_one_out": [
+    {
+      "equal_weight_mae_mean": 1.9486747642065312,
+      "equal_weight_pearson_mean": 0.9944780941258384,
+      "equal_weight_rmse_mean": 2.5123725823640304,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9865858322654715,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "helm_objective__capabilities_v1_0_0",
+      "rank": 1,
+      "strategy_id": "psychometric_default__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 1.9718999587249084,
+      "equal_weight_pearson_mean": 0.9954450353105507,
+      "equal_weight_rmse_mean": 2.5302578625786656,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9885298157302784,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "helm_objective__capabilities_v1_0_0",
+      "rank": 2,
+      "strategy_id": "psychometric_default__random_cv"
+    },
+    {
+      "equal_weight_mae_mean": 2.3315702323633767,
+      "equal_weight_pearson_mean": 0.9846215056096363,
+      "equal_weight_rmse_mean": 3.0386217639415225,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9603720881765447,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "helm_objective__capabilities_v1_0_0",
+      "rank": 3,
+      "strategy_id": "minimal_cleaning__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 2.3315702323633767,
+      "equal_weight_pearson_mean": 0.9846215056096363,
+      "equal_weight_rmse_mean": 3.0386217639415225,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9603720881765447,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "helm_objective__capabilities_v1_0_0",
+      "rank": 4,
+      "strategy_id": "reconstruction_first__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 2.3315702323633767,
+      "equal_weight_pearson_mean": 0.9846215056096363,
+      "equal_weight_rmse_mean": 3.0386217639415225,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9603720881765447,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "helm_objective__capabilities_v1_0_0",
+      "rank": 5,
+      "strategy_id": "reconstruction_first_relaxed__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 3.2358818833294265,
+      "equal_weight_pearson_mean": 0.9593927966848022,
+      "equal_weight_rmse_mean": 4.364790195896429,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.8878253542046797,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "helm_objective__capabilities_v1_0_0",
+      "rank": 6,
+      "strategy_id": "reconstruction_first__random_cv"
+    },
+    {
+      "equal_weight_mae_mean": 3.0015115000233634,
+      "equal_weight_pearson_mean": 0.9884472185330857,
+      "equal_weight_rmse_mean": 3.526677014791428,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9935854122563142,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "rank": 1,
+      "strategy_id": "psychometric_default__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 3.2051877726819096,
+      "equal_weight_pearson_mean": 0.9857116556876353,
+      "equal_weight_rmse_mean": 3.874999699060786,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.975,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "rank": 2,
+      "strategy_id": "minimal_cleaning__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 3.2051877726819096,
+      "equal_weight_pearson_mean": 0.9857116556876353,
+      "equal_weight_rmse_mean": 3.874999699060786,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.975,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "rank": 3,
+      "strategy_id": "reconstruction_first__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 3.2051877726819096,
+      "equal_weight_pearson_mean": 0.9857116556876353,
+      "equal_weight_rmse_mean": 3.874999699060786,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.975,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "rank": 4,
+      "strategy_id": "reconstruction_first_relaxed__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 4.634112432266109,
+      "equal_weight_pearson_mean": 0.9851996342482576,
+      "equal_weight_rmse_mean": 5.359603509557806,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.8685854122563142,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "rank": 5,
+      "strategy_id": "psychometric_default__random_cv"
+    },
+    {
+      "equal_weight_mae_mean": 4.6344345816999954,
+      "equal_weight_pearson_mean": 0.8884703156031664,
+      "equal_weight_rmse_mean": 5.785880835578013,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+      "rank": 6,
+      "strategy_id": "reconstruction_first__random_cv"
+    },
+    {
+      "equal_weight_mae_mean": 2.265168035549399,
+      "equal_weight_pearson_mean": 0.9883139617885012,
+      "equal_weight_rmse_mean": 2.7641602496228166,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9930004200091573,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "openeval__hf_94f8112_20260314",
+      "rank": 1,
+      "strategy_id": "psychometric_default__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 2.531442085669635,
+      "equal_weight_pearson_mean": 0.9912168593705619,
+      "equal_weight_rmse_mean": 3.088092840464206,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9853720881765449,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "openeval__hf_94f8112_20260314",
+      "rank": 2,
+      "strategy_id": "minimal_cleaning__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 2.531442085669635,
+      "equal_weight_pearson_mean": 0.9912168593705619,
+      "equal_weight_rmse_mean": 3.088092840464206,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9853720881765449,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "openeval__hf_94f8112_20260314",
+      "rank": 3,
+      "strategy_id": "reconstruction_first__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 2.531442085669635,
+      "equal_weight_pearson_mean": 0.9912168593705619,
+      "equal_weight_rmse_mean": 3.088092840464206,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9853720881765449,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "openeval__hf_94f8112_20260314",
+      "rank": 4,
+      "strategy_id": "reconstruction_first_relaxed__deterministic_info"
+    },
+    {
+      "equal_weight_mae_mean": 3.3493152724933366,
+      "equal_weight_pearson_mean": 0.9182038070032652,
+      "equal_weight_rmse_mean": 3.9747101303535626,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.9878253542046798,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "openeval__hf_94f8112_20260314",
+      "rank": 5,
+      "strategy_id": "reconstruction_first__random_cv"
+    },
+    {
+      "equal_weight_mae_mean": 3.859237898974112,
+      "equal_weight_pearson_mean": 0.9857004487112655,
+      "equal_weight_rmse_mean": 4.394078042938767,
+      "equal_weight_seed_rmse_std_mean": 0.0,
+      "equal_weight_spearman_mean": 0.8699444034739643,
+      "informative_source_count": 2,
+      "left_out_dataset_id": "openeval__hf_94f8112_20260314",
+      "rank": 6,
+      "strategy_id": "psychometric_default__random_cv"
+    }
+  ],
+  "materialization_results": [
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/ollb_v1_metabench_source/release_default_subset_20260405",
+      "dataset": {
+        "base_config": {
+          "allow_low_n": false,
+          "min_items_after_filtering": 40,
+          "min_models_per_benchmark": 100,
+          "min_models_per_item": 40,
+          "min_overlap_models_for_joint": 100,
+          "min_overlap_models_for_redundancy": 100,
+          "random_seed": 7,
+          "warn_models_per_benchmark": 140
+        },
+        "base_stage_options": {
+          "04_subsample": {
+            "checkpoint_interval": 4,
+            "cv_folds": 5,
+            "k_preselect": 44,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_iter": 12
+          },
+          "06_select": {
+            "k_final": 44,
+            "theta_grid_size": 151
+          },
+          "07_theta": {
+            "theta_grid_size": 151
+          },
+          "09_reconstruct": {
+            "cv_folds": 5,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_splines": 8
+          },
+          "10_redundancy": {
+            "cv_folds": 5,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_factors_to_try": [
+              1,
+              2
+            ],
+            "n_splines": 8
+          }
+        },
+        "dataset_id": "ollb_v1_metabench_source__release_default_subset_20260405",
+        "items_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/ollb_v1_metabench_source/release_default_subset_20260405/items.parquet",
+        "label": "Open LLM Leaderboard v1 / MetaBench-source (local release-default subset export)",
+        "models_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/ollb_v1_metabench_source/release_default_subset_20260405/models.parquet",
+        "notes": [
+          "reduced pinned extract from the local release-default source bundle"
+        ],
+        "responses_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/ollb_v1_metabench_source/release_default_subset_20260405/responses_long.parquet",
+        "role": "optimize",
+        "snapshot_id": "release_default_subset_20260405",
+        "source_id": "ollb_v1_metabench_source"
+      },
+      "details": {
+        "counts": {
+          "benchmark_count": 6,
+          "item_count": 360,
+          "model_count": 180,
+          "rows": 64800
+        },
+        "native_benchmark_count": 6,
+        "selected_item_counts": {
+          "arc": 60,
+          "gsm8k": 60,
+          "hellaswag": 60,
+          "mmlu": 60,
+          "truthfulqa": 60,
+          "winogrande": 60
+        },
+        "selected_model_count": 180,
+        "source_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/out/release_bundle_source/release_default_subset_responses_long.parquet"
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/ollb_v1_metabench_source/release_default_subset_20260405/source_manifest.json",
+      "role": "optimize",
+      "skip_reason": null,
+      "snapshot_id": "release_default_subset_20260405",
+      "source_id": "ollb_v1_metabench_source",
+      "status": "materialized"
+    },
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/ollb_v2/results_20250315",
+      "dataset": NaN,
+      "details": {
+        "details_dataset_id": "open-llm-leaderboard/01-ai__Yi-34B-details",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/ollb_v2/results_20250315/source_manifest.json",
+      "role": "optimize",
+      "skip_reason": "OLLB v2 aggregate results are public, but the required item-level details dataset was not accessible without authentication: open-llm-leaderboard/01-ai__Yi-34B-details",
+      "snapshot_id": "results_20250315",
+      "source_id": "ollb_v2",
+      "status": "skipped"
+    },
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/openeval/hf_94f8112_20260314",
+      "dataset": {
+        "base_config": {
+          "allow_low_n": true,
+          "min_items_after_filtering": 25,
+          "min_models_per_benchmark": 20,
+          "min_models_per_item": 15,
+          "min_overlap_models_for_joint": 15,
+          "min_overlap_models_for_redundancy": 15,
+          "random_seed": 7,
+          "warn_models_per_benchmark": 30
+        },
+        "base_stage_options": {
+          "04_subsample": {
+            "checkpoint_interval": 4,
+            "cv_folds": 5,
+            "k_preselect": 40,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_iter": 12
+          },
+          "06_select": {
+            "k_final": 26,
+            "theta_grid_size": 151
+          },
+          "07_theta": {
+            "theta_grid_size": 151
+          },
+          "09_reconstruct": {
+            "cv_folds": 5,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_splines": 8
+          },
+          "10_redundancy": {
+            "cv_folds": 5,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_factors_to_try": [
+              1,
+              2
+            ],
+            "n_splines": 8
+          }
+        },
+        "dataset_id": "openeval__hf_94f8112_20260314",
+        "items_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/openeval/hf_94f8112_20260314/items.parquet",
+        "label": "OpenEval item-centered repository (Human-Centered Eval OpenEval public dataset snapshot)",
+        "models_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/openeval/hf_94f8112_20260314/models.parquet",
+        "notes": [
+          "objective-only OpenEval extract",
+          "relaxed to top-coverage models because fewer than 20 complete-overlap models were available; dropped low-support benchmarks after model selection"
+        ],
+        "responses_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/openeval/hf_94f8112_20260314/responses_long.parquet",
+        "role": "optimize",
+        "snapshot_id": "hf_94f8112_20260314",
+        "source_id": "openeval"
+      },
+      "details": {
+        "admitted_benchmarks": [
+          "gpqa",
+          "ifeval",
+          "mmlu_pro",
+          "omni_math"
+        ],
+        "bench_tags": {
+          "bbq": [
+            "safety",
+            "bias"
+          ],
+          "bold": [
+            "safety",
+            "bias"
+          ],
+          "boolq": [
+            "question_answering"
+          ],
+          "cnndm": [
+            "summarization",
+            "news"
+          ],
+          "culturalbench": [
+            "cultural knowledge",
+            "culture"
+          ],
+          "disinformation": [
+            "safety",
+            "disinformation"
+          ],
+          "do_not_answer": [
+            "safety"
+          ],
+          "emobench": [
+            "emotion",
+            "emotional intelligence"
+          ],
+          "gpqa": [
+            "question answering"
+          ],
+          "hi_tom": [
+            "reasoning",
+            "theory of mind"
+          ],
+          "ifeval": [
+            "instruction following"
+          ],
+          "imdb": [
+            "sentiment_classification"
+          ],
+          "mmlu_pro": [
+            "knowledge",
+            "multiple_choice",
+            "reasoning"
+          ],
+          "moralbench": [
+            "moral",
+            "value"
+          ],
+          "omni_math": [
+            "math"
+          ],
+          "opentom": [
+            "reasoning",
+            "theory of mind"
+          ],
+          "salad_bench": [
+            "safety",
+            "jailbreak"
+          ],
+          "truthfulqa": [
+            "safety",
+            "truthfulness"
+          ],
+          "xsum": [
+            "summarization",
+            "news"
+          ]
+        },
+        "benchmark_model_support": {
+          "openeval__hf_94f8112_20260314__gpqa": 40,
+          "openeval__hf_94f8112_20260314__ifeval": 40,
+          "openeval__hf_94f8112_20260314__mmlu_pro": 40,
+          "openeval__hf_94f8112_20260314__omni_math": 40
+        },
+        "counts": {
+          "benchmark_count": 4,
+          "item_count": 200,
+          "model_count": 40,
+          "rows": 8000
+        },
+        "duplicate_resolution": {
+          "conflicting_keys": 18,
+          "duplicate_rows": 1240
+        },
+        "exclusions": {
+          "low_model_support_benchmarks": 1,
+          "missing_item_lookup": 29980,
+          "no_binary_metric": 6010,
+          "unsupported_benchmark": 397090
+        },
+        "selected_item_counts": {
+          "openeval__hf_94f8112_20260314__gpqa": 50,
+          "openeval__hf_94f8112_20260314__ifeval": 50,
+          "openeval__hf_94f8112_20260314__mmlu_pro": 50,
+          "openeval__hf_94f8112_20260314__omni_math": 50
+        },
+        "selected_model_count": 40
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/openeval/hf_94f8112_20260314/source_manifest.json",
+      "role": "optimize",
+      "skip_reason": null,
+      "snapshot_id": "hf_94f8112_20260314",
+      "source_id": "openeval",
+      "status": "materialized"
+    },
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/helm_objective/capabilities_v1_0_0",
+      "dataset": {
+        "base_config": {
+          "allow_low_n": true,
+          "min_items_after_filtering": 20,
+          "min_models_per_benchmark": 12,
+          "min_models_per_item": 10,
+          "min_overlap_models_for_joint": 10,
+          "min_overlap_models_for_redundancy": 10,
+          "random_seed": 7,
+          "warn_models_per_benchmark": 18
+        },
+        "base_stage_options": {
+          "04_subsample": {
+            "checkpoint_interval": 4,
+            "cv_folds": 5,
+            "k_preselect": 24,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_iter": 12
+          },
+          "06_select": {
+            "k_final": 22,
+            "theta_grid_size": 151
+          },
+          "07_theta": {
+            "theta_grid_size": 151
+          },
+          "09_reconstruct": {
+            "cv_folds": 5,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_splines": 8
+          },
+          "10_redundancy": {
+            "cv_folds": 5,
+            "lam_grid": [
+              0.1,
+              1.0
+            ],
+            "n_factors_to_try": [
+              1,
+              2
+            ],
+            "n_splines": 8
+          }
+        },
+        "dataset_id": "helm_objective__capabilities_v1_0_0",
+        "items_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/helm_objective/capabilities_v1_0_0/items.parquet",
+        "label": "HELM objective subset (HELM Capabilities v1.0.0 objective subset)",
+        "models_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/helm_objective/capabilities_v1_0_0/models.parquet",
+        "notes": [
+          "objective-only HELM extract",
+          "scenarios with non-binary per-instance metrics were excluded"
+        ],
+        "responses_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/helm_objective/capabilities_v1_0_0/responses_long.parquet",
+        "role": "optimize",
+        "snapshot_id": "capabilities_v1_0_0",
+        "source_id": "helm_objective"
+      },
+      "details": {
+        "admitted_benchmarks": [
+          "mmlu_pro",
+          "gpqa"
+        ],
+        "counts": {
+          "benchmark_count": 2,
+          "item_count": 100,
+          "model_count": 23,
+          "rows": 2300
+        },
+        "exclusions": {
+          "ifeval_non_binary_metric": 204
+        },
+        "selected_item_counts": {
+          "gpqa": 50,
+          "mmlu_pro": 50
+        },
+        "selected_model_count": 23
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/helm_objective/capabilities_v1_0_0/source_manifest.json",
+      "role": "optimize",
+      "skip_reason": null,
+      "snapshot_id": "capabilities_v1_0_0",
+      "source_id": "helm_objective",
+      "status": "materialized"
+    },
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/livecodebench/public_release_202604",
+      "dataset": NaN,
+      "details": {
+        "inspected_features": {
+          "livecodebench/execution": [
+            "id",
+            "function_name",
+            "code",
+            "input",
+            "output",
+            "numsteps",
+            "problem_id"
+          ],
+          "livecodebench/execution-v2": [
+            "question_id",
+            "id",
+            "function_name",
+            "code",
+            "input",
+            "output",
+            "numsteps",
+            "problem_id",
+            "contest_id",
+            "contest_date",
+            "difficulty"
+          ]
+        }
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/livecodebench/public_release_202604/source_manifest.json",
+      "role": "validate",
+      "skip_reason": "official public LiveCodeBench datasets expose benchmark items and execution artifacts, but not a public many-model item-response matrix",
+      "snapshot_id": "public_release_202604",
+      "source_id": "livecodebench",
+      "status": "skipped"
+    },
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/belebele/facebook_20230503",
+      "dataset": NaN,
+      "details": {
+        "inspected_features": [
+          "link",
+          "question_number",
+          "flores_passage",
+          "question",
+          "mc_answer1",
+          "mc_answer2",
+          "mc_answer3",
+          "mc_answer4",
+          "correct_answer_num",
+          "dialect",
+          "ds"
+        ]
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/belebele/facebook_20230503/source_manifest.json",
+      "role": "validate",
+      "skip_reason": "the official public Belebele dataset exposes benchmark items only; no public many-model item-response bank was configured for BenchIQ ingestion",
+      "snapshot_id": "facebook_20230503",
+      "source_id": "belebele",
+      "status": "skipped"
+    }
+  ],
+  "recommendation": {
+    "reconstruction_first_stands": false,
+    "status": "ok",
+    "winner_rmse_mean": 2.934403282259425,
+    "winner_strategy_id": "psychometric_default__deterministic_info"
+  },
+  "validation_sources": [
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/livecodebench/public_release_202604",
+      "details": {
+        "inspected_features": {
+          "livecodebench/execution": [
+            "id",
+            "function_name",
+            "code",
+            "input",
+            "output",
+            "numsteps",
+            "problem_id"
+          ],
+          "livecodebench/execution-v2": [
+            "question_id",
+            "id",
+            "function_name",
+            "code",
+            "input",
+            "output",
+            "numsteps",
+            "problem_id",
+            "contest_id",
+            "contest_date",
+            "difficulty"
+          ]
+        }
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/livecodebench/public_release_202604/source_manifest.json",
+      "role": "validate",
+      "skip_reason": "official public LiveCodeBench datasets expose benchmark items and execution artifacts, but not a public many-model item-response matrix",
+      "snapshot_id": "public_release_202604",
+      "source_id": "livecodebench",
+      "status": "skipped"
+    },
+    {
+      "bundle_dir": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/belebele/facebook_20230503",
+      "details": {
+        "inspected_features": [
+          "link",
+          "question_number",
+          "flores_passage",
+          "question",
+          "mc_answer1",
+          "mc_answer2",
+          "mc_answer3",
+          "mc_answer4",
+          "correct_answer_num",
+          "dialect",
+          "ds"
+        ]
+      },
+      "manifest_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/belebele/facebook_20230503/source_manifest.json",
+      "role": "validate",
+      "skip_reason": "the official public Belebele dataset exposes benchmark items only; no public many-model item-response bank was configured for BenchIQ ingestion",
+      "snapshot_id": "facebook_20230503",
+      "source_id": "belebele",
+      "status": "skipped"
+    }
+  ],
+  "workflow_status": [
+    {
+      "calibrate_status": "ok",
+      "calibration_root": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/standing/workdir/ollb_v1_metabench_source__release_default_subset_20260405/calibration/calibration_bundle",
+      "marginal_rmse_mean": 2.4030833614681932,
+      "materialization_status": "materialized",
+      "predict_status": "ok",
+      "prediction_available_rate": 1.0,
+      "prediction_root": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/standing/workdir/ollb_v1_metabench_source__release_default_subset_20260405/prediction",
+      "role": "optimize",
+      "run_root": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/standing/workdir/ollb_v1_metabench_source__release_default_subset_20260405/full-run",
+      "run_status": "ok",
+      "snapshot_id": "release_default_subset_20260405",
+      "source_id": "ollb_v1_metabench_source",
+      "validate_output": "validation completed\nrun location: /Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/standing/workdir/ollb_v1_metabench_source__release_default_subset_20260405/validate\nwarnings: 0\nrefused benchmarks: none",
+      "validate_status": "ok",
+      "warning_count": 6.0,
+      "workflow_note": null
+    },
+    {
+      "calibrate_status": "not_run",
+      "calibration_root": NaN,
+      "marginal_rmse_mean": NaN,
+      "materialization_status": "skipped",
+      "predict_status": "not_run",
+      "prediction_available_rate": NaN,
+      "prediction_root": NaN,
+      "role": "optimize",
+      "run_root": NaN,
+      "run_status": "not_run",
+      "snapshot_id": "results_20250315",
+      "source_id": "ollb_v2",
+      "validate_output": NaN,
+      "validate_status": "not_run",
+      "warning_count": NaN,
+      "workflow_note": "OLLB v2 aggregate results are public, but the required item-level details dataset was not accessible without authentication: open-llm-leaderboard/01-ai__Yi-34B-details"
+    },
+    {
+      "calibrate_status": "ok",
+      "calibration_root": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/standing/workdir/openeval__hf_94f8112_20260314/calibration/calibration_bundle",
+      "marginal_rmse_mean": 10.381112014726353,
+      "materialization_status": "materialized",
+      "predict_status": "ok",
+      "prediction_available_rate": 1.0,
+      "prediction_root": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/standing/workdir/openeval__hf_94f8112_20260314/prediction",
+      "role": "optimize",
+      "run_root": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/standing/workdir/openeval__hf_94f8112_20260314/full-run",
+      "run_status": "ok",
+      "snapshot_id": "hf_94f8112_20260314",
+      "source_id": "openeval",
+      "validate_output": "validation completed\nrun location: /Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/standing/workdir/openeval__hf_94f8112_20260314/validate\nwarnings: 0\nrefused benchmarks: none",
+      "validate_status": "ok",
+      "warning_count": 7.0,
+      "workflow_note": null
+    },
+    {
+      "calibrate_status": "ok",
+      "calibration_root": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/standing/workdir/helm_objective__capabilities_v1_0_0/calibration/calibration_bundle",
+      "marginal_rmse_mean": 3.981605481272381,
+      "materialization_status": "materialized",
+      "predict_status": "ok",
+      "prediction_available_rate": 1.0,
+      "prediction_root": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/standing/workdir/helm_objective__capabilities_v1_0_0/prediction",
+      "role": "optimize",
+      "run_root": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/standing/workdir/helm_objective__capabilities_v1_0_0/full-run",
+      "run_status": "ok",
+      "snapshot_id": "capabilities_v1_0_0",
+      "source_id": "helm_objective",
+      "validate_output": "validation completed\nrun location: /Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/standing/workdir/helm_objective__capabilities_v1_0_0/validate\nwarnings: 0\nrefused benchmarks: none",
+      "validate_status": "ok",
+      "warning_count": 4.0,
+      "workflow_note": null
+    },
+    {
+      "calibrate_status": "not_run",
+      "calibration_root": NaN,
+      "marginal_rmse_mean": NaN,
+      "materialization_status": "skipped",
+      "predict_status": "not_run",
+      "prediction_available_rate": NaN,
+      "prediction_root": NaN,
+      "role": "validate",
+      "run_root": NaN,
+      "run_status": "not_run",
+      "snapshot_id": "public_release_202604",
+      "source_id": "livecodebench",
+      "validate_output": NaN,
+      "validate_status": "not_run",
+      "warning_count": NaN,
+      "workflow_note": "official public LiveCodeBench datasets expose benchmark items and execution artifacts, but not a public many-model item-response matrix"
+    },
+    {
+      "calibrate_status": "not_run",
+      "calibration_root": NaN,
+      "marginal_rmse_mean": NaN,
+      "materialization_status": "skipped",
+      "predict_status": "not_run",
+      "prediction_available_rate": NaN,
+      "prediction_root": NaN,
+      "role": "validate",
+      "run_root": NaN,
+      "run_status": "not_run",
+      "snapshot_id": "facebook_20230503",
+      "source_id": "belebele",
+      "validate_output": NaN,
+      "validate_status": "not_run",
+      "warning_count": NaN,
+      "workflow_note": "the official public Belebele dataset exposes benchmark items only; no public many-model item-response bank was configured for BenchIQ ingestion"
+    }
+  ]
+}

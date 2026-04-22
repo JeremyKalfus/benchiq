@@ -1,0 +1,104 @@
+{
+  "alignment": {
+    "raw_theta_spearman": 0.9999999999999999,
+    "sign_applied": 1.0,
+    "theta_intercept": 0.0019307601171090528,
+    "theta_slope": 1.0000816224271316
+  },
+  "environment": {
+    "packages": {
+      "arviz": "0.23.4",
+      "girth": "0.8.0",
+      "numpy": "2.4.4",
+      "pandas": "2.3.3",
+      "pymc": "5.28.4",
+      "scipy": "1.16.3"
+    },
+    "python": {
+      "executable": "/Users/jeremykalfus/CodingProjects/BenchIQ/.venv/bin/python",
+      "implementation": "CPython",
+      "platform": "macOS-15.2-arm64-arm-64bit-Mach-O",
+      "version": "3.14.4"
+    },
+    "r": {
+      "available": true,
+      "mirt_installed": true,
+      "mirt_version": "1.46.1",
+      "package_check_error": null,
+      "rscript_path": "/opt/homebrew/bin/Rscript",
+      "version": "R version 4.5.2 (2025-10-31)",
+      "version_error": null
+    }
+  },
+  "gate": {
+    "checks": [
+      {
+        "comparator": "==",
+        "metric": "status",
+        "observed": "ok",
+        "passed": true,
+        "threshold": "ok"
+      },
+      {
+        "comparator": ">=",
+        "metric": "theta.pearson",
+        "observed": 0.9999997152940514,
+        "passed": true,
+        "threshold": 0.95
+      },
+      {
+        "comparator": ">=",
+        "metric": "theta.spearman",
+        "observed": 0.9999999999999999,
+        "passed": true,
+        "threshold": 0.95
+      },
+      {
+        "comparator": "<=",
+        "metric": "icc.mean_rmse",
+        "observed": 0.0003833838871593282,
+        "passed": true,
+        "threshold": 0.08
+      }
+    ],
+    "failure_count": 0,
+    "failures": [],
+    "passed": true,
+    "thresholds": {
+      "icc_mean_rmse_max": 0.08,
+      "theta_pearson_min": 0.95,
+      "theta_spearman_min": 0.95
+    }
+  },
+  "generated_at": "2026-04-21T22:57:40.863010+00:00",
+  "metrics": {
+    "icc": {
+      "max_rmse": 0.0007705634290327179,
+      "mean_rmse": 0.0003833838871593282
+    },
+    "item_parameter_mae": {
+      "difficulty": 0.0016424761525569986,
+      "discrimination": 0.0022081624825220545
+    },
+    "item_parameter_pearson": {
+      "difficulty": 0.9999965372012393,
+      "discrimination": 0.9999969883699972
+    },
+    "theta": {
+      "pearson": 0.9999997152940514,
+      "spearman": 0.9999999999999999
+    }
+  },
+  "simulation": {
+    "backend": "girth",
+    "backend_options": {
+      "max_iteration": 60
+    },
+    "item_count": 6,
+    "model_count": 300,
+    "random_seed": 11,
+    "theta_method": "EAP"
+  },
+  "skip_reason": null,
+  "status": "ok"
+}

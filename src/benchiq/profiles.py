@@ -39,7 +39,10 @@ def build_psychometric_default_profile(*, random_seed: int = 0) -> BenchIQProfil
             min_item_coverage=0.80,
             random_seed=random_seed,
         ),
-        stage_options={"04_subsample": {"method": "random_cv"}},
+        stage_options={
+            "04_subsample": {"method": "random_cv"},
+            "05_irt": {"backend": "girth"},
+        },
         notes=(
             "retains the locked v0.1 psychometric thresholds as an explicit legacy baseline",
             "leaves size-dependent budgets like k_preselect and k_final to the caller",
@@ -57,7 +60,10 @@ def build_reconstruction_first_profile(*, random_seed: int = 0) -> BenchIQProfil
             "relaxed-low-tail follow-up winner with deterministic-info preselection"
         ),
         config=BenchIQConfig(random_seed=random_seed),
-        stage_options={"04_subsample": {"method": "deterministic_info"}},
+        stage_options={
+            "04_subsample": {"method": "deterministic_info"},
+            "05_irt": {"backend": "girth"},
+        },
         notes=(
             "matches the current BenchIQ runtime defaults",
             (

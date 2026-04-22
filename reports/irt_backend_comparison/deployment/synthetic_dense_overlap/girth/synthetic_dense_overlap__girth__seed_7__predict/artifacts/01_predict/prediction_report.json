@@ -1,0 +1,73 @@
+{
+  "benchmarks": {
+    "dense_b1": {
+      "benchmark_id": "dense_b1",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 32,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 13,
+      "selected_item_count": 45,
+      "warnings": []
+    },
+    "dense_b2": {
+      "benchmark_id": "dense_b2",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 32,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 12,
+      "selected_item_count": 45,
+      "warnings": []
+    },
+    "dense_b3": {
+      "benchmark_id": "dense_b3",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 32,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 16,
+      "selected_item_count": 45,
+      "warnings": []
+    },
+    "dense_b4": {
+      "benchmark_id": "dense_b4",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 32,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 17,
+      "selected_item_count": 45,
+      "warnings": []
+    },
+    "dense_b5": {
+      "benchmark_id": "dense_b5",
+      "extra_item_ids_ignored": [],
+      "input_model_count": 32,
+      "linear_model_kind": "ols_no_intercept",
+      "predicted_linear_count": 10,
+      "selected_item_count": 45,
+      "warnings": []
+    }
+  },
+  "calibration_bundle_manifest": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/irt_backend_comparison/workdir/synthetic_dense_overlap/girth/synthetic_dense_overlap__girth__seed_7/calibration_bundle/manifest.json",
+  "counts": {
+    "best_available_non_null_predictions": 68,
+    "best_available_rows": 160,
+    "calibrated_benchmark_count": 5,
+    "input_benchmark_count": 5,
+    "prediction_rows": 320,
+    "theta_rows": 160
+  },
+  "generated_at": "2026-04-21T23:27:08.830803+00:00",
+  "prediction_availability": {
+    "best_available_non_null_by_benchmark": {
+      "dense_b1": 13,
+      "dense_b2": 12,
+      "dense_b3": 16,
+      "dense_b4": 17,
+      "dense_b5": 10
+    },
+    "by_model_type": {
+      "joint": 0,
+      "marginal": 68
+    }
+  },
+  "warnings": []
+}

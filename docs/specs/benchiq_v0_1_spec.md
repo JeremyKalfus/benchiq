@@ -20,8 +20,8 @@ BenchIQ v0.1 is built around four public workflows:
   reconstruction stack once and export a reusable `calibration_bundle/`.
 - `predict`: load a saved calibration bundle and score new reduced-response
   inputs without retraining.
-- `run`: execute the full local pipeline end to end, including the secondary
-  redundancy analysis stage.
+- `run`: execute the local pipeline through reconstruction by default, with the
+  secondary redundancy analysis stage behind explicit opt-in.
 
 The main product objective is to recover held-out full-benchmark percent scores
 from a smaller retained item subset while keeping every major stage inspectable
@@ -34,7 +34,7 @@ The preferred reusable product path is:
 3. `predict`
 
 `run` remains the best single-run local analysis path when the user wants one
-inspectable run root with the downstream redundancy outputs included.
+inspectable run root. Redundancy stays available explicitly when requested.
 
 ## 2. In Scope
 
@@ -117,8 +117,8 @@ After installation, both of the following invocation forms are supported:
   `artifacts/01_predict/`, and never retrains fitted models
 
 `run`
-: executes the full stage DAG through redundancy analysis and writes the
-  complete local run root
+: executes stages `00` through `09` by default and writes the local run root
+  through reconstruction; redundancy runs only when explicitly requested
 
 ## 5. Canonical Inputs
 
@@ -255,6 +255,8 @@ Runner stage defaults are:
   - `n_iter = 2000`
   - `cv_folds = 5`
   - `checkpoint_interval = 25`
+- stage `05_irt`:
+  - `backend = "girth"`
 - stage `06_select`:
   - `k_final = 10`
 - stage `07_theta`:
@@ -352,7 +354,8 @@ Behavior:
 - uses the benchmark-local preselected items
 - records retained and dropped items, fit metadata, and backend details
 
-BenchIQ v0.1 uses the `girth` backend as the core Python IRT path.
+BenchIQ v0.1 ships `girth` as the core Python IRT path. Internal comparison and
+testing hooks may exist, but the public default product story is single-backend.
 
 ### Stage 06: Final Item Selection
 

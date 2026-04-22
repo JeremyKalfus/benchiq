@@ -6,7 +6,7 @@ optimization cycles.
 It is separate from the shipped runtime default and separate from the original narrowed standing
 baseline in `reports/portfolio_standing/summary.md`.
 
-- cycle: `cycle_010_ollb44_44_low_val_chooser`
+- cycle: `cycle_011_post_irt_refresh`
 - winner: `psychometric_default__deterministic_info`
 - equal-weight rmse: `2.9344`
 - informative source count: `3`

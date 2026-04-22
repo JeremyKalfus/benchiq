@@ -25,6 +25,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+bayes = [
+  "arviz>=0.20,<1",
+  "pymc>=5.18,<6",
+]
 experiments = [
   "xgboost>=2.1,<3",
 ]

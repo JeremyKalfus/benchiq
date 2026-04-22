@@ -1,0 +1,12 @@
+{
+  "details": {
+    "details_dataset_id": "open-llm-leaderboard/01-ai__Yi-34B-details",
+    "error": "HTTP Error 401: Unauthorized"
+  },
+  "portfolio_version": "0.1",
+  "role": "optimize",
+  "skip_reason": "OLLB v2 aggregate results are public, but the required item-level details dataset was not accessible without authentication: open-llm-leaderboard/01-ai__Yi-34B-details",
+  "snapshot_id": "results_20250315",
+  "source_id": "ollb_v2",
+  "status": "skipped"
+}

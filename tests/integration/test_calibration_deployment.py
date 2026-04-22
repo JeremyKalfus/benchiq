@@ -41,6 +41,7 @@ def test_calibrate_then_predict_reuses_saved_models_without_retraining(tmp_path)
         calibration_result.calibration_manifest["benchmarks"]["b1"]["preferred_model_type"]
         in {"marginal", "joint"}
     )
+    assert calibration_result.calibration_manifest["benchmarks"]["b1"]["irt_backend"] == "girth"
     assert reconstruction_report["preferred_model_type_by_benchmark"]["b1"] in {"marginal", "joint"}
     assert reconstruction_report["benchmarks"]["b1"]["preferred_model"]["model_type"] in {
         "marginal",
@@ -137,6 +138,7 @@ def test_cli_calibrate_and_predict_write_artifacts(tmp_path) -> None:
     calibration_manifest = json.loads(
         (calibration_root / "manifest.json").read_text(encoding="utf-8")
     )
+    assert calibration_manifest["benchmarks"]["b1"]["irt_backend"] == "girth"
     reduced_responses_path = _write_reduced_selected_responses(
         tmp_path,
         responses_path=responses_path,

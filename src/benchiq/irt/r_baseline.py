@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
+import platform
 import shutil
 import subprocess
+import sys
 import tempfile
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 import numpy as np
 import pandas as pd
@@ -16,7 +19,7 @@ from girth.synthetic import create_synthetic_irt_dichotomous
 from scipy.stats import pearsonr, spearmanr
 
 from benchiq.io.write import write_json
-from benchiq.irt.backends.girth_backend import fit_girth_2pl
+from benchiq.irt.backends import fit_irt_backend
 from benchiq.irt.theta import estimate_theta_responses
 from benchiq.schema.tables import BENCHMARK_ID, ITEM_ID, MODEL_ID
 
@@ -26,6 +29,11 @@ DEFAULT_THETA_MIN = -4.0
 DEFAULT_THETA_MAX = 4.0
 DEFAULT_THETA_GRID_SIZE = 161
 DEFAULT_OUTPUT_DIR = Path("reports") / "irt_r_baseline"
+DEFAULT_PARITY_GATE_THRESHOLDS = {
+    "theta_pearson_min": 0.95,
+    "theta_spearman_min": 0.95,
+    "icc_mean_rmse_max": 0.08,
+}
 
 
 @dataclass(slots=True)
@@ -46,20 +54,30 @@ def run_r_baseline_comparison(
     theta_method: str = "EAP",
     difficulty: tuple[float, ...] = DEFAULT_DIFFICULTY,
     discrimination: tuple[float, ...] = DEFAULT_DISCRIMINATION,
+    backend: str = "girth",
+    backend_options: Mapping[str, Any] | None = None,
+    gate_thresholds: Mapping[str, float] | None = None,
 ) -> IRTBaselineComparisonResult:
     """Compare BenchIQ's 2PL path to an optional R mirt baseline."""
 
     resolved_out_dir = Path(out_dir)
     resolved_out_dir.mkdir(parents=True, exist_ok=True)
+    resolved_gate_thresholds = _resolve_gate_thresholds(gate_thresholds)
+    environment = _collect_environment_metadata()
     simulated = _simulate_fixture(
         difficulty=np.asarray(difficulty, dtype=float),
         discrimination=np.asarray(discrimination, dtype=float),
         model_count=model_count,
         random_seed=random_seed,
     )
-    benchiq_result = _fit_benchiq_fixture(simulated=simulated, theta_method=theta_method)
+    benchiq_result = _fit_benchiq_fixture(
+        simulated=simulated,
+        theta_method=theta_method,
+        backend=backend,
+        backend_options=backend_options,
+    )
 
-    skip_reason = _baseline_skip_reason()
+    skip_reason = _baseline_skip_reason(environment["r"])
     if skip_reason is not None:
         report = {
             "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -70,8 +88,12 @@ def run_r_baseline_comparison(
                 "item_count": int(len(difficulty)),
                 "random_seed": random_seed,
                 "theta_method": theta_method,
+                "backend": backend,
+                "backend_options": dict(backend_options or {}),
             },
+            "environment": environment,
         }
+        report["gate"] = _build_gate_report(report=report, gate_thresholds=resolved_gate_thresholds)
         table_path = _write_comparison_table(
             resolved_out_dir,
             pd.DataFrame(
@@ -123,10 +145,14 @@ def run_r_baseline_comparison(
             "item_count": int(len(difficulty)),
             "random_seed": random_seed,
             "theta_method": theta_method,
+            "backend": backend,
+            "backend_options": dict(backend_options or {}),
         },
+        "environment": environment,
         "alignment": aligned["alignment"],
         "metrics": metrics,
     }
+    report["gate"] = _build_gate_report(report=report, gate_thresholds=resolved_gate_thresholds)
     table_path = _write_comparison_table(resolved_out_dir, comparison_table)
     summary_path = _write_summary_artifacts(
         out_dir=resolved_out_dir,
@@ -211,13 +237,23 @@ def _simulate_fixture(
     }
 
 
-def _fit_benchiq_fixture(*, simulated: dict[str, Any], theta_method: str) -> dict[str, Any]:
-    fit_result = fit_girth_2pl(
+def _fit_benchiq_fixture(
+    *,
+    simulated: dict[str, Any],
+    theta_method: str,
+    backend: str,
+    backend_options: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    resolved_backend_options = dict(backend_options or {})
+    if backend == "girth":
+        resolved_backend_options.setdefault("max_iteration", 60)
+    fit_result = fit_irt_backend(
         simulated["responses_long"],
         benchmark_id="sim",
         item_ids=simulated["item_ids"],
         model_ids=simulated["model_ids"],
-        options={"max_iteration": 60},
+        backend=backend,
+        options=resolved_backend_options,
     )
     theta_grid = np.linspace(
         DEFAULT_THETA_MIN,
@@ -255,21 +291,198 @@ def _fit_benchiq_fixture(*, simulated: dict[str, Any], theta_method: str) -> dic
     }
 
 
-def _baseline_skip_reason() -> str | None:
+def _baseline_skip_reason(r_environment: Mapping[str, Any]) -> str | None:
+    if not bool(r_environment["available"]):
+        return "Rscript is not available in this environment"
+    if r_environment.get("package_check_error") is not None:
+        return "Rscript is available, but checking for the mirt package failed"
+    if not bool(r_environment["mirt_installed"]):
+        return "R package `mirt` is not installed in this environment"
+    return None
+
+
+def _collect_environment_metadata() -> dict[str, Any]:
+    return {
+        "python": {
+            "version": platform.python_version(),
+            "implementation": platform.python_implementation(),
+            "executable": sys.executable,
+            "platform": platform.platform(),
+        },
+        "packages": {
+            "arviz": _package_version_or_none("arviz"),
+            "pymc": _package_version_or_none("pymc"),
+            "numpy": _package_version_or_none("numpy"),
+            "pandas": _package_version_or_none("pandas"),
+            "scipy": _package_version_or_none("scipy"),
+            "girth": _package_version_or_none("girth"),
+        },
+        "r": _probe_r_environment(),
+    }
+
+
+def _probe_r_environment() -> dict[str, Any]:
     rscript_path = shutil.which("Rscript")
     if rscript_path is None:
-        return "Rscript is not available in this environment"
+        return {
+            "available": False,
+            "rscript_path": None,
+            "version": None,
+            "version_error": None,
+            "mirt_installed": False,
+            "mirt_version": None,
+            "package_check_error": None,
+        }
+
+    version_result = subprocess.run(
+        [rscript_path, "-e", "cat(R.version.string)"],
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+    version_text = version_result.stdout.strip() if version_result.returncode == 0 else None
+    version_error = (
+        None if version_result.returncode == 0 else _subprocess_error_text(version_result)
+    )
+
     package_check = subprocess.run(
         [rscript_path, "-e", "cat(requireNamespace('mirt', quietly=TRUE))"],
         capture_output=True,
         check=False,
         text=True,
     )
-    if package_check.returncode != 0:
-        return "Rscript is available, but checking for the mirt package failed"
-    if package_check.stdout.strip().lower() != "true":
-        return "R package `mirt` is not installed in this environment"
-    return None
+    package_check_error = (
+        None if package_check.returncode == 0 else _subprocess_error_text(package_check)
+    )
+    mirt_installed = (
+        package_check.stdout.strip().lower() == "true"
+        if package_check_error is None
+        else False
+    )
+    mirt_version = None
+    if mirt_installed:
+        package_version_result = subprocess.run(
+            [rscript_path, "-e", "cat(as.character(utils::packageVersion('mirt')))"],
+            capture_output=True,
+            check=False,
+            text=True,
+        )
+        if package_version_result.returncode == 0:
+            mirt_version = package_version_result.stdout.strip() or None
+
+    return {
+        "available": True,
+        "rscript_path": rscript_path,
+        "version": version_text,
+        "version_error": version_error,
+        "mirt_installed": mirt_installed,
+        "mirt_version": mirt_version,
+        "package_check_error": package_check_error,
+    }
+
+
+def _package_version_or_none(distribution_name: str) -> str | None:
+    try:
+        return version(distribution_name)
+    except PackageNotFoundError:
+        return None
+
+
+def _subprocess_error_text(result: subprocess.CompletedProcess[str]) -> str:
+    return result.stderr.strip() or result.stdout.strip() or "no error output captured"
+
+
+def _resolve_gate_thresholds(
+    gate_thresholds: Mapping[str, float] | None,
+) -> dict[str, float]:
+    resolved = dict(DEFAULT_PARITY_GATE_THRESHOLDS)
+    if gate_thresholds is None:
+        return resolved
+
+    unknown = sorted(set(gate_thresholds) - set(DEFAULT_PARITY_GATE_THRESHOLDS))
+    if unknown:
+        raise ValueError(f"unsupported gate threshold keys: {', '.join(unknown)}")
+
+    for key, value in gate_thresholds.items():
+        numeric_value = float(value)
+        if not np.isfinite(numeric_value):
+            raise ValueError(f"gate threshold `{key}` must be finite")
+        resolved[key] = numeric_value
+    return resolved
+
+
+def _build_gate_report(
+    *,
+    report: Mapping[str, Any],
+    gate_thresholds: Mapping[str, float],
+) -> dict[str, Any]:
+    checks: list[dict[str, Any]] = []
+    failures: list[str] = []
+
+    status_passed = report["status"] == "ok"
+    checks.append(
+        {
+            "metric": "status",
+            "observed": report["status"],
+            "comparator": "==",
+            "threshold": "ok",
+            "passed": status_passed,
+        }
+    )
+    if not status_passed:
+        reason = report.get("skip_reason") or "comparison did not complete"
+        failures.append(f"comparison status was `{report['status']}`: {reason}")
+        return {
+            "thresholds": dict(gate_thresholds),
+            "checks": checks,
+            "passed": False,
+            "failure_count": len(failures),
+            "failures": failures,
+        }
+
+    metric_checks = [
+        (
+            "theta.pearson",
+            float(report["metrics"]["theta"]["pearson"]),
+            ">=",
+            float(gate_thresholds["theta_pearson_min"]),
+        ),
+        (
+            "theta.spearman",
+            float(report["metrics"]["theta"]["spearman"]),
+            ">=",
+            float(gate_thresholds["theta_spearman_min"]),
+        ),
+        (
+            "icc.mean_rmse",
+            float(report["metrics"]["icc"]["mean_rmse"]),
+            "<=",
+            float(gate_thresholds["icc_mean_rmse_max"]),
+        ),
+    ]
+    for metric_name, observed, comparator, threshold in metric_checks:
+        passed = observed >= threshold if comparator == ">=" else observed <= threshold
+        checks.append(
+            {
+                "metric": metric_name,
+                "observed": observed,
+                "comparator": comparator,
+                "threshold": threshold,
+                "passed": passed,
+            }
+        )
+        if not passed:
+            failures.append(
+                f"{metric_name} was {observed:.6f}, required {comparator} {threshold:.6f}"
+            )
+
+    return {
+        "thresholds": dict(gate_thresholds),
+        "checks": checks,
+        "passed": not failures,
+        "failure_count": len(failures),
+        "failures": failures,
+    }
 
 
 def _fit_r_mirt_fixture(*, simulated: dict[str, Any]) -> dict[str, Any]:
@@ -326,6 +539,10 @@ def _align_r_baseline_to_benchiq(
     r_theta: pd.DataFrame,
 ) -> dict[str, Any]:
     theta_merged = benchiq_theta.merge(r_theta, on=MODEL_ID, suffixes=("_benchiq", "_r"))
+    if theta_merged.empty:
+        raise ValueError(
+            "could not align R theta estimates because no shared model_id values were found"
+        )
     raw_theta_corr = float(
         spearmanr(
             theta_merged["theta_hat_benchiq"].astype(float).to_numpy(),
@@ -343,6 +560,10 @@ def _align_r_baseline_to_benchiq(
     r_theta_signed["theta_se"] = r_theta_signed["theta_se"].astype(float)
 
     signed_theta = benchiq_theta.merge(r_theta_signed, on=MODEL_ID, suffixes=("_benchiq", "_r"))
+    if signed_theta.empty:
+        raise ValueError(
+            "could not align signed R theta estimates because no shared model_id values were found"
+        )
     slope, intercept = np.polyfit(
         signed_theta["theta_hat_benchiq"].astype(float).to_numpy(),
         signed_theta["theta_hat_r"].astype(float).to_numpy(),
@@ -532,29 +753,86 @@ def _summary_markdown(*, report: dict[str, Any], table_path: Path) -> str:
         f"- generated_at: `{report['generated_at']}`",
         f"- status: `{report['status']}`",
         f"- table: `{table_path}`",
+        f"- model_count: `{report['simulation']['model_count']}`",
+        f"- item_count: `{report['simulation']['item_count']}`",
+        f"- random_seed: `{report['simulation']['random_seed']}`",
+        f"- theta_method: `{report['simulation']['theta_method']}`",
+        f"- backend: `{report['simulation']['backend']}`",
+        f"- backend_options: `{report['simulation']['backend_options']}`",
     ]
     if report["status"] == "skipped":
         lines.append(f"- skip_reason: `{report['skip_reason']}`")
-        lines.append("")
-        return "\n".join(lines)
-
     lines.extend(
         [
-            f"- sign_applied: `{report['alignment']['sign_applied']}`",
-            f"- theta_slope: `{report['alignment']['theta_slope']}`",
-            f"- theta_intercept: `{report['alignment']['theta_intercept']}`",
             "",
-            "## metrics",
+            "## environment",
             "",
-            f"- theta pearson: `{report['metrics']['theta']['pearson']}`",
-            f"- theta spearman: `{report['metrics']['theta']['spearman']}`",
-            f"- discrimination mae: `{report['metrics']['item_parameter_mae']['discrimination']}`",
-            f"- difficulty mae: `{report['metrics']['item_parameter_mae']['difficulty']}`",
-            f"- mean icc rmse: `{report['metrics']['icc']['mean_rmse']}`",
-            f"- max icc rmse: `{report['metrics']['icc']['max_rmse']}`",
+            f"- python version: `{report['environment']['python']['version']}`",
+            f"- python implementation: `{report['environment']['python']['implementation']}`",
+            f"- python executable: `{report['environment']['python']['executable']}`",
+            f"- python platform: `{report['environment']['python']['platform']}`",
+            f"- arviz version: `{report['environment']['packages']['arviz']}`",
+            f"- pymc version: `{report['environment']['packages']['pymc']}`",
+            f"- numpy version: `{report['environment']['packages']['numpy']}`",
+            f"- pandas version: `{report['environment']['packages']['pandas']}`",
+            f"- scipy version: `{report['environment']['packages']['scipy']}`",
+            f"- girth version: `{report['environment']['packages']['girth']}`",
+            f"- rscript available: `{report['environment']['r']['available']}`",
+            f"- rscript path: `{report['environment']['r']['rscript_path']}`",
+            f"- r version: `{report['environment']['r']['version']}`",
+            f"- r version_error: `{report['environment']['r']['version_error']}`",
+            f"- mirt installed: `{report['environment']['r']['mirt_installed']}`",
+            f"- mirt version: `{report['environment']['r']['mirt_version']}`",
+            f"- mirt check_error: `{report['environment']['r']['package_check_error']}`",
+        ]
+    )
+    if report["status"] == "ok":
+        lines.extend(
+            [
+                "",
+                "## alignment",
+                "",
+                f"- sign_applied: `{report['alignment']['sign_applied']}`",
+                f"- theta_slope: `{report['alignment']['theta_slope']}`",
+                f"- theta_intercept: `{report['alignment']['theta_intercept']}`",
+                "",
+                "## metrics",
+                "",
+                f"- theta pearson: `{report['metrics']['theta']['pearson']}`",
+                f"- theta spearman: `{report['metrics']['theta']['spearman']}`",
+                "- discrimination mae: "
+                + f"`{report['metrics']['item_parameter_mae']['discrimination']}`",
+                f"- difficulty mae: `{report['metrics']['item_parameter_mae']['difficulty']}`",
+                f"- mean icc rmse: `{report['metrics']['icc']['mean_rmse']}`",
+                f"- max icc rmse: `{report['metrics']['icc']['max_rmse']}`",
+            ]
+        )
+    lines.extend(
+        [
+            "",
+            "## gate",
+            "",
+            f"- passed: `{report['gate']['passed']}`",
+            f"- failure_count: `{report['gate']['failure_count']}`",
+            f"- theta_pearson_min: `{report['gate']['thresholds']['theta_pearson_min']}`",
+            f"- theta_spearman_min: `{report['gate']['thresholds']['theta_spearman_min']}`",
+            f"- icc_mean_rmse_max: `{report['gate']['thresholds']['icc_mean_rmse_max']}`",
+            "",
+            "### checks",
             "",
         ]
     )
+    for check in report["gate"]["checks"]:
+        lines.append(
+            "- "
+            + f"{check['metric']}: `{check['observed']}` {check['comparator']} "
+            + f"`{check['threshold']}` -> `{check['passed']}`"
+        )
+    if report["gate"]["failures"]:
+        lines.extend(["", "### failures", ""])
+        for failure in report["gate"]["failures"]:
+            lines.append(f"- {failure}")
+    lines.append("")
     return "\n".join(lines)
 
 
@@ -609,7 +887,7 @@ se_col <- if ('SE_F1' %in% names(score_df)) {
   NA
 }
 theta_out <- data.frame(
-  model_id = rownames(score_df),
+  model_id = rownames(dat),
   theta_hat = score_df[[theta_col]],
   theta_se = if (is.na(se_col)) rep(NA_real_, nrow(score_df)) else score_df[[se_col]]
 )

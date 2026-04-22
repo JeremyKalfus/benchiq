@@ -1,0 +1,58 @@
+{
+  "candidates": [
+    {
+      "backend": "bayes_mcmc",
+      "disqualifications": [
+        "failed calibration or prediction on `compact_validation_fixture` while the other backend succeeded",
+        "failed calibration or prediction on `large_release_default_subset` while the other backend succeeded",
+        "failed calibration or prediction on `synthetic_dense_overlap` while the other backend succeeded",
+        "failed calibration or prediction on the large release-default subset",
+        "failed pipeline runs on `compact_validation_fixture` while the other backend completed",
+        "failed pipeline runs on `large_release_default_subset` while the other backend completed",
+        "failed pipeline runs on `synthetic_dense_overlap` while the other backend completed",
+        "failed pipeline runs on `synthetic_sparse_overlap` while the other backend completed",
+        "failed the aligned R parity gate"
+      ],
+      "equal_weight_informative_rmse_mean": NaN,
+      "failure_rate": 1.0,
+      "informative_bundle_count": 0,
+      "large_bundle_runtime_mean_seconds": NaN,
+      "large_bundle_stage05_runtime_mean_seconds": NaN,
+      "mean_successful_run_runtime_seconds": NaN,
+      "run_count": 12,
+      "seed_rmse_std": NaN,
+      "successful_seed_runtime_std": NaN
+    },
+    {
+      "backend": "girth",
+      "disqualifications": [],
+      "equal_weight_informative_rmse_mean": 6.632559078443582,
+      "failure_rate": 0.0,
+      "informative_bundle_count": 3,
+      "large_bundle_runtime_mean_seconds": 572.8492939303009,
+      "large_bundle_stage05_runtime_mean_seconds": 308.08326502738055,
+      "mean_successful_run_runtime_seconds": 149.19407597912746,
+      "run_count": 12,
+      "seed_rmse_std": 0.550063804125645,
+      "successful_seed_runtime_std": 61.44621853127824
+    }
+  ],
+  "generated_at": "2026-04-21T23:27:57.255384+00:00",
+  "parity_gate_thresholds": {
+    "icc_mean_rmse_max": 0.08,
+    "theta_pearson_min": 0.95,
+    "theta_spearman_min": 0.95
+  },
+  "run_timeout_seconds": 0,
+  "runtime_multiplier_limit": 5.0,
+  "seeds": [
+    7,
+    11,
+    19
+  ],
+  "winner": {
+    "backend": "girth",
+    "eligible": true,
+    "reason": "winner selected by held-out equal-weight rmse, then seed rmse stability, failure rate, and runtime"
+  }
+}

@@ -32,7 +32,7 @@ def test_select_benchmark_picks_expected_items_across_theta_bins() -> None:
         {
             "benchmark_id": pd.Series(["b1"] * 4, dtype="string"),
             "item_id": pd.Series(["i_low", "i_midlow", "i_midhigh", "i_high"], dtype="string"),
-            "irt_backend": pd.Series(["girth"] * 4, dtype="string"),
+            "irt_backend": pd.Series(["bayes_mcmc"] * 4, dtype="string"),
             "discrimination": pd.Series([1.8, 0.8, 0.7, 1.7], dtype="Float64"),
             "difficulty": pd.Series([-1.6, -0.3, 0.4, 1.5], dtype="Float64"),
             "pathology_warning": pd.Series([False] * 4, dtype=bool),

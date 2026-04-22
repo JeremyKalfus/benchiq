@@ -1,5 +1,5 @@
 {
-  "current_best_cycle": "cycle_010_ollb44_44_low_val_chooser",
+  "current_best_cycle": "cycle_011_post_irt_refresh",
   "winner": {
     "strategy_id": "psychometric_default__deterministic_info",
     "equal_weight_rmse_mean": 2.934403282259425,

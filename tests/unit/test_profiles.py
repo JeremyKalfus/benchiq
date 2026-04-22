@@ -12,6 +12,7 @@ def test_reconstruction_first_profile_exposes_generalized_winner_defaults() -> N
     assert profile.config.min_abs_point_biserial == 0.0
     assert profile.config.min_item_coverage == 0.70
     assert profile.stage_options_copy()["04_subsample"]["method"] == "deterministic_info"
+    assert profile.stage_options_copy()["05_irt"]["backend"] == "girth"
 
 
 def test_psychometric_default_profile_stays_spec_aligned() -> None:
@@ -24,6 +25,7 @@ def test_psychometric_default_profile_stays_spec_aligned() -> None:
     assert profile.config.min_abs_point_biserial == 0.05
     assert profile.config.min_item_coverage == 0.80
     assert profile.stage_options_copy()["04_subsample"]["method"] == "random_cv"
+    assert profile.stage_options_copy()["05_irt"]["backend"] == "girth"
 
 
 def test_load_profile_accepts_named_aliases() -> None:
@@ -43,3 +45,4 @@ def test_runtime_defaults_match_reconstruction_first_profile() -> None:
 
     assert profile.config == benchiq.BenchIQConfig(random_seed=23)
     assert runner.stage_options["04_subsample"]["method"] == "deterministic_info"
+    assert runner.stage_options["05_irt"]["backend"] == "girth"

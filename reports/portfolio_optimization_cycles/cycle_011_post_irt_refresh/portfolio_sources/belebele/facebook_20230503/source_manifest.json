@@ -1,0 +1,23 @@
+{
+  "details": {
+    "inspected_features": [
+      "link",
+      "question_number",
+      "flores_passage",
+      "question",
+      "mc_answer1",
+      "mc_answer2",
+      "mc_answer3",
+      "mc_answer4",
+      "correct_answer_num",
+      "dialect",
+      "ds"
+    ]
+  },
+  "portfolio_version": "0.1",
+  "role": "validate",
+  "skip_reason": "the official public Belebele dataset exposes benchmark items only; no public many-model item-response bank was configured for BenchIQ ingestion",
+  "snapshot_id": "facebook_20230503",
+  "source_id": "belebele",
+  "status": "skipped"
+}

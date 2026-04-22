@@ -1,0 +1,56 @@
+{
+  "duplicate_policy": "error",
+  "sources": {
+    "items": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "items"
+    },
+    "models": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "models"
+    },
+    "responses_long": {
+      "derived": false,
+      "file_format": "parquet",
+      "path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/irt_backend_comparison/deployment/synthetic_sparse_overlap/girth/reduced_test_responses.parquet",
+      "sha256": "6b207082ca8265ad2ad3afa18a477b83cc5c1c827c35ac3ec82bff23b5bf9565",
+      "table_name": "responses_long"
+    }
+  },
+  "validation": {
+    "counts": {
+      "error_count": 0,
+      "table_count": 3,
+      "warning_count": 0
+    },
+    "errors": [],
+    "ok": true,
+    "summary": {
+      "error_count": 0,
+      "ok": true,
+      "table_count": 3,
+      "tables": {
+        "items": {
+          "columns": 2,
+          "rows": 0
+        },
+        "models": {
+          "columns": 1,
+          "rows": 0
+        },
+        "responses_long": {
+          "columns": 4,
+          "rows": 0
+        }
+      },
+      "warning_count": 0
+    },
+    "warnings": []
+  }
+}

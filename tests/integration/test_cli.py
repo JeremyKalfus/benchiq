@@ -88,7 +88,7 @@ def test_validate_writes_failure_artifacts_and_exits_nonzero_on_invalid_input(tm
     assert payload["schema_validation"]["errors"][0]["code"] == "invalid_score_values"
 
 
-def test_run_writes_complete_run_directory_and_summary(tmp_path) -> None:
+def test_run_defaults_to_stage_09_without_redundancy(tmp_path) -> None:
     responses_path = _write_synthetic_bundle(tmp_path)
     config_path = _write_config(tmp_path)
     out_dir = tmp_path / "out"
@@ -116,9 +116,45 @@ def test_run_writes_complete_run_directory_and_summary(tmp_path) -> None:
     assert (
         run_root / "artifacts" / "09_reconstruct" / "per_benchmark" / "b1" / "predictions.parquet"
     ).exists()
+    assert not (run_root / "artifacts" / "10_redundancy").exists()
+    summary = json.loads((run_root / "reports" / "metrics.json").read_text(encoding="utf-8"))
+    assert summary["executed_stages"][-1] == "09_reconstruct"
+    assert "10_redundancy" not in summary["executed_stages"]
+    assert "theta_correlation_summary" not in summary["metrics"]
+    assert "factor_analysis" not in summary["metrics"]
     assert f"run location: {run_root}" in result.output
     assert "selected items by benchmark:" in result.output
     assert "marginal test rmse by benchmark:" in result.output
+
+
+def test_run_with_redundancy_writes_stage_10_outputs_and_metrics(tmp_path) -> None:
+    responses_path = _write_synthetic_bundle(tmp_path)
+    config_path = _write_config(tmp_path)
+    out_dir = tmp_path / "out"
+
+    result = CliRunner().invoke(
+        main,
+        [
+            "run",
+            "--responses",
+            str(responses_path),
+            "--config",
+            str(config_path),
+            "--out",
+            str(out_dir),
+            "--run-id",
+            "cli-toy-redundancy",
+            "--with-redundancy",
+        ],
+    )
+
+    assert result.exit_code == 0, result.output
+    run_root = out_dir / "cli-toy-redundancy"
+    assert (run_root / "artifacts" / "10_redundancy").exists()
+    summary = json.loads((run_root / "reports" / "metrics.json").read_text(encoding="utf-8"))
+    assert summary["executed_stages"][-1] == "10_redundancy"
+    assert summary["metrics"]["theta_correlation_summary"]
+    assert summary["metrics"]["factor_analysis"]
 
 
 def test_run_exits_nonzero_on_invalid_input(tmp_path) -> None:

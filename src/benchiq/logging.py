@@ -13,12 +13,14 @@ from typing import Any, Mapping
 from benchiq.config import BenchIQConfig
 
 DEPENDENCY_PACKAGES = (
+    "arviz",
     "click",
     "girth",
     "joblib",
     "matplotlib",
     "numpy",
     "pandas",
+    "pymc",
     "pyarrow",
     "pydantic",
     "pygam",

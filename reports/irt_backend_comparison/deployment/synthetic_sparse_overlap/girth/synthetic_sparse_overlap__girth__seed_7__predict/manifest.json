@@ -1,0 +1,79 @@
+{
+  "artifacts": {
+    "00_canonical": {
+      "canonicalization_report": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/irt_backend_comparison/deployment/synthetic_sparse_overlap/girth/synthetic_sparse_overlap__girth__seed_7__predict/artifacts/00_canonical/canonicalization_report.json",
+      "items": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/irt_backend_comparison/deployment/synthetic_sparse_overlap/girth/synthetic_sparse_overlap__girth__seed_7__predict/artifacts/00_canonical/items.parquet",
+      "models": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/irt_backend_comparison/deployment/synthetic_sparse_overlap/girth/synthetic_sparse_overlap__girth__seed_7__predict/artifacts/00_canonical/models.parquet",
+      "responses_long": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/irt_backend_comparison/deployment/synthetic_sparse_overlap/girth/synthetic_sparse_overlap__girth__seed_7__predict/artifacts/00_canonical/responses_long.parquet"
+    }
+  },
+  "dependency_versions": {
+    "arviz": "0.23.4",
+    "click": "8.3.1",
+    "girth": "0.8.0",
+    "joblib": "1.5.3",
+    "matplotlib": "3.10.8",
+    "numpy": "2.4.4",
+    "pandas": "2.3.3",
+    "pyarrow": "23.0.1",
+    "pydantic": "2.12.5",
+    "pygam": "0.12.0",
+    "pymc": "5.28.4",
+    "scikit-learn": "1.8.0",
+    "scipy": "1.16.3"
+  },
+  "git_hash": "bc66f5f317e361f02c6df7c8bb98693678a0efc8",
+  "input_hashes": {
+    "items": null,
+    "models": null,
+    "responses_long": "6b207082ca8265ad2ad3afa18a477b83cc5c1c827c35ac3ec82bff23b5bf9565"
+  },
+  "input_sources": {
+    "items": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "items"
+    },
+    "models": {
+      "derived": true,
+      "file_format": "derived",
+      "path": null,
+      "sha256": null,
+      "table_name": "models"
+    },
+    "responses_long": {
+      "derived": false,
+      "file_format": "parquet",
+      "path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/irt_backend_comparison/deployment/synthetic_sparse_overlap/girth/reduced_test_responses.parquet",
+      "sha256": "6b207082ca8265ad2ad3afa18a477b83cc5c1c827c35ac3ec82bff23b5bf9565",
+      "table_name": "responses_long"
+    }
+  },
+  "package_version": "0.1.0a0",
+  "resolved_config": {
+    "allow_low_n": true,
+    "drop_low_tail_models_quantile": 0.001,
+    "duplicate_policy": "error",
+    "max_item_mean": 0.95,
+    "min_abs_point_biserial": 0.05,
+    "min_item_coverage": 0.8,
+    "min_item_sd": 0.01,
+    "min_items_after_filtering": 45,
+    "min_models_per_benchmark": 120,
+    "min_models_per_item": 40,
+    "min_overlap_models_for_joint": 90,
+    "min_overlap_models_for_redundancy": 90,
+    "n_strata_bins": 10,
+    "p_test": 0.1,
+    "p_val": 0.1,
+    "random_seed": 7,
+    "warn_models_per_benchmark": 160
+  },
+  "run_id": "synthetic_sparse_overlap__girth__seed_7__predict",
+  "seeds": {
+    "random_seed": 7
+  },
+  "timestamp": "2026-04-21T23:27:36.850677+00:00"
+}

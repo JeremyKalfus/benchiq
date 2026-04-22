@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from datetime import datetime, timezone
 from time import perf_counter
 from typing import Any, Sequence
@@ -12,21 +11,16 @@ import pandas as pd
 from girth import tag_missing_data, twopl_mml
 from girth.utilities import INVALID_RESPONSE
 
+from benchiq.irt.backends.common import (
+    EXCLUDE_DISCRIMINATION_RANGE,
+    WARN_DISCRIMINATION_RANGE,
+    IRT2PLResult,
+    build_ability_frame,
+    build_item_params_frame,
+)
 from benchiq.schema.tables import BENCHMARK_ID, ITEM_ID, MODEL_ID, SCORE
 
-WARN_DISCRIMINATION_RANGE = (0.1, 5.0)
-EXCLUDE_DISCRIMINATION_RANGE = (0.05, 10.0)
-BOUNDARY_EPSILON = 1e-3
-
-
-@dataclass(slots=True)
-class Girth2PLResult:
-    """Normalized output from a girth 2PL fit."""
-
-    item_params: pd.DataFrame
-    dropped_pathological_items: pd.DataFrame
-    fit_report: dict[str, Any]
-    ability_estimates: pd.DataFrame
+Girth2PLResult = IRT2PLResult
 
 
 def fit_girth_2pl(
@@ -54,10 +48,12 @@ def fit_girth_2pl(
     raw_result = twopl_mml(response_matrix, options=options)
     runtime_seconds = perf_counter() - runtime_start
 
-    all_item_params = _build_item_params_frame(
+    all_item_params = build_item_params_frame(
         benchmark_id=benchmark_id,
         item_ids=item_ids,
-        raw_result=raw_result,
+        discrimination=np.asarray(raw_result["Discrimination"], dtype=float).reshape(-1),
+        difficulty=np.asarray(raw_result["Difficulty"], dtype=float).reshape(-1),
+        backend_name="girth",
     )
     dropped_pathological_items = (
         all_item_params.loc[all_item_params["pathology_excluded"]].copy().reset_index(drop=True)
@@ -65,10 +61,10 @@ def fit_girth_2pl(
     item_params = (
         all_item_params.loc[~all_item_params["pathology_excluded"]].copy().reset_index(drop=True)
     )
-    ability_estimates = _build_ability_frame(
+    ability_estimates = build_ability_frame(
         benchmark_id=benchmark_id,
         model_ids=model_ids,
-        raw_result=raw_result,
+        ability_values=np.asarray(raw_result["Ability"], dtype=float).reshape(-1),
     )
     fit_report = _build_fit_report(
         benchmark_id=benchmark_id,
@@ -118,66 +114,6 @@ def _tag_missing_binary_responses(matrix: pd.DataFrame) -> np.ndarray:
     values[missing_mask] = INVALID_RESPONSE
     tagged = tag_missing_data(values.astype(int, copy=False), valid_responses=[0, 1])
     return np.asarray(tagged, dtype=int)
-
-
-def _build_item_params_frame(
-    *,
-    benchmark_id: str,
-    item_ids: Sequence[str],
-    raw_result: dict[str, Any],
-) -> pd.DataFrame:
-    discrimination = np.asarray(raw_result["Discrimination"], dtype=float).reshape(-1)
-    difficulty = np.asarray(raw_result["Difficulty"], dtype=float).reshape(-1)
-
-    records: list[dict[str, Any]] = []
-    for item_id, a_value, b_value in zip(item_ids, discrimination, difficulty, strict=True):
-        warning_flags = _warning_flags(a_value)
-        exclusion_flags = _exclusion_flags(a_value, b_value)
-        records.append(
-            {
-                BENCHMARK_ID: benchmark_id,
-                ITEM_ID: str(item_id),
-                "irt_backend": "girth",
-                "discrimination": float(a_value),
-                "difficulty": float(b_value),
-                "pathology_warning": bool(warning_flags),
-                "pathology_warning_reasons": warning_flags,
-                "pathology_excluded": bool(exclusion_flags),
-                "pathology_excluded_reasons": exclusion_flags,
-            }
-        )
-
-    frame = pd.DataFrame.from_records(records)
-    frame[BENCHMARK_ID] = frame[BENCHMARK_ID].astype("string")
-    frame[ITEM_ID] = frame[ITEM_ID].astype("string")
-    frame["irt_backend"] = frame["irt_backend"].astype("string")
-    frame["discrimination"] = pd.Series(frame["discrimination"], dtype="Float64")
-    frame["difficulty"] = pd.Series(frame["difficulty"], dtype="Float64")
-    frame["pathology_warning"] = frame["pathology_warning"].astype(bool)
-    frame["pathology_excluded"] = frame["pathology_excluded"].astype(bool)
-    return frame.sort_values(ITEM_ID).reset_index(drop=True)
-
-
-def _build_ability_frame(
-    *,
-    benchmark_id: str,
-    model_ids: Sequence[str],
-    raw_result: dict[str, Any],
-) -> pd.DataFrame:
-    ability = np.asarray(raw_result["Ability"], dtype=float).reshape(-1)
-    return (
-        pd.DataFrame(
-            {
-                BENCHMARK_ID: pd.Series([benchmark_id] * len(model_ids), dtype="string"),
-                MODEL_ID: pd.Series(list(model_ids), dtype="string"),
-                "ability_eap": pd.Series(ability, dtype="Float64"),
-            }
-        )
-        .sort_values(MODEL_ID)
-        .reset_index(drop=True)
-    )
-
-
 def _build_fit_report(
     *,
     benchmark_id: str,
@@ -221,6 +157,7 @@ def _build_fit_report(
         "benchmark_id": benchmark_id,
         "irt_backend": "girth",
         "model": "2pl",
+        "parameter_summary": "mml_point_estimate",
         "skipped": False,
         "skipped_reason": None,
         "warnings": warnings,
@@ -278,30 +215,3 @@ def _build_fit_report(
         },
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
-
-
-def _warning_flags(discrimination: float) -> list[str]:
-    flags: list[str] = []
-    if not np.isfinite(discrimination):
-        flags.append("nonfinite_discrimination")
-        return flags
-    if discrimination < WARN_DISCRIMINATION_RANGE[0]:
-        flags.append("low_discrimination_warning")
-    if discrimination > WARN_DISCRIMINATION_RANGE[1]:
-        flags.append("high_discrimination_warning")
-    if discrimination >= WARN_DISCRIMINATION_RANGE[1] - BOUNDARY_EPSILON:
-        flags.append("backend_upper_bound_hit")
-    return flags
-
-
-def _exclusion_flags(discrimination: float, difficulty: float) -> list[str]:
-    flags: list[str] = []
-    if not np.isfinite(discrimination):
-        flags.append("nonfinite_discrimination")
-    elif discrimination < EXCLUDE_DISCRIMINATION_RANGE[0]:
-        flags.append("low_discrimination_excluded")
-    elif discrimination > EXCLUDE_DISCRIMINATION_RANGE[1]:
-        flags.append("high_discrimination_excluded")
-    if not np.isfinite(difficulty):
-        flags.append("nonfinite_difficulty")
-    return flags

@@ -1,0 +1,3 @@
+backend,run_count,failure_rate,informative_bundle_count,equal_weight_informative_rmse_mean,seed_rmse_std,large_bundle_runtime_mean_seconds,large_bundle_stage05_runtime_mean_seconds,mean_successful_run_runtime_seconds,successful_seed_runtime_std
+bayes_mcmc,12,1.0,0,,,,,,
+girth,12,0.0,3,6.632559078443582,0.550063804125645,572.8492939303009,308.08326502738055,149.19407597912746,61.44621853127824

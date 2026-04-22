@@ -84,7 +84,7 @@ DEFAULT_STAGE_OPTIONS: dict[str, dict[str, Any]] = {
         "cv_folds": 5,
         "checkpoint_interval": 25,
     },
-    "05_irt": {"backend_options": None},
+    "05_irt": {"backend": "girth", "backend_options": None},
     "06_select": {"k_final": 10},
     "07_theta": {"theta_method": "MAP"},
     "09_reconstruct": {},
@@ -163,13 +163,18 @@ class BenchIQRunner:
         items_path: str | Path | None = None,
         models_path: str | Path | None = None,
         *,
+        include_redundancy: bool = False,
         start_at: str | None = None,
         stop_after: str | None = None,
     ) -> RunResult:
         """Execute the deterministic stage DAG from start_at through stop_after."""
 
         start_stage = _resolve_stage_name(start_at or STAGE_ORDER[0])
-        stop_stage = _resolve_stage_name(stop_after or STAGE_ORDER[-1])
+        stop_stage = _resolve_default_stop_stage(
+            start_stage=start_stage,
+            stop_after=stop_after,
+            include_redundancy=include_redundancy,
+        )
         execution_order = _slice_stage_order(start_stage, stop_stage)
 
         if bundle_or_responses_path is not None:
@@ -429,6 +434,7 @@ def run(
     items_path: str | Path | None = None,
     models_path: str | Path | None = None,
     run_id: str | None = None,
+    include_redundancy: bool = False,
     start_at: str | None = None,
     stop_after: str | None = None,
     stage_options: Mapping[str, Mapping[str, Any]] | None = None,
@@ -445,6 +451,7 @@ def run(
         bundle_or_responses_path,
         items_path,
         models_path,
+        include_redundancy=include_redundancy,
         start_at=start_at,
         stop_after=stop_after,
     )
@@ -463,6 +470,20 @@ def _slice_stage_order(start_stage: StageName, stop_stage: StageName) -> list[St
     if stop_index < start_index:
         raise ValueError("stop_after must not precede start_at")
     return list(STAGE_ORDER[start_index : stop_index + 1])
+
+
+def _resolve_default_stop_stage(
+    *,
+    start_stage: StageName,
+    stop_after: str | None,
+    include_redundancy: bool,
+) -> StageName:
+    if stop_after is not None:
+        return _resolve_stage_name(stop_after)
+    default_stop_stage = "10_redundancy" if include_redundancy else "09_reconstruct"
+    if STAGE_ORDER.index(start_stage) > STAGE_ORDER.index(default_stop_stage):
+        return start_stage
+    return default_stop_stage
 
 
 def _merge_stage_options(

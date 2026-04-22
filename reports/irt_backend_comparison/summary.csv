@@ -1,0 +1,9 @@
+backend,dataset_id,dataset_label,run_count,successful_run_count,failed_run_count,failure_rate,informative_benchmark_rows,best_available_test_rmse_mean,best_available_test_rmse_std,joint_available_rate,run_runtime_mean_seconds,stage05_runtime_mean_seconds,seed_rmse_std,informative_dataset
+bayes_mcmc,compact_validation_fixture,compact validation fixture,3,0,3,1.0,0,,,,,,,False
+girth,compact_validation_fixture,compact validation fixture,3,3,0,0.0,9,13.941838657876847,3.1564789441533287,1.0,5.729358250779721,0.8649343333284681,1.6493971956203832,True
+bayes_mcmc,large_release_default_subset,large release-default subset,3,0,3,1.0,0,,,,,,,False
+girth,large_release_default_subset,large release-default subset,3,3,0,0.0,18,0.878611144973008,0.23329053416978848,1.0,572.8492939303009,308.08326502738055,0.019917644199675667,True
+bayes_mcmc,synthetic_dense_overlap,synthetic dense-overlap bundle,3,0,3,1.0,0,,,,,,,False
+girth,synthetic_dense_overlap,synthetic dense-overlap bundle,3,3,0,0.0,15,5.077227432480893,1.052318880932102,0.0,9.740782291356785,4.87477633333765,0.36691122306868745,True
+bayes_mcmc,synthetic_sparse_overlap,synthetic sparse-overlap bundle,3,0,3,1.0,0,,,,,,,False
+girth,synthetic_sparse_overlap,synthetic sparse-overlap bundle,3,3,0,0.0,0,,,,8.456869444072558,3.8200322780370093,,False

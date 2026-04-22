@@ -1,0 +1,185 @@
+{
+  "counts": {
+    "benchmark_count": 4,
+    "item_count": 200,
+    "model_count": 40,
+    "rows": 8000
+  },
+  "dataset": {
+    "base_config": {
+      "allow_low_n": true,
+      "min_items_after_filtering": 25,
+      "min_models_per_benchmark": 20,
+      "min_models_per_item": 15,
+      "min_overlap_models_for_joint": 15,
+      "min_overlap_models_for_redundancy": 15,
+      "random_seed": 7,
+      "warn_models_per_benchmark": 30
+    },
+    "base_stage_options": {
+      "04_subsample": {
+        "checkpoint_interval": 4,
+        "cv_folds": 5,
+        "k_preselect": 40,
+        "lam_grid": [
+          0.1,
+          1.0
+        ],
+        "n_iter": 12
+      },
+      "06_select": {
+        "k_final": 26,
+        "theta_grid_size": 151
+      },
+      "07_theta": {
+        "theta_grid_size": 151
+      },
+      "09_reconstruct": {
+        "cv_folds": 5,
+        "lam_grid": [
+          0.1,
+          1.0
+        ],
+        "n_splines": 8
+      },
+      "10_redundancy": {
+        "cv_folds": 5,
+        "lam_grid": [
+          0.1,
+          1.0
+        ],
+        "n_factors_to_try": [
+          1,
+          2
+        ],
+        "n_splines": 8
+      }
+    },
+    "dataset_id": "openeval__hf_94f8112_20260314",
+    "items_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/openeval/hf_94f8112_20260314/items.parquet",
+    "label": "OpenEval item-centered repository (Human-Centered Eval OpenEval public dataset snapshot)",
+    "models_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/openeval/hf_94f8112_20260314/models.parquet",
+    "notes": [
+      "objective-only OpenEval extract",
+      "relaxed to top-coverage models because fewer than 20 complete-overlap models were available; dropped low-support benchmarks after model selection"
+    ],
+    "responses_path": "/Users/jeremykalfus/CodingProjects/BenchIQ/reports/portfolio_optimization_cycles/cycle_011_post_irt_refresh/portfolio_sources/openeval/hf_94f8112_20260314/responses_long.parquet",
+    "role": "optimize",
+    "snapshot_id": "hf_94f8112_20260314",
+    "source_id": "openeval"
+  },
+  "details": {
+    "admitted_benchmarks": [
+      "gpqa",
+      "ifeval",
+      "mmlu_pro",
+      "omni_math"
+    ],
+    "bench_tags": {
+      "bbq": [
+        "safety",
+        "bias"
+      ],
+      "bold": [
+        "safety",
+        "bias"
+      ],
+      "boolq": [
+        "question_answering"
+      ],
+      "cnndm": [
+        "summarization",
+        "news"
+      ],
+      "culturalbench": [
+        "cultural knowledge",
+        "culture"
+      ],
+      "disinformation": [
+        "safety",
+        "disinformation"
+      ],
+      "do_not_answer": [
+        "safety"
+      ],
+      "emobench": [
+        "emotion",
+        "emotional intelligence"
+      ],
+      "gpqa": [
+        "question answering"
+      ],
+      "hi_tom": [
+        "reasoning",
+        "theory of mind"
+      ],
+      "ifeval": [
+        "instruction following"
+      ],
+      "imdb": [
+        "sentiment_classification"
+      ],
+      "mmlu_pro": [
+        "knowledge",
+        "multiple_choice",
+        "reasoning"
+      ],
+      "moralbench": [
+        "moral",
+        "value"
+      ],
+      "omni_math": [
+        "math"
+      ],
+      "opentom": [
+        "reasoning",
+        "theory of mind"
+      ],
+      "salad_bench": [
+        "safety",
+        "jailbreak"
+      ],
+      "truthfulqa": [
+        "safety",
+        "truthfulness"
+      ],
+      "xsum": [
+        "summarization",
+        "news"
+      ]
+    },
+    "benchmark_model_support": {
+      "openeval__hf_94f8112_20260314__gpqa": 40,
+      "openeval__hf_94f8112_20260314__ifeval": 40,
+      "openeval__hf_94f8112_20260314__mmlu_pro": 40,
+      "openeval__hf_94f8112_20260314__omni_math": 40
+    },
+    "duplicate_resolution": {
+      "conflicting_keys": 18,
+      "duplicate_rows": 1240
+    },
+    "exclusions": {
+      "low_model_support_benchmarks": 1,
+      "missing_item_lookup": 29980,
+      "no_binary_metric": 6010,
+      "unsupported_benchmark": 397090
+    },
+    "selected_item_counts": {
+      "openeval__hf_94f8112_20260314__gpqa": 50,
+      "openeval__hf_94f8112_20260314__ifeval": 50,
+      "openeval__hf_94f8112_20260314__mmlu_pro": 50,
+      "openeval__hf_94f8112_20260314__omni_math": 50
+    },
+    "selected_model_count": 40
+  },
+  "paths": {
+    "items": "items.parquet",
+    "models": "models.parquet",
+    "responses_long": "responses_long.parquet"
+  },
+  "portfolio_version": "0.1",
+  "role": "optimize",
+  "snapshot_id": "hf_94f8112_20260314",
+  "source_id": "openeval",
+  "status": "materialized"
+}

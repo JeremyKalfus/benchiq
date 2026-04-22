@@ -1,0 +1,110 @@
+{
+  "alignment": {
+    "raw_theta_spearman": 0.96197255746966,
+    "sign_applied": 1.0,
+    "theta_intercept": 0.01982603581183938,
+    "theta_slope": 0.9600400287924934
+  },
+  "environment": {
+    "packages": {
+      "arviz": "0.23.4",
+      "girth": "0.8.0",
+      "numpy": "2.4.4",
+      "pandas": "2.3.3",
+      "pymc": "5.28.4",
+      "scipy": "1.16.3"
+    },
+    "python": {
+      "executable": "/Users/jeremykalfus/CodingProjects/BenchIQ/.venv/bin/python",
+      "implementation": "CPython",
+      "platform": "macOS-15.2-arm64-arm-64bit-Mach-O",
+      "version": "3.14.4"
+    },
+    "r": {
+      "available": true,
+      "mirt_installed": true,
+      "mirt_version": "1.46.1",
+      "package_check_error": null,
+      "rscript_path": "/opt/homebrew/bin/Rscript",
+      "version": "R version 4.5.2 (2025-10-31)",
+      "version_error": null
+    }
+  },
+  "gate": {
+    "checks": [
+      {
+        "comparator": "==",
+        "metric": "status",
+        "observed": "ok",
+        "passed": true,
+        "threshold": "ok"
+      },
+      {
+        "comparator": ">=",
+        "metric": "theta.pearson",
+        "observed": 0.9788901291195302,
+        "passed": true,
+        "threshold": 0.95
+      },
+      {
+        "comparator": ">=",
+        "metric": "theta.spearman",
+        "observed": 0.96197255746966,
+        "passed": true,
+        "threshold": 0.95
+      },
+      {
+        "comparator": "<=",
+        "metric": "icc.mean_rmse",
+        "observed": 0.08005333792266486,
+        "passed": false,
+        "threshold": 0.08
+      }
+    ],
+    "failure_count": 1,
+    "failures": [
+      "icc.mean_rmse was 0.080053, required <= 0.080000"
+    ],
+    "passed": false,
+    "thresholds": {
+      "icc_mean_rmse_max": 0.08,
+      "theta_pearson_min": 0.95,
+      "theta_spearman_min": 0.95
+    }
+  },
+  "generated_at": "2026-04-21T23:27:57.241114+00:00",
+  "metrics": {
+    "icc": {
+      "max_rmse": 0.13791904467115726,
+      "mean_rmse": 0.08005333792266486
+    },
+    "item_parameter_mae": {
+      "difficulty": 0.1741856081398092,
+      "discrimination": 1.0873943048017616
+    },
+    "item_parameter_pearson": {
+      "difficulty": 0.9779181561778998,
+      "discrimination": 0.21316844380204675
+    },
+    "theta": {
+      "pearson": 0.9788901291195302,
+      "spearman": 0.96197255746966
+    }
+  },
+  "simulation": {
+    "backend": "bayes_mcmc",
+    "backend_options": {
+      "chains": 1,
+      "cores": 1,
+      "draws": 1,
+      "target_accept": 0.9,
+      "tune": 1
+    },
+    "item_count": 6,
+    "model_count": 300,
+    "random_seed": 11,
+    "theta_method": "EAP"
+  },
+  "skip_reason": null,
+  "status": "ok"
+}

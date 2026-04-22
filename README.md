@@ -28,9 +28,10 @@ BenchIQ v0.1 is implemented end to end through:
 - cross-validated random preselection
 - deterministic information-proxy preselection as an experiment path
 - benchmark-specific 2PL IRT fitting
+- the shipped `girth` benchmark-local 2PL backend, backed by saved comparison evidence
 - Fisher-information final item selection
 - theta estimation with uncertainty
-- linear predictors, feature tables, GAM reconstruction, and secondary redundancy analysis
+- linear predictors, feature tables, GAM reconstruction, and optional secondary redundancy analysis
 - artifact-first python API and CLI
 - stable public entrypoints for `validate`, `calibrate`, `predict`, and `run`
 - a top-level python API that now exposes the calibration / deployment split directly
@@ -38,6 +39,8 @@ BenchIQ v0.1 is implemented end to end through:
 - a saved preprocessing optimization bundle under `reports/preprocessing_optimization/`
 - a saved multi-bundle generalization and deployment bundle under
   `reports/generalization_optimization/` and `reports/deployment_validation/`
+- a saved IRT backend winner-comparison bundle under `reports/irt_backend_comparison/`
+- a saved local R `mirt` parity bundle under `reports/irt_r_baseline/`
 - a saved narrowed public-portfolio standing baseline under `reports/portfolio_standing/`
 - a saved iterative narrowed public-portfolio best-so-far record under
   `reports/portfolio_optimization_cycles/`
@@ -101,8 +104,8 @@ that order:
 - `calibrate` fits the reduction, IRT, and reconstruction stack once and saves a reusable
   `calibration_bundle/`
 - `predict` loads that saved bundle and scores new reduced item-response sets without retraining
-- `run` remains the stable full end-to-end local workflow when you want one inspectable run root
-  with the downstream redundancy outputs included
+- `run` remains the stable end-to-end local workflow, now stopping at reconstruction by default
+- add `--with-redundancy` when you want the historical full path through stage 10
 
 The package surface mirrors the same split:
 
@@ -189,6 +192,17 @@ benchiq run \
   --config tests/data/tiny_example/config.json \
   --out out/tiny_example_docs \
   --run-id tiny-example
+```
+
+Add redundancy explicitly when you want the historical full path through stage 10:
+
+```bash
+benchiq run \
+  --responses tests/data/tiny_example/responses_long.csv \
+  --config tests/data/tiny_example/config.json \
+  --out out/tiny_example_docs \
+  --run-id tiny-example-redundancy \
+  --with-redundancy
 ```
 
 Calibrate once:
